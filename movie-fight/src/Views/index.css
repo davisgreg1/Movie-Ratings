@@ -1,0 +1,162 @@
+body,
+html {
+  font-family: 'Architects Daughter', cursive;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  color: white;
+}
+
+#container {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  /* background-color: black; */
+}
+
+#root {
+  display: flex;
+}
+
+#navDiv {
+  width: 100%;
+  height: 100%;
+}
+
+#imgBtnDiv {
+  display: flex;
+  justify-content: center;
+}
+
+#playBtn{
+  width: 5em;
+  height: 5em;
+}
+#playBtn:hover{
+  border-radius: 5em;
+  background-color: white;
+}
+#headerDiv{
+  width: 100%;
+  height: 100%;
+}
+#welcome-div{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+#howToPlayList {
+  font-size: 25px;
+  font-family: monospace;
+}
+
+#listPlayImg {
+  width: 18px;
+  height: 18px;
+}
+
+.navBar {
+  font-family: 'Risque', cursive;
+  display: flex;
+  justify-content: center;
+}
+
+#fightSpan {
+  font-family: 'Risque', cursive;
+  color: red;
+  display: flex;
+  justify-content: center;
+}
+
+.imageDivNotShown {
+  display: none;
+}
+
+.imageDivShown {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+a {
+  text-decoration: none;
+}
+
+#gamePage {
+  /* background-color: gray; */
+  width: 100%;
+  height: 100%;
+}
+
+#movie-1-poster,
+#movie-2-poster {
+  /* border: solid rebeccapurple 10px; */
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow: 3px 3px 5px 6px #ccc;
+  /* Firefox 3.5 - 3.6 */
+  box-shadow: 3px 3px 5px 6px #ccc;
+}
+
+.box:hover {
+  border: 1.5px solid white;
+}
+
+#movie-2-poster {}
+
+#movie-title-div {
+  display: flex;
+  align-content: flex-end;
+  flex-direction: column-reverse;
+  width: 100%;
+}
+
+#movie1-title {
+  display: flex;
+  justify-content: flex-start;
+}
+
+#movie2-title {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#movie-div {
+  display: flex;
+  justify-content: center;
+  align-content: space-between;
+  background-color: black;
+  width: 100%;
+  height: 100%;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+}
+
+a {
+  color: white;
+  font-size: 35px;
+}
+.label{
+  font-size: 25px;
+}
+.movie-title{
+  font-size: 25px;
+}
+
+#anotherBtn{
+  border-radius: 1.5em;
+  display: flex;
+  justify-content: center;
+  width: 12em;
+  height: 12em;
+  background-color: black;
+  color: white;
+  z-index: 999;
+
+}
