@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
-import Home from './Home';
-import Game from './Game';
+import Home from './Components/Home';
+import Game from './Components/Game';
 import './index.css';
 
 
@@ -15,7 +15,7 @@ class App extends Component {
 
       <Switch>
         <Route exact path="/" component= { Home } />
-        <Route path="/play" component={ Game }/>
+        <Route path="/game" component={ Game }/>
       </Switch>
     </div>
   )
