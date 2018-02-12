@@ -19,6 +19,8 @@ html {
 
 #root {
   display: flex;
+  justify-content: center;
+  align-content: space-around;
 }
 
 #navDiv {
@@ -31,23 +33,27 @@ html {
   justify-content: center;
 }
 
-#playBtn{
+#playBtn {
   width: 5em;
   height: 5em;
 }
-#playBtn:hover{
+
+#playBtn:hover {
   border-radius: 5em;
   background-color: white;
 }
-#headerDiv{
+
+#headerDiv {
   width: 100%;
   height: 100%;
 }
-#welcome-div{
+
+#welcome-div {
   display: flex;
   justify-content: center;
   flex-direction: row;
 }
+
 #howToPlayList {
   font-size: 25px;
   font-family: monospace;
@@ -94,11 +100,11 @@ a {
 #movie-1-poster,
 #movie-2-poster {
   /* border: solid rebeccapurple 10px; */
-  -webkit-box-shadow: 3px 3px 5px 6px red;
+  -webkit-box-shadow: 3px 3px 5px 6px black;
   /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-  -moz-box-shadow: 3px 3px 5px 6px red;
+  -moz-box-shadow: 3px 3px 5px 6px black;
   /* Firefox 3.5 - 3.6 */
-  box-shadow: 3px 3px 5px 6px red;
+  box-shadow: 3px 3px 5px 6px black;
 }
 
 .box:hover {
@@ -109,6 +115,7 @@ a {
 
 #movie-title-div {
   display: flex;
+  flex: 1;
   align-content: flex-end;
   flex-direction: column-reverse;
   width: 100%;
@@ -126,6 +133,7 @@ a {
 
 #movie-div {
   display: flex;
+  flex: 1;
   justify-content: center;
   align-content: space-between;
   background-color: black;
@@ -142,14 +150,18 @@ a {
   color: white;
   font-size: 35px;
 }
-.label{
-  font-size: 25px;
-}
-.movie-title{
+
+.label {
   font-size: 25px;
 }
 
-#anotherBtn{
+.movie-title {
+  font-size: 25px;
+}
+.hidden{
+  display: none;
+}
+#anotherBtn {
   border-radius: 1.5em;
   display: flex;
   justify-content: center;
@@ -158,5 +170,5 @@ a {
   background-color: black;
   color: white;
   z-index: 999;
-
+  display: none;
 }

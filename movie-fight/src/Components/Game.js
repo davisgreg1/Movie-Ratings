@@ -151,7 +151,7 @@ class Game extends React.Component {
                 <div className="movie-title" id="movie1-title ">{movie1.Title}</div>
                 <div className="movie-title"  id="movie2-title">{movie2.Title}</div>
               </div>
-            : ""
+            : <div className="hidden"></div>
 }
         </div>
         <div id="movie-div">
@@ -165,10 +165,10 @@ class Game extends React.Component {
               name={movie1.Title}
               src={movie1.Poster}
               alt={movie1.Poster}
-              onClick={() => swal(`${this.state.player1Name}, '${this.state.movie1.Title}' was rated ${this.state.movie1.imdbRating}% over at IMDB`)}/>
+              onClick={() => swal(`${this.state.player1Name} '${this.state.movie1.Title}' was rated ${this.state.movie1.imdbRating}% at IMDB and '${this.state.movie2.Title}' was rated ${this.state.movie2.imdbRating}%!`)}/>
           </div>
           <div>
-          <button id="anotherBtn" disabled={!player1Name} onClick={this.handleSubmit}>
+          <button className={player1Name ? "more-btn" : "hidden" } disabled={!player1Name} onClick={this.handleSubmit}>
             Get More!
           </button>
         </div>
@@ -182,7 +182,7 @@ class Game extends React.Component {
               name={movie2.Title}
               src={movie2.Poster}
               alt={movie2.Poster}
-              onClick={() => swal(`${this.state.player1Name}, '${this.state.movie2.Title}' was rated ${this.state.movie2.imdbRating}% over at IMDB`)}/>
+              onClick={() => swal(`${this.state.player1Name} '${this.state.movie2.Title}' was rated ${this.state.movie2.imdbRating}% at IMDB and '${this.state.movie1.Title}' was rated ${this.state.movie1.imdbRating}%!`)}/>
           </div>
         </div>
       </div>
