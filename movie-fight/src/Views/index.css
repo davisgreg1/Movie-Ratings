@@ -108,17 +108,17 @@ a {
 }
 
 .box:hover {
-  border: 2.5px solid black;
+  border: 2.5px solid red;
+  padding:0;
 }
-
+.box{
+  padding: 2.5px;
+}
 #movie-2-poster {}
 
 #movie-title-div {
   display: flex;
-  flex: 1;
-  align-content: flex-end;
-  flex-direction: column-reverse;
-  width: 100%;
+  justify-content: space-between;
 }
 
 #movie1-title {

@@ -1,6 +1,8 @@
 import React from 'react';
 import '../Views/index.css';
+// eslint-disable-next-line
 import OneMovie from './OneMovie';
+// eslint-disable-next-line
 import dotenv from 'dotenv';
 import swal from 'sweetalert2';
 
@@ -75,6 +77,7 @@ class Game extends React.Component {
   }
 
   handleInput = e => {
+// eslint-disable-next-line
     const {player1Name, player2Name} = this.state
     this.setState({
       [e.target.name]: e.target.value
@@ -85,7 +88,7 @@ class Game extends React.Component {
     e.preventDefault();
 
     let randomMovieID = `${idArr[Math.floor(Math.random() * idArr.length)]}`;
-
+// eslint-disable-next-line
     const {player1Name, player2Name, message, movie1, movie2} = this.state;
 
     fetch(`http://www.omdbapi.com/?i=${randomMovieID}&apikey=${KEY}`).then(response => {
@@ -109,7 +112,8 @@ class Game extends React.Component {
   }
 
   setRatings = () => {
-    const {movie1Rating, movie2Rating} = this.state
+// eslint-disable-next-line  
+  const {movie1Rating, movie2Rating} = this.state
     this.setState({movie1Rating: this.state.movie1.imdbRating, movie2Rating: this.state.movie2.imdbRating})
     alert(this.state)
   }
@@ -125,10 +129,13 @@ class Game extends React.Component {
     console.log('THE OVERALL STATE', this.state)
     const {
       player1Name,
+// eslint-disable-next-line
       message,
       movie1,
       movie2,
+// eslint-disable-next-line
       movie1Rating,
+// eslint-disable-next-line
       movie2Rating
     } = this.state;
     let whatName1 = "What's your name player 1?"
