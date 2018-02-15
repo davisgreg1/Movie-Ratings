@@ -92,18 +92,18 @@ class Game extends React.Component {
     const {player1Name, player2Name, message, movie1, movie2} = this.state;
 
     fetch(`http://www.omdbapi.com/?i=${randomMovieID}&apikey=${KEY}`).then(response => {
-      console.log("the first json response", response);
+      // console.log("the first json response", response);
       return response.json();
     }).then(data => {
-      console.log("the first fetch data", data);
+      // console.log("the first fetch data", data);
       return this.setState({movie1: data});
     })
     const secondFetch = () => {
       fetch(`http://www.omdbapi.com/?i=${idArr[Math.floor(Math.random() * idArr.length)]}&apikey=${KEY}`).then(response => {
-        console.log("the json response", response);
+        // console.log("the json response", response);
         return response.json();
       }).then(data => {
-        console.log("the second fetched data", data);
+        // console.log("the second fetched data", data);
 
         return this.setState({movie2: data, message: `${this.state.player1Name} your movie is: ${this.state.movie2.Title}`})
       })
@@ -122,11 +122,11 @@ class Game extends React.Component {
 
   render() {
 
-    console.log("movie1 RATING?", this.state.movie1.imdbRating)
-    console.log("movie1 data", this.state.movie1)
-    console.log("movie2 RATING?", this.state.movie2.imdbRating)
-    console.log("movie2 data", this.state.movie2)
-    console.log('THE OVERALL STATE', this.state)
+    // console.log("movie1 RATING?", this.state.movie1.imdbRating)
+    // console.log("movie1 data", this.state.movie1)
+    // console.log("movie2 RATING?", this.state.movie2.imdbRating)
+    // console.log("movie2 data", this.state.movie2)
+    // console.log('THE OVERALL STATE', this.state)
     const {
       player1Name,
 // eslint-disable-next-line
@@ -172,7 +172,7 @@ class Game extends React.Component {
               name={movie1.Title}
               src={movie1.Poster}
               alt={movie1.Poster}
-              onClick={() => swal(`${this.state.player1Name} '${this.state.movie1.Title}' was rated ${this.state.movie1.imdbRating}% at IMDB and '${this.state.movie2.Title}' was rated ${this.state.movie2.imdbRating}%!`)}/>
+              onClick={() => swal(`${this.state.player1Name} '${this.state.movie1.Title}' was rated ${this.state.movie1.imdbRating}/10 at IMDB and '${this.state.movie2.Title}' was rated ${this.state.movie2.imdbRating}/10!`)}/>
           </div>
           <div>
           <button className={player1Name ? "more-btn" : "hidden" } disabled={!player1Name} onClick={this.handleSubmit}>
@@ -189,7 +189,7 @@ class Game extends React.Component {
               name={movie2.Title}
               src={movie2.Poster}
               alt={movie2.Poster}
-              onClick={() => swal(`${this.state.player1Name} '${this.state.movie2.Title}' was rated ${this.state.movie2.imdbRating}% at IMDB and '${this.state.movie1.Title}' was rated ${this.state.movie1.imdbRating}%!`)}/>
+              onClick={() => swal(`${this.state.player1Name} '${this.state.movie2.Title}' was rated ${this.state.movie2.imdbRating}/10 at IMDB and '${this.state.movie1.Title}' was rated ${this.state.movie1.imdbRating}/10!`)}/>
           </div>
         </div>
       </div>
