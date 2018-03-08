@@ -71,6 +71,7 @@ class Game extends React.Component {
       movie1: [],
       movie2: [],
       player1RatingChoice: '',
+      player2RatingChoice: '',
       movie1Rating: '',
       movie2Rating: ''
     }
@@ -172,7 +173,8 @@ class Game extends React.Component {
               name={movie1.Title}
               src={movie1.Poster}
               alt={movie1.Poster}
-              onClick={() => swal(`${this.state.player1Name} '${this.state.movie1.Title}' was rated ${this.state.movie1.imdbRating}/10 at IMDB and '${this.state.movie2.Title}' was rated ${this.state.movie2.imdbRating}/10!`)}/>
+              onClick={() => swal(`${this.state.player1Name} '${this.state.movie1.Title}' was rated ${this.state.movie1.imdbRating}/10
+              '${this.state.movie2.Title}' was rated ${this.state.movie2.imdbRating}/10!`)}/>
           </div>
           <div>
           <button className={player1Name ? "more-btn" : "hidden" } disabled={!player1Name} onClick={this.handleSubmit}>

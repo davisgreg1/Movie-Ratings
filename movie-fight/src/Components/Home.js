@@ -1,6 +1,6 @@
 import React from 'react';
 import '../Views/index.css';
-import {Link, Switch, Route} from 'react-router-dom';
+import { Link, Switch, Route } from 'react-router-dom';
 import Game from './Game';
 
 class Home extends React.Component {
@@ -18,7 +18,7 @@ class Home extends React.Component {
           <div id="howToPlayList">
             <h4>How To Play:</h4>
             <ol>
-              <li>You'll be shown two movie posters.</li>
+              <li>Youll be shown two movie posters.</li>
               <li>Click which one you think was rated higher at IMDB!</li>
               <li>Press the {" "}
                 <img id="listPlayImg" src={playSrc} alt="play button"/>
