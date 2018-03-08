@@ -3,7 +3,7 @@ import '../Views/index.css';
 // eslint-disable-next-line
 import OneMovie from './OneMovie';
 // eslint-disable-next-line
-import dotenv from 'dotenv';
+// import dotenv from 'dotenv';
 import swal from 'sweetalert2';
 
 const KEY = process.env.REACT_APP_OMDB_KEY;
