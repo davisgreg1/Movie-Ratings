@@ -141,7 +141,7 @@ class Game extends React.Component {
     } = this.state;
     let whatName1 = "What's your name player 1?"
     return (
-      <div>
+      <div  id="movie-1-and-2-container">
         <div id="formDiv">
           <form id="playerNameForm">
             <label className="label">{whatName1}</label>

@@ -1,6 +1,6 @@
 import React from 'react';
 import '../Views/index.css';
-import dotenv from 'dotenv';
+// import dotenv from 'dotenv';
 import {Link, Route, Switch} from 'react-router-dom';
 import {Redirect} from 'react-router'
 import OneMovie from './OneMovie';
