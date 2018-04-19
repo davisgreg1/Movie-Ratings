@@ -22,7 +22,7 @@ CREATE TABLE favorites (
 
 
 INSERT INTO users (username, password_digest)
-  VALUES ('davisgreg1', '$2a$10$brAZfSmByFeZmPZ/MH5zne9YDhugjW9CtsBGgXqGfix0g1tcooZWq')
+  VALUES ('davisgreg1', '$2a$10$brAZfSmByFeZmPZ/MH5zne9YDhugjW9CtsBGgXqGfix0g1tcooZWq');
   
 INSERT INTO scores (user_id, points)
-  VALUES (1, 1000000000)
+  VALUES (1, 100000000);
