@@ -1,8 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 import Home from './Components/Home';
 import Game from './Components/Game';
+import axios from 'axios';
 import './index.css';
+
+const AppContext = React.createContext();
+
+class AppProvider extends React.Component {
+
+  state = {
+    user: null
+  }
+
+  render(){
+    return(
+      <AppContext.Provider>
+        {this.props.children}
+      </AppContext.Provider>
+    )
+  }
+}
 
 
 class App extends Component {
@@ -22,4 +40,4 @@ class App extends Component {
   }
 }
 
-export default App;
+// export default App;
