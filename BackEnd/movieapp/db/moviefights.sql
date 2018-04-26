@@ -18,8 +18,11 @@ CREATE TABLE scores (
 );
 
 CREATE TABLE favorites (
-  movie_id VARCHAR,
+  ID SERIAL PRIMARY KEY,
+  movie_imdb_id VARCHAR,
   movie_title VARCHAR,
+  movie_imgurl VARCHAR,
+  movie_website VARCHAR,
   favorited_by INTEGER REFERENCES users(ID)
 );
 

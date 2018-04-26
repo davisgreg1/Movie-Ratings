@@ -1,5 +1,5 @@
 import React from 'react';
-import '../Views/index.css';
+import '../Views/App.css';
 // import dotenv from 'dotenv';
 import {Link, Route, Switch} from 'react-router-dom';
 import {Redirect} from 'react-router'

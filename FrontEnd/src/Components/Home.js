@@ -1,41 +1,115 @@
 import React from 'react';
-import '../Views/index.css';
-import { Link, Switch, Route } from 'react-router-dom';
-import Game from './Game';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
+import IconButton from 'material-ui/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import Switch from 'material-ui/Switch';
+import { FormControlLabel, FormGroup } from 'material-ui/Form';
+import Menu, { MenuItem } from 'material-ui/Menu';
+import SearchMovieInput from './SearchMovieInput';
+import "../Views/App.css";
+
+const styles = {
+  root: {
+    height: '100%',
+    flexGrow: 1,
+  },
+  flex: {
+    flex: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+};
 
 class Home extends React.Component {
+  state = {
+    auth: true,
+    anchorEl: null,
+  };
+
+  handleChange = (event, checked) => {
+    this.setState({ auth: checked });
+  };
+
+  handleMenu = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
 
   render() {
-    let playSrc = "http://pluspng.com/img-png/play-button-png-play-video-button-png-321.png";
+    const { classes } = this.props;
+    console.log("classes in Home:", classes)
+    const { auth, anchorEl } = this.state;
+    const open = Boolean(anchorEl);
+
     return (
-      <div id="container">
-        <div id="headerDiv">
-          <div id="welcome-div">
-            <h1 id="headerTag">Welcome to
-              <span id="fightSpan">CinemaRates</span>
-            </h1>
-          </div>
-          <div id="howToPlayList">
-            <h4>How To Play:</h4>
-            <ol>
-              <li>Youll be shown two movie posters.</li>
-              <li>Click which one you think was rated higher at IMDB!</li>
-              <li>Press the {" "}
-                <img id="listPlayImg" src={playSrc} alt="play button"/>
-                 button {" "} below to begin a game.</li>
-            </ol>
-          </div>
-          <div id="imgBtnDiv">
-            <Link to="/game">
-              <img id="playBtn" src={playSrc} alt="play button"/>
-            </Link>
-            <Switch>
-              <Route path="/game" component={Game}/>
-            </Switch>
-          </div>
+      <div className={classes.root}>
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Switch checked={auth} onChange={this.handleChange} aria-label="LoginSwitch" />
+            }
+            label={auth ? 'Logout' : 'Login'}
+          />
+        </FormGroup>
+        <AppBar position="static">
+          <Toolbar>
+            {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+              <MenuIcon />
+            </IconButton> */}
+            <Typography variant="title" color="inherit" className={classes.flex}>
+              Movie Fights!
+            </Typography>
+            {auth && (
+              <div className = "iconbutton-container">
+                <IconButton
+                  aria-owns={open ? 'menu-appbar' : null}
+                  aria-haspopup="true"
+                  onClick={this.handleMenu}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={open}
+                  onClose={this.handleClose}
+                >
+                  <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                  <MenuItem onClick={this.handleClose}>My Favorites</MenuItem>
+                </Menu>
+              </div>
+            )}
+          </Toolbar>
+        </AppBar>
+        <div className = "search-input-container">
+          <SearchMovieInput />
         </div>
       </div>
-    )
+    );
   }
 }
-export default Home
+
+Home.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Home);

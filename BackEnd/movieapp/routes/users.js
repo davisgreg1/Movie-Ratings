@@ -9,9 +9,10 @@ const passport = require("../auth/local");
 | POST ROUTES BELOW...
 |--------------------------------------------------
 */
-router.post("/login", db.loginUser)
 router.post("/register", db.registerUser); 
-router.post("/score_zero", loginRequired, db.setScoreToZero)
+router.post("/login", db.loginUser);
+router.post("/score_zero", loginRequired, db.setScoreToZero);
+router.post("/addFavorites", loginRequired, db.addToFavorites);
 
 /**
 |--------------------------------------------------
@@ -19,15 +20,21 @@ router.post("/score_zero", loginRequired, db.setScoreToZero)
 |--------------------------------------------------
 */
 router.get("/logout", loginRequired, db.logoutUser);
-router.get("/", function(req, res, next) {
-  res.send("respond with a resource");
-});
+router.get("/favorites", loginRequired, db.getAllFavorites)
 
 /**
 |--------------------------------------------------
 | PATCH ROUTES BELOW....
 |--------------------------------------------------
 */
-router.patch("/score_update", loginRequired, db.updateUserScore)
+router.patch("/score_update", loginRequired, db.updateUserScore);
+
+/**
+|--------------------------------------------------
+| DELETE ROUTES BELOW...
+|--------------------------------------------------
+*/
+router.delete("/removeFavorites", loginRequired, db.removeFromFavorites);
+
 
 module.exports = router;

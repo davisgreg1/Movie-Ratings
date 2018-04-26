@@ -99,10 +99,63 @@ const updateUserScore = (req, res, next) => {
       return next(err);
     });
 };
+/**
+|--------------------------------------------------
+| movie_imdb_id VARCHAR,
+  movie_title VARCHAR,
+  movie_imgurl VARCHAR,
+  movie_website VARCHAR,
+  favorited_by INTEGER REFERENCES users(ID)
+|--------------------------------------------------
+*/
+const addToFavorites = (req, res, next) => {
+  db
+  .none(
+    "INSERT INTO favorites (movie_imdb_id, movie_title, movie_imgurl, movie_website, favorited_by) VALUES (${movie_imdb_id}, ${movie_title}, ${movie_imgurl}, ${movie_website}, ${favorited_by})",req.body
+  )
+  .then(data => { 
+    res.status(200).json({
+      status: "Success!",
+      message: "Successfully added a favorite movie."
+
+    });
+  });
+}
+
+const removeFromFavorites = (req, res, next) => {
+  db
+  .none(
+    "DELETE FROM favorites WHERE id = ${id}", req.body
+  )
+  .then(data => {
+    res.status(200).json({
+      status: "Success!",
+      message: "Successfully deleted the movie."
+    });
+  });
+}
+
+const getAllFavorites = (req, res, next) => {
+  db
+  .any(
+    "SELECT * from favorites WHERE favorited_by = ${user_id}", req.body
+  )
+  .then(data => {
+    res.status(200).json({
+      status: "Success!",
+      data: data,
+      message: "Got all the favorite movies!"
+    });
+  });
+}
+
 module.exports = {
   loginUser,
   logoutUser,
   registerUser,
   setScoreToZero,
-  updateUserScore
+  updateUserScore,
+  addToFavorites,
+  removeFromFavorites,
+  getAllFavorites
 };

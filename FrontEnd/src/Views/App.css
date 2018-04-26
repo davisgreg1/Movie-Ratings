@@ -1,28 +1,214 @@
-.App {
-  text-align: center;
+body,
+html,
+#root {
+  /* font-family: 'Architects Daughter', cursive; */
+  width: 100%;
+  height: 100%;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.app{
+  /* border: 3px solid pink; */
+  width: 100vw;
+  height: 100vh;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+div.home-container {
+  /* border: 2px solid rgb(185, 182, 0); */
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
 
-.App-title {
-  font-size: 1.5em;
+.app-nav {
+  /* border: 1px dashed yellowgreen; */
+  display: flex;
+  width: 100%;
+  height: 7%;
 }
 
-.App-intro {
-  font-size: large;
+.home-nav-container {
+  display: flex;
+  width: 100%;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.home-nav {
+  /* border: 1px solid black; */
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px;
+  list-style: none;
 }
+
+.nav-item-container {
+  /* border: 1px solid rgb(0, 255, 242); */
+  display: flex;
+  width: 25%;
+  height: 5%;
+}
+
+.nav-item {
+  /* border: 1px solid black; */
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+/* .searchy{
+  height: 100%;
+  width: 100%;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: space-around;
+  flex-direction: column;
+} */
+
+.search-input-container{
+  display: flex;
+  flex-direction: column;
+  margin-top: 4%;
+}
+
+.userInput{
+  display: flex;
+}
+
+.home-movie-container{
+  display: flex;
+  justify-content: center;
+}
+
+.card-container{
+  display: flex;
+}
+.movie-list{
+  display: flex;
+  border: 5px solid red;
+}
+.movie-list-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: space-between;
+  justify-content: center;
+}
+
+.single-movie{
+  display: flex;
+  justify-content: space-between;
+  border: 20px solid pink;
+  border-radius: 10px;
+}
+/* default */
+/* @media only screen and (min-width: 500px) {
+  body,
+  html {
+    font-family: 'Architects Daughter', cursive;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    color: white;
+  }
+} */
+
+/* web displays and above also iPad Pro*/
+/* @media all and (min-width: 1024px) and (max-width: 1370px) {
+  body,
+  html, #root {
+    font-family: 'Architects Daughter', cursive;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: red;
+    color: white;
+  }
+  div.home-container{
+    display: flex;
+    width: 100%;
+  }
+  .app-nav{
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+  }
+  .home-nav-container{
+    display: flex;
+    flex-direction: row;
+    margin-top: 0;
+    width: 100%;
+  }
+  .home-nav{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+} */
+
+/* iphoneX */
+/* @media all and (min-width: 768px) and (max-width: 1023px) {
+  body,
+  html {
+    font-family: 'Architects Daughter', cursive;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: green;
+    color: white;
+  }
+
+  div.home-container{
+    display: flex;
+    width: 100%;
+  }
+  .app-nav{
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+  }
+  .home-nav-container{
+    display: flex;
+    flex-direction: row;
+    margin-top: 0;
+    width: 100%;
+  }
+  .home-nav{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+} */
+/* iPad but not iPad Pro*/
+/* @media all and (min-width: 570px) and (max-width: 767px) {
+  body,
+  html {
+    font-family: 'Architects Daughter', cursive;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: yellow;
+    color: white;
+  }
+} */
+/* anything smaller than 570px GS5, PIXEL 2, PIXEL 2XL, IPHONE 5S, IPHONE 678 AND PLUS, IPHONE X */
+/* @media all and (max-width: 569px) {
+  body,
+  html {
+    font-family: 'Architects Daughter', cursive;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: purple;
+    color: white;
+  }
+} */
