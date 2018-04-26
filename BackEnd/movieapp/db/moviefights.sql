@@ -26,9 +26,10 @@ CREATE TABLE favorites (
   favorited_by INTEGER REFERENCES users(ID)
 );
 
+-- testpass
 
 INSERT INTO users (username, firstname, lastname, imgurl, password_digest)
-  VALUES ('davisgreg1', 'Greg', 'Davis', 'https://farrellaudiovideo.com/wp-content/uploads/2016/02/default-profile-pic-300x300.png', '$2a$10$TLqr9r5zNWt4QkUsn..5cOSkyRM65GayN5g9AtRMbxyARxymjBR62');
+  VALUES ('davisgreg1', 'Greg', 'Davis', 'https://farrellaudiovideo.com/wp-content/uploads/2016/02/default-profile-pic-300x300.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2');
   
 INSERT INTO scores (user_id, points)
   VALUES (1, 100000000);

@@ -1,4 +1,6 @@
 import React from 'react';
+import { Redirect } from "react-router";
+import { Link, Route } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
@@ -20,6 +22,7 @@ const styles = {
   },
   flex: {
     flex: 1,
+    color:"white"
   },
   menuButton: {
     marginLeft: -12,
@@ -29,15 +32,17 @@ const styles = {
 
 class Home extends React.Component {
   state = {
-    auth: true,
+    auth: false,
     anchorEl: null,
   };
 
   handleChange = (event, checked) => {
+    console.log("event in change:", event)
     this.setState({ auth: checked });
   };
 
   handleMenu = event => {
+    console.log("event curr:",event.currentTarget)
     this.setState({ anchorEl: event.currentTarget });
   };
 
@@ -46,10 +51,15 @@ class Home extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
-    console.log("classes in Home:", classes)
+    const { classes, user } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
+    console.log("State in Home:", this.state)
+    console.log("Props in Home:", this.props)
+
+    if (auth ) {
+      return <Redirect to="/users/login" />;
+    }
 
     return (
       <div className={classes.root}>
@@ -58,10 +68,10 @@ class Home extends React.Component {
             control={
               <Switch checked={auth} onChange={this.handleChange} aria-label="LoginSwitch" />
             }
-            label={auth ? 'Logout' : 'Login'}
+            label={auth ? 'Logout' : 'Login/Sign Up'}
           />
         </FormGroup>
-        <AppBar position="static">
+        <AppBar position="sticky">
           <Toolbar>
             {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
               <MenuIcon />

@@ -38,6 +38,7 @@ class SearchMovieInput extends React.Component {
     this.setState({
       searchText: e.target.value
     })
+    //uncomment the following line to get live updates as you type
     // this.getMovie();
     if (!this.state.searchText.length) {
       this.setState({
