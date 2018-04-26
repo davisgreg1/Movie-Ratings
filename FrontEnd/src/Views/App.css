@@ -14,6 +14,23 @@ html,
   width: 100%;
   height: 100%;
 }
+/**
+|--------------------------------------------------
+| HOME SCREEN BELOW...
+|--------------------------------------------------
+*/
+
+.hidden {
+  display: none;
+}
+
+.default-home-screen{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: space-between;
+}
 
 div.home-container {
   /* border: 2px solid rgb(185, 182, 0); */
@@ -56,16 +73,6 @@ div.home-container {
   justify-content: space-between;
   padding: 10px;
 }
-
-/* .searchy{
-  height: 100%;
-  width: 100%;
-  background-color: red;
-  display: flex;
-  justify-content: center;
-  align-items: space-around;
-  flex-direction: column;
-} */
 
 .search-input-container{
   display: flex;

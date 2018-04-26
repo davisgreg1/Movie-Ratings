@@ -51,7 +51,7 @@ class App extends React.Component {
     const { user } = this.state;
     if (user) {
       return <Home user={user} />;
-    } else{
+    } else {
       return <Home user={null}/>
     }
   };

@@ -9,3 +9,4 @@ class OneMovie extends React.Component {
     }
 }
 export default OneMovie;
+
