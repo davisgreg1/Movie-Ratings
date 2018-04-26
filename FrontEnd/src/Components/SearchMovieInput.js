@@ -39,11 +39,11 @@ class SearchMovieInput extends React.Component {
       searchText: e.target.value
     })
     // this.getMovie();
-    // if (!this.state.searchText.length) {
-    //   this.setState({
-    //     data: null
-    //   });
-    // }
+    if (!this.state.searchText.length) {
+      this.setState({
+        data: null
+      });
+    }
   };
   /**
 |--------------------------------------------------

@@ -11,6 +11,8 @@ const styles = {
   card: {
     display: "flex",
     flexDirection: "column",
+    alignItems: "center",
+    padding: "10px",
     maxWidth: 345
   },
   media: {
@@ -31,7 +33,7 @@ class HomeScreenMovie extends React.Component {
     // console.log("the movie PROPS IN HOMESCREEN:", this.props);
     let baseURL = `http://image.tmdb.org/t/p/w185`;
     return (
-      <div>
+      <div clasName="all-cards-container">
         <Card className={classes.card}>
           <a
             href={`https://www.themoviedb.org/movie/${data.id}`}
@@ -39,8 +41,8 @@ class HomeScreenMovie extends React.Component {
           >
             <CardMedia
               className={classes.media}
-              style={{height:"250px"}}
-              image={`${baseURL}${data.poster_path}`}
+              style={{height:"285px", width: "285px"}}
+              image={ data.poster_path === null ? "http://www.reelviews.net/resources/img/default_poster.jpg" : `${baseURL}${data.poster_path}`}
               title={`${data.original_title}`}
             />
           </a>
