@@ -282,7 +282,7 @@ class Home extends React.Component {
       swal({
         title: 'Sorry!',
         text: `${e.target.title} grossed ${currencyFormatter.format(Math.abs(theCurrentLoser.data.revenue), { code: "USD" })}, but didn't earn more than ${theCurrentLoser.data.original_title}. Avenge your dignity by signing up to play more!`,
-        imageUrl: `${baseURL}${theCurrentLoser.data.poster_path}`,
+        imageUrl: `${baseURL}${theCurrentWinner.data.poster_path}`,
         imageWidth: 400,
         imageHeight: 200,
         imageAlt: 'Custom image',
@@ -439,10 +439,3 @@ Home.propTypes = {
   classes: PropTypes.object.isRequired
 }
 export default withStyles(styles)(Home);
-
-
-
-/*    let theOtherMovieTitle =
-      e.target.title !== movie1.data.original_title
-        ? movie1.data.original_title
-        : movie2.data.original_title*/
