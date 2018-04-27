@@ -1,15 +1,18 @@
 body,
-html,
-#root {
+html {
   /* font-family: 'Architects Daughter', cursive; */
   width: 100%;
   height: 100%;
 }
-.entire-app{
+#root {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+.entire-app {
   width: 100%;
   height: 100%;
 }
-.app{
+.app {
   /* border: 3px solid pink; */
   width: 100%;
   height: 100%;
@@ -24,7 +27,7 @@ html,
   display: none;
 }
 
-.default-home-screen{
+.default-home-screen {
   width: 100%;
   height: 100%;
   display: flex;
@@ -74,17 +77,83 @@ div.home-container {
   padding: 10px;
 }
 
-.search-input-container{
+@font-face {
+  font-family: "Material Icons";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local("Material Icons"), local("MaterialIcons-Regular"),
+    url(https://example.com/MaterialIcons-Regular.woff2) format("woff2"),
+    url(https://example.com/MaterialIcons-Regular.woff) format("woff"),
+    url(https://example.com/MaterialIcons-Regular.ttf) format("truetype");
+}
+
+.material-icons.md-dark {
+  color: rgba(0, 0, 0, 0.54);
+}
+.material-icons.md-dark.md-inactive {
+  color: rgba(0, 0, 0, 0.26);
+}
+
+.material-icons.md-light {
+  color: rgba(255, 255, 255, 1);
+}
+.material-icons.md-light.md-inactive {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.material-icons {
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px; /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: "liga";
+}
+
+.seek {
+  padding-left: 24px;
+}
+
+.searchy {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+  align-content: center;
+  background-color: white;
+  width: 100%;
+}
+
+.search-input-container {
   display: flex;
   flex-direction: column;
   margin-top: 4%;
 }
 
-.userInput{
+.userInput {
   display: flex;
 }
 
-.home-movie-container{
+.home-movie-container {
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
 }
@@ -94,21 +163,118 @@ div.home-container {
   justify-content: space-around;
 } */
 
-.card-container{
+.card-container {
   display: flex;
 }
-.movie-list{
+.movie-list {
   display: flex;
   border: 5px solid red;
 }
-.movie-list-container{
+.movie-list-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
 }
 
-.single-movie{
+.default-home-screen {
+  display: flex;
+  flex-wrap: wrap;
+  /* flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: center; */
+}
+
+.single-movie-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 100px 115px 0px 100px;
+  margin-top: -100px;
+}
+.movie-btn {
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+  .single-movie-container {
+    /* display: flex;
+    padding: 50px;
+    padding-top: 120px; */
+
+      flex-direction: column;
+      display: flex;
+      justify-content: center;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 50px;
+      padding-top: 120px;
+  
+  }
+}
+/* @media only screen and (min-width: 768px) {
+  .single-movie-container {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 50px;
+    padding-top: 120px;
+
+  }
+} */
+@media only screen and (min-width: 523px) {
+  .single-movie-container {
+    /* display: flex;
+    justify-content: center;
+    /* padding: 50px;
+    padding-top: 120px; */ 
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 50px;
+    padding-top: 120px;
+
+  }
+}
+@media only screen and (min-width: 1024px)  {
+  .single-movie-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 100px 115px 0px 100px;
+    margin-top: -100px;
+    /* display: flex;
+    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 50px;
+    padding-top: 120px; */
+  }
+}
+
+.versus-div {
+}
+
+#versus-span {
+  color: red;
+}
+
+.single-movie {
   display: flex;
   justify-content: space-between;
   align-content: center;
@@ -120,16 +286,15 @@ div.home-container {
 | LOGIN USER BELOW
 |_____________________________________________________
 */
-.loginBox{
+.loginBox {
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-
 }
-.login-user-container{
+.login-user-container {
   width: 100%;
   height: 100%;
   display: flex;
@@ -138,11 +303,12 @@ div.home-container {
   align-content: center;
   align-items: center;
 }
-.login-user-username, .login-user-password{
+.login-user-username,
+.login-user-password {
   display: flex;
   justify-content: center;
 }
-.getAppBox{
+.getAppBox {
   /* height: 100%; */
   width: 100%;
   display: flex;

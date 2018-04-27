@@ -371,3 +371,44 @@ Home.propTypes = {
 };
 
 export default withStyles(styles)(Home);
+
+
+// 284054 black panther id
+
+//https://api.themoviedb.org/3/movie/284054?api_key=d3b24aad8f7a69f5d20f89822a6102f8&language=en-US black panther
+
+//770 gone with the wind id
+//https://api.themoviedb.org/3/movie/770?api_key=d3b24aad8f7a69f5d20f89822a6102f8&language=en-US Gone with the wind
+
+
+
+the old getWinner func...
+    // const {movie1, movie2} = this.state
+    // let movie1Revenue = movie1.data.revenue
+    // let movie2Revenue = movie2.data.revenue
+    // let movie1Budget = movie1.data.budget
+    // let movie2Budget = movie2.data.budget
+
+    // let movie1MoneyEarned = (movie1Revenue - movie1Budget);
+    // let movie2MoneyEarned = (movie2Revenue - movie2Budget);
+
+    // if(movie1MoneyEarned > movie2MoneyEarned){
+    //   this.setState({
+    //     winner: this.state.movie1.original_title
+    //   })
+    // } else {
+    //   this.setState({
+    //     winner: this.state.movie2.original_title
+    //   })
+    // }
+
+SET THE STATE TO THE WINNER
+      // if(Number(this.state.movie1MoneyEarned) > Number(this.state.movie2MoneyEarned)){
+    //   this.setState({
+    //     winner: this.state.movie1.data.original_title
+    //   })
+    // } else {
+    //   this.setState({
+    //     winner: this.state.movie2.data.original_title
+    //   })
+    // }

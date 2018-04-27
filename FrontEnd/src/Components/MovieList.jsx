@@ -14,8 +14,8 @@ class MovieList extends React.Component {
       <React.Fragment>
         {data ? (
           <div className="movie-list-container">
-            {data.map((elem, idx) => {
-             return <div className="single-movie"><HomeScreenMovie data={elem} /></div>
+            {data.data.results.map((elem, idx) => {
+             return <div className="single-movie" key={idx}><HomeScreenMovie data={elem} /></div>
             })}
           </div>
         ) : null}

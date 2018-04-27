@@ -2,12 +2,15 @@ import React from "react";
 import axios from "axios";
 import { Redirect } from "react-router";
 import { Route, Link, Switch } from "react-router-dom";
-import { withStyles } from "material-ui/styles";
 import classNames from "classnames";
 import TextField from "material-ui/TextField";
 import Input, { InputLabel, InputAdornment } from "material-ui/Input";
 import { FormControl, FormHelperText } from "material-ui/Form";
 import MenuItem from "material-ui/Menu/MenuItem";
+import { withStyles } from "material-ui/styles";
+import AppBar from "material-ui/AppBar";
+import Toolbar from "material-ui/Toolbar";
+import Typography from "material-ui/Typography";
 import IconButton from "material-ui/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
@@ -120,6 +123,20 @@ class LoginUser extends React.Component {
 
     return (
       <React.Fragment>
+        <AppBar position="sticky">
+            <Toolbar>
+              {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+              <MenuIcon />
+            </IconButton> */}
+              <Typography
+                variant="title"
+                color="inherit"
+                className={classes.flex}
+              >
+               <Link to="/">Home</Link>
+              </Typography>
+            </Toolbar>
+          </AppBar>
         <div className="login-user-container">
           <div className="loginBox">
             <h1 className="site-name"> Movie Fights </h1>
@@ -172,7 +189,7 @@ class LoginUser extends React.Component {
                 </div>
               </div>
               <br />
-              <RaisedButton label="Log in" type="submit" value="Log in" primary={true} style={{backgroundColor:"grey", color: "white"}}/>
+              <RaisedButton variant="log in" label="Log in" type="submit" value="Log in" primary={true} style={{backgroundColor:"grey", color: "white"}}>Log in</RaisedButton>
               {/* <input className="loginBtn" type="submit" value="Log in" /> */}
             </form>
             <br />
