@@ -35,21 +35,6 @@ const styles = theme => ({
   }
 });
 
-const ranges = [
-  {
-    value: "0-20",
-    label: "0 to 20"
-  },
-  {
-    value: "21-50",
-    label: "21 to 50"
-  },
-  {
-    value: "51-100",
-    label: "51 to 100"
-  }
-];
-
 class LoginUser extends React.Component {
   state = {
     showPassword: false,
@@ -66,7 +51,7 @@ class LoginUser extends React.Component {
     });
   };
 
-  submitForm = e => {
+  submitLoginForm = e => {
     e.preventDefault();
     const { usernameInput, passwordInput, loggedIn } = this.state;
 
@@ -81,9 +66,7 @@ class LoginUser extends React.Component {
         username: usernameInput,
         password: passwordInput
       })
-
       .then(res => {
-        console.log(res.data);
         console.log(res.data);
         this.props.setUser(res.data);
         this.setState({
@@ -141,7 +124,7 @@ class LoginUser extends React.Component {
           <div className="loginBox">
             <h1 className="site-name"> Movie Fights </h1>
 
-            <form onSubmit={this.submitForm}>
+            <form onSubmit={this.submitLoginForm}>
               <div className="login-user-username">
                 <TextField
                   className={classes.textField}

@@ -39,27 +39,28 @@ const logoutUser = (req, res, next) => {
   , ${points} for insertScore's VALUES
   */
 
-const registerUser = (req, res, next) => {
-  const hash = authHelpers.createHash(req.body.password);
-  let newUser = db
-    .none(
-      "INSERT INTO users (username, firstname, lastname,password_digest) VALUES (${username}, ${firstname}, ${lastname},${password})",
-      {
-        username: req.body.username,
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        // imgurl: req.body.imgurl,
-        password: hash
+  function registerUser(req, res, next) {
+    return authHelpers
+      .createUser(req)
+      .then(response => {
+        passport.authenticate("local", (err, user, info) => {
+          if (user) {
+            res.status(200).json({
+              status: "success",
+              data: user,
+              message: "Registered one user"
+            });
+          }
+        })(req, res, next);
       })
-       
-    .then(() => {
-      res.send(`Created user: ${req.body.username}`);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).send("Error creating user.");
-    });
-};
+      .catch(err => {
+        console.log(error);
+        res.status(500).json({
+          status: "Error",
+          error: err
+        });
+      });
+  }
 
 const setScoreToZero = (req, res, next)=> {
   db

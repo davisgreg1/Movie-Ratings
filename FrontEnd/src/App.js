@@ -60,7 +60,7 @@ class App extends React.Component {
     const { user, newUser } = this.state;
     console.log(user);
     if (user) {
-      console.log(user.fullname);
+      console.log(user);
     }
 
     return (
@@ -78,44 +78,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-
-// class App extends React.Component {
-// constructor(props){
-//   super(props)
-// }
-//   state = {
-//     user: null
-//   }
-
-//   setUser = user => {
-//     this.setState({ user: user });
-//   };
-  
-//   logOutUser = () => {
-//     this.setState({ user: null });
-//   };
-  
-//   renderLogin = () => {
-//     return <LoginUser setUser={this.setUser} />;
-//   };
-  
-//   renderLogOut = () => {
-//     return <LogOut logOutUser={this.logOutUser} />;
-//   };
-
-//   render() {
-//     return (
-
-//         <div className="app">
-//           <Switch>
-//             <Route exact path="/" component={Home} />
-//             <Route path="/game" component={Game} />
-//             <Route path="/login" render={this.renderLogin} />
-//           </Switch>
-//         </div>
-
-//     )}
-//   }
-
-// export default App;

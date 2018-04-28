@@ -286,6 +286,7 @@ div.home-container {
 | LOGIN USER BELOW
 |_____________________________________________________
 */
+
 .loginBox {
   width: 100%;
   height: 100%;
@@ -307,6 +308,13 @@ div.home-container {
 .login-user-password {
   display: flex;
   justify-content: center;
+}
+
+#register-form{
+  display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .getAppBox {
   /* height: 100%; */

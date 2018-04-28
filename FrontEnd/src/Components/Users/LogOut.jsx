@@ -26,17 +26,19 @@ class LogOut extends Component {
     }
 
     render() {
+
         const { loggedOut } = this.state
 
         if (loggedOut) {
-            // return <Redirect to='/users/login' />
-            <div>you are logged out.</div>
+            return <Redirect to='/users/login' />
         }
         return (
+            <React.Fragment>
             <div>
                 <p>Are you sure you want to log out?</p>
                 <button onClick={this.handleLogout}>Yes, log out</button>
             </div>
+            </React.Fragment>
         )
     }
 }

@@ -13,6 +13,22 @@ function createHash(password) {
   return hash;
 }
 
+function createUser(req, res) {
+  const salt = bcrypt.genSaltSync();
+  const hash = bcrypt.hashSync(req.body.password, salt);
+  return db.none(
+      "INSERT INTO users (username, firstname, lastname,  password_digest) VALUES (${username}, ${firstname}, ${lastname}, ${password})", {
+          username: req.body.username,
+          firstname: req.body.firstname,
+          lastname: req.body.lastname,
+          // zipcode: req.body.zipcode,
+          // email: req.body.email,
+          password: hash,
+          // ismentor: req.body.ismentor
+      }
+  )
+}
+
 function loginRequired(req, res, next) {
   // if the user is logged in, passport will have attached
   // the user to it
@@ -25,5 +41,6 @@ function loginRequired(req, res, next) {
 module.exports = {
   comparePass,
   createHash,
+  createUser,
   loginRequired
 };

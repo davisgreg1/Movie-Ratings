@@ -111,6 +111,7 @@ class Home extends React.Component {
   }
 
   state = {
+    user: null,
     searchText: "",
     data: null,
     auth: false,
@@ -291,8 +292,23 @@ class Home extends React.Component {
     }
   }
 
+setAuth = () => {
+  if(this.state.user){
+    this.setState({
+      auth: !this.state.auth
+    })
+  }
+}
+
+  setUser = () => {
+    this.setState({
+      user: this.props.user,
+    })
+  }
+
   componentWillMount() {
     this.getTwoMovies();
+    this.setUser();
   }
 
   render() {
@@ -305,9 +321,9 @@ class Home extends React.Component {
     console.log("winner:", this.state.winner);
     console.log("Props in Home:", this.props);
 
-    if (auth) {
-      return <Redirect to="/users/login" />;
-    }
+    // if (this.state.user) {
+    //   return <Redirect to="/users/login" />;
+    // }
     return (
       <React.Fragment>
         <div className={classes.root}>
