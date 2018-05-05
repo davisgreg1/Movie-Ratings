@@ -17,10 +17,11 @@ function createUser(req, res) {
   const salt = bcrypt.genSaltSync();
   const hash = bcrypt.hashSync(req.body.password, salt);
   return db.none(
-      "INSERT INTO users (username, firstname, lastname,  password_digest) VALUES (${username}, ${firstname}, ${lastname}, ${password})", {
+      "INSERT INTO users (username, firstname, lastname, email, password_digest) VALUES (${username}, ${firstname},  ${lastname}, ${email}, ${password})", {
           username: req.body.username,
           firstname: req.body.firstname,
           lastname: req.body.lastname,
+          email: req.body.email,
           // zipcode: req.body.zipcode,
           // email: req.body.email,
           password: hash,

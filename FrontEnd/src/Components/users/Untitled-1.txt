@@ -1,0 +1,19 @@
+{
+                data 
+                ?  
+                <div style={styles.root}>
+                {data.data.results.map((tile, idx) => {
+               
+              <GridList cellHeight={180} style={styles.gridList}>
+
+                        <Subheader>December</Subheader>
+                        <GridTile
+                            key={idx}
+                            title={`${tile.original_title}`}
+                            subtitle={<span>Released on: <b>{tile.release_date}</b></span>}
+                            actionIcon={<IconButton><StarBorder color="white"/>                         </IconButton>}
+                        ><img src={`${baseURL}${tile.poster_path}`}/>
+                        </GridTile>
+              </GridList> } : null )}
+              </div>
+}

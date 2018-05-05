@@ -150,6 +150,43 @@ const getAllFavorites = (req, res, next) => {
   });
 }
 
+const getSingleUser = (req, res, next) => {
+  db
+    .one("SELECT * FROM users WHERE username = ${username}", req.user)
+    .then(function (data) {
+      res.status(200).json({
+        status: "success",
+        userInfo: data,
+        message: "Fetched one user"
+      });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+};
+
+function getUserByUsername(req, res, next) {
+  db
+    .one(
+      "SELECT * FROM users WHERE LOWER(username) = LOWER(${username})",
+      req.params
+    )
+    .then(function (data) {
+      res.status(200).json({
+        status: "success",
+        user: data,
+        message: `Retrieved user: ${req.params.username}!`
+      });
+    })
+    .catch(err => {
+      if (err.code === 0) {
+        res.status(500).send(`${req.params.username} not found.`);
+      } else {
+        res.status(500).send("Oops, something went wrong.");
+      }
+    });
+}
+
 module.exports = {
   loginUser,
   logoutUser,
@@ -158,5 +195,7 @@ module.exports = {
   updateUserScore,
   addToFavorites,
   removeFromFavorites,
-  getAllFavorites
+  getAllFavorites,
+  getSingleUser,
+  getUserByUsername,
 };
