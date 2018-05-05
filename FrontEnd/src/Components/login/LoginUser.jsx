@@ -14,9 +14,8 @@ import Typography from "material-ui/Typography";
 import IconButton from "material-ui/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import RaisedButton from 'material-ui/Button';
+import RaisedButton from "material-ui/Button";
 
-import Profile from "./Profile";
 import "../../Views/App.css";
 
 const styles = theme => ({
@@ -42,7 +41,8 @@ class LoginUser extends React.Component {
     usernameInput: "",
     passwordInput: "",
     message: "Forgot password?",
-    loggedIn: false
+    loggedIn: false,
+    fireRedirect: false
   };
 
   handleInput = e => {
@@ -69,10 +69,10 @@ class LoginUser extends React.Component {
       .then(res => {
         console.log(res.data);
         this.props.setUser(res.data);
-        this.setState({
-          user: res.data.username,
-          loggedIn: true
-        });
+        // this.setState({
+        //   user: res.data.username,
+        //   loggedIn: true
+        // });
       })
       .catch(err => {
         this.setState({
@@ -81,11 +81,6 @@ class LoginUser extends React.Component {
           message: "Username/Password not found"
         });
       });
-  };
-
-  setUser = () => {
-    const { user } = this.state;
-    return <Profile user={user} />;
   };
 
   handleClickShowPassword = () => {
@@ -97,43 +92,40 @@ class LoginUser extends React.Component {
   };
 
   render() {
-    const { usernameInput, passwordInput, message, loggedIn } = this.state;
-    const { classes } = this.props;
+    const { fireRedirect, showPassword } = this.state;
+    const {
+      classes,
+      loggedIn,
+      user,
+      username,
+      password,
+      message,
+      handleInputChange,
+      submitLoginForm
+    } = this.props;
+    const { handleClickShowPassword, handleMouseDownPassword } = this;
+    console.log("props in Login User:", this.props);
 
     if (loggedIn) {
-      return <Redirect to="/users/profile" />;
+      return <Redirect to= {`/users/${user.username}`}/>;
     }
 
     return (
       <React.Fragment>
-        <AppBar position="sticky">
-            <Toolbar>
-              {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <MenuIcon />
-            </IconButton> */}
-              <Typography
-                variant="title"
-                color="inherit"
-                className={classes.flex}
-              >
-               <Link to="/">Home</Link>
-              </Typography>
-            </Toolbar>
-          </AppBar>
         <div className="login-user-container">
           <div className="loginBox">
             <h1 className="site-name"> Movie Fights </h1>
 
-            <form onSubmit={this.submitLoginForm}>
+            <form onSubmit={submitLoginForm}>
               <div className="login-user-username">
                 <TextField
                   className={classes.textField}
                   id="with-placeholder"
                   label="Username"
-                  name="usernameInput"
-                  value={usernameInput}
+                  name="username"
+                  value={username}
                   placeholder="Username"
-                  onChange={this.handleInput}
+                  onChange={handleInputChange}
                   margin="normal"
                 />
               </div>
@@ -148,18 +140,18 @@ class LoginUser extends React.Component {
                     </InputLabel>
                     <Input
                       id="adornment-password"
-                      type={this.state.showPassword ? "text" : "password"}
-                      value={this.state.passwordInput}
-                      name="passwordInput"
-                      onChange={this.handleInput}
+                      type={showPassword ? "text" : "password"}
+                      value={password}
+                      name="password"
+                      onChange={handleInputChange}
                       endAdornment={
                         <InputAdornment position="end">
                           <IconButton
                             aria-label="Toggle password visibility"
-                            onClick={this.handleClickShowPassword}
-                            onMouseDown={this.handleMouseDownPassword}
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
                           >
-                            {this.state.showPassword ? (
+                            {showPassword ? (
                               <VisibilityOff />
                             ) : (
                               <Visibility />
@@ -172,15 +164,23 @@ class LoginUser extends React.Component {
                 </div>
               </div>
               <br />
-              <RaisedButton variant="log in" label="Log in" type="submit" value="Log in" primary={true} style={{backgroundColor:"grey", color: "white"}}>Log in</RaisedButton>
-              {/* <input className="loginBtn" type="submit" value="Log in" /> */}
+              <RaisedButton
+                variant="log in"
+                label="Log in"
+                type="submit"
+                value="Log in"
+                primary={true}
+                style={{ backgroundColor: "grey", color: "white" }}
+              >
+                Log in
+              </RaisedButton>
             </form>
             <br />
             <p className="messageSize">{message}</p>
             <div className="smallerBox">
               <p className="dontHaveAcct">
                 Don't have an account?<Link
-                  to="/users/new"
+                  to="/register"
                   className="noUnderline"
                 >
                   {" "}

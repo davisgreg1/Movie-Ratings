@@ -18,7 +18,7 @@ import { FormControlLabel, FormGroup } from "material-ui/Form";
 import Menu, { MenuItem } from "material-ui/Menu";
 import MovieList from "./MovieList";
 import SingleHomeMovie from "./SingleHomeMovie";
-import swal from 'sweetalert2';
+import swal from "sweetalert2";
 import "../Views/App.css";
 
 const API_KEY = "d3b24aad8f7a69f5d20f89822a6102f8";
@@ -26,7 +26,7 @@ const API_KEY = "d3b24aad8f7a69f5d20f89822a6102f8";
 //Global variables for winner and loser of the two movies in the getWinner function
 let theCurrentWinner;
 let theCurrentLoser;
-let baseURL = `http://image.tmdb.org/t/p/w185`
+let baseURL = `http://image.tmdb.org/t/p/w185`;
 
 //Styles for Material UI
 const styles = {
@@ -125,7 +125,7 @@ class Home extends React.Component {
     movie2Budget: "",
     movie2MoneyEarned: "",
     winner: ""
-  }
+  };
 
   handleInput = e => {
     const { data } = this.state;
@@ -139,7 +139,7 @@ class Home extends React.Component {
         data: null
       });
     }
-  }
+  };
 
   //List of movies based on the user's search
   getMovie = () => {
@@ -157,7 +157,7 @@ class Home extends React.Component {
       .catch(error => {
         console.log(error);
       });
-  }
+  };
 
   //So user can hit `Enter` to submit thei query
   _keyPress = e => {
@@ -165,7 +165,7 @@ class Home extends React.Component {
     if (e.key === "Enter") {
       this.getMovie();
     }
-  }
+  };
 
   //To clear the list of movies from the screen if there's no text in Search Bar
   clearData = () => {
@@ -175,21 +175,15 @@ class Home extends React.Component {
         data: null
       });
     }
-  }
+  };
 
   handleChange = (event, checked) => {
     console.log("event in change:", event);
     this.setState({ auth: checked });
-  }
+  };
 
   //Material UI Menu feature
-  handleMenu = event => {
-    console.log("event curr:", event.currentTarget);
-    this.setState({ anchorEl: event.currentTarget });
-  }
-  handleClose = () => {
-    this.setState({ anchorEl: null });
-  }
+
 
   //The two movies the user see on the home page to choose from.
   getTwoMovies = () => {
@@ -210,7 +204,7 @@ class Home extends React.Component {
       })
       .catch(error => {
         console.log(error);
-      })
+      });
 
     const secondFetch = () => {
       axios
@@ -223,7 +217,7 @@ class Home extends React.Component {
             movie2Revenue: response.data.revenue,
             movie2Budget: response.data.budget,
             movie2MoneyEarned: eval(
-            response.data.revenue - response.data.budget
+              response.data.revenue - response.data.budget
             )
           });
         })
@@ -238,9 +232,9 @@ class Home extends React.Component {
         .catch(error => {
           console.log(error);
         });
-    }
+    };
     secondFetch();
-  }
+  };
 
   //When the user selects one of the movies on the home page
   getWinner = e => {
@@ -256,55 +250,68 @@ class Home extends React.Component {
 
     let diff = movie1MoneyEarned - movie2MoneyEarned;
 
-    if (e.target.title === this.state.winner || e.target.title !== this.state.winner ) {
-      if(e.target.title === this.state.movie1.data.original_title){
-        theCurrentWinner = this.state.movie1
-        theCurrentLoser = this.state.movie2
+    if (
+      e.target.title === this.state.winner ||
+      e.target.title !== this.state.winner
+    ) {
+      if (e.target.title === this.state.movie1.data.original_title) {
+        theCurrentWinner = this.state.movie1;
+        theCurrentLoser = this.state.movie2;
       } else if (e.target.title === this.state.movie2.data.original_title) {
-        theCurrentWinner = this.state.movie2
-        theCurrentLoser = this.state.movie1
+        theCurrentWinner = this.state.movie2;
+        theCurrentLoser = this.state.movie1;
       }
 
-    e.target.title === winner ? swal({
-        title: 'Sweet!',
-        text: `Congratulations, you win! ${e.target.title} grossed ${currencyFormatter.format(
+      e.target.title === winner
+        ? swal({
+            title: "Sweet!",
+            text: `Congratulations, you win! ${
+              e.target.title
+            } grossed ${currencyFormatter.format(
               Math.abs(theCurrentWinner.data.revenue),
               { code: "USD" }
             )} and it made a whopping ${currencyFormatter.format(
               Math.abs(diff),
               { code: "USD" }
-            )} more than ${theCurrentLoser.data.original_title}! Sign up to join the leaderboard!`,
-        imageUrl: `${baseURL}${theCurrentWinner.data.poster_path}`,
-        imageWidth: 400,
-        imageHeight: 200,
-        imageAlt: 'Custom image',
-        animation: true
-      }) :
-      swal({
-        title: 'Sorry!',
-        text: `${e.target.title} grossed ${currencyFormatter.format(Math.abs(theCurrentLoser.data.revenue), { code: "USD" })}, but didn't earn more than ${theCurrentLoser.data.original_title}. Avenge your dignity by signing up to play more!`,
-        imageUrl: `${baseURL}${theCurrentWinner.data.poster_path}`,
-        imageWidth: 400,
-        imageHeight: 200,
-        imageAlt: 'Custom image',
-        animation: true
-      })
+            )} more than ${
+              theCurrentLoser.data.original_title
+            }! Sign up to join the leaderboard!`,
+            imageUrl: `${baseURL}${theCurrentWinner.data.poster_path}`,
+            imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: "Custom image",
+            animation: true
+          })
+        : swal({
+            title: "Sorry!",
+            text: `${e.target.title} grossed ${currencyFormatter.format(
+              Math.abs(theCurrentLoser.data.revenue),
+              { code: "USD" }
+            )}, but didn't earn more than ${
+              theCurrentLoser.data.original_title
+            }. Avenge your dignity by signing up to play more!`,
+            imageUrl: `${baseURL}${theCurrentWinner.data.poster_path}`,
+            imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: "Custom image",
+            animation: true
+          });
     }
-  }
+  };
 
-setAuth = () => {
-  if(this.state.user){
-    this.setState({
-      auth: !this.state.auth
-    })
-  }
-}
+  setAuth = () => {
+    if (this.state.user) {
+      this.setState({
+        auth: !this.state.auth
+      });
+    }
+  };
 
   setUser = () => {
     this.setState({
-      user: this.props.user,
-    })
-  }
+      user: this.props.user
+    });
+  };
 
   componentWillMount() {
     this.getTwoMovies();
@@ -317,8 +324,8 @@ setAuth = () => {
     const { _keyPress, handleInput, getWinner } = this;
     const open = Boolean(anchorEl);
 
-    console.log("State in Home:", this.state);
-    console.log("winner:", this.state.winner);
+    // console.log("State in Home:",new Date().toString(), this.state);
+    // console.log("winner:", this.state.winner);
     console.log("Props in Home:", this.props);
 
     // if (this.state.user) {
@@ -326,76 +333,22 @@ setAuth = () => {
     // }
     return (
       <React.Fragment>
-        <div className={classes.root}>
-          <FormGroup className="seek">
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={auth}
-                  onChange={this.handleChange}
-                  aria-label="LoginSwitch"
-                />
-              }
-              label={auth ? "Logout" : "Login/Sign Up"}
+        {/* <div className={classes.root}> */}
+
+          <div className="searchy">
+            <i className="material-icons md-dark seek">search</i>
+            <Input
+              onChange={handleInput}
+              onKeyPress={_keyPress}
+              placeholder="Search for movies..."
+              fullWidth={true}
+              // className={classes.input}
+              // style = {{inputStyle}}
+              inputProps={{
+                "aria-label": "Description"
+              }}
             />
-          </FormGroup>
-          <AppBar position="sticky">
-            <Toolbar>
-              {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <MenuIcon />
-            </IconButton> */}
-              <Typography
-                variant="title"
-                color="inherit"
-                className={classes.flex}
-              >
-                Movie Fights!
-              </Typography>
-              {auth && (
-                <div className="iconbutton-container">
-                  <IconButton
-                    aria-owns={open ? "menu-appbar" : null}
-                    aria-haspopup="true"
-                    onClick={this.handleMenu}
-                    color="inherit"
-                  >
-                    <AccountCircle />
-                  </IconButton>
-                  <Menu
-                    id="menu-appbar"
-                    anchorEl={anchorEl}
-                    anchorOrigin={{
-                      vertical: "top",
-                      horizontal: "right"
-                    }}
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "right"
-                    }}
-                    open={open}
-                    onClose={this.handleClose}
-                  >
-                    <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={this.handleClose}>My Favorites</MenuItem>
-                  </Menu>
-                </div>
-              )}
-            </Toolbar>
-            <div className="searchy">
-              <i className="material-icons md-dark seek">search</i>
-              <Input
-                onChange={handleInput}
-                onKeyPress={_keyPress}
-                placeholder="Search for movies..."
-                fullWidth={true}
-                // className={classes.input}
-                // style = {{inputStyle}}
-                inputProps={{
-                  "aria-label": "Description"
-                }}
-              />
-            </div>
-          </AppBar>
+          </div>
           <div className="search-input-container">
             <div className="home-movie-container">
               {searchText ? (
@@ -424,11 +377,9 @@ setAuth = () => {
                       >
                         <SingleHomeMovie data={movie1} />
                       </button>
-
                       <div className="versus-div">
                         <span id="versus-span">VS</span>
                       </div>
-
                       <button
                         className="movie-btn"
                         id="movie_num_2"
@@ -445,7 +396,7 @@ setAuth = () => {
               )}
             </div>
           </div>
-        </div>
+        {/* </div> */}
       </React.Fragment>
     );
   }
@@ -453,5 +404,5 @@ setAuth = () => {
 
 Home.propTypes = {
   classes: PropTypes.object.isRequired
-}
+};
 export default withStyles(styles)(Home);

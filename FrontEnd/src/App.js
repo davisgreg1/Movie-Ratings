@@ -1,41 +1,95 @@
 import React from "react";
-import { Link, Route, Switch } from "react-router-dom";
+import { Link, Route, Switch, Redirect } from "react-router-dom";
+
+import { FormControl, FormHelperText } from "material-ui/Form";
+import { FormControlLabel, FormGroup } from "material-ui/Form";
+import AppBar from "material-ui/AppBar";
+import RaisedButton from "material-ui/Button";
+import { Switch as MatUISwitch } from "material-ui/Switch";
+import Toolbar from "material-ui/Toolbar";
+import Typography from "material-ui/Typography";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import MenuItem from "material-ui/Menu/MenuItem";
+import IconButton from "material-ui/IconButton";
+import Menu from "material-ui/Menu";
+import { withStyles } from "material-ui/styles";
+
 import Home from "./Components/Home";
 import Game from "./Components/Game";
-import Profile from "./Components/Users/Profile";
-import LoginUser from "./Components/Users/LoginUser";
-import LogOut from "./Components/Users/LogOut";
-import NewUser from "./Components/Users/NewUser";
+import RegisterUser from './Components/login/RegisterUser'; 
+import Users from "./Components/users/Users"; 
+import Profile from "./Components/users/Profile"; 
+import LoginUser from "./Components/login/LoginUser";
 import axios from "axios";
 import "./Views/App.css";
+import NavBar from "./Components/NavBar";
+
+//Styles for Material UI
+const styles = {
+  root: {
+    height: "100%",
+    flexGrow: 1
+  },
+  flex: {
+    flex: 1,
+    color: "white",
+    paddingLeft: "0px"
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20
+  }
+};
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       user: null,
-      newUser: true
+      username: "",
+      password: "",
+      visitor: true,
+      loggedIn: false,
+      anchorEl: null,
+      message: "",
+      fireRedirect: false
     };
   }
 
-  setUser = user => {
-    this.setState({ user: user });
+  logOut = () => {
+    axios
+      .get("/users/logout")
+      .then(res => {
+        console.log("logout response", res);
+        // this.props.logOutUser();
+        this.setState({
+          loggedOut: true
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
-  logOutUser = () => {
-    this.setState({ user: null });
-  };
-
-  renderLogin = () => {
-    return <LoginUser setUser={this.setUser} />;
-  };
-
-  renderLogOut = () => {
-    return <LogOut logOutUser={this.logOutUser} />;
-  };
-
-  renderNew = () => {
-    return <NewUser />;
+  getUserInfo = () => {
+    axios
+      .get("/users/userinfo")
+      .then(res => {
+        // Current
+        let user = res.data.userInfo;
+        let currentUser = this.state.user.username;
+        if (!this.state.loggedIn) {
+          this.setState({
+            loggedIn: true,
+            user: user
+          });
+        }
+      })
+      .catch(err => {
+        this.setState({
+          loggedIn: false
+        });
+      });
   };
 
   // Home is the feed screen
@@ -47,31 +101,138 @@ class App extends React.Component {
       return <h1>Must be logged in</h1>;
     }
   };
-  renderHome = () => {
-    const { user } = this.state;
-    if (user) {
-      return <Home user={user} />;
-    } else {
-      return <Home user={null}/>
-    }
+
+  handleMenu = event => {
+    console.log("event curr:", event.currentTarget);
+    this.setState({ anchorEl: event.currentTarget });
+  };
+  handleClose = () => {
+    this.setState({ anchorEl: null });
   };
 
-  render() {
-    const { user, newUser } = this.state;
-    console.log(user);
-    if (user) {
-      console.log(user);
+  frontendRegister = user => {
+    this.setState({
+      user: { username: user.username }
+    });
+  };
+
+  handleInputChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
+  submitLoginForm = e => {
+    e.preventDefault();
+    const { username, password, loggedIn } = this.state;
+
+    if (username.length < 3) {
+      this.setState({
+        message: "Username length must be at least 3"
+      });
+      return;
     }
+    axios
+      .post("/users/login", {
+        username: username,
+        password: password
+      })
+      .then(res => {
+        console.log(res.data);
+        // this.props.setUser(res.data);
+        this.setState({
+          user: res.data,
+          loggedIn: true
+        });
+      })
+      .catch(err => {
+        this.setState({
+          username: "",
+          password: "",
+          message: "Username/Password not found"
+        });
+      });
+  };
+
+  appLogIn = () => {
+    this.setState({
+      loggedIn: true
+    });
+  };
+
+  componentDidMount() {
+    this.getUserInfo();
+  }
+
+  render() {
+    const {
+      user,
+      visitor,
+      loggedIn,
+      anchorEl,
+      username,
+      password,
+      message,
+      fireRedirect
+    } = this.state;
+    const { classes } = this.props;
+    const {
+      handleInputChange,
+      submitLoginForm,
+      appLogIn,
+      frontendRegister,
+      getUserInfo,
+      logOut,
+      handleClick
+    } = this;
+
+    let open = Boolean(anchorEl);
 
     return (
-      <div className="entire-app"> 
-          <Route exact path="/" render={this.renderHome} />
-          <Route exact path="/users" render={this.renderLogin} />
-          <Route path="/users/login" render={this.renderLogin} />
-          <Route path="/users/new" render={this.renderNew} />
-          <Route path="/users/logout" render={this.renderLogout} />
-          <Route path="/users/profile" render={this.renderProfile} />
-          {/* <Route path="/users/u/:id" component={User} /> */}
+      <div className="entire-app">
+        {/* <div className={classes.root}> */}
+        <NavBar
+          loggedIn={loggedIn}
+          handleClick={handleClick}
+          user={user}
+          getUserInfo={getUserInfo}
+          logOut={logOut}
+          classes={classes}
+        />
+
+        <Switch>
+          <Route exact path="/" component={Home} />
+
+          <Route
+            path="/login"
+            render={() => (
+              <LoginUser
+                handleInputChange={handleInputChange}
+                submitLoginForm={submitLoginForm}
+                user={user}
+                username={username}
+                password={password}
+                message={message}
+                loggedIn={loggedIn}
+              />
+            )}
+          />
+          <Route
+            path="/register"
+            render={() => {
+              return (
+                <RegisterUser
+                  frontendRegister={frontendRegister}
+                  appLogIn={appLogIn}
+                />
+              );
+            }}
+          />
+          <Route
+            path="/users"
+            render={props => <Users {...props} currentUser={user} />}
+          />
+        </Switch>
       </div>
     );
   }

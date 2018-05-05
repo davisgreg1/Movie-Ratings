@@ -15,7 +15,7 @@ import IconButton from "material-ui/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import RaisedButton from "material-ui/Button";
-import Profile from "./Profile";
+import Profile from '../users/Profile';
 import "../../Views/App.css";
 
 const styles = theme => ({
@@ -34,7 +34,7 @@ const styles = theme => ({
   }
 });
 
-class NewUser extends React.Component {
+class RegisterUser extends React.Component {
   state = {
     username: "",
     firstname: "",
@@ -55,42 +55,43 @@ class NewUser extends React.Component {
     });
   }
 
-//   submitForm = e => {
-//     e.preventDefault();
-//     const { username, firstname, lastname, password, registered } = this.state;
+  registerNewUserForm = e => {
+    e.preventDefault();
+    const { username, firstname, lastname, email, password, registered } = this.state;
 
-//     if (username.length < 3) {
-//       this.setState({
-//         message: "Username length must be at least 3 characters."
-//       });
-//       return;
-//     }
-//     axios
-//       .post("/users/register", {
-//         username: username,
-//         password: password,
-//         firstname: firstname,
-//         lastname: lastname
-//       })
-//       .then(res => {
-//         console.log("Res.data!",res.data);
-//         // this.props.setUser(res.data);
+    if (username.length < 3) {
+      this.setState({
+        message: "Username length must be at least 3 characters."
+      });
+      return;
+    }
+    axios
+      .post("/users/register", {
+        username: username,
+        password: password,
+        email: email,
+        firstname: firstname,
+        lastname: lastname
+      })
+      .then(res => {
+        console.log("Res.data!",res.data);
+        // this.props.setUser(res.data);
 
-//         this.setState({
-//         //   user: res.data.username,
-//           registered: true
-//         });
-//       })
-//       .catch(err => {
-//         this.setState({
-//           username: "",
-//           password: "",
-//           lastname: "",
-//           firstname: "",
-//           message: "Username/Password not found"
-//         });
-//       });
-//   };
+        this.setState({
+        //   user: res.data.username,
+          registered: true
+        });
+      })
+      .catch(err => {
+        this.setState({
+          username: "",
+          password: "",
+          lastname: "",
+          firstname: "",
+          message: "Username/Password not found"
+        });
+      });
+  };
 
   setUser = () => {
     const { user } = this.state;
@@ -124,12 +125,6 @@ class NewUser extends React.Component {
       fullname
     } = this.state;
 
-    // if (username.length < 3) {
-    //           this.setState({
-    //             message: "Username length must be at least 3 characters."
-    //           });
-    //           return;
-    //         }
     axios
       .post("/users/register", {
         username: username,
@@ -140,7 +135,6 @@ class NewUser extends React.Component {
       .then(res => {
         console.log("REZ from post:",res);
         this.setState({
-            fullname: "",
             username: "",
             firstname: "",
             lastname: "",
@@ -154,7 +148,6 @@ class NewUser extends React.Component {
         console.log(err);
         this.setState({
           email: "",
-          fullname: "",
           firstname: "",
           lastname: "",
           username: "",
@@ -173,29 +166,16 @@ class NewUser extends React.Component {
       message,
       registered,
       showPassword,
+      email
     } = this.state;
     const {handleClickShowPassword, handleMouseDownPassword, handleFormSubmit, handleInput} = this;
     const { classes } = this.props;
 
     if (registered) {
-      return <Redirect to="/users/login" />;
+      return <Redirect to="/login" />;
     }
     return (
       <React.Fragment>
-        <AppBar position="sticky">
-          <Toolbar>
-            {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <MenuIcon />
-            </IconButton> */}
-            <Typography
-              variant="title"
-              color="inherit"
-              className={classes.flex}
-            >
-              <Link to="/">Home</Link>
-            </Typography>
-          </Toolbar>
-        </AppBar>
         <div className="login-user-container">
           <div className="loginBox">
             <h1 className="site-name"> Movie Fights </h1>
@@ -240,6 +220,19 @@ class NewUser extends React.Component {
                 />
               </div>
               <br />
+              <div className="login-user-email">
+                <TextField
+                  className={classes.textField}
+                  id="with-placeholder"
+                  label="Email"
+                  name="email"
+                  value={email}
+                  placeholder="Email"
+                  onChange={handleInput}
+                  margin="normal"
+                />
+              </div>
+              <br />
               <div className="login-user-password">
                 <div className={classes.root}>
                   <FormControl
@@ -278,20 +271,19 @@ class NewUser extends React.Component {
                 variant="Register"
                 label="Register"
                 type="submit"
-                value="Register"
+                value="submit"
                 primary={true}
                 style={{ backgroundColor: "grey", color: "white" }}
               >
                 Register
               </RaisedButton>
-              {/* <input className="loginBtn" type="submit" value="Log in" /> */}
             </form>
             <br />
             <p className="messageSize">{message}</p>
             <div className="smallerBox">
               <p className="dontHaveAcct">
                 Already have an account?<Link
-                  to="/users/login"
+                  to="/login"
                   className="noUnderline"
                 >{" "}
                   Log In
@@ -332,4 +324,4 @@ class NewUser extends React.Component {
     );
   }
 }
-export default withStyles(styles)(NewUser);
+export default withStyles(styles)(RegisterUser);

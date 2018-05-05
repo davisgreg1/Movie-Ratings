@@ -9,7 +9,8 @@ CREATE TABLE users (
   imgurl VARCHAR,
   firstname VARCHAR,
   lastname VARCHAR,
-  password_digest VARCHAR
+  password_digest VARCHAR,
+  email VARCHAR
 );
 
 CREATE TABLE scores (
@@ -28,8 +29,8 @@ CREATE TABLE favorites (
 
 -- testpass
 
-INSERT INTO users (username, firstname, lastname, imgurl, password_digest)
-  VALUES ('davisgreg1', 'Greg', 'Davis', 'https://farrellaudiovideo.com/wp-content/uploads/2016/02/default-profile-pic-300x300.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2');
+INSERT INTO users (username, firstname, email, lastname, imgurl, password_digest)
+  VALUES ('davisgreg1', 'Greg', 'Davis', 'davisgreg1@gmail.com','https://farrellaudiovideo.com/wp-content/uploads/2016/02/default-profile-pic-300x300.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2');
   
 INSERT INTO scores (user_id, points)
   VALUES (1, 100000000);
