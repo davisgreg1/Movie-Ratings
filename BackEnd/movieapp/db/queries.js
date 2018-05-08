@@ -62,6 +62,22 @@ const logoutUser = (req, res, next) => {
       });
   }
 
+const getScore = (req, res, next) => {
+  db
+  .one(
+    "SELECT * FROM scores WHERE user_id = ${id}",req.user
+  ) .then((data)=> {
+    res.status(200).json({
+      status: "success",
+      data: data,
+      message: "Fetched user's score"
+    });
+  })
+  .catch((err)=> {
+    return next(err);
+  });
+}
+
 const setScoreToZero = (req, res, next)=> {
   db
   .none(
@@ -198,4 +214,5 @@ module.exports = {
   getAllFavorites,
   getSingleUser,
   getUserByUsername,
+  getScore,
 };

@@ -22,7 +22,8 @@ router.post("/addFavorites", loginRequired, db.addToFavorites);
 router.get("/logout", loginRequired, db.logoutUser);
 router.get("/favorites", loginRequired, db.getAllFavorites);
 router.get("/userinfo", loginRequired, db.getSingleUser);
-router.get("/getuser/:username", db.getUserByUsername)
+router.get("/getuser/:username", db.getUserByUsername);
+router.get("/getcurrentscore", loginRequired, db.getScore);
 
 /**
 |--------------------------------------------------

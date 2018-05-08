@@ -244,7 +244,7 @@ class NavBar extends Component {
 
   //Material UI Menu feature
   handleMenu = event => {
-    console.log("event curr:", event.currentTarget);
+
     this.setState({ anchorEl: event.currentTarget });
   };
   handleClose = () => {
@@ -259,7 +259,7 @@ class NavBar extends Component {
   }
 
   render() {
-    console.log("nav bar props:", this.props);
+
     const { loggedInNav, loggedOutNav, onLoadNav } = this;
     const { anchorEl, fireRedirect } = this.state;
     const {

@@ -48,7 +48,6 @@ class Profile extends React.Component {
   };
 
   handleMenu = event => {
-    console.log("event curr:", event.currentTarget);
     this.setState({ anchorEl: event.currentTarget });
   };
 
@@ -94,9 +93,6 @@ class Profile extends React.Component {
   }
 
   render() {
-    console.log("props in Profile:", this.props);
-    console.log("the state in profile:", this.state);
-
     const { classes, currentUser } = this.props;
     const { auth, anchorEl, fireRedirect, profileUser } = this.state;
     const open = Boolean(anchorEl);

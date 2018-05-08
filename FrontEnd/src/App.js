@@ -16,9 +16,9 @@ import { withStyles } from "material-ui/styles";
 
 import Home from "./Components/Home";
 import Game from "./Components/Game";
-import RegisterUser from './Components/login/RegisterUser'; 
-import Users from "./Components/users/Users"; 
-import Profile from "./Components/users/Profile"; 
+import RegisterUser from "./Components/login/RegisterUser";
+import Users from "./Components/users/Users";
+import Profile from "./Components/users/Profile";
 import LoginUser from "./Components/login/LoginUser";
 import axios from "axios";
 import "./Views/App.css";
@@ -52,6 +52,7 @@ class App extends React.Component {
       loggedIn: false,
       anchorEl: null,
       message: "",
+      score: "",
       fireRedirect: false
     };
   }
@@ -60,7 +61,6 @@ class App extends React.Component {
     axios
       .get("/users/logout")
       .then(res => {
-        console.log("logout response", res);
         // this.props.logOutUser();
         this.setState({
           loggedOut: true
@@ -89,6 +89,21 @@ class App extends React.Component {
         this.setState({
           loggedIn: false
         });
+      });
+  };
+
+  getUserScore = () => {
+    console.log("the get user score user", this.state.user)
+    axios
+      .get("/users/getcurrentscore")
+      .then(res => {
+        console.log("score?", res);
+        this.setState({
+          score: res.data.data.points
+        })
+      })
+      .catch(err => {
+        console.log("err:", err);
       });
   };
 
@@ -152,12 +167,16 @@ class App extends React.Component {
           message: "Username/Password not found"
         });
       });
+      this.getUserScore();
   };
+
+
 
   appLogIn = () => {
     this.setState({
       loggedIn: true
     });
+    this.getUserScore();
   };
 
   componentDidMount() {
@@ -173,7 +192,8 @@ class App extends React.Component {
       username,
       password,
       message,
-      fireRedirect
+      fireRedirect,
+      score
     } = this.state;
     const { classes } = this.props;
     const {
@@ -185,7 +205,7 @@ class App extends React.Component {
       logOut,
       handleClick
     } = this;
-
+    console.log("the score in state:", score)
     let open = Boolean(anchorEl);
 
     return (

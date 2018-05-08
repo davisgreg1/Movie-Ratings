@@ -326,7 +326,7 @@ class Home extends React.Component {
 
     // console.log("State in Home:",new Date().toString(), this.state);
     // console.log("winner:", this.state.winner);
-    console.log("Props in Home:", this.props);
+
 
     // if (this.state.user) {
     //   return <Redirect to="/users/login" />;
