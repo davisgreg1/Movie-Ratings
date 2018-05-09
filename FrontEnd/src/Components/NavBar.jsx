@@ -14,8 +14,9 @@ import Toolbar from "material-ui/Toolbar";
 import Typography from "material-ui/Typography";
 import RaisedButton from "material-ui/Button";
 import Switch from "material-ui/Switch";
-import Button from 'material-ui/Button'
-
+import Button from "material-ui/Button";
+import Game from "./Game";
+import "../Views/App.css";
 //Styles for Material UI
 const styles = {
   root: {
@@ -43,7 +44,7 @@ class NavBar extends Component {
       fireRedirect: false
     };
   }
-  
+
   onLoadNav = () => {
     let open = Boolean(this.state.anchorEl);
     const styles = {
@@ -76,7 +77,7 @@ class NavBar extends Component {
             </Link>
           </Toolbar>
         </AppBar>
-      <div>LOADING...</div>
+        <div>LOADING...</div>
       </Fragment>
     );
   };
@@ -128,11 +129,11 @@ class NavBar extends Component {
                 Movie Fights!
               </Typography>
             </Link>
-              <div className="iconbutton-container">
-              <Button href='/login' className={"classes.button"}>
-        Log In
-      </Button>
-              </div>
+            <div className="iconbutton-container">
+              <Button href="/login" className={"classes.button"}>
+                Log In
+              </Button>
+            </div>
           </Toolbar>
         </AppBar>
         {/* <Redirect to={`/`} /> */}
@@ -163,9 +164,8 @@ class NavBar extends Component {
       <Fragment>
         <FormGroup className="seek">
           <Link to={`/users/${user.username}`}>
-              <div title="Profile">
-              </div>
-            </Link>
+            <div title="Profile" />
+          </Link>
         </FormGroup>
         <AppBar position="sticky">
           <Toolbar>
@@ -181,40 +181,43 @@ class NavBar extends Component {
                 Movie Fights!
               </Typography>
             </Link>
-              <Button  href='/login' onClick={logOut} className={"classes.button"}>
-        Log Out
-      </Button>
-              <div>
-                <IconButton
-                  aria-owns={open ? 'menu-appbar' : null}
-                  aria-haspopup="true"
-                  onClick={this.handleMenu}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={open}
-                  onClose={this.handleClose}
-                >
-                  <Link to={`/users/${user.username}`}><MenuItem onClick={this.handleClose}>Profile</MenuItem></Link>
-                  <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                </Menu>
-              </div>
-            
-        
-              <div className="iconbutton-container">
-                {/* <IconButton
+            <Button href="/login" onClick={logOut} className={"classes.button"}>
+              Log Out
+            </Button>
+            <div>
+              <IconButton
+                aria-owns={open ? "menu-appbar" : null}
+                aria-haspopup="true"
+                onClick={this.handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right"
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right"
+                }}
+                open={open}
+                onClose={this.handleClose}
+              >
+                <Link to={`/users/${user.username}`} className="links"><MenuItem onClick={this.handleClose}>Profile</MenuItem></Link>
+                <Link to="/game" className="links">
+                  <MenuItem onClick={this.goToGame}>
+                    Play Movie Fights!
+                  </MenuItem>
+                </Link>
+              </Menu>
+            </div>
+
+            <div className="iconbutton-container">
+              {/* <IconButton
                   aria-owns={this.open ? "menu-appbar" : null}
                   aria-haspopup="true"
                   onClick={this.handleMenu}
@@ -222,8 +225,7 @@ class NavBar extends Component {
                 >
                   <AccountCircle />
                 </IconButton> */}
-              </div>
-            
+            </div>
           </Toolbar>
         </AppBar>
       </Fragment>
@@ -244,9 +246,9 @@ class NavBar extends Component {
 
   //Material UI Menu feature
   handleMenu = event => {
-    console.log("event curr:", event.currentTarget);
     this.setState({ anchorEl: event.currentTarget });
   };
+
   handleClose = () => {
     this.setState({ anchorEl: null });
   };
@@ -258,25 +260,32 @@ class NavBar extends Component {
     this.props.getUserInfo;
   }
 
+  goToGame = () => {
+    this.setState({
+      goToGame: !this.state.goToGame
+    });
+  };
+
   render() {
-    console.log("nav bar props:", this.props);
     const { loggedInNav, loggedOutNav, onLoadNav } = this;
-    const { anchorEl, fireRedirect } = this.state;
-    const {
-      user,
-      classes,
-      loggedIn,
-      getUserInfo,
-      logOut
-    } = this.props;
+    const { anchorEl, fireRedirect, goToGame } = this.state;
+    const { user, classes, loggedIn, getUserInfo, logOut } = this.props;
+
+    if (goToGame) {
+      console.log("clicked");
+    }
+
+    if (loggedIn) {
+      return loggedInNav();
+    }
 
     if (loggedIn === null) {
       return onLoadNav();
     }
+
     if (!loggedIn) {
       return loggedOutNav();
-    } 
-      return loggedInNav();
+    }
   }
 }
 export default withStyles(styles)(NavBar);

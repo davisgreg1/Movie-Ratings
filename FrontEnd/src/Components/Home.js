@@ -12,10 +12,12 @@ import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import CircularProgress from "material-ui/Progress/CircularProgress";
 import Switch from "material-ui/Switch";
+import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
 import Input from "material-ui/Input";
 import currencyFormatter from "currency-formatter";
 import { FormControlLabel, FormGroup } from "material-ui/Form";
 import Menu, { MenuItem } from "material-ui/Menu";
+import Button from "material-ui/Button";
 import MovieList from "./MovieList";
 import SingleHomeMovie from "./SingleHomeMovie";
 import swal from "sweetalert2";
@@ -42,6 +44,13 @@ const styles = {
   menuButton: {
     marginLeft: -12,
     marginRight: 20
+  },
+  card: {
+    maxWidth: 345
+  },
+  media: {
+    height: 0,
+    paddingTop: "56.25%" // 16:9
   }
 };
 
@@ -184,7 +193,6 @@ class Home extends React.Component {
 
   //Material UI Menu feature
 
-
   //The two movies the user see on the home page to choose from.
   getTwoMovies = () => {
     let randomMovieID1 = `${idArr[Math.floor(Math.random() * idArr.length)]}`;
@@ -261,7 +269,6 @@ class Home extends React.Component {
         theCurrentWinner = this.state.movie2;
         theCurrentLoser = this.state.movie1;
       }
-
       e.target.title === winner
         ? swal({
             title: "Sweet!",
@@ -288,7 +295,7 @@ class Home extends React.Component {
               Math.abs(theCurrentLoser.data.revenue),
               { code: "USD" }
             )}, but didn't earn more than ${
-              theCurrentLoser.data.original_title
+              theCurrentWinner.data.original_title
             }. Avenge your dignity by signing up to play more!`,
             imageUrl: `${baseURL}${theCurrentWinner.data.poster_path}`,
             imageWidth: 400,
@@ -326,61 +333,80 @@ class Home extends React.Component {
 
     // console.log("State in Home:",new Date().toString(), this.state);
     // console.log("winner:", this.state.winner);
-    console.log("Props in Home:", this.props);
 
     // if (this.state.user) {
     //   return <Redirect to="/users/login" />;
     // }
     return (
-      <React.Fragment>
+      <React.Fragment id="home-screen">
         {/* <div className={classes.root}> */}
 
-          <div className="searchy">
-            <i className="material-icons md-dark seek">search</i>
-            <Input
-              onChange={handleInput}
-              onKeyPress={_keyPress}
-              placeholder="Search for movies..."
-              fullWidth={true}
-              // className={classes.input}
-              // style = {{inputStyle}}
-              inputProps={{
-                "aria-label": "Description"
-              }}
-            />
-          </div>
-          <div className="search-input-container">
-            <div className="home-movie-container">
-              {searchText ? (
-                <MovieList data={data} />
-              ) : (
-                <div className="default-home-screen">
-                  {!movie1 || !movie2 ? (
-                    <CircularProgress
-                      size={50}
-                      left={70}
-                      top={0}
-                      loadingColor="#FF9800"
-                      status="loading"
-                      style={{
-                        display: "inlineBlock",
-                        position: "relative"
-                      }}
-                    />
-                  ) : (
-                    <div className="single-movie-container">
-                      <button
+        <div className="searchy">
+          <i className="material-icons md-dark seek">search</i>
+          <Input
+            onChange={handleInput}
+            onKeyPress={_keyPress}
+            placeholder="Search for movies..."
+            fullWidth={true}
+            // className={classes.input}
+            // style = {{inputStyle}}
+            inputProps={{
+              "aria-label": "Description"
+            }}
+          />
+        </div>
+        <div className="search-input-container">
+          <div className="home-movie-container">
+            {searchText ? (
+              <MovieList data={data} />
+            ) : (
+              <div className="default-home-screen">
+                {!movie1 || !movie2 ? (
+                  <CircularProgress
+                    size={50}
+                    left={70}
+                    top={0}
+                    loadingColor="#FF9800"
+                    status="loading"
+                    style={{
+                      display: "inlineBlock",
+                      position: "relative"
+                    }}
+                  />
+                ) : (
+                  <div className="single-movie-container">
+                    {/* <button
                         className="movie-btn"
                         id="movie_num_1"
                         name="movie_num_1"
                         onClick={getWinner}
                       >
                         <SingleHomeMovie data={movie1} />
-                      </button>
-                      <div className="versus-div">
-                        <span id="versus-span">VS</span>
-                      </div>
-                      <button
+                      </button> */}
+                    <Card
+                      className={classes.card}
+                      id="movie_num_1"
+                      name="movie_num_1"
+                      onClick={getWinner}
+                    >
+                      <SingleHomeMovie data={movie1} />
+
+                      {/* <Button size="small" color="primary">
+            Learn More
+          </Button> */}
+                    </Card>
+                    <div className="versus-div">
+                      <span id="versus-span">VS</span>
+                    </div>
+                    <Card
+                      className={classes.card}
+                      id="movie_num_2"
+                      name="movie_num_2"
+                      onClick={getWinner}
+                    >
+                      <SingleHomeMovie data={movie2} />
+                    </Card>
+                    {/* <button
                         className="movie-btn"
                         id="movie_num_2"
                         name="movie_num_2"
@@ -388,14 +414,14 @@ class Home extends React.Component {
                       >
                         {" "}
                         <SingleHomeMovie data={movie2} />
-                      </button>
-                      Select The Movie You Think Made More In Profits!!
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
+                      </button> */}
+                    Select The Movie You Think Made More In Profits!!
+                  </div>
+                )}
+              </div>
+            )}
           </div>
+        </div>
         {/* </div> */}
       </React.Fragment>
     );

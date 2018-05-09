@@ -104,7 +104,6 @@ class LoginUser extends React.Component {
       submitLoginForm
     } = this.props;
     const { handleClickShowPassword, handleMouseDownPassword } = this;
-    console.log("props in Login User:", this.props);
 
     if (loggedIn) {
       return <Redirect to= {`/users/${user.username}`}/>;

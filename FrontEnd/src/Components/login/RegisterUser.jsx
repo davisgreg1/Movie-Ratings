@@ -75,10 +75,8 @@ class RegisterUser extends React.Component {
       })
       .then(res => {
         console.log("Res.data!",res.data);
-        // this.props.setUser(res.data);
 
         this.setState({
-        //   user: res.data.username,
           registered: true
         });
       })
@@ -130,7 +128,8 @@ class RegisterUser extends React.Component {
         username: username,
         firstname: firstname,
         lastname: lastname,
-        password: password
+        password: password,
+        email: email
       })
       .then(res => {
         console.log("REZ from post:",res);
