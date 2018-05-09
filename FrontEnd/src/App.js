@@ -218,6 +218,7 @@ class App extends React.Component {
           getUserInfo={getUserInfo}
           logOut={logOut}
           classes={classes}
+          score={score}
         />
 
         <Switch>
@@ -250,7 +251,11 @@ class App extends React.Component {
           />
           <Route
             path="/users"
-            render={props => <Users {...props} currentUser={user} />}
+            render={props => <Users {...props} score={score} currentUser={user} />}
+          />
+          <Route
+            path="/game"
+            render={props => <Game {...props} score={score} loggedIn={loggedIn} currentUser={user} />}
           />
         </Switch>
       </div>

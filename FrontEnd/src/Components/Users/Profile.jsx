@@ -103,12 +103,12 @@ class Profile extends React.Component {
 
     return (
       <React.Fragment>
-        <div className={classes.root}>
+        <div className={"classes.root"}>
         {/* <NavBar/> */}
-          Welcome {profileUser.username}
+          Welcome {profileUser.username} currentscore:{this.props.score}
         </div>
       </React.Fragment>
     );
   }
 }
-export default withStyles(styles)(Profile);
+export default Profile;

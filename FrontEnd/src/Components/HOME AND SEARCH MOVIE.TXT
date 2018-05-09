@@ -412,3 +412,26 @@ SET THE STATE TO THE WINNER
     //     winner: this.state.movie2.data.original_title
     //   })
     // }
+
+
+        /**
+|--------------------------------------------------
+| if the e.target.title === winner then set winner to e.target.title and set the loser to 
+
+lead engineer at Joor Roberto Pedroso
+
+Patrick at Plated 
+
+Priceline.com fs dev
+
+Billy at medi corp 
+
+Trevor at current debit card for teens trevor@current.com
+
+jared palmer palmer group jack and nathan 
+
+brian at wework node typescript reat kotlin java
+
+
+|--------------------------------------------------
+*/
