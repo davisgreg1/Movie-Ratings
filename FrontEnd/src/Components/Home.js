@@ -353,7 +353,7 @@ class Home extends React.Component {
         <div className="search-input-container">
           <div className="home-movie-container">
             {searchText ? (
-              <MovieList data={data} loggedIn={loggedIn} />
+              <MovieList data={data} loggedIn={loggedIn} currentUser={user}/>
             ) : (
               <div className="default-home-screen">
                 {!movie1 || !movie2 ? (
@@ -376,7 +376,7 @@ class Home extends React.Component {
                       name="movie_num_1"
                       onClick={getWinner}
                     >
-                      <SingleHomeMovie data={movie1} loggedIn={loggedIn}/>
+                      <SingleHomeMovie data={movie1} loggedIn={loggedIn} currentUser={user}/>
                     </Card>
                     <div className="versus-div">
                       <span id="versus-span">VS</span>
@@ -387,7 +387,7 @@ class Home extends React.Component {
                       name="movie_num_2"
                       onClick={getWinner}
                     >
-                      <SingleHomeMovie data={movie2} loggedIn={loggedIn}/>
+                      <SingleHomeMovie data={movie2} loggedIn={loggedIn} currentUser={user}/>
                     </Card>
                     Select The Movie You Think Made More In Profits!!
                   </div>
