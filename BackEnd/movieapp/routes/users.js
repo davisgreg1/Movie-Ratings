@@ -11,7 +11,7 @@ const passport = require("../auth/local");
 */
 router.post("/register", db.registerUser); 
 router.post("/login", db.loginUser);
-router.post("/score_zero", loginRequired, db.setScoreToZero);
+router.post("/score_zero", db.setScoreToZero);
 router.post("/addFavorites", loginRequired, db.addToFavorites);
 
 /**

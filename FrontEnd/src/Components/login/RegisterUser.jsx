@@ -15,7 +15,7 @@ import IconButton from "material-ui/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import RaisedButton from "material-ui/Button";
-import Profile from '../users/Profile';
+import Profile from "../users/Profile";
 import "../../Views/App.css";
 
 const styles = theme => ({
@@ -35,7 +35,11 @@ const styles = theme => ({
 });
 
 class RegisterUser extends React.Component {
+  constructor(props){
+    super(props)
+  }
   state = {
+    id: "",
     username: "",
     firstname: "",
     lastname: "",
@@ -53,42 +57,6 @@ class RegisterUser extends React.Component {
     this.setState({
       [e.target.name]: e.target.value
     });
-  }
-
-  registerNewUserForm = e => {
-    e.preventDefault();
-    const { username, firstname, lastname, email, password, registered } = this.state;
-
-    if (username.length < 3) {
-      this.setState({
-        message: "Username length must be at least 3 characters."
-      });
-      return;
-    }
-    axios
-      .post("/users/register", {
-        username: username,
-        password: password,
-        email: email,
-        firstname: firstname,
-        lastname: lastname
-      })
-      .then(res => {
-        console.log("Res.data!",res.data);
-
-        this.setState({
-          registered: true
-        });
-      })
-      .catch(err => {
-        this.setState({
-          username: "",
-          password: "",
-          lastname: "",
-          firstname: "",
-          message: "Username/Password not found"
-        });
-      });
   };
 
   setUser = () => {
@@ -112,9 +80,10 @@ class RegisterUser extends React.Component {
   };
 
   // When user submits form
-  handleFormSubmit = e => {
+   handleFormSubmit = e => {
     e.preventDefault();
     const {
+      id,
       email,
       username,
       firstname,
@@ -132,17 +101,30 @@ class RegisterUser extends React.Component {
         email: email
       })
       .then(res => {
-        console.log("REZ from post:",res);
+        console.log("REZ from post:", res);
         this.setState({
-            username: "",
-            firstname: "",
-            lastname: "",
-            password: "",
-            email: "",
-            registered: true,
-            message: "Registered user"
+          id: res.data.data.id,
+          username: "",
+          firstname: "",
+          lastname: "",
+          password: "",
+          email: "",
+          registered: true,
+          message: "Registered user"
         });
       })
+      // .then(
+      //   axios
+      //   .post("users/score_zero", {
+      //     user_id: this.state.id
+      //   })
+      //   .then(res => {
+      //     console.log("Score RES:", res);
+      //   })
+      //   .catch(err => {
+      //     console.log("settLE ERr:", err)
+      //   })
+      // )
       .catch(err => {
         console.log(err);
         this.setState({
@@ -154,10 +136,29 @@ class RegisterUser extends React.Component {
           message: "Error registering user"
         });
       });
+      this.settleTheScore();
+  };
+
+  settleTheScore = () => {
+    console.log("the state in settle the score", this.state);
+    if (this.state.id === "") {
+      return console.log("the id is empty:", this.state);
+    }
+    axios
+      .post("users/score_zero", {
+        user_id: this.state.id
+      })
+      .then(res => {
+        console.log("Score RES:", res);
+      })
+      .catch(err => {
+        console.log("settLE ERr:", err);
+      });
   };
 
   render() {
     const {
+      id,
       username,
       password,
       firstname,
@@ -167,9 +168,14 @@ class RegisterUser extends React.Component {
       showPassword,
       email
     } = this.state;
-    const {handleClickShowPassword, handleMouseDownPassword, handleFormSubmit, handleInput} = this;
+    const {
+      handleClickShowPassword,
+      handleMouseDownPassword,
+      handleFormSubmit,
+      handleInput
+    } = this;
     const { classes } = this.props;
-
+    console.log("State in register", this.state);
     if (registered) {
       return <Redirect to="/login" />;
     }
@@ -253,11 +259,7 @@ class RegisterUser extends React.Component {
                             onClick={handleClickShowPassword}
                             onMouseDown={handleMouseDownPassword}
                           >
-                            {showPassword ? (
-                              <VisibilityOff />
-                            ) : (
-                              <Visibility />
-                            )}
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
                           </IconButton>
                         </InputAdornment>
                       }
@@ -284,7 +286,8 @@ class RegisterUser extends React.Component {
                 Already have an account?<Link
                   to="/login"
                   className="noUnderline"
-                >{" "}
+                >
+                  {" "}
                   Log In
                 </Link>
               </p>

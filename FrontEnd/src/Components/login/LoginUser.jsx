@@ -51,7 +51,7 @@ class LoginUser extends React.Component {
     });
   };
 
-  submitLoginForm = e => {
+  async submitLoginForm(e){
     e.preventDefault();
     const { usernameInput, passwordInput, loggedIn } = this.state;
 
@@ -61,7 +61,7 @@ class LoginUser extends React.Component {
       });
       return;
     }
-    axios
+    const res = await axios
       .post("/users/login", {
         username: usernameInput,
         password: passwordInput

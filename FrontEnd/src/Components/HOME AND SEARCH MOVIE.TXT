@@ -435,3 +435,48 @@ brian at wework node typescript reat kotlin java
 
 |--------------------------------------------------
 */
+
+
+this was in RegisterUser.jsx
+
+  // registerNewUserForm = e => {
+  //   e.preventDefault();
+  //   const {
+  //     username,
+  //     firstname,
+  //     lastname,
+  //     email,
+  //     password,
+  //     registered
+  //   } = this.state;
+
+  //   if (username.length < 3) {
+  //     this.setState({
+  //       message: "Username length must be at least 3 characters."
+  //     });
+  //     return;
+  //   }
+  //   axios
+  //     .post("/users/register", {
+  //       username: username,
+  //       password: password,
+  //       email: email,
+  //       firstname: firstname,
+  //       lastname: lastname
+  //     })
+  //     .then(res => {
+  //       console.log("Res.data!", res.data);
+  //       this.setState({
+  //         registered: true
+  //       });
+  //     })
+  //     .catch(err => {
+  //       this.setState({
+  //         username: "",
+  //         password: "",
+  //         lastname: "",
+  //         firstname: "",
+  //         message: "Username/Password not found"
+  //       });
+  //     });
+  // };
