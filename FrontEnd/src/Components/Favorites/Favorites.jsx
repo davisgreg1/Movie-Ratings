@@ -46,10 +46,10 @@ export default class Favorites extends Component {
 
   render() {
     const {favorites}=this.state;
-    const{currentUser}=this.props;
+    const{currentUser, loggedIn }=this.props;
     console.log("props in favs:", this.props);
     return <React.Fragment>
-      <FavoriteMovieList movies={favorites}/>
+      <FavoriteMovieList currentUser={currentUser} loggedIn={loggedIn} movies={favorites}/>
       
       </React.Fragment>;
   }
