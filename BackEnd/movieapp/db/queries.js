@@ -80,11 +80,10 @@ const getScore = (req, res, next) => {
 
 const setScoreToZero = (req, res, next)=> {
   db
-  .none(
+  .any(
     "INSERT INTO scores (user_id) VALUES (${id})",
     {
-      id: req.body.id
-      // points: req.body.points
+      user_id: req.body.user_id
     }
   )  .then(() => {
     res.status(200)

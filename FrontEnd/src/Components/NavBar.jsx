@@ -209,7 +209,7 @@ class NavBar extends Component {
               >
                 <Link to={`/users/${user.username}`} className="links"><MenuItem onClick={this.handleClose}>Profile</MenuItem></Link>
                 <Link to="/game" className="links">
-                  <MenuItem onClick={this.goToGame}>
+                  <MenuItem onClick={this.handleClose}>
                     Play Movie Fights!
                   </MenuItem>
                 </Link>
