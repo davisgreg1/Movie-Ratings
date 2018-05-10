@@ -120,7 +120,7 @@ class NavBar extends Component {
             {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
              <MenuIcon />
            </IconButton> */}
-            <Link to="/">
+            <Link to="/" className="links">
               <Typography
                 variant="title"
                 color="inherit"
@@ -169,10 +169,7 @@ class NavBar extends Component {
         </FormGroup>
         <AppBar position="sticky">
           <Toolbar>
-            {/* <IconButton className={this.props.classes.menuButton} color="inherit" aria-label="Menu">
-             <MenuIcon />
-           </IconButton> */}
-            <Link to="/">
+            <Link to="/" className="links">
               <Typography
                 variant="title"
                 color="inherit"

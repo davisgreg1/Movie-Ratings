@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import FavoriteMovieList from "./FavoriteMovieList";
 
 export default class Favorites extends Component {
   constructor(props) {
@@ -11,23 +12,45 @@ export default class Favorites extends Component {
     };
   }
 
-  async getAllFavs() {
-      console.log("got here bro")
-    const { movies, user} = this.state;
-    try {
-        const response = await axios.get('/users/favorites', { user_id: this.props.currentUser.id});
-        console.log("responze:", response);
-    } catch (err) {
-        console.log("Error:", err)
-    }
+  getAllFavs = () => {
+  axios.get('/users/favorites')
+  .then(response => {
+    this.setState({
+      favorites: response.data.data
+    })
+    console.log(response);
+  })
+  .catch( (error)=> {
+    console.log(error);
+  });
 }
 
- componentDidMount() {
- this.getAllFavs();
-}
+  // getAllFavs() {
+  //   console.log("here in getallfavs")
+  //   const { movies, user } = this.state;
+  //   const { currentUser } = this.props;
+  //   async function getAllMovies() {
+  //     try {
+  //       const response = await axios.get("/users/favorites");
+  //       await console.log("response:",response)
+
+  //     } catch (error) {
+  //       console.error("error:", error);
+  //     }
+  //   }
+  // }
+
+  componentDidMount() {
+    this.getAllFavs();
+  }
 
   render() {
-      console.log("props in favs:",this.props)
-    return <div>LIST OF FAVORITE MOVIES HERE</div>;
+    const {favorites}=this.state;
+    const{currentUser}=this.props;
+    console.log("props in favs:", this.props);
+    return <React.Fragment>
+      <FavoriteMovieList movies={favorites}/>
+      
+      </React.Fragment>;
   }
 }

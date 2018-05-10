@@ -154,7 +154,7 @@ const removeFromFavorites = (req, res, next) => {
 const getAllFavorites = (req, res, next) => {
   db
   .any(
-    "SELECT * from favorites WHERE favorited_by = ${user_id}", req.body
+    "SELECT * from favorites WHERE favorited_by = ${id}", req.user
   )
   .then(data => {
     res.status(200).json({

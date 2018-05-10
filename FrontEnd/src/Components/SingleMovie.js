@@ -66,7 +66,7 @@ class SingleMovie extends React.Component {
             </CardContent>
 
             <CardActions id="buttons-for-movies">
-                { loggedIn ? <Button onClick={this.handleFavClick}>Add to favorites</Button> :  <Button size="small" color="primary">
+                { loggedIn ? <Button onClick={this.handleFavClick}>Add to your favorites</Button> :  <Button size="small" color="primary">
               <div>
                 <a
                   href={`https://www.themoviedb.org/movie/${data.data.id}`}
@@ -90,3 +90,13 @@ SingleMovie.propTypes = {
 };
 // export default HomeScreenMovie;
 export default withStyles(styles)(SingleMovie);
+
+
+
+
+
+
+
+
+
+//NOT BEING USED FOR NOW
