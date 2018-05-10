@@ -97,6 +97,12 @@ div.home-container {
   padding: 10px;
 }
 
+#buttons-for-movies{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 @font-face {
   font-family: "Material Icons";
   font-style: normal;

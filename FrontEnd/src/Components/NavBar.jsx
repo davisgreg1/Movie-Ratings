@@ -213,6 +213,11 @@ class NavBar extends Component {
                     Play Movie Fights!
                   </MenuItem>
                 </Link>
+                <Link to="/favorites" className="links">
+                  <MenuItem onClick={this.handleClose}>
+                    Favorites
+                  </MenuItem>
+                </Link>
               </Menu>
             </div>
 

@@ -5,6 +5,7 @@ import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
 import Button from "material-ui/Button";
 import Typography from "material-ui/Typography";
 // import MovieList from './MovieList';
+import axios from 'axios';
 import "../Views/App.css";
 
 const styles = {
@@ -27,9 +28,15 @@ class SingleMovie extends React.Component {
     super(props);
   }
 
+  handleFavClick = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log("clicked")
+  }
+
   render() {
     //   classes was a prop as well
-    const { classes, data } = this.props;
+    const { classes, data, loggedIn } = this.props;
     console.log("the movie data:", data);
     // console.log("the movie PROPS IN HOMESCREEN:", this.props);
     let baseURL = `http://image.tmdb.org/t/p/w185`;
@@ -56,11 +63,10 @@ class SingleMovie extends React.Component {
               <Typography gutterBottom variant="headline" component="h2">
                 {`${data.data.original_title}`}
               </Typography>
-              {/* <Typography component="p">{`${data.data.overview}`}</Typography> */}
             </CardContent>
 
-            <CardActions>
-              <Button size="small" color="primary">
+            <CardActions id="buttons-for-movies">
+                { loggedIn ? <Button onClick={this.handleFavClick}>Add to favorites</Button> :  <Button size="small" color="primary">
               <div>
                 <a
                   href={`https://www.themoviedb.org/movie/${data.data.id}`}
@@ -69,7 +75,7 @@ class SingleMovie extends React.Component {
                   Learn More
                 </a>
                 </div>
-              </Button>
+              </Button> }
              
             </CardActions>
           </Card>

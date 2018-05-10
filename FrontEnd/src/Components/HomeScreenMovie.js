@@ -28,7 +28,7 @@ class HomeScreenMovie extends React.Component {
 
   render() {
     //   classes was a prop as well
-    const { classes, data } = this.props;
+    const { classes, data, loggedIn } = this.props;
     console.log("the movie data:", data);
     // console.log("the movie PROPS IN HOMESCREEN:", this.props);
     let baseURL = `http://image.tmdb.org/t/p/w185`;
@@ -54,6 +54,7 @@ class HomeScreenMovie extends React.Component {
           </CardContent>
 
           <CardActions>
+          { loggedIn ? <Button onClick={this.handleFavClick}>Add to favorites</Button> : 
             <Button size="small" color="primary">
               <a
                 href={`https://www.themoviedb.org/movie/${data.id}`}
@@ -62,6 +63,7 @@ class HomeScreenMovie extends React.Component {
                 Learn More
               </a>
             </Button>
+          }
           </CardActions>
         </Card>
       </div>

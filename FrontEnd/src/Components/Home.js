@@ -326,17 +326,12 @@ class Home extends React.Component {
   }
 
   render() {
-    const { classes, user } = this.props;
+    const { classes, user, loggedIn } = this.props;
     const { auth, anchorEl, data, searchText, movie1, movie2 } = this.state;
     const { _keyPress, handleInput, getWinner } = this;
     const open = Boolean(anchorEl);
+    console.log("props in home:", this.props)
 
-    // console.log("State in Home:",new Date().toString(), this.state);
-    // console.log("winner:", this.state.winner);
-
-    // if (this.state.user) {
-    //   return <Redirect to="/users/login" />;
-    // }
     return (
       <React.Fragment id="home-screen">
         {/* <div className={classes.root}> */}
@@ -358,7 +353,7 @@ class Home extends React.Component {
         <div className="search-input-container">
           <div className="home-movie-container">
             {searchText ? (
-              <MovieList data={data} />
+              <MovieList data={data} loggedIn={loggedIn} />
             ) : (
               <div className="default-home-screen">
                 {!movie1 || !movie2 ? (
@@ -375,25 +370,13 @@ class Home extends React.Component {
                   />
                 ) : (
                   <div className="single-movie-container">
-                    {/* <button
-                        className="movie-btn"
-                        id="movie_num_1"
-                        name="movie_num_1"
-                        onClick={getWinner}
-                      >
-                        <SingleHomeMovie data={movie1} />
-                      </button> */}
                     <Card
                       className={classes.card}
                       id="movie_num_1"
                       name="movie_num_1"
                       onClick={getWinner}
                     >
-                      <SingleHomeMovie data={movie1} />
-
-                      {/* <Button size="small" color="primary">
-            Learn More
-          </Button> */}
+                      <SingleHomeMovie data={movie1} loggedIn={loggedIn}/>
                     </Card>
                     <div className="versus-div">
                       <span id="versus-span">VS</span>
@@ -404,17 +387,8 @@ class Home extends React.Component {
                       name="movie_num_2"
                       onClick={getWinner}
                     >
-                      <SingleHomeMovie data={movie2} />
+                      <SingleHomeMovie data={movie2} loggedIn={loggedIn}/>
                     </Card>
-                    {/* <button
-                        className="movie-btn"
-                        id="movie_num_2"
-                        name="movie_num_2"
-                        onClick={getWinner}
-                      >
-                        {" "}
-                        <SingleHomeMovie data={movie2} />
-                      </button> */}
                     Select The Movie You Think Made More In Profits!!
                   </div>
                 )}
@@ -422,7 +396,6 @@ class Home extends React.Component {
             )}
           </div>
         </div>
-        {/* </div> */}
       </React.Fragment>
     );
   }
