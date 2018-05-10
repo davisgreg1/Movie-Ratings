@@ -16,6 +16,7 @@ import { withStyles } from "material-ui/styles";
 
 import Home from "./Components/Home";
 import Game from "./Components/Game";
+import Favorites from "./Components/Favorites/Favorites";
 import RegisterUser from "./Components/login/RegisterUser";
 import Users from "./Components/users/Users";
 import Profile from "./Components/users/Profile";
@@ -222,7 +223,16 @@ class App extends React.Component {
         />
 
         <Switch>
-          <Route exact path="/" component={Home} />
+        <Route
+            exact path="/"
+            render={() => (
+              <Home
+                user={user}
+                message={message}
+                loggedIn={loggedIn}
+              />
+            )}
+          />
 
           <Route
             path="/login"
@@ -256,6 +266,10 @@ class App extends React.Component {
           <Route
             path="/game"
             render={props => <Game {...props} score={score} loggedIn={loggedIn} currentUser={user} />}
+          />
+          <Route
+            path="/favorites"
+            render={props => <Favorites {...props} score={score} loggedIn={loggedIn} currentUser={user} />}
           />
         </Switch>
       </div>

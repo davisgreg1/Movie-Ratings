@@ -4,6 +4,7 @@ import { withStyles } from "material-ui/styles";
 import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
 import Button from "material-ui/Button";
 import Typography from "material-ui/Typography";
+import axios from 'axios';
 import "../Views/App.css";
 
 const styles = {
@@ -26,20 +27,20 @@ class SingleHomeMovie extends React.Component {
     super(props);
   }
 
+  handleFavClick = e => {
+    e.stopPropagation();
+    e.preventDefault();
+    console.log("clicked")
+  }
+
   render() {
-    //   classes was a prop as well
-    const { classes, data } = this.props;
-    console.log("the movie data:", data);
-    // console.log("the movie PROPS IN HOMESCREEN:", this.props);
+    const { classes, data, loggedIn } = this.props;
+    console.log("the movie PROPS IN HOMESCREEN:", this.props);
     let baseURL = `http://image.tmdb.org/t/p/w185`;
     return (
       <React.Fragment>
         <div className="all-cards-container" value={data.data.original_title}>
           <Card className={classes.card}>
-            {/* <a
-            href={`https://www.themoviedb.org/movie/${data.data.id}`}
-            target="_blank"
-          > */}
             <CardMedia
               className={classes.media}
               style={{ height: "285px", width: "285px" }}
@@ -50,27 +51,12 @@ class SingleHomeMovie extends React.Component {
               }
               title={`${data.data.original_title}`}
             />
-            {/* </a> */}
             <CardContent>
               <Typography gutterBottom variant="headline" component="h2">
                 {`${data.data.original_title}`}
               </Typography>
-              {/* <Typography component="p">{`${data.data.overview}`}</Typography> */}
+              { loggedIn ? <Button size="small" color="primary" onClick={this.handleFavClick}>Add to favorites</Button> : null }
             </CardContent>
-
-            {/* <CardActions>
-              <Button size="small" color="primary">
-              <div>
-                <a
-                  href={`https://www.themoviedb.org/movie/${data.data.id}`}
-                  target="_blank"
-                >
-                  Learn More
-                </a>
-                </div>
-              </Button>
-             
-            </CardActions> */}
           </Card>
         </div>
       </React.Fragment>
