@@ -23,21 +23,21 @@ html {
 }
 
 
-/**
-|--------------------------------------------------
-| NAVBAR BELOW...
-|--------------------------------------------------
-*/
+                                                          /**
+                                                          |--------------------------------------------------
+                                                          | NAVBAR BELOW...
+                                                          |--------------------------------------------------
+                                                          */
 
 .links{
   text-decoration: none;
 }
 
-/**
-|--------------------------------------------------
-| HOME SCREEN BELOW...
-|--------------------------------------------------
-*/
+                                                          /**
+                                                          |--------------------------------------------------
+                                                          | HOME SCREEN BELOW...
+                                                          |--------------------------------------------------
+                                                          */
 
 .hidden {
   display: none;
@@ -109,9 +109,9 @@ div.home-container {
   font-weight: 400;
   src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
   src: local("Material Icons"), local("MaterialIcons-Regular"),
-    url(https://example.com/MaterialIcons-Regular.woff2) format("woff2"),
-    url(https://example.com/MaterialIcons-Regular.woff) format("woff"),
-    url(https://example.com/MaterialIcons-Regular.ttf) format("truetype");
+  url(https://example.com/MaterialIcons-Regular.woff2) format("woff2"),
+  url(https://example.com/MaterialIcons-Regular.woff) format("woff"),
+  url(https://example.com/MaterialIcons-Regular.ttf) format("truetype");
 }
 
 .material-icons.md-dark {
@@ -140,15 +140,15 @@ div.home-container {
   word-wrap: normal;
   white-space: nowrap;
   direction: ltr;
-
+  
   /* Support for all WebKit browsers. */
   -webkit-font-smoothing: antialiased;
   /* Support for Safari and Chrome. */
   text-rendering: optimizeLegibility;
-
+  
   /* Support for Firefox. */
   -moz-osx-font-smoothing: grayscale;
-
+  
   /* Support for IE. */
   font-feature-settings: "liga";
 }
@@ -231,16 +231,16 @@ div.home-container {
     /* display: flex;
     padding: 50px;
     padding-top: 120px; */
-
-      flex-direction: column;
-      display: flex;
-      justify-content: center;
-      justify-content: space-around;
-      align-items: center;
-      flex-wrap: wrap;
-      padding: 50px;
-      padding-top: 120px;
-  
+    
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 50px;
+    padding-top: 120px;
+    
   }
 }
 /* @media only screen and (min-width: 768px) {
@@ -253,7 +253,7 @@ div.home-container {
     flex-wrap: wrap;
     padding: 50px;
     padding-top: 120px;
-
+    
   }
 } */
 @media only screen and (min-width: 523px) {
@@ -270,7 +270,7 @@ div.home-container {
     flex-wrap: wrap;
     padding: 50px;
     padding-top: 120px;
-
+    
   }
 }
 @media only screen and (min-width: 1024px)  {
@@ -308,10 +308,10 @@ div.home-container {
   /* border-radius: 10px; */
 }
 
-/*____________________________________________________
-| LOGIN USER BELOW
-|_____________________________________________________
-*/
+                                                /*____________________________________________________
+                                                | LOGIN USER BELOW
+                                                |_____________________________________________________
+                                                */
 
 .loginBox {
   width: 100%;
@@ -338,9 +338,9 @@ div.home-container {
 
 #register-form{
   display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .getAppBox {
   /* height: 100%; */
@@ -349,6 +349,20 @@ div.home-container {
   justify-content: center;
   align-items: flex-end;
   margin-bottom: 0;
+}
+
+
+                                          /**
+                                          |--------------------------------------------------
+                                          | FAVORITES BELOW....
+                                          |--------------------------------------------------
+                                          */
+
+.favs-list{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 /* default */
 /* @media only screen and (min-width: 500px) {
@@ -384,7 +398,7 @@ div.home-container {
     display: flex;
     width: 100%;
     height: 100%;
-
+    
   }
   .home-nav-container{
     display: flex;
