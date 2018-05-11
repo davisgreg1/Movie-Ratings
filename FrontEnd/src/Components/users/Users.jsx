@@ -7,10 +7,10 @@ class Users extends Component {
     super(props)
   }
   render() {
-    const { currentUser, loggedIn, user, score } = this.props
+    const { currentUser, loggedIn, user, score, getUserScore } = this.props
     return (
       <Switch>
-        <Route  path='/users/:username' render={(props) => <Profile {...props} currentUser={user} score={score} />}/>
+        <Route  path='/users/:username' render={(props) => <Profile {...props} currentUser={user} score={score} getUserScore={getUserScore}/>}/>
         {/* <Route path='/users/:username/edit' render={(props) => <EditProfile {...props} user={user} />}/> */}
       </Switch>
     );

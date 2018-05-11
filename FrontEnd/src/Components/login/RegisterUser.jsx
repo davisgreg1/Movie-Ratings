@@ -35,8 +35,8 @@ const styles = theme => ({
 });
 
 class RegisterUser extends React.Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
   }
   state = {
     id: "",
@@ -80,7 +80,7 @@ class RegisterUser extends React.Component {
   };
 
   // When user submits form
-   handleFormSubmit = e => {
+  handleFormSubmit = e => {
     e.preventDefault();
     const {
       id,
@@ -100,6 +100,7 @@ class RegisterUser extends React.Component {
         password: password,
         email: email
       })
+
       .then(res => {
         console.log("REZ from post:", res);
         this.setState({
@@ -112,19 +113,18 @@ class RegisterUser extends React.Component {
           registered: true,
           message: "Registered user"
         });
+        axios
+          .post("users/score_zero", {
+            id: this.state.id
+          })
+          .then(res => {
+            console.log("state in zeroo:", this.state);
+            console.log("Score RES:", res);
+          })
+          .catch(err => {
+            console.log("settLE ERr:", err);
+          });
       })
-      // .then(
-      //   axios
-      //   .post("users/score_zero", {
-      //     user_id: this.state.id
-      //   })
-      //   .then(res => {
-      //     console.log("Score RES:", res);
-      //   })
-      //   .catch(err => {
-      //     console.log("settLE ERr:", err)
-      //   })
-      // )
       .catch(err => {
         console.log(err);
         this.setState({
@@ -136,7 +136,6 @@ class RegisterUser extends React.Component {
           message: "Error registering user"
         });
       });
-      this.settleTheScore();
   };
 
   settleTheScore = () => {

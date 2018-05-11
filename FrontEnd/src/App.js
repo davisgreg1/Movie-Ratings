@@ -168,7 +168,6 @@ class App extends React.Component {
           message: "Username/Password not found"
         });
       });
-      this.getUserScore();
   };
 
 
@@ -178,9 +177,10 @@ class App extends React.Component {
     });
     this.getUserScore();
   };
-
+  
   componentDidMount() {
     this.getUserInfo();
+    // this.getUserScore();
   }
 
   render() {
@@ -202,6 +202,7 @@ class App extends React.Component {
       appLogIn,
       frontendRegister,
       getUserInfo,
+      getUserScore,
       logOut,
       handleClick
     } = this;
@@ -244,6 +245,7 @@ class App extends React.Component {
                 password={password}
                 message={message}
                 loggedIn={loggedIn}
+                score={score}
               />
             )}
           />
@@ -260,7 +262,7 @@ class App extends React.Component {
           />
           <Route
             path="/users"
-            render={props => <Users {...props} score={score} currentUser={user} />}
+            render={props => <Users {...props} score={score} currentUser={user} getUserScore={getUserScore} />}
           />
           <Route
             path="/game"

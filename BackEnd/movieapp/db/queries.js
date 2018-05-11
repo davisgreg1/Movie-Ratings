@@ -39,67 +39,60 @@ const logoutUser = (req, res, next) => {
   , ${points} for insertScore's VALUES
   */
 
-  function registerUser(req, res, next) {
-    return authHelpers
-      .createUser(req)
-      .then(response => {
-        passport.authenticate("local", (err, user, info) => {
-          if (user) {
-            res.status(200).json({
-              status: "success",
-              data: user,
-              message: "Registered one user"
-            });
-          }
-        })(req, res, next);
-      })
-      .catch(err => {
-        console.log(error);
-        res.status(500).json({
-          status: "Error",
-          error: err
-        });
+function registerUser(req, res, next) {
+  return authHelpers
+    .createUser(req)
+    .then(response => {
+      passport.authenticate("local", (err, user, info) => {
+        if (user) {
+          res.status(200).json({
+            status: "success",
+            data: user,
+            message: "Registered one user"
+          });
+        }
+      })(req, res, next);
+    })
+    .catch(err => {
+      console.log(error);
+      res.status(500).json({
+        status: "Error",
+        error: err
       });
-  }
+    });
+}
 
 const getScore = (req, res, next) => {
   db
-  .one(
-    "SELECT * FROM scores WHERE user_id = ${id}",req.user
-  ) .then((data)=> {
-    res.status(200).json({
-      status: "success",
-      data: data,
-      message: "Fetched user's score"
+    .one("SELECT * FROM scores WHERE user_id = ${id}", req.user)
+    .then(data => {
+      res.status(200).json({
+        status: "success",
+        data: data,
+        message: "Fetched user's score"
+      });
+    })
+    .catch(err => {
+      return next(err);
     });
-  })
-  .catch((err)=> {
-    return next(err);
-  });
-}
+};
 
-const setScoreToZero = (req, res, next)=> {
+const setScoreToZero = (req, res, next) => {
   db
-  .any(
-    "INSERT INTO scores (user_id) VALUES (${id})",
-    {
-      user_id: req.body.user_id
-    }
-  )  .then(() => {
-    res.status(200)
-    .json({
-      status: 'Success.',
-      message: 'Successfully inserted score!'
+    .any("INSERT INTO scores (user_id) VALUES (${id})", req.body)
+    .then(() => {
+      res.status(200).json({
+        status: "Success.",
+        message: "Successfully inserted score!"
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).send("Error inserting score");
     });
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(500).send("Error inserting score");
-  });
-}
+};
 
 const updateUserScore = (req, res, next) => {
-
   db
     .none(
       "UPDATE scores SET points = ${points} WHERE user_id = ${id}",
@@ -134,49 +127,42 @@ const addToFavorites = (req, res, next) => {
       status: "Success!",
       movieDBID: data,
       message: "Successfully added a favorite movie."
-
     });
-  });
+  })
 }
 
 const removeFromFavorites = (req, res, next) => {
-  db
-  .result(
-    "DELETE FROM favorites WHERE id = ${id}", req.body
-  )
-  .then(data => {
+  db.none("DELETE FROM favorites WHERE id = ${id}", req.body).then(data => {
     res.status(200).json({
       status: "Success!",
       message: `Successfully deleted movie #${req.body.id}.`
     });
   });
-}
+};
 
 const getAllFavorites = (req, res, next) => {
   db
-  .any(
-    "SELECT * from favorites WHERE favorited_by = ${id}", req.user
-  )
-  .then(data => {
-    res.status(200).json({
-      status: "Success!",
-      data: data,
-      message: "Got all the favorite movies!"
+    .any("SELECT * from favorites WHERE favorited_by = ${id}", req.user)
+    .then(data => {
+      res.status(200).json({
+        status: "Success!",
+        data: data,
+        message: "Got all the favorite movies!"
+      });
     });
-  });
-}
+};
 
 const getSingleUser = (req, res, next) => {
   db
     .one("SELECT * FROM users WHERE username = ${username}", req.user)
-    .then(function (data) {
+    .then(function(data) {
       res.status(200).json({
         status: "success",
         userInfo: data,
         message: "Fetched one user"
       });
     })
-    .catch(function (err) {
+    .catch(function(err) {
       return next(err);
     });
 };
@@ -187,7 +173,7 @@ function getUserByUsername(req, res, next) {
       "SELECT * FROM users WHERE LOWER(username) = LOWER(${username})",
       req.params
     )
-    .then(function (data) {
+    .then(function(data) {
       res.status(200).json({
         status: "success",
         user: data,
@@ -214,5 +200,5 @@ module.exports = {
   getAllFavorites,
   getSingleUser,
   getUserByUsername,
-  getScore,
+  getScore
 };
