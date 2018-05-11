@@ -2,17 +2,16 @@ import React from "react";
 import "../Views/index.css";
 // eslint-disable-next-line
 import OneMovie from "./OneMovie";
-import SingleHomeMovie from './SingleHomeMovie';
+import SingleHomeMovie from "./SingleHomeMovie";
 // eslint-disable-next-line
 // import dotenv from 'dotenv';
 import currencyFormatter from "currency-formatter";
 import swal from "sweetalert2";
-import axios from 'axios';
+import axios from "axios";
 
 import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
 import CircularProgress from "material-ui/Progress/CircularProgress";
 import { withStyles } from "material-ui/styles";
-
 
 const KEY = process.env.REACT_APP_OMDB_KEY;
 const API_KEY = "d3b24aad8f7a69f5d20f89822a6102f8";
@@ -103,7 +102,7 @@ class Game extends React.Component {
       message: "",
       movie1: null,
       movie2: null,
-      score: "",
+      score: this.props.originalScore,
       currentUser: "",
       winner: null,
       loser: null,
@@ -121,7 +120,6 @@ class Game extends React.Component {
         // `https://api.themoviedb.org/3/movie/216015?api_key=${API_KEY}&language=en-US`
       )
       .then(response => {
-        console.log("movie 1 response in Game:", response)
         this.setState({
           movie1: response,
           movie1Revenue: response.data.revenue,
@@ -139,7 +137,6 @@ class Game extends React.Component {
           `http://api.themoviedb.org/3/movie/${randomMovieID2}?api_key=${API_KEY}`
         )
         .then(response => {
-          console.log("movie 2 response in Game:", response)
           this.setState({
             movie2: response,
             movie2Revenue: response.data.revenue,
@@ -163,9 +160,10 @@ class Game extends React.Component {
               this.state.movie1MoneyEarned > this.state.movie2MoneyEarned
                 ? this.state.movie1.data
                 : this.state.movie2.data,
-            loser: this.state.movie1MoneyEarned < this.state.movie2MoneyEarned
-            ? this.state.movie1.data
-            : this.state.movie2.data,
+            loser:
+              this.state.movie1MoneyEarned < this.state.movie2MoneyEarned
+                ? this.state.movie1.data
+                : this.state.movie2.data
           });
         })
         .catch(error => {
@@ -184,8 +182,10 @@ class Game extends React.Component {
       movie1,
       movie2,
       movie1MoneyEarned,
-      movie2MoneyEarned
+      movie2MoneyEarned,
+      score
     } = this.state;
+    const { classes, user, originalScore, getUserScore } = this.props;
     let diff = movie1MoneyEarned - movie2MoneyEarned;
 
     // console.log("the WINNER:", winner.original_title)
@@ -193,46 +193,60 @@ class Game extends React.Component {
     // console.log("the LOSER:", loser.original_title)
     // console.log("the LOSER REV:", loser.revenue)
 
-    if (e.target.title === winner.original_title) { 
+    if (e.target.title === winner.original_title) {
+      let num = originalScore;
+      this.setState({
+        score: (this.state.score += 10)
+      });
       swal({
-            title: "Sweet!",
-            text: `Congratulations, you win! ${
-              e.target.title
-            } grossed ${currencyFormatter.format(
-              Math.abs(winner.revenue),
-              { code: "USD" }
-            )} and it made a whopping ${currencyFormatter.format(
-              Math.abs(diff),
-              { code: "USD" }
-            )} more than ${
-              loser.original_title
-            }! Sign up to join the leaderboard!`,
-            imageUrl: `${baseURL}${winner.poster_path}`,
-            imageWidth: 400,
-            imageHeight: 200,
-            imageAlt: "Custom image",
-            animation: true
-          })
-        }
-        if(e.target.title === loser.original_title){
-        swal({
-            title: "Sorry!",
-            text: `${e.target.title} grossed ${currencyFormatter.format(
-              Math.abs(loser.revenue),
-              { code: "USD" }
-            )}, but didn't earn more than ${
-              winner.original_title
-            }. Avenge your dignity by signing up to play more!`,
-            imageUrl: `${baseURL}${loser.poster_path}`,
-            imageWidth: 400,
-            imageHeight: 200,
-            imageAlt: "Custom image",
-            animation: true
-          });
-     }
+        title: "Sweet!",
+        text: `Congratulations, you win! ${
+          e.target.title
+        } grossed ${currencyFormatter.format(Math.abs(winner.revenue), {
+          code: "USD"
+        })} and it made a whopping ${currencyFormatter.format(Math.abs(diff), {
+          code: "USD"
+        })} more than ${loser.original_title}`,
+        imageUrl: `${baseURL}${winner.poster_path}`,
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: "Custom image",
+        animation: true
+      });
+    }
+    if (e.target.title === loser.original_title) {
+      swal({
+        title: "Sorry!",
+        text: `${e.target.title} grossed ${currencyFormatter.format(
+          Math.abs(loser.revenue),
+          { code: "USD" }
+        )}, but didn't earn more than ${winner.original_title}.`,
+        imageUrl: `${baseURL}${loser.poster_path}`,
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: "Custom image",
+        animation: true
+      });
+    }
+    this.postScore();
+    setTimeout(() => {
+      this.getTwoMovies();
+    }, 5000);
   };
 
-
+  postScore = () => {
+    axios
+      .patch("users/score_update", {
+        points: this.state.score,
+        id: this.props.currentUser.id
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   handleSubmit = e => {
     e.preventDefault();
@@ -286,12 +300,9 @@ class Game extends React.Component {
   // renderMovie = () => {   const {movies} = this.state;   return (<OneMovie
   // movie={movies.title}/>) }
 
-
   componentWillMount() {
     this.getTwoMovies();
   }
-
-
 
   render() {
     const {
@@ -309,6 +320,7 @@ class Game extends React.Component {
     } = this.state;
     const { classes, user, originalScore, getUserScore } = this.props;
     console.log("the props in Game:", this.props);
+    console.log("the stATE in Game:", this.state);
     return (
       <React.Fragment>
         <div id="movie-1-and-2-container">
@@ -316,50 +328,49 @@ class Game extends React.Component {
             <div>MUST BE LOGGED IN.</div>
           ) : (
             <div className="default-home-screen">
-            <div>{this.props.currentUser.firstname} your turn to play</div>
-            <div>Your score is: {score}</div>
-                {!movie1 || !movie2 ? (
-                  <CircularProgress
-                    size={50}
-                    left={70}
-                    top={0}
-                    loadingColor="#FF9800"
-                    status="loading"
-                    style={{
-                      display: "inlineBlock",
-                      position: "relative"
-                    }}
-                  />
-                ) : (
-                  <div className="single-movie-container">
-                    <Card
-                      className={classes.card}
-                      id="movie_num_1"
-                      name="movie_num_1"
-                      onClick={this.getWinner}
-                    >
-                      <SingleHomeMovie data={movie1} />
-
-                    </Card>
-                    <div className="versus-div">
-                      <span id="versus-span">VS</span>
-                    </div>
-                    <Card
-                      className={classes.card}
-                      id="movie_num_2"
-                      name="movie_num_2"
-                      onClick={this.getWinner}
-                    >
-                      <SingleHomeMovie data={movie2} />
-                    </Card>
-                    Select The Movie You Think Made More In Profits!!
+              <div>{this.props.currentUser.firstname} your turn to play</div>
+              <div>Your score is: {score}</div>
+              {!movie1 || !movie2 ? (
+                <CircularProgress
+                  size={50}
+                  left={70}
+                  top={0}
+                  loadingColor="#FF9800"
+                  status="loading"
+                  style={{
+                    display: "inlineBlock",
+                    position: "relative"
+                  }}
+                />
+              ) : (
+                <div className="single-movie-container">
+                  <Card
+                    className={classes.card}
+                    id="movie_num_1"
+                    name="movie_num_1"
+                    onClick={this.getWinner}
+                  >
+                    <SingleHomeMovie data={movie1} />
+                  </Card>
+                  <div className="versus-div">
+                    <span id="versus-span">VS</span>
                   </div>
-                )}
-              </div>
-            )}
-            </div>   
+                  <Card
+                    className={classes.card}
+                    id="movie_num_2"
+                    name="movie_num_2"
+                    onClick={this.getWinner}
+                  >
+                    <SingleHomeMovie data={movie2} />
+                  </Card>
+                  Select The Movie You Think Made More In Profits!!
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </React.Fragment>
-    )
+    );
   }
 }
 export default withStyles(styles)(Game);
