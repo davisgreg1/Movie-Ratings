@@ -8,22 +8,25 @@ export default class Favorites extends Component {
 
     this.state = {
       user: null,
+      movieData: null,
       favorites: []
     };
   }
 
   getAllFavs = () => {
-  axios.get('/users/favorites')
-  .then(response => {
-    this.setState({
-      favorites: response.data.data
-    })
-    console.log(response);
-  })
-  .catch( (error)=> {
-    console.log(error);
-  });
-}
+    axios
+      .get("/users/favorites")
+      .then(response => {
+        this.setState({
+          movieData: response,
+          favorites: response.data.data
+        });
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   // getAllFavs() {
   //   console.log("here in getallfavs")
@@ -42,15 +45,22 @@ export default class Favorites extends Component {
 
   componentDidMount() {
     this.getAllFavs();
+    this.setState({ user: this.props.currentUser });
   }
 
   render() {
-    const {favorites}=this.state;
-    const{currentUser, loggedIn }=this.props;
+    const { favorites } = this.state;
+    const { currentUser, loggedIn } = this.props;
     console.log("props in favs:", this.props);
-    return <React.Fragment>
-      <FavoriteMovieList currentUser={currentUser} loggedIn={loggedIn} movies={favorites}/>
-      
-      </React.Fragment>;
+    console.log("state in favs:", this.state);
+    return (
+      <React.Fragment>
+        <FavoriteMovieList
+          currentUser={currentUser}
+          loggedIn={loggedIn}
+          movies={favorites}
+        />
+      </React.Fragment>
+    );
   }
 }

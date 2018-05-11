@@ -4,6 +4,7 @@ import { withStyles } from "material-ui/styles";
 import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
 import Button from "material-ui/Button";
 import Typography from "material-ui/Typography";
+import axios from "axios";
 import "../../Views/App.css";
 
 const styles = {
@@ -25,8 +26,24 @@ class FavoriteMovieList extends React.Component {
     super(props);
   }
 
+  removeFromFavs = movie => {
+    console.log("the movie id:", movie.id);
+    axios
+      .delete("/users/removeFavorite", {
+        data:{id: movie.id}
+      })
+      .then(response => {
+        console.log("rez from rff:", response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   render() {
-    const { classes, data, loggedIn, currentUser, movies } = this.props;
+    const { classes, loggedIn, currentUser, movies } = this.props;
+    const { removeFromFavs } = this;
+    console.log("the movies in fml:", movies);
     return (
       <div className="favs-list">
         {movies.map(movie => (
@@ -40,9 +57,7 @@ class FavoriteMovieList extends React.Component {
                 <CardMedia
                   className={classes.media}
                   style={{ height: "285px", width: "285px" }}
-                  image={
-                    movie.movie_imgurl
-                  }
+                  image={movie.movie_imgurl}
                   title={movie.movie_title}
                 />
               </a>
@@ -55,7 +70,7 @@ class FavoriteMovieList extends React.Component {
               <CardActions value={movie.movie_imdb_id} name={movie.movie_title}>
                 {loggedIn ? (
                   <Button
-                    onClick={()=>{alert("removed from favs")}}
+                    onClick={() => removeFromFavs(movie)}
                     value={movie.movie_imdb_id}
                     name={movie.movie_title}
                   >

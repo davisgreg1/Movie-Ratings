@@ -37,7 +37,7 @@ router.patch("/score_update", loginRequired, db.updateUserScore);
 | DELETE ROUTES BELOW...
 |--------------------------------------------------
 */
-router.delete("/removeFavorites", loginRequired, db.removeFromFavorites);
+router.delete("/removeFavorite", loginRequired, db.removeFromFavorites);
 
 
 module.exports = router;
