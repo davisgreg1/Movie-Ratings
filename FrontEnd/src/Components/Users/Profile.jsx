@@ -89,23 +89,22 @@ class Profile extends React.Component {
 
   componentDidMount() {
     const { getProfileUser } = this;
+    const {getUserScore} = this.props;
     getProfileUser();
+    getUserScore()
   }
 
   render() {
-    const { classes, currentUser } = this.props;
+    console.log("the profile props:", this.props)
+    const { classes, currentUser , score, getUserScore} = this.props;
     const { auth, anchorEl, fireRedirect, profileUser } = this.state;
     const open = Boolean(anchorEl);
-
-    // if (fireRedirect) {
-    //   return <Redirect to={`/`} />;
-    // }
 
     return (
       <React.Fragment>
         <div className={"classes.root"}>
         {/* <NavBar/> */}
-          Welcome {profileUser.username} currentscore:{this.props.score}
+          Welcome {profileUser.username} currentscore:{score}
         </div>
       </React.Fragment>
     );
