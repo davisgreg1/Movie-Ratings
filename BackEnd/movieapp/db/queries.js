@@ -127,11 +127,12 @@ const updateUserScore = (req, res, next) => {
 const addToFavorites = (req, res, next) => {
   db
   .none(
-    "INSERT INTO favorites (movie_imdb_id, movie_title, movie_imgurl, movie_website, favorited_by) VALUES (${movie_imdb_id}, ${movie_title}, ${movie_imgurl}, ${movie_website}, ${favorited_by})",req.body
+    "INSERT INTO favorites (movie_imdb_id, movie_title, movie_imgurl, movie_website, favorited_by) VALUES (${movie_imdb_id}, ${movie_title}, ${movie_imgurl}, ${movie_website}, ${favorited_by})", req.body
   )
   .then(data => { 
     res.status(200).json({
       status: "Success!",
+      movieDBID: data,
       message: "Successfully added a favorite movie."
 
     });
@@ -140,13 +141,13 @@ const addToFavorites = (req, res, next) => {
 
 const removeFromFavorites = (req, res, next) => {
   db
-  .none(
+  .result(
     "DELETE FROM favorites WHERE id = ${id}", req.body
   )
   .then(data => {
     res.status(200).json({
       status: "Success!",
-      message: "Successfully deleted the movie."
+      message: `Successfully deleted movie #${req.body.id}.`
     });
   });
 }
