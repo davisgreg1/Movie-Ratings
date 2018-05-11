@@ -285,6 +285,8 @@ class Game extends React.Component {
     this.getTwoMovies();
   }
 
+
+  
   render() {
     const {
       player1Name,
@@ -299,7 +301,7 @@ class Game extends React.Component {
       score,
       currentUser
     } = this.state;
-    const { classes, user } = this.props;
+    const { classes, user, originalScore, getUserScore } = this.props;
     console.log("the props in Game:", this.props);
     return (
       <React.Fragment>
@@ -309,6 +311,7 @@ class Game extends React.Component {
           ) : (
             <div className="default-home-screen">
             <div>{this.props.currentUser.firstname} your turn to play</div>
+            <div>Your score is: {score}</div>
                 {!movie1 || !movie2 ? (
                   <CircularProgress
                     size={50}
