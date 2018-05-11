@@ -266,7 +266,7 @@ class App extends React.Component {
           />
           <Route
             path="/game"
-            render={props => <Game {...props} score={score} loggedIn={loggedIn} currentUser={user} />}
+            render={props => <Game {...props} originalScore={score} loggedIn={loggedIn} currentUser={user} getUserScore={getUserScore}/>}
           />
           <Route
             path="/favorites"

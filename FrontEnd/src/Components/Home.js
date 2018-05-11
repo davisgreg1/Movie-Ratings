@@ -26,8 +26,7 @@ import "../Views/App.css";
 const API_KEY = "d3b24aad8f7a69f5d20f89822a6102f8";
 
 //Global variables for winner and loser of the two movies in the getWinner function
-let theCurrentWinner;
-let theCurrentLoser;
+
 let baseURL = `http://image.tmdb.org/t/p/w185`;
 
 //Styles for Material UI
@@ -133,7 +132,8 @@ class Home extends React.Component {
     movie2Revenue: "",
     movie2Budget: "",
     movie2MoneyEarned: "",
-    winner: ""
+    winner: null,
+    loser: null
   };
 
   handleInput = e => {
@@ -187,7 +187,7 @@ class Home extends React.Component {
   };
 
   handleChange = (event, checked) => {
-    console.log("event in change:", event);
+    // console.log("event in change:", event);
     this.setState({ auth: checked });
   };
 
@@ -233,8 +233,11 @@ class Home extends React.Component {
           this.setState({
             winner:
               this.state.movie1MoneyEarned > this.state.movie2MoneyEarned
-                ? this.state.movie1.data.original_title
-                : this.state.movie2.data.original_title
+                ? this.state.movie1.data
+                : this.state.movie2.data,
+            loser: this.state.movie1MoneyEarned < this.state.movie2MoneyEarned
+            ? this.state.movie1.data
+            : this.state.movie2.data,
           });
         })
         .catch(error => {
@@ -250,60 +253,56 @@ class Home extends React.Component {
     e.stopPropagation();
     const {
       winner,
+      loser,
       movie1,
       movie2,
       movie1MoneyEarned,
       movie2MoneyEarned
     } = this.state;
-
     let diff = movie1MoneyEarned - movie2MoneyEarned;
 
-    if (
-      e.target.title === this.state.winner ||
-      e.target.title !== this.state.winner
-    ) {
-      if (e.target.title === this.state.movie1.data.original_title) {
-        theCurrentWinner = this.state.movie1;
-        theCurrentLoser = this.state.movie2;
-      } else if (e.target.title === this.state.movie2.data.original_title) {
-        theCurrentWinner = this.state.movie2;
-        theCurrentLoser = this.state.movie1;
-      }
-      e.target.title === winner
-        ? swal({
+    // console.log("the WINNER:", winner.original_title)
+    // console.log("the WINNER REV:", winner.revenue)
+    // console.log("the LOSER:", loser.original_title)
+    // console.log("the LOSER REV:", loser.revenue)
+
+    if (e.target.title === winner.original_title) { 
+      swal({
             title: "Sweet!",
             text: `Congratulations, you win! ${
               e.target.title
             } grossed ${currencyFormatter.format(
-              Math.abs(theCurrentWinner.data.revenue),
+              Math.abs(winner.revenue),
               { code: "USD" }
             )} and it made a whopping ${currencyFormatter.format(
               Math.abs(diff),
               { code: "USD" }
             )} more than ${
-              theCurrentLoser.data.original_title
+              loser.original_title
             }! Sign up to join the leaderboard!`,
-            imageUrl: `${baseURL}${theCurrentWinner.data.poster_path}`,
+            imageUrl: `${baseURL}${winner.poster_path}`,
             imageWidth: 400,
             imageHeight: 200,
             imageAlt: "Custom image",
             animation: true
           })
-        : swal({
+        }
+        if(e.target.title === loser.original_title){
+        swal({
             title: "Sorry!",
             text: `${e.target.title} grossed ${currencyFormatter.format(
-              Math.abs(theCurrentLoser.data.revenue),
+              Math.abs(loser.revenue),
               { code: "USD" }
             )}, but didn't earn more than ${
-              theCurrentWinner.data.original_title
+              winner.original_title
             }. Avenge your dignity by signing up to play more!`,
-            imageUrl: `${baseURL}${theCurrentWinner.data.poster_path}`,
+            imageUrl: `${baseURL}${loser.poster_path}`,
             imageWidth: 400,
             imageHeight: 200,
             imageAlt: "Custom image",
             animation: true
           });
-    }
+     }
   };
 
   setAuth = () => {
@@ -327,10 +326,10 @@ class Home extends React.Component {
 
   render() {
     const { classes, user, loggedIn } = this.props;
-    const { auth, anchorEl, data, searchText, movie1, movie2 } = this.state;
+    const { auth, anchorEl, data, searchText, movie1, movie2, winner, loser } = this.state;
     const { _keyPress, handleInput, getWinner } = this;
     const open = Boolean(anchorEl);
-    console.log("props in home:", this.props)
+    console.log("props in home:", this.props,"the state in home:,",this.state)
 
     return (
       <React.Fragment id="home-screen">
