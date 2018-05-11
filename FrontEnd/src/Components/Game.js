@@ -98,19 +98,17 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      player1Name: "",
-      player2Name: "",
       player1Score: "",
       player2Score: "",
       message: "",
       movie1: null,
       movie2: null,
-      player1RatingChoice: "",
-      player2RatingChoice: "",
-      movie1Rating: "",
-      movie2Rating: "",
       score: "",
-      currentUser: ""
+      currentUser: "",
+      winner: null,
+      loser: null,
+      movie1MoneyEarned: "",
+      movie2MoneyEarned: ""
     };
   }
 
@@ -159,6 +157,17 @@ class Game extends React.Component {
                 : this.state.movie2.data.original_title
           });
         })
+        .then(() => {
+          this.setState({
+            winner:
+              this.state.movie1MoneyEarned > this.state.movie2MoneyEarned
+                ? this.state.movie1.data
+                : this.state.movie2.data,
+            loser: this.state.movie1MoneyEarned < this.state.movie2MoneyEarned
+            ? this.state.movie1.data
+            : this.state.movie2.data,
+          });
+        })
         .catch(error => {
           console.log(error);
         });
@@ -171,61 +180,58 @@ class Game extends React.Component {
     e.stopPropagation();
     const {
       winner,
+      loser,
       movie1,
       movie2,
       movie1MoneyEarned,
       movie2MoneyEarned
     } = this.state;
-
     let diff = movie1MoneyEarned - movie2MoneyEarned;
 
-    if (
-      e.target.title === this.state.winner ||
-      e.target.title !== this.state.winner
-    ) {
-      if (e.target.title === this.state.movie1.data.original_title) {
-        theCurrentWinner = this.state.movie1;
-        theCurrentLoser = this.state.movie2;
-      } else if (e.target.title === this.state.movie2.data.original_title) {
-        theCurrentWinner = this.state.movie2;
-        theCurrentLoser = this.state.movie1;
-      }
-      e.target.title === winner
-        ? swal({
+    // console.log("the WINNER:", winner.original_title)
+    // console.log("the WINNER REV:", winner.revenue)
+    // console.log("the LOSER:", loser.original_title)
+    // console.log("the LOSER REV:", loser.revenue)
+
+    if (e.target.title === winner.original_title) { 
+      swal({
             title: "Sweet!",
             text: `Congratulations, you win! ${
               e.target.title
             } grossed ${currencyFormatter.format(
-              Math.abs(theCurrentWinner.data.revenue),
+              Math.abs(winner.revenue),
               { code: "USD" }
             )} and it made a whopping ${currencyFormatter.format(
               Math.abs(diff),
               { code: "USD" }
             )} more than ${
-              theCurrentLoser.data.original_title
+              loser.original_title
             }! Sign up to join the leaderboard!`,
-            imageUrl: `${baseURL}${theCurrentWinner.data.poster_path}`,
+            imageUrl: `${baseURL}${winner.poster_path}`,
             imageWidth: 400,
             imageHeight: 200,
             imageAlt: "Custom image",
             animation: true
           })
-        : swal({
+        }
+        if(e.target.title === loser.original_title){
+        swal({
             title: "Sorry!",
             text: `${e.target.title} grossed ${currencyFormatter.format(
-              Math.abs(theCurrentLoser.data.revenue),
+              Math.abs(loser.revenue),
               { code: "USD" }
             )}, but didn't earn more than ${
-              theCurrentWinner.data.original_title
+              winner.original_title
             }. Avenge your dignity by signing up to play more!`,
-            imageUrl: `${baseURL}${theCurrentWinner.data.poster_path}`,
+            imageUrl: `${baseURL}${loser.poster_path}`,
             imageWidth: 400,
             imageHeight: 200,
             imageAlt: "Custom image",
             animation: true
           });
-    }
+     }
   };
+
 
 
   handleSubmit = e => {
@@ -286,7 +292,7 @@ class Game extends React.Component {
   }
 
 
-  
+
   render() {
     const {
       player1Name,
