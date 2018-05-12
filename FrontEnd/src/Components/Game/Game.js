@@ -187,11 +187,6 @@ class Game extends React.Component {
     const { classes, user, originalScore, getUserScore } = this.props;
     let diff = movie1MoneyEarned - movie2MoneyEarned;
 
-    // console.log("the WINNER:", winner.original_title)
-    // console.log("the WINNER REV:", winner.revenue)
-    // console.log("the LOSER:", loser.original_title)
-    // console.log("the LOSER REV:", loser.revenue)
-
     if (e.target.title === winner.original_title) {
       let num = originalScore;
       this.setState({
@@ -219,7 +214,7 @@ class Game extends React.Component {
         text: `${e.target.title} grossed ${currencyFormatter.format(
           Math.abs(loser.revenue),
           { code: "USD" }
-        )}, but didn't earn more than ${winner.original_title}.`,
+        )}, but didn't earn more in profits than ${winner.original_title}.`,
         imageUrl: `${baseURL}${loser.poster_path}`,
         imageWidth: 400,
         imageHeight: 200,

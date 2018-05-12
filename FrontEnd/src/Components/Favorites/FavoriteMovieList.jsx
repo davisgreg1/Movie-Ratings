@@ -30,7 +30,7 @@ class FavoriteMovieList extends React.Component {
     console.log("the movie id:", movie.id);
     axios
       .delete("/users/removeFavorite", {
-        data:{id: movie.id}
+        data: { id: movie.id }
       })
       .then(response => {
         console.log("rez from rff:", response);
@@ -46,62 +46,102 @@ class FavoriteMovieList extends React.Component {
     console.log("the movies in fml:", movies);
     return (
       <div className="favs-list">
-        {movies.map(movie => (
-          <div clasName="all-cards-container">
-            <Card
-              className={classes.card}
-              value={movie.movie_imdb_id}
-              name={movie.movie_title}
-            >
-              <a href={`${movie.movie_website}`} target="_blank">
-                <CardMedia
-                  className={classes.media}
-                  style={{ height: "285px", width: "285px" }}
-                  image={movie.movie_imgurl}
-                  title={movie.movie_title}
-                />
-              </a>
-              <CardContent>
-                <Typography gutterBottom variant="headline" component="h2">
-                  {movie.movie_title}
-                </Typography>
-              </CardContent>
+        {!currentUser ? (
+          <div>You must be logged in. </div>
+        ) : (
+          movies.map(movie => (
+            <div clasName="all-cards-container">
+              <Card
+                className={classes.card}
+                value={movie.movie_imdb_id}
+                name={movie.movie_title}
+              >
+                <a href={`${movie.movie_website}`} target="_blank">
+                  <CardMedia
+                    className={classes.media}
+                    style={{ height: "285px", width: "285px" }}
+                    image={movie.movie_imgurl}
+                    title={movie.movie_title}
+                  />
+                </a>
+                <CardContent>
+                  <Typography gutterBottom variant="headline" component="h2">
+                    {movie.movie_title}
+                  </Typography>
+                </CardContent>
 
-              <CardActions value={movie.movie_imdb_id} name={movie.movie_title}>
-                {loggedIn ? (
-                  <Button
-                    onClick={() => removeFromFavs(movie)}
-                    value={movie.movie_imdb_id}
-                    name={movie.movie_title}
-                  >
-                    Remove From Favorites
-                  </Button>
-                ) : (
-                  <Button size="small" color="primary">
-                    <a href={movie.movie_website} target="_blank">
-                      Learn More
-                    </a>
-                  </Button>
-                )}
-              </CardActions>
-            </Card>
-          </div>
-        ))}
+                <CardActions
+                  value={movie.movie_imdb_id}
+                  name={movie.movie_title}
+                >
+                  {loggedIn ? (
+                    <Button
+                      onClick={() => removeFromFavs(movie)}
+                      value={movie.movie_imdb_id}
+                      name={movie.movie_title}
+                    >
+                      Remove From Favorites
+                    </Button>
+                  ) : (
+                    <Button size="small" color="primary">
+                      <a href={movie.movie_website} target="_blank">
+                        Learn More
+                      </a>
+                    </Button>
+                  )}
+                </CardActions>
+              </Card>
+            </div>
+          ))
+        ) && currentUser && movies.length > 0 ? (
+          movies.map(movie => (
+            <div clasName="all-cards-container">
+              <Card
+                className={classes.card}
+                value={movie.movie_imdb_id}
+                name={movie.movie_title}
+              >
+                <a href={`${movie.movie_website}`} target="_blank">
+                  <CardMedia
+                    className={classes.media}
+                    style={{ height: "285px", width: "285px" }}
+                    image={movie.movie_imgurl}
+                    title={movie.movie_title}
+                  />
+                </a>
+                <CardContent>
+                  <Typography gutterBottom variant="headline" component="h2">
+                    {movie.movie_title}
+                  </Typography>
+                </CardContent>
+
+                <CardActions
+                  value={movie.movie_imdb_id}
+                  name={movie.movie_title}
+                >
+                  {loggedIn ? (
+                    <Button
+                      onClick={() => removeFromFavs(movie)}
+                      value={movie.movie_imdb_id}
+                      name={movie.movie_title}
+                    >
+                      Remove From Favorites
+                    </Button>
+                  ) : (
+                    <Button size="small" color="primary">
+                      <a href={movie.movie_website} target="_blank">
+                        Learn More
+                      </a>
+                    </Button>
+                  )}
+                </CardActions>
+              </Card>
+            </div>
+          ))
+        ) :  <div>Search for movies to favorite</div> }
       </div>
     );
   }
 }
 
 export default withStyles(styles)(FavoriteMovieList);
-/**
-|--------------------------------------------------
-|     //   <div className='movie-item'>
-          //     <img src={movie.movie_imgurl} alt='movie poster' />
-          //     <div className='movie-info'>
-          //       <div className='movie-title'>{movie.movie_title}</div>
-          //       <div className='movie-more-info'><a href = {`${movie.movie_website}`} target= "_blank">More info
-          //       </a></div>
-          //     </div>
-          //   </div>
-|--------------------------------------------------
-*/
