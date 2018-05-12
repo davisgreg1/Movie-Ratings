@@ -28,21 +28,6 @@ export default class Favorites extends Component {
       });
   };
 
-  // getAllFavs() {
-  //   console.log("here in getallfavs")
-  //   const { movies, user } = this.state;
-  //   const { currentUser } = this.props;
-  //   async function getAllMovies() {
-  //     try {
-  //       const response = await axios.get("/users/favorites");
-  //       await console.log("response:",response)
-
-  //     } catch (error) {
-  //       console.error("error:", error);
-  //     }
-  //   }
-  // }
-
   componentDidMount() {
     this.getAllFavs();
     this.setState({ user: this.props.currentUser });

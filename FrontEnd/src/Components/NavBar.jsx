@@ -18,6 +18,7 @@ import Button from "material-ui/Button";
 import Game from "./Game/Game";
 import "../Views/App.css";
 //Styles for Material UI
+
 const styles = {
   root: {
     height: "100%",
@@ -64,8 +65,8 @@ class NavBar extends Component {
     };
     return (
       <Fragment>
-        <AppBar position="sticky">
-          <Toolbar>
+        <AppBar position="sticky" className="testBar">
+          <Toolbar className="testToolBar">
             <Link to="/">
               <Typography
                 variant="title"
@@ -101,23 +102,9 @@ class NavBar extends Component {
     };
     return (
       <Fragment>
-        <FormGroup className="seek">
-          {/* <FormControlLabel
-            control={
-              <Switch
-                checked={this.props.loggedIn}
-                onChange={this.props.handleIWantToLoginChange}
-                value={this.props.loggedIn}
-                onClick={this.props.handleClick}
-                aria-label="LoginSwitch"
-              />
-            }
-            label={!this.props.loggedIn ? "Login/Sign Up" : "Logout"}
-          /> */}
-        </FormGroup>
-        <AppBar position="sticky">
-          <Toolbar>
-            {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+        <AppBar position="sticky" className = "testBar">
+          <Toolbar className="testToolBar">
+            {/* <IconButton className={this.props.classes.menuButton} color="inherit" aria-label="Menu">
              <MenuIcon />
            </IconButton> */}
             <Link to="/" className="links">
@@ -130,8 +117,8 @@ class NavBar extends Component {
               </Typography>
             </Link>
             <div className="iconbutton-container">
-              <Button href="/login" className={"classes.button"}>
-                Log In
+              <Button href="/login" className={this.props.classes.button}>
+                Login
               </Button>
             </div>
           </Toolbar>
@@ -167,8 +154,8 @@ class NavBar extends Component {
             <div title="Profile" />
           </Link>
         </FormGroup>
-        <AppBar position="sticky">
-          <Toolbar>
+        <AppBar position="sticky" className="testBar">
+          <Toolbar className="testToolBar">
             <Link to="/" className="links">
               <Typography
                 variant="title"
@@ -178,9 +165,6 @@ class NavBar extends Component {
                 Movie Fights!
               </Typography>
             </Link>
-            <Button href="/login" onClick={logOut} className={"classes.button"}>
-              Log Out
-            </Button>
             <div>
               <IconButton
                 aria-owns={open ? "menu-appbar" : null}
@@ -216,17 +200,9 @@ class NavBar extends Component {
                   </MenuItem>
                 </Link>
               </Menu>
-            </div>
-
-            <div className="iconbutton-container">
-              {/* <IconButton
-                  aria-owns={this.open ? "menu-appbar" : null}
-                  aria-haspopup="true"
-                  onClick={this.handleMenu}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton> */}
+              <Button href="/login" onClick={logOut} className={"classes.button"}>
+              Logout
+            </Button>
             </div>
           </Toolbar>
         </AppBar>

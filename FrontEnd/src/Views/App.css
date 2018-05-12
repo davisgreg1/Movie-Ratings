@@ -33,6 +33,14 @@ html {
   text-decoration: none;
 }
 
+.testBar{
+  display: flex;
+  justify-content: space-around;
+}
+.testToolBar{
+  display: flex;
+  justify-content: space-between;
+}
                                                           /**
                                                           |--------------------------------------------------
                                                           | HOME SCREEN BELOW...

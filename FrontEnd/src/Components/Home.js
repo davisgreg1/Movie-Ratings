@@ -292,7 +292,7 @@ class Home extends React.Component {
             text: `${e.target.title} grossed ${currencyFormatter.format(
               Math.abs(loser.revenue),
               { code: "USD" }
-            )}, but didn't earn more than ${
+            )}, but didn't earn more in profits than ${
               winner.original_title
             }. Avenge your dignity by signing up to play more!`,
             imageUrl: `${baseURL}${loser.poster_path}`,
