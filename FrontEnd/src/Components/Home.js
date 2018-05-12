@@ -158,7 +158,6 @@ class Home extends React.Component {
         `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${searchText}&page=1&include_adult=false`
       )
       .then(response => {
-        console.log("The movie response:", response);
         this.setState({
           data: response
         });
@@ -329,7 +328,6 @@ class Home extends React.Component {
     const { auth, anchorEl, data, searchText, movie1, movie2, winner, loser } = this.state;
     const { _keyPress, handleInput, getWinner } = this;
     const open = Boolean(anchorEl);
-    console.log("props in home:", this.props,"the state in home:,",this.state)
 
     return (
       <React.Fragment id="home-screen">
@@ -393,6 +391,9 @@ class Home extends React.Component {
                 )}
               </div>
             )}
+          </div>
+          <div>
+            <Link to='/leaderboard'> view leaderboard</Link>
           </div>
         </div>
       </React.Fragment>
