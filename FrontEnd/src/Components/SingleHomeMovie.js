@@ -27,15 +27,8 @@ class SingleHomeMovie extends React.Component {
     super(props);
   }
 
-  handleFavClick = e => {
-    e.stopPropagation();
-    e.preventDefault();
-    console.log("clicked")
-  }
-
   render() {
     const { classes, data, loggedIn, currentUser } = this.props;
-    console.log("the movie PROPS IN HOMESCREEN:", this.props);
     let baseURL = `http://image.tmdb.org/t/p/w185`;
     return (
       <React.Fragment>
@@ -55,7 +48,6 @@ class SingleHomeMovie extends React.Component {
               <Typography gutterBottom variant="headline" component="h2">
                 {`${data.data.original_title}`}
               </Typography>
-              { loggedIn ? <Button size="small" color="primary" onClick={this.handleFavClick}>Add to FAVVVSSS</Button> : null }
             </CardContent>
           </Card>
         </div>

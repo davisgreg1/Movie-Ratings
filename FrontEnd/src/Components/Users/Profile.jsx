@@ -55,15 +55,6 @@ class Profile extends React.Component {
     this.setState({ anchorEl: null });
   };
 
-  // componentWillMount = () => {
-  //   if (this.props.user) {
-  //     this.setState({
-  //       user: this.props.user,
-  //       auth: true
-  //     });
-  //   }
-  // };
-
   getProfileUser = () => {
     let username = this.props.match.params.username;
     axios
@@ -95,7 +86,6 @@ class Profile extends React.Component {
   }
 
   render() {
-    console.log("the profile props:", this.props)
     const { classes, currentUser , score, getUserScore} = this.props;
     const { auth, anchorEl, fireRedirect, profileUser } = this.state;
     const open = Boolean(anchorEl);

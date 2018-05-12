@@ -15,7 +15,7 @@ import Typography from "material-ui/Typography";
 import RaisedButton from "material-ui/Button";
 import Switch from "material-ui/Switch";
 import Button from "material-ui/Button";
-import Game from "./Game";
+import Game from "./Game/Game";
 import "../Views/App.css";
 //Styles for Material UI
 const styles = {

@@ -189,6 +189,23 @@ function getUserByUsername(req, res, next) {
     });
 }
 
+getLeaderBoard = (req, res, next) => {
+  db
+  .any(
+    "SELECT * FROM (SELECT username, points FROM users JOIN scores ON user_id = ID) AS Leaderboard ORDER BY points DESC LIMIT 10"
+  )
+  .then(data=>{
+    res.status(200).json({
+      status: "Success!",
+      data: data,
+      message: `Retrieved the top 10 players!`
+    })
+  })
+  .catch(err=>{
+    return next(err)
+  })
+}
+
 module.exports = {
   loginUser,
   logoutUser,
@@ -200,5 +217,6 @@ module.exports = {
   getAllFavorites,
   getSingleUser,
   getUserByUsername,
-  getScore
+  getScore,
+  getLeaderBoard
 };

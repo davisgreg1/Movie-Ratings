@@ -15,12 +15,13 @@ import Menu from "material-ui/Menu";
 import { withStyles } from "material-ui/styles";
 
 import Home from "./Components/Home";
-import Game from "./Components/Game";
+import Game from "./Components/Game/Game";
 import Favorites from "./Components/Favorites/Favorites";
 import RegisterUser from "./Components/login/RegisterUser";
 import Users from "./Components/users/Users";
 import Profile from "./Components/users/Profile";
 import LoginUser from "./Components/login/LoginUser";
+import LeaderBoard from "./Components/Game/LeaderBoard";
 import axios from "axios";
 import "./Views/App.css";
 import NavBar from "./Components/NavBar";
@@ -54,7 +55,8 @@ class App extends React.Component {
       anchorEl: null,
       message: "",
       score: "",
-      fireRedirect: false
+      fireRedirect: false,
+      leaderBoardData: null
     };
   }
 
@@ -62,7 +64,6 @@ class App extends React.Component {
     axios
       .get("/users/logout")
       .then(res => {
-        // this.props.logOutUser();
         this.setState({
           loggedOut: true
         });
@@ -94,11 +95,9 @@ class App extends React.Component {
   };
 
   getUserScore = () => {
-    console.log("the get user score user", this.state.user)
     axios
       .get("/users/getcurrentscore")
       .then(res => {
-        console.log("score?", res);
         this.setState({
           score: res.data.data.points
         })
@@ -119,7 +118,6 @@ class App extends React.Component {
   };
 
   handleMenu = event => {
-    console.log("event curr:", event.currentTarget);
     this.setState({ anchorEl: event.currentTarget });
   };
   handleClose = () => {
@@ -154,7 +152,6 @@ class App extends React.Component {
         password: password
       })
       .then(res => {
-        console.log(res.data);
         // this.props.setUser(res.data);
         this.setState({
           user: res.data,
@@ -170,6 +167,19 @@ class App extends React.Component {
       });
   };
 
+  getLeaderBoard = () => {
+    axios
+      .get("users/leaderboard")
+      .then(response=>{
+        console.log("response in GetLeaderBoard:", response)
+        this.setState({
+          leaderBoardData: response.data.data
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 
   appLogIn = () => {
     this.setState({
@@ -179,8 +189,8 @@ class App extends React.Component {
   };
   
   componentDidMount() {
+    this.getLeaderBoard();
     this.getUserInfo();
-    // this.getUserScore();
   }
 
   render() {
@@ -193,7 +203,8 @@ class App extends React.Component {
       password,
       message,
       fireRedirect,
-      score
+      score,
+      leaderBoardData
     } = this.state;
     const { classes } = this.props;
     const {
@@ -206,7 +217,7 @@ class App extends React.Component {
       logOut,
       handleClick
     } = this;
-    console.log("the score in state:", score)
+    console.log("the state in aPP.JS:", this.state)
     let open = Boolean(anchorEl);
 
     return (
@@ -271,6 +282,10 @@ class App extends React.Component {
           <Route
             path="/favorites"
             render={props => <Favorites {...props} score={score} loggedIn={loggedIn} currentUser={user} />}
+          />
+          <Route
+            path="/leaderboard"
+            render={props => <LeaderBoard {...props} score={score} loggedIn={loggedIn} currentUser={user} data={leaderBoardData}/>}
           />
         </Switch>
       </div>

@@ -1,8 +1,7 @@
 import React from "react";
-import "../Views/index.css";
+import "../../Views/index.css";
 // eslint-disable-next-line
-import OneMovie from "./OneMovie";
-import SingleHomeMovie from "./SingleHomeMovie";
+import SingleHomeMovie from "../SingleHomeMovie";
 // eslint-disable-next-line
 // import dotenv from 'dotenv';
 import currencyFormatter from "currency-formatter";

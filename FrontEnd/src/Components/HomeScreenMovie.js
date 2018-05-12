@@ -28,7 +28,6 @@ class HomeScreenMovie extends React.Component {
   }
 
   addToFavs = data => {
-    console.log("data:", data);
     let baseURL = `http://image.tmdb.org/t/p/w185`;
     axios
       .post("/users/addFavorites", {
