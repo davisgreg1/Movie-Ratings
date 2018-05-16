@@ -102,11 +102,8 @@ class NavBar extends Component {
     };
     return (
       <Fragment>
-        <AppBar position="sticky" className = "testBar">
+        <AppBar position="sticky" className="testBar">
           <Toolbar className="testToolBar">
-            {/* <IconButton className={this.props.classes.menuButton} color="inherit" aria-label="Menu">
-             <MenuIcon />
-           </IconButton> */}
             <Link to="/" className="links">
               <Typography
                 variant="title"
@@ -123,7 +120,6 @@ class NavBar extends Component {
             </div>
           </Toolbar>
         </AppBar>
-        {/* <Redirect to={`/`} /> */}
       </Fragment>
     );
   };
@@ -188,21 +184,25 @@ class NavBar extends Component {
                 open={open}
                 onClose={this.handleClose}
               >
-                <Link to={`/users/${user.username}`} className="links"><MenuItem onClick={this.handleClose}>Profile</MenuItem></Link>
+                <Link to={`/users/${user.username}`} className="links">
+                  <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                </Link>
                 <Link to="/game" className="links">
                   <MenuItem onClick={this.handleClose}>
                     Play Movie Fights!
                   </MenuItem>
                 </Link>
                 <Link to="/favorites" className="links">
-                  <MenuItem onClick={this.handleClose}>
-                    Favorites
-                  </MenuItem>
+                  <MenuItem onClick={this.handleClose}>Favorites</MenuItem>
                 </Link>
               </Menu>
-              <Button href="/login" onClick={logOut} className={"classes.button"}>
-              Logout
-            </Button>
+              <Button
+                href="/login"
+                onClick={logOut}
+                className={"classes.button"}
+              >
+                Logout
+              </Button>
             </div>
           </Toolbar>
         </AppBar>

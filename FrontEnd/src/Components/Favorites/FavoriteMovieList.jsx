@@ -48,97 +48,96 @@ class FavoriteMovieList extends React.Component {
       <div className="favs-list">
         {!currentUser ? (
           <div>You must be logged in. </div>
+        ) : movies.map(movie => (
+          <div clasName="all-cards-container">
+            <Card
+              className={classes.card}
+              value={movie.movie_imdb_id}
+              name={movie.movie_title}
+            >
+              <a href={`${movie.movie_website}`} target="_blank">
+                <CardMedia
+                  className={classes.media}
+                  style={{ height: "285px", width: "285px" }}
+                  image={movie.movie_imgurl}
+                  title={movie.movie_title}
+                />
+              </a>
+              <CardContent>
+                <Typography gutterBottom variant="headline" component="h2">
+                  {movie.movie_title}
+                </Typography>
+              </CardContent>
+
+              <CardActions value={movie.movie_imdb_id} name={movie.movie_title}>
+                {loggedIn ? (
+                  <Button
+                    onClick={() => removeFromFavs(movie)}
+                    value={movie.movie_imdb_id}
+                    name={movie.movie_title}
+                  >
+                    Remove From Favorites
+                  </Button>
+                ) : (
+                  <Button size="small" color="primary">
+                    <a href={movie.movie_website} target="_blank">
+                      Learn More
+                    </a>
+                  </Button>
+                )}
+              </CardActions>
+            </Card>
+          </div>
+        )) &&
+        currentUser &&
+        movies.length > 0 ? (
+          movies.map(movie => (
+            <div clasName="all-cards-container">
+              <Card
+                className={classes.card}
+                value={movie.movie_imdb_id}
+                name={movie.movie_title}
+              >
+                <a href={`${movie.movie_website}`} target="_blank">
+                  <CardMedia
+                    className={classes.media}
+                    style={{ height: "285px", width: "285px" }}
+                    image={movie.movie_imgurl}
+                    title={movie.movie_title}
+                  />
+                </a>
+                <CardContent>
+                  <Typography gutterBottom variant="headline" component="h2">
+                    {movie.movie_title}
+                  </Typography>
+                </CardContent>
+
+                <CardActions
+                  value={movie.movie_imdb_id}
+                  name={movie.movie_title}
+                >
+                  {loggedIn ? (
+                    <Button
+                      onClick={() => removeFromFavs(movie)}
+                      value={movie.movie_imdb_id}
+                      name={movie.movie_title}
+                    >
+                      Remove From Favorites
+                    </Button>
+                  ) : (
+                    <Button size="small" color="primary">
+                      <a href={movie.movie_website} target="_blank">
+                        Learn More
+                      </a>
+                    </Button>
+                  )}
+                </CardActions>
+              </Card>
+            </div>
+          ))
         ) : (
-          movies.map(movie => (
-            <div clasName="all-cards-container">
-              <Card
-                className={classes.card}
-                value={movie.movie_imdb_id}
-                name={movie.movie_title}
-              >
-                <a href={`${movie.movie_website}`} target="_blank">
-                  <CardMedia
-                    className={classes.media}
-                    style={{ height: "285px", width: "285px" }}
-                    image={movie.movie_imgurl}
-                    title={movie.movie_title}
-                  />
-                </a>
-                <CardContent>
-                  <Typography gutterBottom variant="headline" component="h2">
-                    {movie.movie_title}
-                  </Typography>
-                </CardContent>
-
-                <CardActions
-                  value={movie.movie_imdb_id}
-                  name={movie.movie_title}
-                >
-                  {loggedIn ? (
-                    <Button
-                      onClick={() => removeFromFavs(movie)}
-                      value={movie.movie_imdb_id}
-                      name={movie.movie_title}
-                    >
-                      Remove From Favorites
-                    </Button>
-                  ) : (
-                    <Button size="small" color="primary">
-                      <a href={movie.movie_website} target="_blank">
-                        Learn More
-                      </a>
-                    </Button>
-                  )}
-                </CardActions>
-              </Card>
-            </div>
-          ))
-        ) && currentUser && movies.length > 0 ? (
-          movies.map(movie => (
-            <div clasName="all-cards-container">
-              <Card
-                className={classes.card}
-                value={movie.movie_imdb_id}
-                name={movie.movie_title}
-              >
-                <a href={`${movie.movie_website}`} target="_blank">
-                  <CardMedia
-                    className={classes.media}
-                    style={{ height: "285px", width: "285px" }}
-                    image={movie.movie_imgurl}
-                    title={movie.movie_title}
-                  />
-                </a>
-                <CardContent>
-                  <Typography gutterBottom variant="headline" component="h2">
-                    {movie.movie_title}
-                  </Typography>
-                </CardContent>
-
-                <CardActions
-                  value={movie.movie_imdb_id}
-                  name={movie.movie_title}
-                >
-                  {loggedIn ? (
-                    <Button
-                      onClick={() => removeFromFavs(movie)}
-                      value={movie.movie_imdb_id}
-                      name={movie.movie_title}
-                    >
-                      Remove From Favorites
-                    </Button>
-                  ) : (
-                    <Button size="small" color="primary">
-                      <a href={movie.movie_website} target="_blank">
-                        Learn More
-                      </a>
-                    </Button>
-                  )}
-                </CardActions>
-              </Card>
-            </div>
-          ))
-        ) :  <div>Search for movies to favorite</div> }
+          <div>{`${currentUser.firstname}, go search for movies to favorite.`}</div>
+        )}
       </div>
     );
   }

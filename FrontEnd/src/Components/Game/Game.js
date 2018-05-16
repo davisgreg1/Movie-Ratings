@@ -149,14 +149,6 @@ class Game extends React.Component {
           this.setState({
             winner:
               this.state.movie1MoneyEarned > this.state.movie2MoneyEarned
-                ? this.state.movie1.data.original_title
-                : this.state.movie2.data.original_title
-          });
-        })
-        .then(() => {
-          this.setState({
-            winner:
-              this.state.movie1MoneyEarned > this.state.movie2MoneyEarned
                 ? this.state.movie1.data
                 : this.state.movie2.data,
             loser:
@@ -184,7 +176,8 @@ class Game extends React.Component {
       movie2MoneyEarned,
       score
     } = this.state;
-    const { classes, user, originalScore, getUserScore } = this.props;
+    const { classes, currentUser, originalScore, getUserScore } = this.props;
+    console.log("game props", this.props)
     let diff = movie1MoneyEarned - movie2MoneyEarned;
 
     if (e.target.title === winner.original_title) {
@@ -195,7 +188,7 @@ class Game extends React.Component {
       swal({
         title: "Sweet!",
         text: `Congratulations, you win! ${
-          e.target.title
+          winner.original_title
         } grossed ${currencyFormatter.format(Math.abs(winner.revenue), {
           code: "USD"
         })} and it made a whopping ${currencyFormatter.format(Math.abs(diff), {
