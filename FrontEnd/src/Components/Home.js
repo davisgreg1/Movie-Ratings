@@ -234,9 +234,10 @@ class Home extends React.Component {
               this.state.movie1MoneyEarned > this.state.movie2MoneyEarned
                 ? this.state.movie1.data
                 : this.state.movie2.data,
-            loser: this.state.movie1MoneyEarned < this.state.movie2MoneyEarned
-            ? this.state.movie1.data
-            : this.state.movie2.data,
+            loser:
+              this.state.movie1MoneyEarned < this.state.movie2MoneyEarned
+                ? this.state.movie1.data
+                : this.state.movie2.data
           });
         })
         .catch(error => {
@@ -260,48 +261,41 @@ class Home extends React.Component {
     } = this.state;
     let diff = movie1MoneyEarned - movie2MoneyEarned;
 
-    // console.log("the WINNER:", winner.original_title)
-    // console.log("the WINNER REV:", winner.revenue)
-    // console.log("the LOSER:", loser.original_title)
-    // console.log("the LOSER REV:", loser.revenue)
-
-    if (e.target.title === winner.original_title) { 
+    if (e.target.title === winner.original_title) {
       swal({
-            title: "Sweet!",
-            text: `Congratulations, you win! ${
-              e.target.title
-            } grossed ${currencyFormatter.format(
-              Math.abs(winner.revenue),
-              { code: "USD" }
-            )} and it made a whopping ${currencyFormatter.format(
-              Math.abs(diff),
-              { code: "USD" }
-            )} more than ${
-              loser.original_title
-            }! Sign up to join the leaderboard!`,
-            imageUrl: `${baseURL}${winner.poster_path}`,
-            imageWidth: 400,
-            imageHeight: 200,
-            imageAlt: "Custom image",
-            animation: true
-          })
-        }
-        if(e.target.title === loser.original_title){
-        swal({
-            title: "Sorry!",
-            text: `${e.target.title} grossed ${currencyFormatter.format(
-              Math.abs(loser.revenue),
-              { code: "USD" }
-            )}, but didn't earn more in profits than ${
-              winner.original_title
-            }. Avenge your dignity by signing up to play more!`,
-            imageUrl: `${baseURL}${loser.poster_path}`,
-            imageWidth: 400,
-            imageHeight: 200,
-            imageAlt: "Custom image",
-            animation: true
-          });
-     }
+        title: "Sweet!",
+        text: `Congratulations, you win! ${
+          e.target.title
+        } grossed ${currencyFormatter.format(Math.abs(winner.revenue), {
+          code: "USD"
+        })} and it made a whopping ${currencyFormatter.format(Math.abs(diff), {
+          code: "USD"
+        })} more than ${
+          loser.original_title
+        }! Sign up to join the leaderboard!`,
+        imageUrl: `${baseURL}${winner.poster_path}`,
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: "Custom image",
+        animation: true
+      });
+    }
+    if (e.target.title === loser.original_title) {
+      swal({
+        title: "Sorry!",
+        text: `${e.target.title} grossed ${currencyFormatter.format(
+          Math.abs(loser.revenue),
+          { code: "USD" }
+        )}, but didn't earn more in profits than ${
+          winner.original_title
+        }. Avenge your dignity by signing up to play more!`,
+        imageUrl: `${baseURL}${loser.poster_path}`,
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: "Custom image",
+        animation: true
+      });
+    }
   };
 
   setAuth = () => {
@@ -325,7 +319,16 @@ class Home extends React.Component {
 
   render() {
     const { classes, user, loggedIn } = this.props;
-    const { auth, anchorEl, data, searchText, movie1, movie2, winner, loser } = this.state;
+    const {
+      auth,
+      anchorEl,
+      data,
+      searchText,
+      movie1,
+      movie2,
+      winner,
+      loser
+    } = this.state;
     const { _keyPress, handleInput, getWinner } = this;
     const open = Boolean(anchorEl);
 
@@ -350,7 +353,7 @@ class Home extends React.Component {
         <div className="search-input-container">
           <div className="home-movie-container">
             {searchText ? (
-              <MovieList data={data} loggedIn={loggedIn} currentUser={user}/>
+              <MovieList data={data} loggedIn={loggedIn} currentUser={user} />
             ) : (
               <div className="default-home-screen">
                 {!movie1 || !movie2 ? (
@@ -373,7 +376,11 @@ class Home extends React.Component {
                       name="movie_num_1"
                       onClick={getWinner}
                     >
-                      <SingleHomeMovie data={movie1} loggedIn={loggedIn} currentUser={user}/>
+                      <SingleHomeMovie
+                        data={movie1}
+                        loggedIn={loggedIn}
+                        currentUser={user}
+                      />
                     </Card>
                     <div className="versus-div">
                       <span id="versus-span">VS</span>
@@ -384,7 +391,11 @@ class Home extends React.Component {
                       name="movie_num_2"
                       onClick={getWinner}
                     >
-                      <SingleHomeMovie data={movie2} loggedIn={loggedIn} currentUser={user}/>
+                      <SingleHomeMovie
+                        data={movie2}
+                        loggedIn={loggedIn}
+                        currentUser={user}
+                      />
                     </Card>
                     Select The Movie You Think Made More In Profits!!
                   </div>
@@ -393,7 +404,7 @@ class Home extends React.Component {
             )}
           </div>
           <div>
-            <Link to='/leaderboard'> view leaderboard</Link>
+            <Link to="/leaderboard"> view leaderboard</Link>
           </div>
         </div>
       </React.Fragment>
