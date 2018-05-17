@@ -9,9 +9,10 @@ import Toolbar from "material-ui/Toolbar";
 import Typography from "material-ui/Typography";
 import IconButton from "material-ui/IconButton";
 import AccountCircle from "@material-ui/icons/AccountCircle";
+import NavBar from '../NavBar';
 import Menu, { MenuItem } from "material-ui/Menu";
 import "../../Views/App.css";
-import NavBar from '../NavBar';
+import { addCommas } from "../../utils/movieData";
 
 //Styles for Material UI
 const styles = {
@@ -94,7 +95,7 @@ class Profile extends React.Component {
       <React.Fragment>
         <div className={"classes.root"}>
         {/* <NavBar/> */}
-          Welcome {profileUser.username} currentscore:{score}
+          Welcome {profileUser.username} currentscore:{addCommas(score)}
         </div>
       </React.Fragment>
     );

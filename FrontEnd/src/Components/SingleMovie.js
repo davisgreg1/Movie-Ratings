@@ -5,7 +5,7 @@ import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
 import Button from "material-ui/Button";
 import Typography from "material-ui/Typography";
 // import MovieList from './MovieList';
-import axios from 'axios';
+import axios from "axios";
 import "../Views/App.css";
 
 const styles = {
@@ -15,7 +15,7 @@ const styles = {
     alignItems: "center",
     padding: "10px",
     maxWidth: 345,
-    height: "400px",
+    height: "400px"
   },
   media: {
     height: 0,
@@ -31,8 +31,8 @@ class SingleMovie extends React.Component {
   handleFavClick = e => {
     e.preventDefault();
     e.stopPropagation();
-    console.log("clicked")
-  }
+    console.log("clicked");
+  };
 
   render() {
     //   classes was a prop as well
@@ -66,17 +66,22 @@ class SingleMovie extends React.Component {
             </CardContent>
 
             <CardActions id="buttons-for-movies">
-                { loggedIn ? <Button onClick={this.handleFavClick}>Add to your favorites</Button> :  <Button size="small" color="primary">
-              <div>
-                <a
-                  href={`https://www.themoviedb.org/movie/${data.data.id}`}
-                  target="_blank"
-                >
-                  Learn More
-                </a>
-                </div>
-              </Button> }
-             
+              {loggedIn ? (
+                <Button onClick={this.handleFavClick}>
+                  Add to your favorites
+                </Button>
+              ) : (
+                <Button size="small" color="primary">
+                  <div>
+                    <a
+                      href={`https://www.themoviedb.org/movie/${data.data.id}`}
+                      target="_blank"
+                    >
+                      Learn More
+                    </a>
+                  </div>
+                </Button>
+              )}
             </CardActions>
           </Card>
         </div>
@@ -86,17 +91,10 @@ class SingleMovie extends React.Component {
 }
 
 SingleMovie.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  loggedIn: PropTypes.bool.isRequired
 };
 // export default HomeScreenMovie;
 export default withStyles(styles)(SingleMovie);
-
-
-
-
-
-
-
-
 
 //NOT BEING USED FOR NOW
