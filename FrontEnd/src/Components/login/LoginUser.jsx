@@ -169,7 +169,7 @@ class LoginUser extends React.Component {
                 type="submit"
                 value="Log in"
                 primary={true}
-                style={{ backgroundColor: "#253C78", color: "#E27E04" }}
+                style={{ backgroundColor: "#253C78", color: "white" }}
               >
                 Log in
               </RaisedButton>

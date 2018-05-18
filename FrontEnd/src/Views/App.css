@@ -44,6 +44,9 @@ html {
   justify-content: space-between;
   background-color: #253C78;
 }
+.login-btn{
+  color: red;
+}
                                                           /**
                                                           |--------------------------------------------------
                                                           | HOME SCREEN BELOW...

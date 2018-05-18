@@ -9,7 +9,7 @@ module.exports = () => {
 
   // get user info from session
   passport.deserializeUser((user, done) => {
-    console.log("desirealize");
+    console.log("deserializing",user);
     db
       .one("SELECT * FROM users WHERE id=$1", [user.id])
       .then(user => {

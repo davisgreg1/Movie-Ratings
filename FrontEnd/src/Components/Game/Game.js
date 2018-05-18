@@ -107,8 +107,8 @@ class Game extends React.Component {
       movie2: null,
       score: this.props.originalScore,
       currentUser: "",
-      winner: null,
-      loser: null,
+      winner: {},
+      loser: {},
       movie1MoneyEarned: "",
       movie2MoneyEarned: ""
     };
@@ -123,6 +123,7 @@ class Game extends React.Component {
         // `https://api.themoviedb.org/3/movie/216015?api_key=${API_KEY}&language=en-US`
       )
       .then(response => {
+        console.log("THis is response in Game.js 126:", response)
         this.setState({
           movie1: response,
           movie1Revenue: response.data.revenue,
@@ -152,11 +153,11 @@ class Game extends React.Component {
         .then(() => {
           this.setState({
             winner:
-              this.state.movie1MoneyEarned > this.state.movie2MoneyEarned
+              this.state.movie1MoneyEarned >= this.state.movie2MoneyEarned
                 ? this.state.movie1.data
                 : this.state.movie2.data,
             loser:
-              this.state.movie1MoneyEarned < this.state.movie2MoneyEarned
+              this.state.movie1MoneyEarned <= this.state.movie2MoneyEarned
                 ? this.state.movie1.data
                 : this.state.movie2.data
           });
@@ -184,6 +185,7 @@ class Game extends React.Component {
     let diff = movie1MoneyEarned - movie2MoneyEarned;
 
     if (e.target.title === winner.original_title) {
+      console.log("winner?:",winner)
       this.setState({
         score: (this.state.score += 10)
       });

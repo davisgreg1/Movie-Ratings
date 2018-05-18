@@ -13,7 +13,7 @@ const loginUser = (req, res, next) => {
     } else if (!user) {
       res.status(401).send("invalid username/password");
     } else if (user) {
-      req.logIn(user, function(err) {
+      req.logIn(user, err => {
         if (err) {
           res.status(500).send("error");
         } else {
@@ -27,19 +27,10 @@ const loginUser = (req, res, next) => {
 
 const logoutUser = (req, res, next) => {
   req.logout();
-  res.status(200).send("log out success");
+  res.status(200).send("Log out success");
 };
 
-/**
-  |--------------------------------------------------
-  | FOR FUTURE USE PERHAPS...
-  |(zipcode,email,age,hobbies)VALUES(${zipcode}, ${email}, ${age}
-  |, ${hobbies} )
-  |--------------------------------------------------
-  , ${points} for insertScore's VALUES
-  */
-
-function registerUser(req, res, next) {
+const registerUser = (req, res, next) => {
   return authHelpers
     .createUser(req)
     .then(response => {
@@ -60,7 +51,7 @@ function registerUser(req, res, next) {
         error: err
       });
     });
-}
+};
 
 const getScore = (req, res, next) => {
   db
@@ -119,17 +110,18 @@ const updateUserScore = (req, res, next) => {
 */
 const addToFavorites = (req, res, next) => {
   db
-  .none(
-    "INSERT INTO favorites (movie_imdb_id, movie_title, movie_imgurl, movie_website, favorited_by) VALUES (${movie_imdb_id}, ${movie_title}, ${movie_imgurl}, ${movie_website}, ${favorited_by})", req.body
-  )
-  .then(data => { 
-    res.status(200).json({
-      status: "Success!",
-      movieDBID: data,
-      message: "Successfully added a favorite movie."
+    .none(
+      "INSERT INTO favorites (movie_imdb_id, movie_title, movie_imgurl, movie_website, favorited_by) VALUES (${movie_imdb_id}, ${movie_title}, ${movie_imgurl}, ${movie_website}, ${favorited_by})",
+      req.body
+    )
+    .then(data => {
+      res.status(200).json({
+        status: "Success!",
+        movieDBID: data,
+        message: "Successfully added a favorite movie."
+      });
     });
-  })
-}
+};
 
 const removeFromFavorites = (req, res, next) => {
   db.none("DELETE FROM favorites WHERE id = ${id}", req.body).then(data => {
@@ -155,25 +147,26 @@ const getAllFavorites = (req, res, next) => {
 const getSingleUser = (req, res, next) => {
   db
     .one("SELECT * FROM users WHERE username = ${username}", req.user)
-    .then(function(data) {
+    .then(data => {
       res.status(200).json({
         status: "success",
         userInfo: data,
         message: "Fetched one user"
       });
     })
-    .catch(function(err) {
+    .catch(err => {
       return next(err);
     });
 };
 
-function getUserByUsername(req, res, next) {
+const getUserByUsername = (req, res, next) => {
+  console.log("the req in getUserByUsername:",req)
   db
-    .one(
-      "SELECT * FROM users WHERE LOWER(username) = LOWER(${username})",
+    .any(
+      "SELECT * FROM users WHERE username = ${username}",
       req.params
     )
-    .then(function(data) {
+    .then(data => {
       res.status(200).json({
         status: "success",
         user: data,
@@ -181,30 +174,27 @@ function getUserByUsername(req, res, next) {
       });
     })
     .catch(err => {
-      if (err.code === 0) {
-        res.status(500).send(`${req.params.username} not found.`);
-      } else {
-        res.status(500).send("Oops, something went wrong.");
-      }
+      console.log(`err in getUserByUsername`, err);
+      res.status(500).json({ message: `FAILED: getUserByUsername` });
     });
-}
+};
 
 getLeaderBoard = (req, res, next) => {
   db
-  .any(
-    "SELECT * FROM (SELECT username, points FROM users JOIN scores ON user_id = ID) AS Leaderboard ORDER BY points DESC LIMIT 10"
-  )
-  .then(data=>{
-    res.status(200).json({
-      status: "Success!",
-      data: data,
-      message: `Retrieved the top 10 players!`
+    .any(
+      "SELECT * FROM (SELECT username, points FROM users JOIN scores ON user_id = ID) AS Leaderboard ORDER BY points DESC LIMIT 10"
+    )
+    .then(data => {
+      res.status(200).json({
+        status: "Success!",
+        data: data,
+        message: `Retrieved the top 10 players!`
+      });
     })
-  })
-  .catch(err=>{
-    return next(err)
-  })
-}
+    .catch(err => {
+      return next(err);
+    });
+};
 
 module.exports = {
   loginUser,

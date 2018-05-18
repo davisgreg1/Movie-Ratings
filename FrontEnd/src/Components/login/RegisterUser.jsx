@@ -273,7 +273,7 @@ class RegisterUser extends React.Component {
                 type="submit"
                 value="submit"
                 primary={true}
-                style={{ backgroundColor: "grey", color: "white" }}
+                style={{ backgroundColor: "#253C78", color: "white" }}
               >
                 Register
               </RaisedButton>
