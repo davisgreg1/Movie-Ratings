@@ -67,14 +67,13 @@ class FavoriteMovieList extends React.Component {
                 <Typography gutterBottom variant="headline" component="h2">
                   {movie.movie_title}
                 </Typography>
-              </CardContent>
 
               <CardActions value={movie.movie_imdb_id} name={movie.movie_title}>
                 {loggedIn ? (
                   <Button
-                    onClick={() => removeFromFavs(movie)}
-                    value={movie.movie_imdb_id}
-                    name={movie.movie_title}
+                  onClick={() => removeFromFavs(movie)}
+                  value={movie.movie_imdb_id}
+                  name={movie.movie_title}
                   >
                     Remove From Favorites
                   </Button>
@@ -86,6 +85,7 @@ class FavoriteMovieList extends React.Component {
                   </Button>
                 )}
               </CardActions>
+                </CardContent>
             </Card>
           </div>
         )) &&

@@ -7,6 +7,7 @@ import TableCell from 'material-ui/Table/TableCell';
 import TableHead from 'material-ui/Table/TableHead';
 import TableRow from 'material-ui/Table/TableRow';
 import Paper from 'material-ui/Paper';
+import { addCommas } from '../../utils/movieData';
 
 const styles = theme => ({
   root: {
@@ -41,7 +42,7 @@ const LeaderBoard = props => {
                 <TableCell component="th" scope="row">
                   {player.username}
                 </TableCell>
-                <TableCell numeric>{player.points}</TableCell>
+                <TableCell numeric>{addCommas(player.points)}</TableCell>
               </TableRow>
             );
           })}

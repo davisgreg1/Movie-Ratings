@@ -3,6 +3,9 @@ var express = require("express");
 var router = express.Router();
 const { loginRequired } = require("../auth/helpers");
 const passport = require("../auth/local");
+var cookieParser = require('cookie-parser');
+
+
 
 /**
 |--------------------------------------------------
@@ -22,7 +25,7 @@ router.post("/addFavorites", loginRequired, db.addToFavorites);
 router.get("/logout", loginRequired, db.logoutUser);
 router.get("/favorites", loginRequired, db.getAllFavorites);
 router.get("/userinfo", loginRequired, db.getSingleUser);
-router.get("/getuser/:username", db.getUserByUsername);
+router.get("/getuser/:username", loginRequired, db.getUserByUsername);
 router.get("/getcurrentscore", loginRequired, db.getScore);
 router.get("/leaderboard", db.getLeaderBoard);
 /**

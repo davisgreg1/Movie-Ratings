@@ -155,7 +155,7 @@ class Home extends React.Component {
     const { searchText } = this.state;
     axios
       .get(
-        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${searchText}&page=1&include_adult=false`
+        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${searchText}&page=1&include_adult=true`
       )
       .then(response => {
         this.setState({
@@ -312,7 +312,7 @@ class Home extends React.Component {
     });
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.getTwoMovies();
     this.setUser();
   }
@@ -350,7 +350,6 @@ class Home extends React.Component {
             }}
           />
         </div>
-        <div className="search-input-container">
           <div className="home-movie-container">
             {searchText ? (
               <MovieList data={data} loggedIn={loggedIn} currentUser={user} />
@@ -406,7 +405,6 @@ class Home extends React.Component {
           <div>
             <Link to="/leaderboard"> view leaderboard</Link>
           </div>
-        </div>
       </React.Fragment>
     );
   }

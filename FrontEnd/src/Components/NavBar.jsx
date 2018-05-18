@@ -114,7 +114,7 @@ class NavBar extends Component {
               </Typography>
             </Link>
             <div className="iconbutton-container">
-              <Button href="/login" className={this.props.classes.button}>
+              <Button href="/login" className={"login-btn"}>
                 Login
               </Button>
             </div>
@@ -125,7 +125,8 @@ class NavBar extends Component {
   };
 
   loggedInNav = () => {
-    const { user, logOut } = this.props;
+    const { user, logOut, classes } = this.props;
+    console.log("classesProp:", classes)
     const { anchorEl } = this.state;
     let open = Boolean(this.state.anchorEl);
     const styles = {
@@ -234,9 +235,9 @@ class NavBar extends Component {
     window.alert("nah");
   };
 
-  componentDidMount() {
-    this.props.getUserInfo;
-  }
+  // componentDidMount() {
+  //   this.props.getUserInfo;
+  // }
 
   goToGame = () => {
     this.setState({

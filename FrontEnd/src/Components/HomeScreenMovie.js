@@ -6,15 +6,33 @@ import Button from "material-ui/Button";
 import Typography from "material-ui/Typography";
 import MovieList from "./MovieList";
 import axios from "axios";
+import { limitOverview } from "../utils/movieData";
 import "../Views/App.css";
-
+/**
+|--------------------------------------------------
+|     width: 298px;
+    height: 278px;
+    position: relative;
+    box-sizing: border-box;
+    padding: 10px 16px 16px 16px;
+    overflow: hidden;
+|--------------------------------------------------
+*/
 const styles = {
   card: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: "10px",
-    maxWidth: 345
+    // display: "flex",
+    // flexDirection: "column",
+    // justifyContent: "spaceAround",
+    // alignItems: "center",
+    // padding: "10px",
+    // maxWidth: 345,
+    // maxHeight: 345
+    width: "298px",
+    height: "478px",
+    position: "relative",
+    boxSizing: "borderBox",
+    padding: "10px 16px 16px 16px",
+    overflow: "hidden"
   },
   media: {
     height: 0,
@@ -35,20 +53,22 @@ class HomeScreenMovie extends React.Component {
         movie_title: data.original_title,
         movie_imgurl: `${baseURL}${data.poster_path}`,
         movie_website: `https://www.themoviedb.org/movie/${data.id}`,
-        favorited_by: this.props.currentUser.id,
+        favorited_by: this.props.currentUser.id
       })
-      .then(function(response) {
+      .then(response => {
         console.log(response);
       })
-      .catch(function(error) {
+      .catch(error => {
         console.log(error);
       });
   };
 
+
+
   render() {
     //   classes was a prop as well
     const { classes, data, loggedIn, currentUser } = this.props;
-    // console.log("the movie PROPS IN HOMESCREEN:", this.props);
+    console.log("the movie PROPS IN HOMESCREEN:", this.props);
     let baseURL = `http://image.tmdb.org/t/p/w185`;
     return (
       <div clasName="all-cards-container">
@@ -63,7 +83,7 @@ class HomeScreenMovie extends React.Component {
           >
             <CardMedia
               className={classes.media}
-              style={{ height: "285px", width: "285px" }}
+              style={{ height: "50px", width: "100%" }}
               image={
                 data.poster_path === null
                   ? "http://www.reelviews.net/resources/img/default_poster.jpg"
@@ -76,15 +96,16 @@ class HomeScreenMovie extends React.Component {
             <Typography gutterBottom variant="headline" component="h2">
               {`${data.original_title}`}
             </Typography>
-            <Typography component="p">{`${data.overview}`}</Typography>
-          </CardContent>
+            <Typography component="p">{`${limitOverview(
+              data.overview
+            )}`}</Typography>
 
           <CardActions value={data.id} name={data.original_title}>
             {loggedIn ? (
               <Button
-                onClick={() => this.addToFavs(data)}
-                value={data.id}
-                name={data.original_title}
+              onClick={() => this.addToFavs(data)}
+              value={data.id}
+              name={data.original_title}
               >
                 Add to Favorites
               </Button>
@@ -93,12 +114,13 @@ class HomeScreenMovie extends React.Component {
                 <a
                   href={`https://www.themoviedb.org/movie/${data.id}`}
                   target="_blank"
-                >
+                  >
                   Learn More
                 </a>
               </Button>
             )}
           </CardActions>
+            </CardContent>
         </Card>
       </div>
     );
@@ -106,7 +128,8 @@ class HomeScreenMovie extends React.Component {
 }
 
 HomeScreenMovie.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  loggedIn: PropTypes.bool.isRequired
 };
 // export default HomeScreenMovie;
 export default withStyles(styles)(HomeScreenMovie);

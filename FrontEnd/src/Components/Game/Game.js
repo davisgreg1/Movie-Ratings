@@ -1,15 +1,19 @@
 import React from "react";
-import "../../Views/index.css";
+import { Link, Route } from "react-router-dom";
 // eslint-disable-next-line
 import SingleHomeMovie from "../SingleHomeMovie";
 // eslint-disable-next-line
 // import dotenv from 'dotenv';
+import CurrentScore from "./CurrentScore";
 import currencyFormatter from "currency-formatter";
 import swal from "sweetalert2";
 import axios from "axios";
+import "../../Views/App.css";
+import "../../Views/animate.css";
 
 import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
 import CircularProgress from "material-ui/Progress/CircularProgress";
+import Button from "material-ui/Button";
 import { withStyles } from "material-ui/styles";
 
 const KEY = process.env.REACT_APP_OMDB_KEY;
@@ -103,8 +107,8 @@ class Game extends React.Component {
       movie2: null,
       score: this.props.originalScore,
       currentUser: "",
-      winner: null,
-      loser: null,
+      winner: {},
+      loser: {},
       movie1MoneyEarned: "",
       movie2MoneyEarned: ""
     };
@@ -119,6 +123,7 @@ class Game extends React.Component {
         // `https://api.themoviedb.org/3/movie/216015?api_key=${API_KEY}&language=en-US`
       )
       .then(response => {
+        console.log("THis is response in Game.js 126:", response)
         this.setState({
           movie1: response,
           movie1Revenue: response.data.revenue,
@@ -148,11 +153,11 @@ class Game extends React.Component {
         .then(() => {
           this.setState({
             winner:
-              this.state.movie1MoneyEarned > this.state.movie2MoneyEarned
+              this.state.movie1MoneyEarned >= this.state.movie2MoneyEarned
                 ? this.state.movie1.data
                 : this.state.movie2.data,
             loser:
-              this.state.movie1MoneyEarned < this.state.movie2MoneyEarned
+              this.state.movie1MoneyEarned <= this.state.movie2MoneyEarned
                 ? this.state.movie1.data
                 : this.state.movie2.data
           });
@@ -177,48 +182,59 @@ class Game extends React.Component {
       score
     } = this.state;
     const { classes, currentUser, originalScore, getUserScore } = this.props;
-    console.log("game props", this.props)
     let diff = movie1MoneyEarned - movie2MoneyEarned;
 
     if (e.target.title === winner.original_title) {
-      let num = originalScore;
+      console.log("winner?:",winner)
       this.setState({
         score: (this.state.score += 10)
       });
       swal({
         title: "Sweet!",
-        text: `Congratulations, you win! ${
+        customClass: 'animated rubberBand',
+        html: `<span id="swal-message-right"><h6>Congratulations, you win! ${
           winner.original_title
         } grossed ${currencyFormatter.format(Math.abs(winner.revenue), {
           code: "USD"
         })} and it made a whopping ${currencyFormatter.format(Math.abs(diff), {
           code: "USD"
-        })} more than ${loser.original_title}`,
-        imageUrl: `${baseURL}${winner.poster_path}`,
+        })} more than ${loser.original_title}</h6></span>`,
+        background: `#eee url(${baseURL}${winner.backdrop_path}) space`,
+        backdrop: `
+        rgba(0,255,0,0.5)`,
         imageWidth: 400,
         imageHeight: 200,
         imageAlt: "Custom image",
-        animation: true
+        animation: false,
       });
     }
+    /**
+    |--------------------------------------------------
+    |   url(${baseURL}${loser.backdrop_path})
+     center left
+    |--------------------------------------------------
+    */
     if (e.target.title === loser.original_title) {
       swal({
         title: "Sorry!",
-        text: `${e.target.title} grossed ${currencyFormatter.format(
+        customClass: 'animated shake',
+        html: `<span id="swal-message"><h6>${e.target.title} grossed ${currencyFormatter.format(
           Math.abs(loser.revenue),
           { code: "USD" }
-        )}, but didn't earn more in profits than ${winner.original_title}.`,
-        imageUrl: `${baseURL}${loser.poster_path}`,
+        )}, but didn't earn more in profits than ${winner.original_title}.</h6></span>`,
+        background: `#eee url(${baseURL}${loser.backdrop_path}) space`,
+        backdrop: `
+        rgba(255,0,0,0.5)`,
         imageWidth: 400,
         imageHeight: 200,
         imageAlt: "Custom image",
-        animation: true
+        animation: false,
       });
     }
     this.postScore();
-    setTimeout(() => {
-      this.getTwoMovies();
-    }, 5000);
+    // setTimeout(() => {
+    //   this.getTwoMovies();
+    // }, 5000);
   };
 
   postScore = () => {
@@ -275,33 +291,16 @@ class Game extends React.Component {
     secondFetch();
   };
 
-  setRatings = () => {
-    // eslint-disable-next-line
-    const { movie1Rating, movie2Rating } = this.state;
-    this.setState({
-      movie1Rating: this.state.movie1.imdbRating,
-      movie2Rating: this.state.movie2.imdbRating
-    });
-    alert(this.state);
-  };
-  // renderMovie = () => {   const {movies} = this.state;   return (<OneMovie
-  // movie={movies.title}/>) }
-
   componentWillMount() {
     this.getTwoMovies();
   }
 
   render() {
     const {
-      player1Name,
       // eslint-disable-next-line
       message,
       movie1,
       movie2,
-      // eslint-disable-next-line
-      movie1Rating,
-      // eslint-disable-next-line
-      movie2Rating,
       score,
       currentUser
     } = this.state;
@@ -316,7 +315,7 @@ class Game extends React.Component {
           ) : (
             <div className="default-home-screen">
               <div>{this.props.currentUser.firstname} your turn to play</div>
-              <div>Your score is: {score}</div>
+              <div>Your score is: <CurrentScore score={score}/></div>
               {!movie1 || !movie2 ? (
                 <CircularProgress
                   size={50}
@@ -340,7 +339,7 @@ class Game extends React.Component {
                     <SingleHomeMovie data={movie1} />
                   </Card>
                   <div className="versus-div">
-                    <span id="versus-span">VS</span>
+                  <Button onClick={this.getTwoMovies}> <span id="versus-span">MORE!</span></Button>
                   </div>
                   <Card
                     className={classes.card}
