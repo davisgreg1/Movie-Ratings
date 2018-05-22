@@ -21,7 +21,6 @@ const styles = theme => ({
 });
 
 const LeaderBoard = props => {
-    console.log("props in LB", props)
   const { classes, data } = props;
 
   return (

@@ -6,8 +6,11 @@ class Users extends Component {
   constructor(props){
     super(props)
   }
+  // componentDidMount() {
+  //   this.props.getUserInfo()
+  // }
   render() {
-    const { currentUser, loggedIn, user, score, getUserScore } = this.props
+    const { currentUser, loggedIn, score, getUserScore, getUserInfo } = this.props
     console.log("props in User:", this.props)
     return (
       <Switch>

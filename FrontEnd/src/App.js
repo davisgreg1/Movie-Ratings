@@ -65,7 +65,7 @@ class App extends React.Component {
       .get("/users/logout")
       .then(res => {
         this.setState({
-          loggedOut: true
+          loggedIn: false
         });
       })
       .catch(err => {
@@ -100,7 +100,7 @@ class App extends React.Component {
       .then(res => {
         this.setState({
           score: res.data.data.points
-        })
+        });
       })
       .catch(err => {
         console.log("err:", err);
@@ -170,27 +170,42 @@ class App extends React.Component {
   getLeaderBoard = () => {
     axios
       .get("users/leaderboard")
-      .then(response=>{
-        console.log("response in GetLeaderBoard:", response)
+      .then(response => {
         this.setState({
           leaderBoardData: response.data.data
-        })
+        });
       })
       .catch(err => {
-        console.log(err)
-      })
-  }
-
-  appLogIn = () => {
-    this.setState({
-      loggedIn: true
-    });
-    this.getUserScore();
+        console.log(err);
+      });
   };
-  
+
   componentDidMount() {
+    const { user } = this.state;
+    // this.getUserInfo();
+    axios
+      .get("/users/userinfo")
+      .then(res => {
+        this.setState({
+          user: res.data.userInfo,
+          loggedIn: true
+        });
+      })
+      .catch(err => {
+        console.log(`errrr`, err);
+      });
+    axios
+      .get("/users/getcurrentscore")
+      .then(res => {
+        console.log("score in app.js:", res.data.data.points)
+        this.setState({
+          score: res.data.data.points
+        });
+      })
+      .catch(err => {
+        console.log("err:", err);
+      });
     this.getLeaderBoard();
-    this.getUserInfo();
   }
 
   render() {
@@ -217,7 +232,6 @@ class App extends React.Component {
       logOut,
       handleClick
     } = this;
-    console.log("the state in aPP.JS:", this.state)
     let open = Boolean(anchorEl);
 
     return (
@@ -226,22 +240,20 @@ class App extends React.Component {
         <NavBar
           loggedIn={loggedIn}
           handleClick={handleClick}
-          user={user}
+          currentUser={user}
           getUserInfo={getUserInfo}
           logOut={logOut}
           classes={classes}
           score={score}
+          getUserScore={getUserScore}
         />
 
         <Switch>
-        <Route
-            exact path="/"
+          <Route
+            exact
+            path="/"
             render={() => (
-              <Home
-                user={user}
-                message={message}
-                loggedIn={loggedIn}
-              />
+              <Home user={user} message={message} loggedIn={loggedIn} />
             )}
           />
 
@@ -273,19 +285,50 @@ class App extends React.Component {
           />
           <Route
             path="/users"
-            render={props => <Users {...props} score={score} currentUser={user} getUserScore={getUserScore} />}
+            render={props => (
+              <Users
+                {...props}
+                score={score}
+                getUserInfo={getUserInfo}
+                currentUser={user}
+                getUserScore={getUserScore}
+              />
+            )}
           />
           <Route
             path="/game"
-            render={props => <Game {...props} originalScore={score} loggedIn={loggedIn} currentUser={user} getUserScore={getUserScore}/>}
+            render={props => (
+              <Game
+                {...props}
+                originalScore={score}
+                loggedIn={loggedIn}
+                currentUser={user}
+                getUserScore={getUserScore}
+              />
+            )}
           />
           <Route
             path="/favorites"
-            render={props => <Favorites {...props} score={score} loggedIn={loggedIn} currentUser={user} />}
+            render={props => (
+              <Favorites
+                {...props}
+                score={score}
+                loggedIn={loggedIn}
+                currentUser={user}
+              />
+            )}
           />
           <Route
             path="/leaderboard"
-            render={props => <LeaderBoard {...props} score={score} loggedIn={loggedIn} currentUser={user} data={leaderBoardData}/>}
+            render={props => (
+              <LeaderBoard
+                {...props}
+                score={score}
+                loggedIn={loggedIn}
+                currentUser={user}
+                data={leaderBoardData}
+              />
+            )}
           />
         </Switch>
       </div>

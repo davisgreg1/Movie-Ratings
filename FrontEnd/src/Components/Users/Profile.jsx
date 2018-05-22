@@ -30,14 +30,16 @@ const styles = {
     marginRight: 20
   }
 };
+const profileStyle = {
+  border:"5px solid black",
+  borderRadius: "7em",
+}
 
 class Profile extends React.Component {
   constructor(props) {
     super(props);
   }
   state = {
-    loggedInUser: null,
-    profileUser: {},
     auth: false,
     anchorEl: null,
     fireRedirect: false
@@ -57,44 +59,9 @@ class Profile extends React.Component {
     this.setState({ anchorEl: null });
   };
 
-  getProfileUser = () => {
-    console.log(
-      "this.props.match.params.username:",
-      this.props.match.params.username
-    );
-    let username = this.props.match.params.username;
-    axios
-      .get(`/users/getuser/${username}`)
-      .then(res => {
-        let profileUser = res.data.user;
-        this.setState({
-          profileUser: profileUser
-        });
-      })
-      .catch(err => {
-        this.setState({
-          message: err
-        });
-      });
-  };
-
-  checkReload = () => {
-    if (this.props.match.params.username !== this.state.loggedInUser.username) {
-      this.getProfileUser();
-    }
-  };
-
   componentDidMount() {
-    const { getProfileUser } = this;
     const { getUserScore } = this.props;
-    getProfileUser();
     getUserScore();
-  }
-
-  componentWillMount() {
-    this.setState({
-      loggedInUser: this.props.currentUser
-    });
   }
 
   render() {
@@ -102,19 +69,24 @@ class Profile extends React.Component {
     const {
       auth,
       anchorEl,
-      fireRedirect,
-      profileUser,
-      loggedInUser
+      fireRedirect
+  
     } = this.state;
     const open = Boolean(anchorEl);
     console.log("state in profile:", this.state);
     console.log("props in profile:", this.props);
     return (
       <React.Fragment>
-        {loggedInUser ? (
+        {currentUser ? (
+          <div className = "flex profile">
           <div className={"classes.root"}>
-            Welcome {loggedInUser.username} currentscore:{addCommas(score)}
+            Welcome {currentUser.username} currentscore:{addCommas(score)}
+            </div>
+            <div className="flex">
+              <img src={currentUser.imgurl} width="200px" height="200px" style={profileStyle} alt={`Photo of ${currentUser.firstname}`}/>
+            </div>
           </div>
+          
         ) : (
           <div>Must Be Logged In...</div>
         )}
