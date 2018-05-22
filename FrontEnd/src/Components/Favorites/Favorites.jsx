@@ -21,7 +21,7 @@ export default class Favorites extends Component {
           movieData: response,
           favorites: response.data.data
         });
-        console.log(response);
+        console.log("Favs:",response);
       })
       .catch(error => {
         console.log(error);
@@ -36,8 +36,6 @@ export default class Favorites extends Component {
   render() {
     const { favorites } = this.state;
     const { currentUser, loggedIn } = this.props;
-    console.log("props in favs:", this.props);
-    console.log("state in favs:", this.state);
     return (
       <React.Fragment>
         <FavoriteMovieList

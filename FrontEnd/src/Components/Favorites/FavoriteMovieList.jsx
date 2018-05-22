@@ -27,13 +27,12 @@ class FavoriteMovieList extends React.Component {
   }
 
   removeFromFavs = movie => {
-    console.log("the movie id:", movie.id);
     axios
       .delete("/users/removeFavorite", {
         data: { id: movie.id }
       })
       .then(response => {
-        console.log("rez from rff:", response);
+        console.table("response:",response)
       })
       .catch(error => {
         console.log(error);
@@ -43,7 +42,6 @@ class FavoriteMovieList extends React.Component {
   render() {
     const { classes, loggedIn, currentUser, movies } = this.props;
     const { removeFromFavs } = this;
-    console.log("the movies in fml:", movies);
     return (
       <div className="favs-list">
         {!currentUser ? (

@@ -6,7 +6,7 @@ CREATE DATABASE moviefights;
 CREATE TABLE users (
   ID SERIAL PRIMARY KEY,
   username VARCHAR UNIQUE,
-  imgurl VARCHAR,
+  imgurl VARCHAR DEFAULT 'https://farrellaudiovideo.com/wp-content/uploads/2016/02/default-profile-pic-300x300.png',
   firstname VARCHAR,
   lastname VARCHAR,
   password_digest VARCHAR,

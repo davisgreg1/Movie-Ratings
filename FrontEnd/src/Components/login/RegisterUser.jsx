@@ -174,7 +174,6 @@ class RegisterUser extends React.Component {
       handleInput
     } = this;
     const { classes } = this.props;
-    console.log("State in register", this.state);
     if (registered) {
       return <Redirect to="/login" />;
     }

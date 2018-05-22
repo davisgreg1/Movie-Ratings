@@ -40,7 +40,7 @@ class NavBar extends Component {
     super(props);
 
     this.state = {
-      user: null,
+      currentUser: null,
       anchorEl: null,
       fireRedirect: false
     };
@@ -125,8 +125,7 @@ class NavBar extends Component {
   };
 
   loggedInNav = () => {
-    const { user, logOut, classes } = this.props;
-    console.log("classesProp:", classes)
+    const { currentUser, logOut, classes } = this.props;
     const { anchorEl } = this.state;
     let open = Boolean(this.state.anchorEl);
     const styles = {
@@ -147,7 +146,7 @@ class NavBar extends Component {
     return (
       <Fragment>
         <FormGroup className="seek">
-          <Link to={`/users/${user.username}`}>
+          <Link to={`/users/${currentUser.username}`}>
             <div title="Profile" />
           </Link>
         </FormGroup>
@@ -185,7 +184,7 @@ class NavBar extends Component {
                 open={open}
                 onClose={this.handleClose}
               >
-                <Link to={`/users/${user.username}`} className="links">
+                <Link to={`/users/${currentUser.username}`} className="links">
                   <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                 </Link>
                 <Link to="/game" className="links">
@@ -212,7 +211,7 @@ class NavBar extends Component {
   };
 
   handleChange = event => {
-    if (this.props.user) {
+    if (this.props.currentUser) {
       this.setState({
         checked: true
       });
@@ -248,7 +247,7 @@ class NavBar extends Component {
   render() {
     const { loggedInNav, loggedOutNav, onLoadNav } = this;
     const { anchorEl, fireRedirect, goToGame } = this.state;
-    const { user, classes, loggedIn, getUserInfo, logOut } = this.props;
+    const { currentUser, classes, loggedIn, getUserInfo, logOut } = this.props;
 
     if (goToGame) {
       console.log("clicked");

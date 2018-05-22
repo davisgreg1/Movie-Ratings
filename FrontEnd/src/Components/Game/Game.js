@@ -105,12 +105,12 @@ class Game extends React.Component {
       message: "",
       movie1: null,
       movie2: null,
-      score: this.props.originalScore,
       currentUser: "",
       winner: {},
       loser: {},
       movie1MoneyEarned: "",
-      movie2MoneyEarned: ""
+      movie2MoneyEarned: "",
+      score: ""
     };
   }
 
@@ -123,7 +123,7 @@ class Game extends React.Component {
         // `https://api.themoviedb.org/3/movie/216015?api_key=${API_KEY}&language=en-US`
       )
       .then(response => {
-        console.log("THis is response in Game.js 126:", response)
+        console.log("THis is response in Game.js 126:", response);
         this.setState({
           movie1: response,
           movie1Revenue: response.data.revenue,
@@ -185,13 +185,13 @@ class Game extends React.Component {
     let diff = movie1MoneyEarned - movie2MoneyEarned;
 
     if (e.target.title === winner.original_title) {
-      console.log("winner?:",winner)
+      console.log("winner?:", winner);
       this.setState({
-        score: (this.state.score += 10)
+        score: this.state.score += 10
       });
       swal({
         title: "Sweet!",
-        customClass: 'animated rubberBand',
+        customClass: "animated rubberBand",
         html: `<span id="swal-message-right"><h6>Congratulations, you win! ${
           winner.original_title
         } grossed ${currencyFormatter.format(Math.abs(winner.revenue), {
@@ -205,7 +205,7 @@ class Game extends React.Component {
         imageWidth: 400,
         imageHeight: 200,
         imageAlt: "Custom image",
-        animation: false,
+        animation: false
       });
     }
     /**
@@ -217,82 +217,51 @@ class Game extends React.Component {
     if (e.target.title === loser.original_title) {
       swal({
         title: "Sorry!",
-        customClass: 'animated shake',
-        html: `<span id="swal-message"><h6>${e.target.title} grossed ${currencyFormatter.format(
-          Math.abs(loser.revenue),
-          { code: "USD" }
-        )}, but didn't earn more in profits than ${winner.original_title}.</h6></span>`,
+        customClass: "animated shake",
+        html: `<span id="swal-message"><h6>${
+          e.target.title
+        } grossed ${currencyFormatter.format(Math.abs(loser.revenue), {
+          code: "USD"
+        })}, but didn't earn more in profits than ${
+          winner.original_title
+        }.</h6></span>`,
         background: `#eee url(${baseURL}${loser.backdrop_path}) space`,
         backdrop: `
         rgba(255,0,0,0.5)`,
         imageWidth: 400,
         imageHeight: 200,
         imageAlt: "Custom image",
-        animation: false,
+        animation: false
       });
     }
     this.postScore();
-    // setTimeout(() => {
-    //   this.getTwoMovies();
-    // }, 5000);
   };
 
   postScore = () => {
+    const { currentUser } = this.props;
+    const { score } = this.state;
+
     axios
       .patch("users/score_update", {
-        points: this.state.score,
-        id: this.props.currentUser.id
+        points: score,
+        id: currentUser.id
       })
       .then(res => {
-        console.log(res);
+        console.log("Postedscore:", res);
       })
       .catch(error => {
         console.log(error);
       });
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
-
-    let randomMovieID = `${idArr[Math.floor(Math.random() * idArr.length)]}`;
-    // eslint-disable-next-line
-    const { player1Name, player2Name, message, movie1, movie2 } = this.state;
-
-    fetch(`http://www.omdbapi.com/?i=${randomMovieID}&apikey=${KEY}`)
-      .then(response => {
-        // console.log("the first json response", response);
-        return response.json();
-      })
-      .then(data => {
-        // console.log("the first fetch data", data);
-        return this.setState({ movie1: data });
-      });
-    const secondFetch = () => {
-      fetch(
-        `http://www.omdbapi.com/?i=${
-          idArr[Math.floor(Math.random() * idArr.length)]
-        }&apikey=${KEY}`
-      )
-        .then(response => {
-          // console.log("the json response", response);
-          return response.json();
-        })
-        .then(data => {
-          // console.log("the second fetched data", data);
-
-          return this.setState({
-            movie2: data,
-            message: `${this.state.player1Name} your movie is: ${
-              this.state.movie2.Title
-            }`
-          });
-        });
-    };
-    secondFetch();
-  };
-
-  componentWillMount() {
+  componentDidMount() {
     this.getTwoMovies();
+  }
+
+  static getDerivedStateFromProps = (nextProps, prevState) => {
+   return {
+     score: nextProps.originalScore
+   }
   }
 
   render() {
@@ -305,8 +274,9 @@ class Game extends React.Component {
       currentUser
     } = this.state;
     const { classes, user, originalScore, getUserScore } = this.props;
-    console.log("the props in Game:", this.props);
+    // console.log("the props in Game:", this.props);
     console.log("the stATE in Game:", this.state);
+    console.log("the score is:", score);
     return (
       <React.Fragment>
         <div id="movie-1-and-2-container">
@@ -315,7 +285,9 @@ class Game extends React.Component {
           ) : (
             <div className="default-home-screen">
               <div>{this.props.currentUser.firstname} your turn to play</div>
-              <div>Your score is: <CurrentScore score={score}/></div>
+              <div>
+                Your score is: <CurrentScore score={score} />
+              </div>
               {!movie1 || !movie2 ? (
                 <CircularProgress
                   size={50}
@@ -339,7 +311,10 @@ class Game extends React.Component {
                     <SingleHomeMovie data={movie1} />
                   </Card>
                   <div className="versus-div">
-                  <Button onClick={this.getTwoMovies}> <span id="versus-span">MORE!</span></Button>
+                    <Button onClick={this.getTwoMovies}>
+                      {" "}
+                      <span id="versus-span">MORE!</span>
+                    </Button>
                   </div>
                   <Card
                     className={classes.card}
