@@ -34,6 +34,7 @@ router.get("/leaderboard", db.getLeaderBoard);
 |--------------------------------------------------
 */
 router.patch("/score_update", loginRequired, db.updateUserScore);
+router.patch("/edit", loginRequired, db.updateSingleUser);
 
 /**
 |--------------------------------------------------

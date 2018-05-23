@@ -8,13 +8,13 @@ import Input, { InputLabel, InputAdornment } from "material-ui/Input";
 import { FormControl, FormHelperText } from "material-ui/Form";
 import MenuItem from "material-ui/Menu/MenuItem";
 import { withStyles } from "material-ui/styles";
-import AppBar from "material-ui/AppBar";
 import Toolbar from "material-ui/Toolbar";
 import Typography from "material-ui/Typography";
 import IconButton from "material-ui/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import RaisedButton from "material-ui/Button";
+// import AppBar from "material-ui/AppBar";
 import Profile from "../users/Profile";
 import "../../Views/App.css";
 

@@ -53,6 +53,36 @@ const registerUser = (req, res, next) => {
     });
 };
 
+updateSingleUser = (req, res, next) => {
+  // const hash = authHelpers.createHash(req.body.password);
+  db
+    .none(
+      "UPDATE users SET username = ${username},  imgurl = ${imgurl}, firstname = ${firstname}, lastname = ${lastname}, email = ${email}, blurb = ${blurb}, public_id= ${public_id} WHERE id = ${id}", {
+        username: req.body.username,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        // password: hash,
+        blurb: req.body.blurb,
+        imgurl: req.body.imgurl,
+        public_id: req.body.public_id,
+        id: req.user.id
+      }
+    )
+    .then((data) => {
+      res.status(200).json({
+        status: "Success!",
+        message: "Changed the user"
+      });
+    })
+    .catch((err) => {
+      console.log("Bruhh,...")
+      return next(err);
+    });
+}
+
+
+
 const getScore = (req, res, next) => {
   db
     .one("SELECT * FROM scores WHERE user_id = ${id}", req.user)
@@ -208,5 +238,6 @@ module.exports = {
   getSingleUser,
   getUserByUsername,
   getScore,
-  getLeaderBoard
+  getLeaderBoard,
+  updateSingleUser
 };

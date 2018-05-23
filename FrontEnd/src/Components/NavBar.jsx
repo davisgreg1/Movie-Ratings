@@ -131,7 +131,8 @@ class NavBar extends Component {
     const styles = {
       root: {
         height: "100%",
-        flexGrow: 1
+        flexGrow: 1,
+        borderRadius: "7em"
       },
       flex: {
         flex: 1,

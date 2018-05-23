@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
 import Profile from './Profile';
+import EditProfile from './EditProfile';
 
 class Users extends Component {
   constructor(props){
@@ -14,8 +15,8 @@ class Users extends Component {
     console.log("props in User:", this.props)
     return (
       <Switch>
-        <Route  path='/users/:username' render={(props) => <Profile {...props} currentUser={currentUser} score={score} getUserScore={getUserScore}/>}/>
-        {/* <Route path='/users/:username/edit' render={(props) => <EditProfile {...props} user={user} />}/> */}
+        <Route  exact path='/users/:username' render={(props) => <Profile {...props} currentUser={currentUser} score={score} getUserScore={getUserScore}/>}/>
+        <Route  exact path='/users/:username/edit' render={(props) => <EditProfile {...props} currentUser={currentUser} />}/>
       </Switch>
     );
   }
