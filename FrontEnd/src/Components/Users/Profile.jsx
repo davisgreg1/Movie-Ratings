@@ -70,23 +70,26 @@ class Profile extends React.Component {
       auth,
       anchorEl,
       fireRedirect
-  
     } = this.state;
     const open = Boolean(anchorEl);
+    
+    const base = "http://res.cloudinary.com/movie-fights/image/upload/"
+    let path = "v1527036552/meAndTyKissy_ticdzb.jpg"
+
     console.log("state in profile:", this.state);
     console.log("props in profile:", this.props);
     return (
       <React.Fragment>
         {currentUser ? (
           <div className = "flex profile">
+            <div className="flex profile-img">
+              <img src={`${base}${currentUser.imgurl}`} width="200px" height="200px" style={profileStyle} alt={`Photo of ${currentUser.firstname}`}/>
+            <a href={`/users/${currentUser.username}/edit`}>Edit Profile</a>
+            </div>
           <div className={"classes.root"}>
             Welcome {currentUser.username} currentscore:{addCommas(score)}
             </div>
-            <div className="flex">
-              <img src={currentUser.imgurl} width="200px" height="200px" style={profileStyle} alt={`Photo of ${currentUser.firstname}`}/>
-            </div>
-          </div>
-          
+          </div>          
         ) : (
           <div>Must Be Logged In...</div>
         )}

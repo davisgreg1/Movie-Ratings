@@ -19,7 +19,7 @@ import Game from "./Components/Game/Game";
 import Favorites from "./Components/Favorites/Favorites";
 import RegisterUser from "./Components/login/RegisterUser";
 import Users from "./Components/users/Users";
-import Profile from "./Components/users/Profile";
+// import Profile from "./Components/users/Profile";
 import LoginUser from "./Components/login/LoginUser";
 import LeaderBoard from "./Components/Game/LeaderBoard";
 import axios from "axios";
@@ -105,16 +105,6 @@ class App extends React.Component {
       .catch(err => {
         console.log("err:", err);
       });
-  };
-
-  // Home is the feed screen
-  renderProfile = () => {
-    const { user } = this.state;
-    if (user) {
-      return <Profile user={user} />;
-    } else {
-      return <h1>Must be logged in</h1>;
-    }
   };
 
   handleMenu = event => {

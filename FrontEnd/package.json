@@ -5,6 +5,8 @@
   "dependencies": {
     "@material-ui/icons": "^1.0.0-beta.43",
     "axios": "^0.17.1",
+    "cloudinary-core": "^2.5.0",
+    "cloudinary-react": "^1.0.6",
     "currency-formatter": "^1.4.2",
     "jsonwebtoken": "^8.2.1",
     "jwt-decode": "^2.2.0",

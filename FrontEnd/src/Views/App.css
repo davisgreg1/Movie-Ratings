@@ -259,6 +259,23 @@ margin-top: 50%;
   cursor: pointer;
 }
 
+                                                          /**
+                                                          |--------------------------------------------------
+                                                          | PROFILE SCREEN BELOW...
+                                                          |--------------------------------------------------
+                                                          */
+.profile-img{
+display: flex;
+justify-content: center;
+flex-direction: column;
+}
+
+.edit-fields{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 @media only screen and (max-width: 768px) {
   .single-movie-container {
     /* display: flex;
