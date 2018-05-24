@@ -9,3 +9,4 @@ Future implementations includes
 - Buy Movie Tickets
 - Chat
 - Badges
+- Redux
