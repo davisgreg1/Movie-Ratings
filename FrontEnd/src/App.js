@@ -95,18 +95,18 @@ class App extends React.Component {
       });
   };
 
-getAllBlogPosts = () => {
-  axios
-    .get("/users/all_blogs")
-    .then(res => {
-      this.setState({
-        allBlogs: res.data
+  getAllBlogPosts = () => {
+    axios
+      .get("/users/all_blogs")
+      .then(res => {
+        this.setState({
+          allBlogs: res.data.body
+        });
       })
-    })
-    .catch(err => {
-      console.log("Error Getting Blogs:", err)
-    })
-}
+      .catch(err => {
+        console.log("Error Getting Blogs:", err);
+      });
+  };
 
   getUserScore = () => {
     axios
@@ -185,6 +185,17 @@ getAllBlogPosts = () => {
 
   componentDidMount() {
     const { user } = this.state;
+    console.log("APP DID MOUNT")
+    // axios
+    //   .get("/users/all_blogs")
+    //   .then(res => {
+    //     this.setState({
+    //       allBlogs: res.data.body
+    //     });
+    //   })
+    //   .catch(err => {
+    //     console.log("Error Getting Blogs:", err);
+    //   });
 
     axios
       .get("/users/userinfo")
@@ -195,8 +206,8 @@ getAllBlogPosts = () => {
         });
       })
       .catch(err => {
-        console.log(`error getting user info`, err);
-      })
+        console.log("Error Getting User Info:", err);
+      });
 
     axios
       .get("/users/getcurrentscore")
@@ -204,23 +215,12 @@ getAllBlogPosts = () => {
         this.setState({
           score: res.data.data.points
         });
-      }).then(
-        this.getLeaderBoard()
-      )
+      })
+      .then(this.getLeaderBoard())
       .catch(err => {
-        console.log("error getting score:", err);
-      })
-    
-      axios
-      .get("/users/all_blogs")
-      .then(res => {
-        this.setState({
-          allBlogs: res.data.body
-        });
-      })
-      .catch(err => {
-        console.log("Error Getting Blogs:", err)
-      })
+        console.log("Error Getting Score:", err);
+      });
+
   }
 
   render() {
@@ -252,7 +252,7 @@ getAllBlogPosts = () => {
     } = this;
     let open = Boolean(anchorEl);
 
-    console.log("all Blogs:::", allBlogs)
+    console.log("all Blogs in app.js:", allBlogs);
     return (
       <div className="entire-app">
         <NavBar
@@ -312,7 +312,7 @@ getAllBlogPosts = () => {
                 getUserScore={getUserScore}
                 allBlogs={allBlogs}
                 getAllBlogPosts={getAllBlogPosts}
-              
+                classes={classes}
               />
             )}
           />
