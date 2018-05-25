@@ -60,10 +60,8 @@ class NewBlog extends Component {
 
     axios
       .post("/users/new_blog", {
-        user_id: currentUser.id,
         blog_title: newBlogTitle,
-        blog_body: newBlogBody,
-        time_posted: timeBlogPosted.toISOString()
+        blog_body: newBlogBody
       })
       .then(res => {
         this.setState({
