@@ -10,6 +10,7 @@ import Typography from "material-ui/Typography";
 import IconButton from "material-ui/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
+import Paper from 'material-ui/Paper';
 import CircularProgress from "material-ui/Progress/CircularProgress";
 import Switch from "material-ui/Switch";
 import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
@@ -22,6 +23,7 @@ import MovieList from "./MovieList";
 import SingleHomeMovie from "./SingleHomeMovie";
 import swal from "sweetalert2";
 import "../Views/App.css";
+import { log } from "util";
 
 const API_KEY = "d3b24aad8f7a69f5d20f89822a6102f8";
 
@@ -142,7 +144,7 @@ class Home extends React.Component {
       searchText: e.target.value
     });
     //Uncomment the following line to get live updates as user types `caution: rate limit`
-    // this.getMovie();
+    this.getMovie();
     if (!this.state.searchText.length) {
       this.setState({
         data: null
@@ -210,7 +212,7 @@ class Home extends React.Component {
         });
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
       });
 
     const secondFetch = () => {
@@ -231,17 +233,17 @@ class Home extends React.Component {
         .then(() => {
           this.setState({
             winner:
-              this.state.movie1MoneyEarned > this.state.movie2MoneyEarned
+              this.state.movie1MoneyEarned >= this.state.movie2MoneyEarned
                 ? this.state.movie1.data
                 : this.state.movie2.data,
             loser:
-              this.state.movie1MoneyEarned < this.state.movie2MoneyEarned
+              this.state.movie1MoneyEarned <= this.state.movie2MoneyEarned
                 ? this.state.movie1.data
                 : this.state.movie2.data
           });
         })
         .catch(error => {
-          console.log(error);
+          console.error(error);
         });
     };
     secondFetch();
@@ -273,7 +275,7 @@ class Home extends React.Component {
         })} more than ${
           loser.original_title
         }! Sign up to join the leaderboard!`,
-        imageUrl: `${baseURL}${winner.poster_path}`,
+        imageUrl: `${baseURL}${winner.backdrop_path}`,
         imageWidth: 400,
         imageHeight: 200,
         imageAlt: "Custom image",
@@ -289,7 +291,7 @@ class Home extends React.Component {
         )}, but didn't earn more in profits than ${
           winner.original_title
         }. Avenge your dignity by signing up to play more!`,
-        imageUrl: `${baseURL}${loser.poster_path}`,
+        imageUrl: `${baseURL}${loser.backdrop_path}`,
         imageWidth: 400,
         imageHeight: 200,
         imageAlt: "Custom image",
@@ -312,7 +314,7 @@ class Home extends React.Component {
     });
   };
 
-  componentDidMount() {
+  componentWillMount() {
     this.getTwoMovies();
     this.setUser();
   }
@@ -331,11 +333,9 @@ class Home extends React.Component {
     } = this.state;
     const { _keyPress, handleInput, getWinner } = this;
     const open = Boolean(anchorEl);
-
+    console.log("HOME STATE:",this.state)
     return (
       <React.Fragment id="home-screen">
-        {/* <div className={classes.root}> */}
-
         <div className="searchy">
           <i className="material-icons md-dark seek">search</i>
           <Input
@@ -343,8 +343,6 @@ class Home extends React.Component {
             onKeyPress={_keyPress}
             placeholder="Search for movies..."
             fullWidth={true}
-            // className={classes.input}
-            // style = {{inputStyle}}
             inputProps={{
               "aria-label": "Description"
             }}
@@ -369,6 +367,7 @@ class Home extends React.Component {
                   />
                 ) : (
                   <div className="single-movie-container">
+                  <Paper className={"classes.root flex" } elevation={5}>
                     <Card
                       className={classes.card}
                       id="movie_num_1"
@@ -396,7 +395,8 @@ class Home extends React.Component {
                         currentUser={user}
                       />
                     </Card>
-                    Select The Movie You Think Made More In Profits!!
+                    {/* Select The Movie You Think Made More In Profits!! */}
+                    </Paper>
                   </div>
                 )}
               </div>

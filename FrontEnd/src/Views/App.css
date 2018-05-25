@@ -348,6 +348,18 @@ flex-direction: column;
 }
 
                                                 /*____________________________________________________
+                                                | EDIT PROFILE BELOW
+                                                |_____________________________________________________
+                                                */
+
+#upload_widget_opener{
+height: 50%;
+overflow: hidden;
+background-color: #8BAAAD;
+border-style: none;
+cursor: pointer;
+}
+                                                /*____________________________________________________
                                                 | LOGIN USER BELOW
                                                 |_____________________________________________________
                                                 */

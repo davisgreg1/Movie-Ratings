@@ -32,7 +32,6 @@ class SingleHomeMovie extends React.Component {
     let baseURL = `http://image.tmdb.org/t/p/w185`;
     return (
       <React.Fragment>
-        <div className="aSingleMovieCard" value={data.data.original_title}>
           <Card className={classes.card}>
             <CardMedia
               className={classes.media}
@@ -50,7 +49,6 @@ class SingleHomeMovie extends React.Component {
               </Typography>
             </CardContent>
           </Card>
-        </div>
       </React.Fragment>
     );
   }

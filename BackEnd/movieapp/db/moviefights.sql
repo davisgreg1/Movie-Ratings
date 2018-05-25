@@ -21,6 +21,14 @@ CREATE TABLE scores (
   points INTEGER DEFAULT 0
 );
 
+CREATE TABLE blogs (
+  user_id INTEGER REFERENCES users(ID),
+  blog_title VARCHAR,
+  blog_body VARCHAR,
+  time_posted TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+
+);
+
 CREATE TABLE favorites (
   ID SERIAL PRIMARY KEY,
   movie_imdb_id VARCHAR,
@@ -73,3 +81,24 @@ INSERT INTO scores (user_id, points)
   VALUES (9, 999380);
 INSERT INTO scores (user_id, points)
   VALUES (10, 345670);
+
+INSERT INTO blogs (user_id, blog_title, blog_body, time_posted)
+  VALUES (1, 'My First Post', 'This is my first blog post', NOW());
+INSERT INTO blogs (user_id, blog_title, blog_body, time_posted)
+  VALUES (2, 'My Second Post', 'This is my 2nd blog post', NOW());
+INSERT INTO blogs (user_id, blog_title, blog_body, time_posted)
+  VALUES (3, 'My Third Post', 'This is my 3rd blog post', NOW());
+INSERT INTO blogs (user_id, blog_title, blog_body, time_posted)
+  VALUES (4, 'My Fourth Post', 'This is my 4th blog post', NOW());
+INSERT INTO blogs (user_id, blog_title, blog_body, time_posted)
+  VALUES (5, 'My Fifth Post', 'This is my 5th blog post', NOW());
+INSERT INTO blogs (user_id, blog_title, blog_body, time_posted)
+  VALUES (6, 'My Sixth Post', 'This is my 6th blog post', NOW());
+INSERT INTO blogs (user_id, blog_title, blog_body, time_posted)
+  VALUES (7, 'My Seventh Post', 'This is my 7th blog post', NOW());
+INSERT INTO blogs (user_id, blog_title, blog_body, time_posted)
+  VALUES (8, 'My Eighth Post', 'This is my 8th blog post', NOW());
+INSERT INTO blogs (user_id, blog_title, blog_body, time_posted)
+  VALUES (9, 'My Ninth Post', 'This is my 9th blog post', NOW());
+INSERT INTO blogs (user_id, blog_title, blog_body, time_posted)
+  VALUES (10, 'My Tenth Post', 'This is my 10th blog post', NOW());

@@ -5,6 +5,7 @@ import { Route, Link, Switch } from "react-router-dom";
 import classNames from "classnames";
 import TextField from "material-ui/TextField";
 import Input, { InputLabel, InputAdornment } from "material-ui/Input";
+import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
 import CircularProgress from "material-ui/Progress/CircularProgress";
 import { FormControl, FormHelperText } from "material-ui/Form";
 import MenuItem from "material-ui/Menu/MenuItem";
@@ -14,7 +15,7 @@ import Typography from "material-ui/Typography";
 import IconButton from "material-ui/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import Divider from 'material-ui/Divider';
+import Divider from "material-ui/Divider";
 import RaisedButton from "material-ui/Button";
 import "../../Views/App.css";
 
@@ -74,7 +75,7 @@ class EditProfile extends Component {
           return;
         }
         result.map(elem => {
-            console.log("cloud result:", result)
+          console.log("cloud result:", result);
           if (!elem.public_id) {
             return "sample";
           } else {
@@ -112,7 +113,7 @@ class EditProfile extends Component {
   handleProfileSubmitForm = e => {
     e.preventDefault();
     let {
-        user,
+      user,
       newUserName,
       newFirstName,
       newLastName,
@@ -125,9 +126,9 @@ class EditProfile extends Component {
 
     axios
       .patch("/users/edit", {
-        username:  newUserName || user.username,
+        username: newUserName || user.username,
         firstname: newFirstName || user.firstname,
-        lastname:   newLastName || user.lastname,
+        lastname: newLastName || user.lastname,
         email: newEmail || user.email,
         blurb: newBlurb || user.blurb,
         imgurl: newImgURL || user.imgurl,
@@ -185,7 +186,6 @@ class EditProfile extends Component {
     } = this.state;
     const { currentUser, classes } = this.props;
 
-
     if (doneEditing) {
       window.location.reload();
     }
@@ -196,16 +196,16 @@ class EditProfile extends Component {
           <div className="image-crop margin flex row" id="user_image">
             {!this.state.user ? (
               <CircularProgress
-              size={50}
-              left={70}
-              top={0}
-              loadingColor="#FF9800"
-              status="loading"
-              style={{
-                display: "inlineBlock",
-                position: "relative"
-              }}
-            />
+                size={50}
+                left={70}
+                top={0}
+                loadingColor="#FF9800"
+                status="loading"
+                style={{
+                  display: "inlineBlock",
+                  position: "relative"
+                }}
+              />
             ) : (
               <div className="edit-fields">
                 <button id="upload_widget_opener" onClick={makeWidget}>
@@ -214,12 +214,10 @@ class EditProfile extends Component {
                     publicId={this.props.currentUser.public_id}
                     width="250"
                     crop="scale"
+                    style={{ width: 195 }}
                   />
                 </button>
-                <form
-                  onSubmit={handleProfileSubmitForm}
-                  id="input-container"
-                >
+                <form onSubmit={handleProfileSubmitForm} id="input-container">
                   <div
                     id="user-banner-edit"
                     className="background-banner sq2-edit"
@@ -279,7 +277,9 @@ class EditProfile extends Component {
                     <div className="edit-user-blurb">
                       <TextField
                         className={classes.textField}
-                        id="helperText"
+                        id="multiline-flexible"
+                        multiline
+                        rowsMax="10"
                         label="Blurb"
                         name="newBlurb"
                         defaultValue={user.blurb}

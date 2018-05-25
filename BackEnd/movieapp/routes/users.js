@@ -16,6 +16,7 @@ router.post("/register", db.registerUser);
 router.post("/login", db.loginUser);
 router.post("/score_zero", db.setScoreToZero);
 router.post("/addFavorites", loginRequired, db.addToFavorites);
+router.post("/new_blog", loginRequired, db.postNewBlog);
 
 /**
 |--------------------------------------------------
@@ -28,6 +29,7 @@ router.get("/userinfo", loginRequired, db.getSingleUser);
 router.get("/getuser/:username", loginRequired, db.getUserByUsername);
 router.get("/getcurrentscore", loginRequired, db.getScore);
 router.get("/leaderboard", db.getLeaderBoard);
+router.get("/all_blogs", db.getPostFromUser);
 /**
 |--------------------------------------------------
 | PATCH ROUTES BELOW....

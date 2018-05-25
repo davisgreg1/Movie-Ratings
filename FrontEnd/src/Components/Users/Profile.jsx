@@ -3,6 +3,8 @@ import { Route, Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import { withStyles } from "material-ui/styles";
 import { FormControlLabel, FormGroup } from "material-ui/Form";
+import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
+import CircularProgress from "material-ui/Progress/CircularProgress";
 import AppBar from "material-ui/AppBar";
 import Switch from "material-ui/Switch";
 import Toolbar from "material-ui/Toolbar";
@@ -31,9 +33,9 @@ const styles = {
   }
 };
 const profileStyle = {
-  border:"5px solid black",
-  borderRadius: "7em",
-}
+  border: "5px solid black",
+  borderRadius: "7em"
+};
 
 class Profile extends React.Component {
   constructor(props) {
@@ -42,7 +44,8 @@ class Profile extends React.Component {
   state = {
     auth: false,
     anchorEl: null,
-    fireRedirect: false
+    fireRedirect: false,
+    blogs: null
   };
 
   handleChange = () => {
@@ -59,37 +62,84 @@ class Profile extends React.Component {
     this.setState({ anchorEl: null });
   };
 
+  getAllBlogPosts = () => {
+    axios
+      .get("/users/all_blogs")
+      .then(res => {
+        this.setState({
+          blogs: res.data.body
+        });
+      })
+      .catch(err => {
+        console.log("Error Getting Blogs:", err);
+      });
+  };
+
   componentDidMount() {
     const { getUserScore } = this.props;
+    const { getAllBlogPosts } = this;
     getUserScore();
+    getAllBlogPosts();
   }
 
-  render() {
-    const { classes, currentUser, score, getUserScore } = this.props;
-    const {
-      auth,
-      anchorEl,
-      fireRedirect
-    } = this.state;
-    const open = Boolean(anchorEl);
-    
-    const base = "http://res.cloudinary.com/movie-fights/image/upload/"
-    let path = "v1527036552/meAndTyKissy_ticdzb.jpg"
 
-    console.log("state in profile:", this.state);
-    console.log("props in profile:", this.props);
+  // static getDerivedStateFromProps = (nextProps, prevState) => {
+  //   console.log("nextProps:", nextProps);
+  //   console.log("prevState:", prevState);
+  //   return {
+  //     blogs: nextProps.allBlogs
+  //   };
+  // };
+
+  render() {
+    const {
+      classes,
+      currentUser,
+      score,
+      getUserScore,
+      allBlogs,
+      getAllBlogPosts
+    } = this.props;
+    const { auth, anchorEl, fireRedirect, blogs } = this.state;
+    const open = Boolean(anchorEl);
+    const base = "http://res.cloudinary.com/movie-fights/image/upload/";
+    console.log("Blogs in Profileeeee:", blogs);
+
     return (
       <React.Fragment>
         {currentUser ? (
-          <div className = "flex profile">
+          <div className="flex profile">
             <div className="flex profile-img">
-              <img src={`${base}${currentUser.imgurl}`} width="200px" height="200px" style={profileStyle} alt={`Photo of ${currentUser.firstname}`}/>
-            <a href={`/users/${currentUser.username}/edit`}>Edit Profile</a>
+              <img
+                src={`${base}${currentUser.imgurl}`}
+                width="200px"
+                height="200px"
+                style={profileStyle}
+                alt={`Photo of ${currentUser.firstname}`}
+              />
+              <a href={`/users/${currentUser.username}/edit`}>Edit Profile</a>
             </div>
-          <div className={"classes.root"}>
-            Welcome {currentUser.username} currentscore:{addCommas(score)}
+            <div className={"classes.root"}>
+              Welcome {currentUser.firstname} currentscore:{addCommas(score)}
             </div>
-          </div>          
+            <div>
+              {!blogs ? (
+                <CircularProgress
+                  size={50}
+                  left={70}
+                  top={0}
+                  loadingColor="#FF9800"
+                  status="loading"
+                  style={{
+                    display: "inlineBlock",
+                    position: "relative"
+                  }}
+                />
+              ) : (
+                blogs.map(elem => <p>{elem.blog_title}</p>)
+              )}
+            </div>
+          </div>
         ) : (
           <div>Must Be Logged In...</div>
         )}
