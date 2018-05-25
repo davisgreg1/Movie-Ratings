@@ -9,11 +9,11 @@ class Users extends Component {
   }
   
   render() {
-    const { currentUser, loggedIn, score, getUserScore, getUserInfo, allBlogs, getAllBlogPosts } = this.props
+    const { currentUser, loggedIn, score, getUserScore, getUserInfo, allBlogs, getAllBlogPosts, classes } = this.props
     return (
       <Switch>
-        <Route  exact path='/users/:username' render={(props) => <Profile {...props} currentUser={currentUser} score={score} getUserScore={getUserScore} allBlogs={allBlogs} getAllBlogPosts={getAllBlogPosts}/>}/>
-        <Route  exact path='/users/:username/edit' render={(props) => <EditProfile {...props} currentUser={currentUser} />}/>
+        <Route  exact path='/users/:username' render={(props) => <Profile {...props} currentUser={currentUser} score={score} getUserScore={getUserScore} allBlogs={allBlogs} classes={classes} getAllBlogPosts={getAllBlogPosts} />}/>
+        <Route  exact path='/users/:username/edit' render={(props) => <EditProfile {...props} classes={classes} currentUser={currentUser} />}/>
       </Switch>
     );
   }

@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Link, Redirect } from "react-router-dom";
 import axios from "axios";
+import dateFormat from 'dateformat';
 import { withStyles } from "material-ui/styles";
 import { FormControlLabel, FormGroup } from "material-ui/Form";
 import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
@@ -30,6 +31,16 @@ const styles = {
   menuButton: {
     marginLeft: -12,
     marginRight: 20
+  },
+  pos: {
+    marginBottom: 12
+  },
+  title: {
+    marginBottom: 16,
+    fontSize: 14
+  },
+  card: {
+    minWidth: 275
   }
 };
 const profileStyle = {
@@ -76,12 +87,11 @@ class Profile extends React.Component {
   };
 
   componentDidMount() {
-    const { getUserScore } = this.props;
-    const { getAllBlogPosts } = this;
+    const { getUserScore, allBlogs, getAllBlogPosts } = this.props;
+    // const { getAllBlogPosts } = this;
     getUserScore();
     getAllBlogPosts();
   }
-
 
   // static getDerivedStateFromProps = (nextProps, prevState) => {
   //   console.log("nextProps:", nextProps);
@@ -103,7 +113,7 @@ class Profile extends React.Component {
     const { auth, anchorEl, fireRedirect, blogs } = this.state;
     const open = Boolean(anchorEl);
     const base = "http://res.cloudinary.com/movie-fights/image/upload/";
-    console.log("Blogs in Profileeeee:", blogs);
+    console.log("Blogs??:", allBlogs);
 
     return (
       <React.Fragment>
@@ -123,7 +133,7 @@ class Profile extends React.Component {
               Welcome {currentUser.firstname} currentscore:{addCommas(score)}
             </div>
             <div>
-              {!blogs ? (
+              {!allBlogs ? (
                 <CircularProgress
                   size={50}
                   left={70}
@@ -136,7 +146,25 @@ class Profile extends React.Component {
                   }}
                 />
               ) : (
-                blogs.map(elem => <p>{elem.blog_title}</p>)
+                allBlogs.map(elem => (
+                  <Card
+                  className={classes.card}>
+                    <CardContent>
+                      <Typography
+                        variant="headline"
+                        component="h5"
+                        className={classes.title}
+                        color="textSecondary"
+                      >
+                        {elem.blog_title}
+                      </Typography>
+                      <Typography component="p">{elem.blog_body}</Typography>
+                      <Typography className={classes.pos} color="textSecondary">
+                      Posted on {dateFormat(elem.time_posted,"fullDate")} at {dateFormat(elem.time_posted,"shortTime")}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                ))
               )}
             </div>
           </div>
@@ -147,4 +175,4 @@ class Profile extends React.Component {
     );
   }
 }
-export default Profile;
+export default withStyles(styles)(Profile);
