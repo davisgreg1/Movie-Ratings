@@ -6,6 +6,7 @@ import classNames from "classnames";
 import TextField from "material-ui/TextField";
 import Input, { InputLabel, InputAdornment } from "material-ui/Input";
 import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
+import Paper from 'material-ui/Paper';
 import CircularProgress from "material-ui/Progress/CircularProgress";
 import { FormControl, FormHelperText } from "material-ui/Form";
 import MenuItem from "material-ui/Menu/MenuItem";
@@ -207,16 +208,19 @@ class EditProfile extends Component {
                 }}
               />
             ) : (
-              <div className="edit-fields">
-                <button id="upload_widget_opener" onClick={makeWidget}>
+              // <Paper className={"paper-edit"} elevation={5}>
+              <div className="ternary-div">
+              <div className="upload_widget_">
+                <button id="upload_widget_btn" onClick={makeWidget}>
                   <Image
+                    className="upload_widget_img"
                     cloudName="movie-fights"
                     publicId={this.props.currentUser.public_id}
-                    width="250"
                     crop="scale"
-                    style={{ width: 195 }}
                   />
                 </button>
+                </div>
+              <div className="edit-fields">
                 <form onSubmit={handleProfileSubmitForm} id="input-container">
                   <div
                     id="user-banner-edit"
@@ -308,6 +312,8 @@ class EditProfile extends Component {
                   </div>
                 </form>
               </div>
+              </div>
+              // </Paper>
             )}
           </div>
         </div>

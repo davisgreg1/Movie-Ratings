@@ -132,7 +132,8 @@ class Profile extends React.Component {
             <div className={"classes.root"}>
               Welcome {currentUser.firstname} currentscore:{addCommas(score)}
             </div>
-            <div>
+            {/* CSS HERE ⏬ */}
+            <div className="blog-section">
               {!allBlogs ? (
                 <CircularProgress
                   size={50}
