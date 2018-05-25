@@ -1,7 +1,7 @@
 body,
 html {
   /* font-family: 'Architects Daughter', cursive; */
-  background-color: #8BAAAD;
+  background-color: #8baaad;
   width: 100vw;
   height: 100vh;
 }
@@ -24,39 +24,35 @@ html {
   height: 100vh;
 }
 
-.flex{
+.flex {
   display: flex;
-}
-.profile{
-  display: flex;
-  justify-content: flex-start;
 }
 
-                                                          /**
+/**
                                                           |--------------------------------------------------
                                                           | NAVBAR BELOW...
                                                           |--------------------------------------------------
                                                           */
 
-.links{
+.links {
   text-decoration: none;
   outline: none;
 }
 
-.testBar{
+.testBar {
   display: flex;
   justify-content: space-around;
-  background-color: #253C78;
+  background-color: #253c78;
 }
-.testToolBar{
+.testToolBar {
   display: flex;
   justify-content: space-between;
-  background-color: #253C78;
+  background-color: #253c78;
 }
-.login-btn{
+.login-btn {
   color: red;
 }
-                                                          /**
+/**
                                                           |--------------------------------------------------
                                                           | HOME SCREEN BELOW...
                                                           |--------------------------------------------------
@@ -74,7 +70,7 @@ html {
   align-content: space-between;
 }
 
-#home-screen{
+#home-screen {
   background-color: whitesmoke;
 }
 
@@ -120,7 +116,7 @@ div.home-container {
   padding: 10px;
 }
 
-#buttons-for-movies{
+#buttons-for-movies {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -129,8 +125,8 @@ div.home-container {
 margin-top: 50%;  
 } */
 
-#versus-span{
-  font-family: 'Ruslan Display', cursive;
+#versus-span {
+  font-family: "Ruslan Display", cursive;
   font-size: 30px;
   color: black;
 }
@@ -141,9 +137,9 @@ margin-top: 50%;
   font-weight: 400;
   src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
   src: local("Material Icons"), local("MaterialIcons-Regular"),
-  url(https://example.com/MaterialIcons-Regular.woff2) format("woff2"),
-  url(https://example.com/MaterialIcons-Regular.woff) format("woff"),
-  url(https://example.com/MaterialIcons-Regular.ttf) format("truetype");
+    url(https://example.com/MaterialIcons-Regular.woff2) format("woff2"),
+    url(https://example.com/MaterialIcons-Regular.woff) format("woff"),
+    url(https://example.com/MaterialIcons-Regular.ttf) format("truetype");
 }
 
 .material-icons.md-dark {
@@ -172,15 +168,15 @@ margin-top: 50%;
   word-wrap: normal;
   white-space: nowrap;
   direction: ltr;
-  
+
   /* Support for all WebKit browsers. */
   -webkit-font-smoothing: antialiased;
   /* Support for Safari and Chrome. */
   text-rendering: optimizeLegibility;
-  
+
   /* Support for Firefox. */
   -moz-osx-font-smoothing: grayscale;
-  
+
   /* Support for IE. */
   font-feature-settings: "liga";
 }
@@ -216,11 +212,11 @@ margin-top: 50%;
   margin-top: 5%;
 }
 
-.all-cards-container{
+.all-cards-container {
   display: flex;
   justify-content: space-around;
 }
-.aSingleMovieCard{
+.aSingleMovieCard {
   display: flex;
 }
 .card-container {
@@ -265,13 +261,38 @@ margin-top: 50%;
                                                           | PROFILE SCREEN BELOW...
                                                           |--------------------------------------------------
                                                           */
-.profile-img{
-display: flex;
-justify-content: center;
-flex-direction: column;
+
+.profile {
+  display: flex;
+  flex-direction: column;
 }
 
-.edit-fields{
+.profile-img {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.blog-section {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  justify-content: center;
+  /* height: 100vh; */
+}
+#user-profile {
+  display: flex;
+  justify-content: center;
+}
+
+.blog-list{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  list-style: none;
+}
+
+.edit-fields {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -282,7 +303,7 @@ flex-direction: column;
     /* display: flex;
     padding: 50px;
     padding-top: 120px; */
-    
+
     flex-direction: column;
     display: flex;
     justify-content: center;
@@ -291,7 +312,6 @@ flex-direction: column;
     flex-wrap: wrap;
     padding: 50px;
     padding-top: 120px;
-    
   }
 }
 /* @media only screen and (min-width: 768px) {
@@ -312,7 +332,7 @@ flex-direction: column;
     /* display: flex;
     justify-content: center;
     /* padding: 50px;
-    padding-top: 120px; */ 
+    padding-top: 120px; */
     flex-direction: column;
     display: flex;
     justify-content: center;
@@ -321,10 +341,9 @@ flex-direction: column;
     flex-wrap: wrap;
     padding: 50px;
     padding-top: 120px;
-    
   }
 }
-@media only screen and (min-width: 1024px)  {
+@media only screen and (min-width: 1024px) {
   .single-movie-container {
     width: 100%;
     height: 100%;
@@ -353,7 +372,7 @@ flex-direction: column;
                                                 |_____________________________________________________
                                                 */
 
-.ternary-div{
+.ternary-div {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -362,50 +381,42 @@ flex-direction: column;
   /* height: 100vh; */
 }
 
-#upload_widget_opener{
+#upload_widget_opener {
   /* display: flex; */
   /* justify-content: center;
   align-content: center; */
-width: 500px;
-/* height: auto;
+  width: 500px;
+  /* height: auto;
 box-sizing: border-box;
 overflow: hidden; 
-*/background-color: #8BAAAD;
-border-style: none;/*
+*/
+  background-color: #8baaad;
+  border-style: none; /*
 cursor: pointer; */
 }
 
-.upload_widget_img{
+.upload_widget_img {
   max-width: 500px;
   width: 100%;
   height: auto;
 }
 
-#upload_widget_btn{
+#upload_widget_btn {
   display: flex;
   max-width: 500px;
   justify-content: center;
-    width: 50vw;
-    padding: 0px;
-    border-style: none;
+  width: 50vw;
+  padding: 0px;
+  border-style: none;
 }
 
-.blog-section{
-  display: flex;
-  width: 100vw;
-  /* height: 100vh; */
-  justify-content: center;
-}
-#user-profile{
-  display: flex;
-  justify-content: center;
-}
 
-.paper-edit{
+
+.paper-edit {
   flex-grow: 1;
   background-color: black;
 }
-                                                /*____________________________________________________
+/*____________________________________________________
                                                 | LOGIN USER BELOW
                                                 |_____________________________________________________
                                                 */
@@ -433,7 +444,7 @@ cursor: pointer; */
   justify-content: center;
 }
 
-#register-form{
+#register-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -448,31 +459,30 @@ cursor: pointer; */
   margin-bottom: 0;
 }
 
-
-                                          /**
+/**
                                           |--------------------------------------------------
                                           | FAVORITES BELOW....
                                           |--------------------------------------------------
                                           */
 
-.favs-list{
+.favs-list {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
 }
 
-                                          /**
+/**
                                           |--------------------------------------------------
                                           | GAME SCREEN BELOW....
                                           |--------------------------------------------------
                                         */
 
-#swal-message{
+#swal-message {
   color: red;
   font-size: 25px;
 }
-#swal-message-right{
+#swal-message-right {
   color: green;
   font-size: 25px;
 }

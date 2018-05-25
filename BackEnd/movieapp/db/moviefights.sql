@@ -22,11 +22,11 @@ CREATE TABLE scores (
 );
 
 CREATE TABLE blogs (
+  ID SERIAL PRIMARY KEY,
   user_id INTEGER REFERENCES users(ID),
   blog_title VARCHAR,
   blog_body VARCHAR,
   time_posted TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
-
 );
 
 CREATE TABLE favorites (
@@ -84,6 +84,8 @@ INSERT INTO scores (user_id, points)
 
 INSERT INTO blogs (user_id, blog_title, blog_body, time_posted)
   VALUES (1, 'My First Post', 'This is my first blog post', NOW());
+INSERT INTO blogs (user_id, blog_title, blog_body, time_posted)
+  VALUES (1, 'My Other Post', 'This is my Other blog post', NOW());
 INSERT INTO blogs (user_id, blog_title, blog_body, time_posted)
   VALUES (2, 'My Second Post', 'This is my 2nd blog post', NOW());
 INSERT INTO blogs (user_id, blog_title, blog_body, time_posted)

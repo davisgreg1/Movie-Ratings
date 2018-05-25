@@ -14,17 +14,18 @@ import IconButton from "material-ui/IconButton";
 import Menu from "material-ui/Menu";
 import { withStyles } from "material-ui/styles";
 
+import NavBar from "./Components/NavBar";
 import Home from "./Components/Home";
 import Game from "./Components/Game/Game";
 import Favorites from "./Components/Favorites/Favorites";
 import RegisterUser from "./Components/login/RegisterUser";
 import Users from "./Components/users/Users";
-// import Profile from "./Components/users/Profile";
 import LoginUser from "./Components/login/LoginUser";
 import LeaderBoard from "./Components/Game/LeaderBoard";
+
 import axios from "axios";
+
 import "./Views/App.css";
-import NavBar from "./Components/NavBar";
 
 //Styles for Material UI
 const styles = {
@@ -186,16 +187,6 @@ class App extends React.Component {
   componentDidMount() {
     const { user } = this.state;
     console.log("APP DID MOUNT")
-    // axios
-    //   .get("/users/all_blogs")
-    //   .then(res => {
-    //     this.setState({
-    //       allBlogs: res.data.body
-    //     });
-    //   })
-    //   .catch(err => {
-    //     console.log("Error Getting Blogs:", err);
-    //   });
 
     axios
       .get("/users/userinfo")

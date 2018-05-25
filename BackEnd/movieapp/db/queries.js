@@ -148,17 +148,22 @@ const getPostFromUser = (req, res, next) => {
 };
 
 const postNewBlog = (req, res, next) => {
+  console.log(req.body)
   db
-    .any("INSERT into blogs (blog_title, blog_body, time_posted) VALUES ${blog_title} ${blog_body} ${time_posted}", 
-  req.body
+    .any("INSERT INTO blogs (blog_title, blog_body, time_posted) VALUES ${blog_title}, ${blog_body}, ${time_posted}", 
+  {
+      blog_title: req.body.blog_title,
+      blog_body: req.body.blog_body,
+      time_posted: req.body.time_posted
+    }
   )
-  .then(data=>{
+  .then(data => {
     res.status(200).json({
       status: "Success!",
       message: "Successfully inserted the new blog!"
     })
   })
-  .catch(err=>{
+  .catch(err => {
     return next(err);
   })
 };
