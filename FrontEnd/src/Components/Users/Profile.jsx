@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Link, Redirect } from "react-router-dom";
 import axios from "axios";
-import dateFormat from 'dateformat';
+import dateFormat from "dateformat";
 import { withStyles } from "material-ui/styles";
 import { FormControlLabel, FormGroup } from "material-ui/Form";
 import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
@@ -40,7 +40,8 @@ const styles = {
     fontSize: 14
   },
   card: {
-    minWidth: 275
+    minWidth: 275,
+    width: "50vw"
   }
 };
 const profileStyle = {
@@ -128,6 +129,7 @@ class Profile extends React.Component {
                 alt={`Photo of ${currentUser.firstname}`}
               />
               <a href={`/users/${currentUser.username}/edit`}>Edit Profile</a>
+              <a href={`/users/${currentUser.username}/blog`}>New Blog</a>
             </div>
             <div className={"classes.root"}>
               Welcome {currentUser.firstname} currentscore:{addCommas(score)}
@@ -148,23 +150,32 @@ class Profile extends React.Component {
                 />
               ) : (
                 allBlogs.map(elem => (
-                  <Card
-                  className={classes.card}>
-                    <CardContent>
-                      <Typography
-                        variant="headline"
-                        component="h5"
-                        className={classes.title}
-                        color="textSecondary"
-                      >
-                        {elem.blog_title}
-                      </Typography>
-                      <Typography component="p">{elem.blog_body}</Typography>
-                      <Typography className={classes.pos} color="textSecondary">
-                      Posted on {dateFormat(elem.time_posted,"fullDate")} at {dateFormat(elem.time_posted,"shortTime")}
-                      </Typography>
-                    </CardContent>
-                  </Card>
+                  <ul className="blog-list">
+                    <li>
+                      <Card className={classes.card}>
+                        <CardContent>
+                          <Typography
+                            variant="headline"
+                            component="h5"
+                            className={classes.title}
+                            color="textSecondary"
+                          >
+                            {elem.blog_title}
+                          </Typography>
+                          <Typography component="p">
+                            {elem.blog_body}
+                          </Typography>
+                          <Typography
+                            className={classes.pos}
+                            color="textSecondary"
+                          >
+                            Posted on {dateFormat(elem.time_posted, "fullDate")}{" "}
+                            at {dateFormat(elem.time_posted, "shortTime")}
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </li>
+                  </ul>
                 ))
               )}
             </div>
