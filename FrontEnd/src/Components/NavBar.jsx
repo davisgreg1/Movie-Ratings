@@ -115,7 +115,7 @@ class NavBar extends Component {
             </Link>
             <div className="iconbutton-container">
               <Button href="/login" className={"login-btn"}>
-                Login
+                Login/ Sign Up
               </Button>
             </div>
           </Toolbar>

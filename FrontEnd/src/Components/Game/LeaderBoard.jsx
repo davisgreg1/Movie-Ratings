@@ -21,7 +21,8 @@ const styles = theme => ({
 });
 
 const LeaderBoard = props => {
-  const { classes, data } = props;
+  const { classes, data, getLeaderBoard } = props;
+  console.log("leaderBoard Props:", props)
 
   return (
     <Paper className={classes.root}>

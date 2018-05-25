@@ -56,7 +56,8 @@ class App extends React.Component {
       message: "",
       score: "",
       fireRedirect: false,
-      leaderBoardData: null
+      leaderBoardData: null,
+      allBlogs: null
     };
   }
 
@@ -94,6 +95,19 @@ class App extends React.Component {
       });
   };
 
+getAllBlogPosts = () => {
+  axios
+    .get("/users/all_blogs")
+    .then(res => {
+      this.setState({
+        allBlogs: res.data
+      })
+    })
+    .catch(err => {
+      console.log("Error Getting Blogs:", err)
+    })
+}
+
   getUserScore = () => {
     axios
       .get("/users/getcurrentscore")
@@ -103,7 +117,7 @@ class App extends React.Component {
         });
       })
       .catch(err => {
-        console.log("err:", err);
+        console.log("Error getting user score:", err);
       });
   };
 
@@ -142,7 +156,6 @@ class App extends React.Component {
         password: password
       })
       .then(res => {
-        // this.props.setUser(res.data);
         this.setState({
           user: res.data,
           loggedIn: true
@@ -166,13 +179,13 @@ class App extends React.Component {
         });
       })
       .catch(err => {
-        console.log(err);
+        console.log("error getting LeaderBoard:", err);
       });
   };
 
   componentDidMount() {
     const { user } = this.state;
-    // this.getUserInfo();
+
     axios
       .get("/users/userinfo")
       .then(res => {
@@ -182,20 +195,32 @@ class App extends React.Component {
         });
       })
       .catch(err => {
-        console.log(`errrr`, err);
-      });
+        console.log(`error getting user info`, err);
+      })
+
     axios
       .get("/users/getcurrentscore")
       .then(res => {
-        console.log("score in app.js:", res.data.data.points)
         this.setState({
           score: res.data.data.points
         });
+      }).then(
+        this.getLeaderBoard()
+      )
+      .catch(err => {
+        console.log("error getting score:", err);
+      })
+    
+      axios
+      .get("/users/all_blogs")
+      .then(res => {
+        this.setState({
+          allBlogs: res.data.body
+        });
       })
       .catch(err => {
-        console.log("err:", err);
-      });
-    this.getLeaderBoard();
+        console.log("Error Getting Blogs:", err)
+      })
   }
 
   render() {
@@ -209,7 +234,8 @@ class App extends React.Component {
       message,
       fireRedirect,
       score,
-      leaderBoardData
+      leaderBoardData,
+      allBlogs
     } = this.state;
     const { classes } = this.props;
     const {
@@ -220,13 +246,15 @@ class App extends React.Component {
       getUserInfo,
       getUserScore,
       logOut,
-      handleClick
+      handleClick,
+      getLeaderBoard,
+      getAllBlogPosts
     } = this;
     let open = Boolean(anchorEl);
 
+    console.log("all Blogs:::", allBlogs)
     return (
       <div className="entire-app">
-        {/* <div className={classes.root}> */}
         <NavBar
           loggedIn={loggedIn}
           handleClick={handleClick}
@@ -282,6 +310,9 @@ class App extends React.Component {
                 getUserInfo={getUserInfo}
                 currentUser={user}
                 getUserScore={getUserScore}
+                allBlogs={allBlogs}
+                getAllBlogPosts={getAllBlogPosts}
+              
               />
             )}
           />
@@ -317,6 +348,7 @@ class App extends React.Component {
                 loggedIn={loggedIn}
                 currentUser={user}
                 data={leaderBoardData}
+                getLeaderBoard={getLeaderBoard}
               />
             )}
           />

@@ -129,6 +129,39 @@ const updateUserScore = (req, res, next) => {
       return next(err);
     });
 };
+
+const getPostFromUser = (req, res, next) => {
+  db
+    .any("SELECT * FROM blogs WHERE user_id = ${id}",
+  req.user
+)
+  .then(data =>{
+    res.status(200).json({
+      status: "Success.",
+      body: data,
+      message: `Successfully retrieved all of ${req.user.firstname}'s blog posts!`
+    })
+  })
+  .catch(err=>{
+    return next(err);
+  })
+};
+
+const postNewBlog = (req, res, next) => {
+  db
+    .any("INSERT into blogs (blog_title, blog_body, time_posted) VALUES ${blog_title} ${blog_body} ${time_posted}", 
+  req.body
+  )
+  .then(data=>{
+    res.status(200).json({
+      status: "Success!",
+      message: "Successfully inserted the new blog!"
+    })
+  })
+  .catch(err=>{
+    return next(err);
+  })
+};
 /**
 |--------------------------------------------------
 | movie_imdb_id VARCHAR,
@@ -239,5 +272,7 @@ module.exports = {
   getUserByUsername,
   getScore,
   getLeaderBoard,
-  updateSingleUser
+  updateSingleUser,
+  getPostFromUser,
+  postNewBlog
 };
