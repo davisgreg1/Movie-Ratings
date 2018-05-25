@@ -148,13 +148,13 @@ const getPostFromUser = (req, res, next) => {
 };
 
 const postNewBlog = (req, res, next) => {
-  console.log(req.body)
+  console.log("req.body",req.body)
   db
-    .any("INSERT INTO blogs (blog_title, blog_body, time_posted) VALUES ${blog_title}, ${blog_body}, ${time_posted}", 
-  {
+    .any("INSERT INTO blogs (user_id, blog_title, blog_body, time_posted) VALUES (${user_id}, ${blog_title}, ${blog_body}, NOW())", 
+  {  
+      user_id: req.user.id,
       blog_title: req.body.blog_title,
-      blog_body: req.body.blog_body,
-      time_posted: req.body.time_posted
+      blog_body: req.body.blog_body
     }
   )
   .then(data => {
