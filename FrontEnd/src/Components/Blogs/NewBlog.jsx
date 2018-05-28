@@ -65,7 +65,8 @@ class NewBlog extends Component {
       })
       .then(res => {
         this.setState({
-          message: "Blog posted!"
+          message: "Blog posted!",
+          finished: true
         });
       })
       .catch(err => {
@@ -76,18 +77,17 @@ class NewBlog extends Component {
   };
 
   // Track username and password input inside state
-  handleInputChange = e => {
+  handleInputChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
     });
   };
 
-  fireRedirect = () => {
-    const { finished } = this.state;
+  handleSubmitClick = () => {
     this.setState({
       finished: true
-    });
-  };
+    })
+  }
 
   componentDidMount() {
     const { getAllBlogPosts } = this.props;
@@ -100,10 +100,15 @@ class NewBlog extends Component {
       handleNewBlogSubmit,
       getTheTimeBlogIsPosted,
       handleInputChange,
-      fireRedirect
+      fireRedirect,
+      handleSubmitClick
     } = this;
     const { allBlogs, currentUser, classes } = this.props;
     const { newBlogBody, newBlogTitle, finished } = this.state;
+
+    if(finished){
+      return <Redirect from={`/users/${currentUser.username}/blog`} to={`/users/${currentUser.username}`}/>
+    }
 
     return (
       <Fragment>
@@ -142,7 +147,8 @@ class NewBlog extends Component {
             <div className="user-info-content">
               <div id="quick-user-info">
                 <RaisedButton
-                    onClick={()=>console.log("clicked")}
+                  onClick={()=>this.handleSubmitClick}
+                  disabled={!newBlogBody && !newBlogTitle}
                   variant="Submit"
                   label="Submit"
                   type="submit"
