@@ -63,7 +63,8 @@ class EditProfile extends Component {
       newImgURL: "",
       doneEditing: false,
       validEmail: false,
-      showPassword: false
+      showPassword: false,
+      cloudResult: false
     };
   }
 
@@ -80,7 +81,7 @@ class EditProfile extends Component {
         result.map(elem => {
           console.log("cloud result:", result);
           if (!elem.public_id) {
-            return "sample";
+            return "default";
           } else {
             this.setState({
               newPublic_id: elem.public_id,
@@ -152,13 +153,11 @@ class EditProfile extends Component {
   fireRedirect = () => {
     const { doneEditing } = this.state;
     this.setState({
-      doneEditing: !this.state.doneEditing
+      doneEditing: true
     });
   };
 
   static getDerivedStateFromProps = (nextProps, prevState) => {
-    console.log("nextProps:", nextProps);
-    console.log("prevState:", prevState);
     return {
       user: nextProps.currentUser
     };
@@ -185,12 +184,14 @@ class EditProfile extends Component {
       newImgURL,
       doneEditing,
       public_id,
-      newPublic_id
+      newPublic_id,
+      cloudResult
     } = this.state;
     const { currentUser, classes } = this.props;
 
-    if (doneEditing) {
-      window.location.reload();
+
+    if (doneEditing ) {
+      window.location.reload()
     }
 
     return (

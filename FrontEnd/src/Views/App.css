@@ -28,7 +28,7 @@ html {
   display: flex;
 }
 
-/**
+                                                          /**
                                                           |--------------------------------------------------
                                                           | NAVBAR BELOW...
                                                           |--------------------------------------------------
@@ -262,6 +262,11 @@ margin-top: 50%;
                                                           |--------------------------------------------------
                                                           */
 
+.hide {
+  display: none;
+    /* top:-40px */
+  }
+
 .profile {
   display: flex;
   flex-direction: column;
@@ -271,6 +276,12 @@ margin-top: 50%;
   display: flex;
   justify-content: center;
   flex-direction: column;
+  position: fixed;
+}
+
+.welcome-message-profile{
+  display: flex;
+  justify-content: center;
 }
 
 .blog-section {
@@ -278,6 +289,7 @@ margin-top: 50%;
   flex-direction: column;
   width: 100vw;
   justify-content: center;
+  align-items: center;
   /* height: 100vh; */
 }
 #user-profile {

@@ -6,7 +6,12 @@ import { withStyles } from "material-ui/styles";
 import { FormControlLabel, FormGroup } from "material-ui/Form";
 import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
 import CircularProgress from "material-ui/Progress/CircularProgress";
+import Divider from "material-ui/Divider";
 import AppBar from "material-ui/AppBar";
+import List from "material-ui/List";
+import ListItem from "material-ui/List/ListItem";
+import ListItemText from "material-ui/List/ListItemText";
+import Avatar from "material-ui/Avatar";
 import Switch from "material-ui/Switch";
 import Toolbar from "material-ui/Toolbar";
 import Typography from "material-ui/Typography";
@@ -57,8 +62,20 @@ class Profile extends React.Component {
     auth: false,
     anchorEl: null,
     fireRedirect: false,
-    blogs: null
+    blogs: null,
+    isHide: false
   };
+
+  hidePic = () => {
+
+    let {isHide} = this.state
+    window.scrollY > this.prev?
+    !isHide && this.setState({isHide:true})
+    :
+    isHide && this.setState({isHide:false})
+    
+    this.prev = window.scrollY;
+ }
 
   handleChange = () => {
     this.setState({
@@ -90,9 +107,14 @@ class Profile extends React.Component {
   componentDidMount() {
     const { getUserScore, allBlogs, getAllBlogPosts } = this.props;
     // const { getAllBlogPosts } = this;
+    window.addEventListener('scroll', this.hidePic);
     getUserScore();
     getAllBlogPosts();
   }
+
+  componentWillUnmount(){
+    window.removeEventListener('scroll', this.hidePic);
+}
 
   // static getDerivedStateFromProps = (nextProps, prevState) => {
   //   console.log("nextProps:", nextProps);
@@ -111,27 +133,28 @@ class Profile extends React.Component {
       allBlogs,
       getAllBlogPosts
     } = this.props;
-    const { auth, anchorEl, fireRedirect, blogs } = this.state;
+    const { auth, anchorEl, fireRedirect, blogs, isHide } = this.state;
     const open = Boolean(anchorEl);
     const base = "http://res.cloudinary.com/movie-fights/image/upload/";
+    let classHide = isHide?"fadeOut":"fadeIn"
     console.log("Blogs??:", allBlogs);
 
     return (
       <React.Fragment>
         {currentUser ? (
           <div className="flex profile">
-            <div className="flex profile-img">
+            <div className={ "animated profile-img " + classHide}>
               <img
                 src={`${base}${currentUser.imgurl}`}
-                width="200px"
-                height="200px"
+                width="175px"
+                height="175px"
                 style={profileStyle}
                 alt={`Photo of ${currentUser.firstname}`}
               />
               <a href={`/users/${currentUser.username}/edit`}>Edit Profile</a>
               <a href={`/users/${currentUser.username}/blog`}>New Blog</a>
             </div>
-            <div className={"classes.root"}>
+            <div className={"welcome-message-profile"}>
               Welcome {currentUser.firstname} currentscore:{addCommas(score)}
             </div>
             {/* CSS HERE ⏬ */}
@@ -150,17 +173,18 @@ class Profile extends React.Component {
                 />
               ) : (
                 allBlogs.map(elem => (
-                  <ul className="blog-list">
-                    <li>
+                  <List className="blog-list">
+                    <ListItem>
                       <Card className={classes.card}>
                         <CardContent>
+                     <Avatar alt="pic" src={`${base}${currentUser.imgurl}`}/>
                           <Typography
                             variant="headline"
                             component="h5"
                             className={classes.title}
                             color="textSecondary"
                           >
-                            {elem.blog_title}
+                            <ListItemText>{elem.blog_title}</ListItemText>
                           </Typography>
                           <Typography component="p">
                             {elem.blog_body}
@@ -174,10 +198,11 @@ class Profile extends React.Component {
                           </Typography>
                         </CardContent>
                       </Card>
-                    </li>
-                  </ul>
+                    </ListItem>
+                  </List>
                 ))
               )}
+              <Divider />
             </div>
           </div>
         ) : (
