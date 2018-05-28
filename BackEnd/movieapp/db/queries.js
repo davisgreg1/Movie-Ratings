@@ -132,7 +132,7 @@ const updateUserScore = (req, res, next) => {
 
 const getPostFromUser = (req, res, next) => {
   db
-    .any("SELECT * FROM blogs WHERE user_id = ${id}",
+    .any("SELECT * FROM blogs WHERE user_id = ${id} ORDER BY time_posted DESC",
   req.user
 )
   .then(data =>{

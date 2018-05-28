@@ -26,7 +26,9 @@ import {
   Transformation,
   CloudinaryContext
 } from "cloudinary-react";
+
 import cloudinary from "cloudinary-core";
+
 const cloudinaryCore = new cloudinary.Cloudinary({
   cloud_name: "movie-fights"
 });
