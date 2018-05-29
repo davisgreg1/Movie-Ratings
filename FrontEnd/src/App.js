@@ -211,7 +211,6 @@ class App extends React.Component {
       .catch(err => {
         console.log("Error Getting Score:", err);
       });
-
   }
 
   render() {

@@ -403,7 +403,7 @@ class Home extends React.Component {
             )}
           </div>
           <div>
-            <Link to="/leaderboard"> view leaderboard</Link>
+            <Link to="/leaderboard">View Leaderboard</Link>
           </div>
       </React.Fragment>
     );
