@@ -44,6 +44,7 @@ router.patch("/edit", loginRequired, db.updateSingleUser);
 |--------------------------------------------------
 */
 router.delete("/removeFavorite", loginRequired, db.removeFromFavorites);
+router.delete("/removeBlog", loginRequired, db.removeBlog);
 
 
 module.exports = router;

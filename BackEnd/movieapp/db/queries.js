@@ -57,7 +57,8 @@ updateSingleUser = (req, res, next) => {
   // const hash = authHelpers.createHash(req.body.password);
   db
     .none(
-      "UPDATE users SET username = ${username},  imgurl = ${imgurl}, firstname = ${firstname}, lastname = ${lastname}, email = ${email}, blurb = ${blurb}, public_id= ${public_id} WHERE id = ${id}", {
+      "UPDATE users SET username = ${username},  imgurl = ${imgurl}, firstname = ${firstname}, lastname = ${lastname}, email = ${email}, blurb = ${blurb}, public_id= ${public_id} WHERE id = ${id}",
+      {
         username: req.body.username,
         firstname: req.body.firstname,
         lastname: req.body.lastname,
@@ -69,19 +70,17 @@ updateSingleUser = (req, res, next) => {
         id: req.user.id
       }
     )
-    .then((data) => {
+    .then(data => {
       res.status(200).json({
         status: "Success!",
         message: "Changed the user"
       });
     })
-    .catch((err) => {
-      console.log("Bruhh,...")
+    .catch(err => {
+      console.log("Bruhh,...");
       return next(err);
     });
-}
-
-
+};
 
 const getScore = (req, res, next) => {
   db
@@ -132,40 +131,52 @@ const updateUserScore = (req, res, next) => {
 
 const getPostFromUser = (req, res, next) => {
   db
-    .any("SELECT * FROM blogs WHERE user_id = ${id} ORDER BY time_posted DESC",
-  req.user
-)
-  .then(data =>{
-    res.status(200).json({
-      status: "Success.",
-      body: data,
-      message: `Successfully retrieved all of ${req.user.firstname}'s blog posts!`
+    .any(
+      "SELECT * FROM blogs WHERE user_id = ${id} ORDER BY time_posted DESC",
+      req.user
+    )
+    .then(data => {
+      res.status(200).json({
+        status: "Success.",
+        body: data,
+        message: `Successfully retrieved all of ${
+          req.user.firstname
+        }'s blog posts!`
+      });
     })
-  })
-  .catch(err=>{
-    return next(err);
-  })
+    .catch(err => {
+      return next(err);
+    });
 };
 
 const postNewBlog = (req, res, next) => {
-  console.log("req.body",req.body)
   db
-    .any("INSERT INTO blogs (user_id, blog_title, blog_body, time_posted) VALUES (${user_id}, ${blog_title}, ${blog_body}, NOW())", 
-  {  
-      user_id: req.user.id,
-      blog_title: req.body.blog_title,
-      blog_body: req.body.blog_body
-    }
-  )
-  .then(data => {
+    .any(
+      "INSERT INTO blogs (user_id, blog_title, blog_body, time_posted) VALUES (${user_id}, ${blog_title}, ${blog_body}, NOW())",
+      {
+        user_id: req.user.id,
+        blog_title: req.body.blog_title,
+        blog_body: req.body.blog_body
+      }
+    )
+    .then(data => {
+      res.status(200).json({
+        status: "Success!",
+        message: "Successfully inserted the new blog!"
+      });
+    })
+    .catch(err => {
+      return next(err);
+    });
+};
+
+const removeBlog = (req, res, next) => {
+  db.none("DELETE * FROM blogs WHERE id = ${id}", req.body).then(data => {
     res.status(200).json({
       status: "Success!",
-      message: "Successfully inserted the new blog!"
-    })
-  })
-  .catch(err => {
-    return next(err);
-  })
+      message: `Successfully deleted blog #${req.body.id}.`
+    });
+  });
 };
 /**
 |--------------------------------------------------
@@ -228,12 +239,9 @@ const getSingleUser = (req, res, next) => {
 };
 
 const getUserByUsername = (req, res, next) => {
-  console.log("the req in getUserByUsername:",req)
+  console.log("the req in getUserByUsername:", req);
   db
-    .any(
-      "SELECT * FROM users WHERE username = ${username}",
-      req.params
-    )
+    .any("SELECT * FROM users WHERE username = ${username}", req.params)
     .then(data => {
       res.status(200).json({
         status: "success",
@@ -279,5 +287,6 @@ module.exports = {
   getLeaderBoard,
   updateSingleUser,
   getPostFromUser,
-  postNewBlog
+  postNewBlog,
+  removeBlog
 };

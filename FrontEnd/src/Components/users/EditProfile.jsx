@@ -311,7 +311,6 @@ class EditProfile extends Component {
                         Submit
                       </RaisedButton>
                     </div>
-                    <RaisedButton>View Profile</RaisedButton>
                   </div>
                 </form>
               </div>

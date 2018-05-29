@@ -46,7 +46,8 @@ class NewBlog extends Component {
       newBlogTitle: "",
       newBlogBody: "",
       finished: false,
-      message: ""
+      message: "",
+      doneEditing: false
     };
   }
 
@@ -94,6 +95,13 @@ class NewBlog extends Component {
     // getAllBlogPosts();
   }
 
+  fireRedirect = () => {
+    const { doneEditing } = this.state;
+    this.setState({
+      doneEditing: true
+    });
+  };
+
   render() {
     console.log("state in NewBlog:", this.state);
     const {
@@ -104,15 +112,15 @@ class NewBlog extends Component {
       handleSubmitClick
     } = this;
     const { allBlogs, currentUser, classes } = this.props;
-    const { newBlogBody, newBlogTitle, finished } = this.state;
+    const { newBlogBody, newBlogTitle, finished, doneEditing } = this.state;
 
-    if(finished){
-      return <Redirect from={`/users/${currentUser.username}/blog`} to={`/users/${currentUser.username}`}/>
+    if (doneEditing ) {
+      window.location.reload()
     }
 
     return (
       <Fragment>
-        <div className="edit-fields">
+        <div style={this.props.style} className="edit-fields">
           <form onSubmit={handleNewBlogSubmit} id="input-container">
             <div id="user-banner-edit" className="background-banner sq2-edit">
               <div className="edit-user-username">
@@ -147,7 +155,7 @@ class NewBlog extends Component {
             <div className="user-info-content">
               <div id="quick-user-info">
                 <RaisedButton
-                  onClick={()=>this.handleSubmitClick}
+                  onClick={fireRedirect}
                   disabled={!newBlogBody && !newBlogTitle}
                   variant="Submit"
                   label="Submit"
