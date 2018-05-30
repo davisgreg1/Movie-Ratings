@@ -199,7 +199,6 @@ class Profile extends React.Component {
 
   componentDidMount() {
     const { getUserScore, allBlogs, getAllBlogPosts } = this.props;
-    // const { getAllBlogPosts } = this;
     window.addEventListener("scroll", this.hidePic);
     getUserScore();
     getAllBlogPosts();
@@ -208,6 +207,7 @@ class Profile extends React.Component {
   componentWillUnmount() {
     window.removeEventListener("scroll", this.hidePic);
   }
+  
 
   // static getDerivedStateFromProps = (nextProps, prevState) => {
   //   console.log("nextProps:", nextProps);
@@ -255,7 +255,9 @@ class Profile extends React.Component {
                 style={profileStyle}
                 alt={`Photo of ${currentUser.firstname}`}
               />
-              <p className="blurb">"{currentUser.blurb}"</p>
+              <div>
+              {currentUser.blurb ?  <p className="blurb">"{currentUser.blurb}"</p> : null}
+              </div>
               <div>
                 <Modal
                   style={modalStyleBlog}
