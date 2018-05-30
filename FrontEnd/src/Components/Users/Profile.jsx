@@ -28,71 +28,68 @@ import NewBlog from "../Blogs/NewBlog";
 
 //Styles for Material UI
 // const styles = theme => ({
-  // paper: {
-  //   position: "absolute",
-  //   width: theme.spacing.unit * 50,
-  //   backgroundColor: theme.palette.background.paper,
-  //   boxShadow: theme.shadows[5],
-  //   padding: theme.spacing.unit * 4
-  // },
-  // root: {
-  //   height: "100%",
-  //   flexGrow: 1
-  // },
-  // flex: {
-  //   flex: 1,
-  //   color: "white",
-  //   paddingLeft: "0px"
-  // },
-  // menuButton: {
-  //   marginLeft: -12,
-  //   marginRight: 20
-  // },
-  // pos: {
-  //   marginBottom: 12
-  // },
-  // title: {
-  //   marginBottom: 16,
-  //   fontSize: 14
-  // },
-  // card: {
-  //   minWidth: 275,
-  //   width: "50vw"
-  // }
+// paper: {
+//   position: "absolute",
+//   width: theme.spacing.unit * 50,
+//   backgroundColor: theme.palette.background.paper,
+//   boxShadow: theme.shadows[5],
+//   padding: theme.spacing.unit * 4
+// },
+// root: {
+//   height: "100%",
+//   flexGrow: 1
+// },
+// flex: {
+//   flex: 1,
+//   color: "white",
+//   paddingLeft: "0px"
+// },
+// menuButton: {
+//   marginLeft: -12,
+//   marginRight: 20
+// },
+// pos: {
+//   marginBottom: 12
+// },
+// title: {
+//   marginBottom: 16,
+//   fontSize: 14
+// },
+// card: {
+//   minWidth: 275,
+//   width: "50vw"
+// }
 // });
 
 const styles = {
-root: {
-  height: "100%",
-  flexGrow: 1
-},
-flex: {
-  flex: 1,
-  color: "white",
-  paddingLeft: "0px"
-},
-menuButton: {
-  marginLeft: -12,
-  marginRight: 20
-},
-pos: {
-  marginBottom: 12
-},
-title: {
-  marginBottom: 16,
-  fontSize: 14
-},
-card: {
-  minWidth: 275,
-  width: "50vw"
-},
-paper: {
-  position: "absolute",
-  // width: theme.spacing.unit * 50,
-  backgroundColor: "black"
-  // boxShadow: theme.shadows[5],
-  // padding: theme.spacing.unit * 4
-}
+  root: {
+    height: "100%",
+    flexGrow: 1
+  },
+  flex: {
+    flex: 1,
+    color: "white",
+    paddingLeft: "0px"
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20
+  },
+  pos: {
+    marginBottom: 12
+  },
+  title: {
+    marginBottom: 16,
+    fontSize: 14
+  },
+  card: {
+    minWidth: 275,
+    width: "50vw"
+  },
+  paper: {
+    position: "absolute",
+    backgroundColor: "black"
+  }
 };
 
 const profileStyle = {
@@ -103,13 +100,10 @@ const profileStyle = {
 const modalStyleEdit = {
   display: "flex",
   boxSizing: "borderBox",
-  // marginLeft: "10%",
-  // marginTop: "10%",
-// filter: "blur(1px)",
   justifyContent: "center",
   alignContent: "center",
   alignItems: "center",
-  boxShadow: "10px 5px 5px black",
+  boxShadow: "10px 5px 5px black"
 
   // opacity: ".9"
 };
@@ -117,36 +111,22 @@ const modalStyleEdit = {
 const modalStyleBlog = {
   display: "flex",
   boxSizing: "borderBox",
-  // marginLeft: "10%",
-  // marginTop: "10%",
-// filter: "blur(1px)",
   justifyContent: "center",
   alignContent: "center",
   alignItems: "center",
-  boxShadow: "10px 5px 5px black",
+  boxShadow: "10px 5px 5px black"
 
   // opacity: ".9"
 };
 const modalIsOpen = {
-   filter: "blur(5px) grayscale(50%)",
+  filter: "blur(5px) grayscale(50%)"
 
   //  transform:" scale(0.9)",
-}
+};
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
 }
-
-// function getModalStyle() {
-//   const top = 50 + rand();
-//   const left = 50 + rand();
-
-//   return {
-//     top: `${top}%`,
-//     left: `${left}%`,
-//     transform: `translate(-${top}%, -${left}%)`
-//   };
-// }
 
 class Profile extends React.Component {
   constructor(props) {
@@ -246,7 +226,15 @@ class Profile extends React.Component {
       allBlogs,
       getAllBlogPosts
     } = this.props;
-    const { auth, anchorEl, fireRedirect, blogs, isHide, blogOpen, editOpen } = this.state;
+    const {
+      auth,
+      anchorEl,
+      fireRedirect,
+      blogs,
+      isHide,
+      blogOpen,
+      editOpen
+    } = this.state;
     const open = Boolean(anchorEl);
     const base = "http://res.cloudinary.com/movie-fights/image/upload/";
     let classHide = isHide ? "fadeOut" : "fadeIn";
@@ -255,7 +243,10 @@ class Profile extends React.Component {
     return (
       <React.Fragment>
         {currentUser ? (
-          <div className="flex profile" style = {blogOpen || editOpen ? modalIsOpen : null}>
+          <div
+            className="flex profile"
+            style={blogOpen || editOpen ? modalIsOpen : null}
+          >
             <div className={"animated profile-img " + classHide}>
               <img
                 src={`${base}${currentUser.imgurl}`}
@@ -273,9 +264,7 @@ class Profile extends React.Component {
                   open={this.state.blogOpen}
                   onClose={this.handleBlogModalClose}
                 >
-                  
                   <NewBlog currentUser={currentUser} />
-            
                 </Modal>
                 <Button onClick={this.handleBlogOpen}>New Blog</Button>
               </div>
