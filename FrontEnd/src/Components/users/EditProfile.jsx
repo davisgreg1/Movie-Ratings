@@ -220,7 +220,10 @@ class EditProfile extends Component {
                     cloudName="movie-fights"
                     publicId={this.props.currentUser.public_id}
                     crop="scale"
-                  />
+                  >
+                  {/* <Transformation effect="vignette:20" quality="100" radius="0" width="250" crop="scale" />
+                  <Transformation angle="0" /> */}
+                  </Image>
                 </button>
                 </div>
               <div className="edit-fields">

@@ -125,6 +125,7 @@ class App extends React.Component {
   handleMenu = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
+  
   handleClose = () => {
     this.setState({ anchorEl: null });
   };
