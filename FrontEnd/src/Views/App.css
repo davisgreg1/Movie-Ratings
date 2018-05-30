@@ -267,6 +267,12 @@ margin-top: 50%;
     /* top:-40px */
   }
 
+.blurb{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
 .profile {
   display: flex;
   flex-direction: column;
@@ -292,6 +298,7 @@ margin-top: 50%;
   align-items: center;
   /* height: 100vh; */
 }
+
 #user-profile {
   display: flex;
   justify-content: center;

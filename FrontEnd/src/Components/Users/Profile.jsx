@@ -255,7 +255,7 @@ class Profile extends React.Component {
                 style={profileStyle}
                 alt={`Photo of ${currentUser.firstname}`}
               />
-              {/* <a href={`/users/${currentUser.username}/edit`}>Edit Profile</a> */}
+              <p className="blurb">"{currentUser.blurb}"</p>
               <div>
                 <Modal
                   style={modalStyleBlog}
@@ -280,12 +280,10 @@ class Profile extends React.Component {
                 </Modal>
                 <Button onClick={this.handleEditOpen}>Edit Profile</Button>
               </div>
-              {/* <a href={`/users/${currentUser.username}/blog`}>New Blog</a> */}
             </div>
             <div className={"welcome-message-profile"}>
               Welcome {currentUser.firstname} currentscore:{addCommas(score)}
             </div>
-            {/* CSS HERE ⏬ */}
             <div className="blog-section">
               {!allBlogs ? (
                 <CircularProgress

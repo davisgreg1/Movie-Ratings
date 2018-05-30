@@ -144,7 +144,7 @@ class Home extends React.Component {
       searchText: e.target.value
     });
     //Uncomment the following line to get live updates as user types `caution: rate limit`
-    this.getMovie();
+    // this.getMovie();
     if (!this.state.searchText.length) {
       this.setState({
         data: null

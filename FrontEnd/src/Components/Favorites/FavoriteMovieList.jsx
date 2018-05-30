@@ -37,6 +37,7 @@ class FavoriteMovieList extends React.Component {
       .catch(error => {
         console.log(error);
       });
+      window.location.reload()
   };
 
   render() {
