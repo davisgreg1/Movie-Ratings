@@ -55,8 +55,8 @@ class HomeScreenMovie extends React.Component {
         movie_website: `https://www.themoviedb.org/movie/${data.id}`,
         favorited_by: this.props.currentUser.id
       })
-      .then(response => {
-        console.log(response);
+      .then(res => {
+        console.log(res);
       })
       .catch(error => {
         console.log(error);
