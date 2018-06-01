@@ -68,10 +68,10 @@ class Favorites extends Component {
 
   //So user can hit `Enter` to submit thei query
   _keyPress = e => {
+    this.getMovie()
     //   e.preventDefault();
     if (e.key === "Enter") {
      this.getMovie()
-      // this.getMovie();
     }
   };
 

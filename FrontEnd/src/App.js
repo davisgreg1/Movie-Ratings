@@ -245,7 +245,7 @@ class App extends React.Component {
 
     console.log("all Blogs in app.js:", allBlogs);
     return (
-      <div className="entire-app">
+      <div className="app">
         <NavBar
           loggedIn={loggedIn}
           handleClick={handleClick}

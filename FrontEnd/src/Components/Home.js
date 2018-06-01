@@ -10,7 +10,7 @@ import Typography from "material-ui/Typography";
 import IconButton from "material-ui/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import Paper from 'material-ui/Paper';
+import Paper from "material-ui/Paper";
 import CircularProgress from "material-ui/Progress/CircularProgress";
 import Switch from "material-ui/Switch";
 import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
@@ -63,7 +63,13 @@ const myStyle = {
   alignContent: "center"
 };
 
-//An array of 47 IMDB ids to show 2 random movies on the home screen
+const movieStyles = {
+  display: "flex",
+  // justifyContent: "spaceAround",
+  alignContent: "row"
+};
+
+//An array of IMDB ids to show 2 random movies on the home screen
 const idArr = [
   "tt0111161",
   "tt0068646",
@@ -112,7 +118,11 @@ const idArr = [
   "tt0451279",
   "tt4574334",
   "tt1396484",
-  "tt0116126"
+  "tt0116126",
+  "tt5463162",
+  "tt4154756",
+  "tt3778644",
+  "tt1677720"
 ];
 
 class Home extends React.Component {
@@ -333,9 +343,10 @@ class Home extends React.Component {
     } = this.state;
     const { _keyPress, handleInput, getWinner } = this;
     const open = Boolean(anchorEl);
-    console.log("HOME STATE:",this.state)
+    console.log("HOME STATE:", this.state);
     return (
-      <React.Fragment id="home-screen">
+      <React.Fragment>
+        <div className="choices-container">
         <div className="searchy">
           <i className="material-icons md-dark seek">search</i>
           <Input
@@ -348,63 +359,65 @@ class Home extends React.Component {
             }}
           />
         </div>
-          <div className="home-movie-container">
-            {searchText ? (
-              <MovieList data={data} loggedIn={loggedIn} currentUser={user} />
-            ) : (
-              <div className="default-home-screen">
-                {!movie1 || !movie2 ? (
-                  <CircularProgress
-                    size={50}
-                    left={70}
-                    top={0}
-                    loadingColor="#FF9800"
-                    status="loading"
-                    style={{
-                      display: "inlineBlock",
-                      position: "relative"
-                    }}
-                  />
-                ) : (
-                  <div className="single-movie-container">
-                  <Paper className={"classes.root flex" } elevation={5}>
-                    <Card
-                      className={classes.card}
-                      id="movie_num_1"
-                      name="movie_num_1"
-                      onClick={getWinner}
-                    >
-                      <SingleHomeMovie
-                        data={movie1}
-                        loggedIn={loggedIn}
-                        currentUser={user}
-                      />
-                    </Card>
-                    <div className="versus-div">
-                      <span id="versus-span">VS</span>
-                    </div>
-                    <Card
-                      className={classes.card}
-                      id="movie_num_2"
-                      name="movie_num_2"
-                      onClick={getWinner}
-                    >
-                      <SingleHomeMovie
-                        data={movie2}
-                        loggedIn={loggedIn}
-                        currentUser={user}
-                      />
-                    </Card>
-                    {/* Select The Movie You Think Made More In Profits!! */}
+        <div className="home-movie-container">
+          {searchText ? (
+            <MovieList data={data} loggedIn={loggedIn} currentUser={user} />
+          ) : (
+            <div className="default-home-screens">
+              {!movie1 || !movie2 ? (
+                <CircularProgress
+                  size={50}
+                  left={70}
+                  top={0}
+                  loadingColor="#FF9800"
+                  status="loading"
+                  style={{
+                    display: "inlineBlock",
+                    position: "relative"
+                  }}
+                />
+              ) : ( 
+                <div style={movieStyles} className="home-choices"> 
+                <div className="single-movie-containers">
+                    <Paper className={"classes.root flex"} elevation={5}>
+                      <Card
+                        className={classes.card}
+                        id="movie_num_1"
+                        name="movie_num_1"
+                        onClick={getWinner}
+                      >
+                        <SingleHomeMovie
+                          data={movie1}
+                          loggedIn={loggedIn}
+                          currentUser={user}
+                        />
+                      </Card>
                     </Paper>
                   </div>
-                )}
-              </div>
-            )}
-          </div>
-          <div>
-            <Link to="/leaderboard">View Leaderboard</Link>
-          </div>
+                  <div className="single-movie-containers">
+                    <Paper>
+                      <Card
+                        className={classes.card}
+                        id="movie_num_2"
+                        name="movie_num_2"
+                        onClick={getWinner}
+                      >
+                        <SingleHomeMovie
+                          data={movie2}
+                          loggedIn={loggedIn}
+                          currentUser={user}
+                        />
+                      </Card>
+                    </Paper>
+                  </div>  
+                </div>
+              )}
+            
+            </div>
+          )}
+        </div>
+    
+        </div>
       </React.Fragment>
     );
   }

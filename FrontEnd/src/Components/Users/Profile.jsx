@@ -26,40 +26,6 @@ import { addCommas } from "../../utils/movieData";
 import EditProfile from "./EditProfile";
 import NewBlog from "../Blogs/NewBlog";
 
-//Styles for Material UI
-// const styles = theme => ({
-// paper: {
-//   position: "absolute",
-//   width: theme.spacing.unit * 50,
-//   backgroundColor: theme.palette.background.paper,
-//   boxShadow: theme.shadows[5],
-//   padding: theme.spacing.unit * 4
-// },
-// root: {
-//   height: "100%",
-//   flexGrow: 1
-// },
-// flex: {
-//   flex: 1,
-//   color: "white",
-//   paddingLeft: "0px"
-// },
-// menuButton: {
-//   marginLeft: -12,
-//   marginRight: 20
-// },
-// pos: {
-//   marginBottom: 12
-// },
-// title: {
-//   marginBottom: 16,
-//   fontSize: 14
-// },
-// card: {
-//   minWidth: 275,
-//   width: "50vw"
-// }
-// });
 
 const styles = {
   root: {
