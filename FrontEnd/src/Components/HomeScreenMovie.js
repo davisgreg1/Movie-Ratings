@@ -67,7 +67,6 @@ class HomeScreenMovie extends React.Component {
 
 
   render() {
-    //   classes was a prop as well
     const { classes, data, loggedIn, currentUser } = this.props;
     console.log("the movie PROPS IN HOMESCREEN:", this.props);
     let baseURL = `http://image.tmdb.org/t/p/w185`;
@@ -95,7 +94,7 @@ class HomeScreenMovie extends React.Component {
           </a>
           <CardContent>
             <Typography gutterBottom variant="headline" component="h2">
-              {`${data.original_title}`}
+              {`${data.original_title}  (${data.release_date.split("-")[0]})`}
             </Typography>
             <Typography component="p">{`${limitOverview(
               data.overview

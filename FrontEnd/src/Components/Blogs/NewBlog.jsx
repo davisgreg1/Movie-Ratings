@@ -123,11 +123,10 @@ class NewBlog extends Component {
         <div style={this.props.style} className="edit-fields">
           <form onSubmit={handleNewBlogSubmit} id="input-container">
             <div id="user-banner-edit" className="background-banner sq2-edit">
-              <div className="edit-user-username">
+              <div className="edit-user-username" style={{fontSize:"50px"}}>
                 <TextField
                   className={classes.textField}
                   id="helperText"
-                  //   defaultValue={"New Title"}
                   label="New Blog Title"
                   name="newBlogTitle"
                   placeholder="Title"

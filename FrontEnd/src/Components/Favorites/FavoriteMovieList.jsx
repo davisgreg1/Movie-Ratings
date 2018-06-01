@@ -91,7 +91,7 @@ class FavoriteMovieList extends React.Component {
         currentUser &&
         movies.length > 0 ? (
           movies.map(movie => (
-            <div clasName="all-cards-container">
+            <div clasName="all-cards-container" style={{height: "50%"}}>
               <Card
                 className={classes.card}
                 value={movie.movie_imdb_id}
