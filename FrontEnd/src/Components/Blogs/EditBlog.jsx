@@ -133,7 +133,7 @@ class EditBlog extends Component {
                   className={classes.textField}
                   id="helper-text"
                   name="newBlogTitle"
-                  value={newBlogTitle}
+                  defaultValue={blogToEdit.blog_title}
                   label="Edited Title"
                   placeholder="New Title"
                   onChange={handleInputChange}
@@ -145,11 +145,11 @@ class EditBlog extends Component {
                   className={classes.textField}
                   id="multiline-flexible"
                   name="newBlogBody"
-                  // defaultValue={blogToEdit.blog_body}
+                  defaultValue={blogToEdit.blog_body}
                   label="Edited Blog Text"
                   multiline
                   rowsMax="20"
-                  // placeholder="What's up?"
+                  placeholder="What's up?"
                   onChange={handleInputChange}
                   margin="normal"
                 />

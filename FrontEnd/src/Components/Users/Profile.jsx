@@ -316,7 +316,7 @@ class Profile extends React.Component {
                             className={classes.pos}
                             color="textSecondary"
                           >
-                              <Divider/>
+                            <Divider />
                             {elem.time_posted === elem.time_edited ? (
                               <p>
                                 Posted on{" "}
@@ -339,19 +339,6 @@ class Profile extends React.Component {
                             )}
                           </Typography>
                           <div className="edit-blog-container">
-                            <Modal
-                              style={modalStyleEditBlog}
-                              aria-labelledby="simple-modal-title"
-                              aria-describedby="simple-modal-description"
-                              open={this.state.blogEditOpen}
-                              onClose={this.handleEditBlogModalClose}
-                            >
-                              <EditBlog
-                                currentUser={currentUser}
-                                blogToEdit={blogToEdit}
-                              />
-                            </Modal>
-
                             <Button onClick={() => handleEditBlogOpen(elem)}>
                               Edit
                             </Button>
@@ -362,8 +349,17 @@ class Profile extends React.Component {
                   </List>
                 ))
               )}
-              <Divider />
+              <Modal
+                style={modalStyleEditBlog}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                open={this.state.blogEditOpen}
+                onClose={this.handleEditBlogModalClose}
+              >
+                <EditBlog currentUser={currentUser} blogToEdit={blogToEdit} />
+              </Modal>
             </div>
+            <Divider />
           </div>
         ) : (
           <div>Must Be Logged In...</div>
