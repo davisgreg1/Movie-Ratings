@@ -227,12 +227,12 @@ class EditProfile extends Component {
                 </button>
                 </div>
               <div className="edit-fields">
-                <form onSubmit={handleProfileSubmitForm} id="input-container">
+                <form className={classes.container} noValidate autoComplete="off" onSubmit={handleProfileSubmitForm}>
                   <div
                     id="user-banner-edit"
                     className="background-banner sq2-edit"
                   >
-                    <div className="edit-user-username">
+                    <div>
                       <TextField
                         className={classes.textField}
                         id="helperText"
@@ -245,7 +245,7 @@ class EditProfile extends Component {
                       />
                     </div>
                     <br />
-                    <div className="edit-user-firstname">
+                    <div>
                       <TextField
                         className={classes.textField}
                         id="helperText"

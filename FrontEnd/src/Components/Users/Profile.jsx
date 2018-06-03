@@ -25,7 +25,7 @@ import "../../Views/App.css";
 import { addCommas } from "../../utils/movieData";
 import EditProfile from "./EditProfile";
 import NewBlog from "../Blogs/NewBlog";
-
+import EditBlog from "../Blogs/EditBlog";
 
 const styles = {
   root: {
@@ -84,9 +84,18 @@ const modalStyleBlog = {
 
   // opacity: ".9"
 };
+const modalStyleEditBlog = {
+  display: "flex",
+  boxSizing: "borderBox",
+  justifyContent: "center",
+  alignContent: "center",
+  alignItems: "center",
+  boxShadow: "10px 5px 5px black"
+
+  // opacity: ".9"
+};
 const modalIsOpen = {
   filter: "blur(5px) grayscale(50%)"
-
   //  transform:" scale(0.9)",
 };
 
@@ -105,7 +114,9 @@ class Profile extends React.Component {
     blogs: null,
     isHide: false,
     editOpen: false,
-    blogOpen: false
+    blogOpen: false,
+    blogEditOpen: false,
+    blogToEdit: null
   };
 
   hidePic = () => {
@@ -121,9 +132,15 @@ class Profile extends React.Component {
     e.stopPropagation();
     this.setState({ blogOpen: true });
   };
+
   handleEditOpen = e => {
     e.stopPropagation();
     this.setState({ editOpen: true });
+  };
+
+  handleEditBlogOpen = elem => {
+    // e.stopPropagation();
+    this.setState({ blogEditOpen: true, blogToEdit: elem });
   };
 
   handleBlogModalClose = e => {
@@ -134,6 +151,11 @@ class Profile extends React.Component {
   handleEditModalClose = e => {
     e.stopPropagation();
     this.setState({ editOpen: false });
+  };
+
+  handleEditBlogModalClose = e => {
+    e.stopPropagation();
+    this.setState({ blogEditOpen: false });
   };
 
   handleChange = () => {
@@ -173,7 +195,6 @@ class Profile extends React.Component {
   componentWillUnmount() {
     window.removeEventListener("scroll", this.hidePic);
   }
-  
 
   // static getDerivedStateFromProps = (nextProps, prevState) => {
   //   console.log("nextProps:", nextProps);
@@ -199,19 +220,22 @@ class Profile extends React.Component {
       blogs,
       isHide,
       blogOpen,
-      editOpen
+      editOpen,
+      blogToEdit,
+      blogEditOpen
     } = this.state;
+    const { handleEditBlogOpen } = this;
     const open = Boolean(anchorEl);
     const base = "http://res.cloudinary.com/movie-fights/image/upload/";
     let classHide = isHide ? "fadeOut" : "fadeIn";
-    console.log("Blogs??:", allBlogs);
+    console.log("blog to edit?", this.state);
 
     return (
       <React.Fragment>
         {currentUser ? (
           <div
             className="flex profile"
-            style={blogOpen || editOpen ? modalIsOpen : null}
+            style={blogOpen || editOpen || blogEditOpen ? modalIsOpen : null}
           >
             <div className={"animated profile-img " + classHide}>
               <img
@@ -222,13 +246,15 @@ class Profile extends React.Component {
                 alt={`Photo of ${currentUser.firstname}`}
               />
               <div>
-              {currentUser.blurb ?  <p className="blurb">"{currentUser.blurb}"</p> : null}
+                {currentUser.blurb ? (
+                  <p className="blurb">"{currentUser.blurb}"</p>
+                ) : null}
               </div>
               <div>
                 <Modal
                   style={modalStyleBlog}
-                  aria-labelledby="simple-modal-title"
-                  aria-describedby="simple-modal-description"
+                  aria-labelledby="openBlogTitle"
+                  aria-describedby="openBlogDescription"
                   open={this.state.blogOpen}
                   onClose={this.handleBlogModalClose}
                 >
@@ -239,8 +265,8 @@ class Profile extends React.Component {
               <div>
                 <Modal
                   style={modalStyleEdit}
-                  aria-labelledby="simple-modal-title"
-                  aria-describedby="simple-modal-description"
+                  aria-labelledby="openEditProfileTitle"
+                  aria-describedby="openBlogDescription"
                   open={this.state.editOpen}
                   onClose={this.handleEditModalClose}
                 >
@@ -266,7 +292,7 @@ class Profile extends React.Component {
                   }}
                 />
               ) : (
-                allBlogs.map(elem => (
+                allBlogs.map((elem, idx) => (
                   <List className="blog-list">
                     <ListItem>
                       <Card className={classes.card}>
@@ -290,9 +316,46 @@ class Profile extends React.Component {
                             className={classes.pos}
                             color="textSecondary"
                           >
-                            Posted on {dateFormat(elem.time_posted, "fullDate")}{" "}
-                            at {dateFormat(elem.time_posted, "shortTime")}
+                              <Divider/>
+                            {elem.time_posted === elem.time_edited ? (
+                              <p>
+                                Posted on{" "}
+                                {dateFormat(elem.time_posted, "fullDate")} at{" "}
+                                {dateFormat(elem.time_posted, "shortTime")}{" "}
+                              </p>
+                            ) : (
+                              <div>
+                                <p>
+                                  Original Post{" "}
+                                  {dateFormat(elem.time_posted, "fullDate")} at{" "}
+                                  {dateFormat(elem.time_posted, "shortTime")}{" "}
+                                </p>
+                                <p>
+                                  Last Edited on{" "}
+                                  {dateFormat(elem.time_edited, "fullDate")} at{" "}
+                                  {dateFormat(elem.time_edited, "shortTime")}
+                                </p>
+                              </div>
+                            )}
                           </Typography>
+                          <div className="edit-blog-container">
+                            <Modal
+                              style={modalStyleEditBlog}
+                              aria-labelledby="simple-modal-title"
+                              aria-describedby="simple-modal-description"
+                              open={this.state.blogEditOpen}
+                              onClose={this.handleEditBlogModalClose}
+                            >
+                              <EditBlog
+                                currentUser={currentUser}
+                                blogToEdit={blogToEdit}
+                              />
+                            </Modal>
+
+                            <Button onClick={() => handleEditBlogOpen(elem)}>
+                              Edit
+                            </Button>
+                          </div>
                         </CardContent>
                       </Card>
                     </ListItem>

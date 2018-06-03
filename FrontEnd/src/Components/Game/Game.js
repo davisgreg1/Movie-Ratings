@@ -300,7 +300,6 @@ class Game extends React.Component {
             <div>MUST BE LOGGED IN.</div>
           ) : (
             <div className="default-home-screen">
-              <div>{this.props.currentUser.firstname} your turn to play</div>
               <div>
                 Your score is: <CurrentScore score={score} />
               </div>

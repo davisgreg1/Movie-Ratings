@@ -170,6 +170,23 @@ const postNewBlog = (req, res, next) => {
     });
 };
 
+const editBlog = (req, res, next) => {
+  db
+    .any(
+      "UPDATE blogs SET blog_title = $1, blog_body = $2, time_edited = NOW() WHERE id = $3",
+      [req.body.blog_title, req.body.blog_body, req.body.id]
+    )
+    .then(data => {
+      res.status(200).json({
+        status: "Success!",
+        message: "Successfully updated the blog!"
+      });
+    })
+    .catch(err => {
+      return next(err);
+    });
+};
+
 const removeBlog = (req, res, next) => {
   db.none("DELETE * FROM blogs WHERE id = ${id}", req.body).then(data => {
     res.status(200).json({
@@ -288,5 +305,6 @@ module.exports = {
   updateSingleUser,
   getPostFromUser,
   postNewBlog,
-  removeBlog
+  removeBlog,
+  editBlog
 };
