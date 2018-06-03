@@ -1,6 +1,6 @@
 body,
 html {
-  font-family: 'Architects Daughter', cursive;
+  font-family: "Architects Daughter", cursive;
   background-color: #8baaad;
   width: 100%;
   height: 100%;
@@ -8,7 +8,7 @@ html {
   justify-content: center;
 }
 
-body{
+body {
   margin-top: -7px;
   /* background-color: whitesmoke; */
   color: white;
@@ -36,7 +36,6 @@ body{
   display: flex;
 }
 
-
 /**
                                                           |--------------------------------------------------
                                                           | NAVBAR BELOW...
@@ -51,7 +50,7 @@ body{
 .testBar {
   display: flex;
   justify-content: space-around;
-  background-color:red;
+  background-color: red;
   /* #253c78; */
 }
 
@@ -71,13 +70,13 @@ body{
                                                           |--------------------------------------------------
                                                           */
 
-.choices-container{
+.choices-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.home-choices{
+.home-choices {
   display: flex;
   justify-content: center;
   width: 100%;
@@ -148,8 +147,6 @@ div.home-container {
 /* .versus-div {
 margin-top: 50%;  
 } */
-
-
 
 #versus-span {
   font-family: "Ruslan Display", cursive;
@@ -258,7 +255,7 @@ margin-top: 50%;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
-  height: 100%
+  height: 100%;
 }
 
 .default-home-screen {
@@ -285,11 +282,25 @@ margin-top: 50%;
   cursor: pointer;
 }
 
-/**
-                                                          |--------------------------------------------------
-                                                          | PROFILE SCREEN BELOW...
-                                                          |--------------------------------------------------
-                                                          */
+        
+        /**
+        |--------------------------------------------------
+        | EDIT BLOG SCREEN BELOW...
+        |--------------------------------------------------
+        */
+          /*THIS GIVES MY EDIT BLOG MODAL A TRANSPARENT BACKGROUND. MATERIAL UI MADE IT TRICKY*/
+        .MuiModal-root-112 > :first-child {
+          background-color: rgba(0, 0, 0, 0);
+          user-select: none;
+          font-size: 50px;
+        }
+
+
+        /**
+        |--------------------------------------------------
+        | PROFILE SCREEN BELOW...
+        |--------------------------------------------------
+        */
 
 .hide {
   display: none;
@@ -340,6 +351,11 @@ margin-top: 50%;
   flex-direction: column;
   justify-content: center;
   list-style: none;
+}
+.edit-blog-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
 }
 
 .edit-fields {
@@ -430,17 +446,20 @@ margin-top: 50%;
   padding-bottom: 15px;
 }
 
-          /*____________________________________________________
+/*____________________________________________________
           | EDIT PROFILE BELOW
           |_____________________________________________________
           */
+.MuiModal-root-112 {
+  /* background-color: gainsboro; */
+  /* opacity: .9; */
+}
 
-          
-  .MuiInput-input-171{
-    font-size: 50px
-  }
+.MuiInput-input-171 {
+  font-size: 50px;
+}
 
- .ternary-div {
+.ternary-div {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -547,19 +566,19 @@ cursor: pointer; */
 #swal-message {
   color: red;
   font-size: 25px;
-
 }
-.swal-alert{
+.swal-alert {
   background-color: whitesmoke;
 }
 #swal-message-right {
   color: green;
   font-size: 25px;
 }
-#movie-1-and-2-container{
+#movie-1-and-2-container {
   background-image: url("theaterCurtain.jpg");
+  height: 1500px;
 }
-.MuiFormGroup-root-94{
+.MuiFormGroup-root-94 {
   margin-top: -8px;
 }
 /* default */
@@ -697,15 +716,24 @@ cursor: pointer; */
     flex-direction: row;
     background-color: #3f51b5;
   }
-  .MuiCardContent-root-119{
+  .MuiCardContent-root-119 {
     display: flex;
     justify-content: center;
     max-height: unset;
   }
-  .MuiCardMedia-root-117{
+  .MuiCardMedia-root-117 {
     display: flex;
     justify-content: center;
     max-height: max-content;
+  }
+
+  .MuiInput-root-89 {
+    color: rgba(0, 0, 0, 0.87);
+    display: inline-flex;
+    position: relative;
+    font-size: 1rem;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    line-height: 3.1875em;
   }
 
   .MuiAppBar-root-4 {
@@ -713,7 +741,7 @@ cursor: pointer; */
     flex-direction: column;
     justify-content: space-around;
   }
-  .searchy{
+  .searchy {
     /* width: 108.5vw; */
   }
   .default-home-screen {
@@ -735,5 +763,5 @@ cursor: pointer; */
     flex-direction: column;
     width: 150px;
     min-height: 275px;
-}
+  }
 }

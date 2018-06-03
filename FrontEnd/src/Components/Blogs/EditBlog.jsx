@@ -5,9 +5,11 @@ import { Route, Link, Switch } from "react-router-dom";
 import axios from "axios";
 import classNames from "classnames";
 import TextField from "material-ui/TextField";
-import Input, { InputLabel, InputAdornment } from "material-ui/Input";
+// import TextField from '@material-ui/core/TextField'
+import Input, { InputLabel, InputAdornment } from '@material-ui/core/Input';
+// import Input, { InputLabel, InputAdornment } from "material-ui/Input";
 import Paper from "material-ui/Paper";
-// import CircularProgress from "material-ui/Progress/CircularProgress";
+import Divider from "material-ui/Divider";
 import { FormControl, FormHelperText } from "material-ui/Form";
 import { withStyles } from "material-ui/styles";
 import Typography from "material-ui/Typography";
@@ -35,7 +37,7 @@ const styles = theme => ({
   }
 });
 
-class NewBlog extends Component {
+class EditBlog extends Component {
   constructor(props) {
     super(props);
 
@@ -48,18 +50,19 @@ class NewBlog extends Component {
     };
   }
 
-  handleNewBlogSubmit = e => {
+  handleEditBlogSubmit = e => {
     e.preventDefault();
     const { newBlogTitle, newBlogBody } = this.state;
-    const { currentUser } = this.props;
-    let timeBlogPosted = new Date(Date.now());
-    console.log("timeBlogPosted.toISOString()", timeBlogPosted.toISOString());
+    const { currentUser, blogToEdit } = this.props;
+    // let timeBlogPosted = new Date(Date.now());
     console.log("currentUser is:", currentUser);
+    console.log("Blog to edit is:", blogToEdit);
 
     axios
-      .post("/users/new_blog", {
+      .patch("/users/edit_blog", {
         blog_title: newBlogTitle,
-        blog_body: newBlogBody
+        blog_body: newBlogBody,
+        id: this.props.blogToEdit.id
       })
       .then(res => {
         this.setState({
@@ -75,7 +78,7 @@ class NewBlog extends Component {
   };
 
   // Track username and password input inside state
-  handleInputChange = (e) => {
+  handleInputChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -84,8 +87,8 @@ class NewBlog extends Component {
   handleSubmitClick = () => {
     this.setState({
       finished: true
-    })
-  }
+    });
+  };
 
   componentDidMount() {
     const { getAllBlogPosts } = this.props;
@@ -99,55 +102,61 @@ class NewBlog extends Component {
   };
 
   render() {
-    console.log("state in NewBlog:", this.state);
+    // console.log("state in edit blog:", this.state);
+    console.log("props in edit blog:", this.props);
     const {
-      handleNewBlogSubmit,
+      handleEditBlogSubmit,
       getTheTimeBlogIsPosted,
       handleInputChange,
       fireRedirect,
       handleSubmitClick
     } = this;
-    const { allBlogs, currentUser, classes } = this.props;
+    const {
+      allBlogs,
+      currentUser,
+      classes,
+      blogToEdit
+    } = this.props;
     const { newBlogBody, newBlogTitle, finished, doneEditing } = this.state;
 
-    if (doneEditing ) {
-      window.location.reload()
+    if (doneEditing) {
+      window.location.reload();
     }
 
     return (
       <Fragment>
         <div style={this.props.style} className="edit-fields">
-          <form onSubmit={handleNewBlogSubmit} id="input-container">
+          <form className={classes.container} noValidate autoComplete="off" onSubmit={handleEditBlogSubmit}>
             <div id="user-banner-edit" className="background-banner sq2-edit">
-              <div style={{fontSize:"50px"}}>
+              <div>
                 <TextField
                   className={classes.textField}
-                  id="helperText"
-                  label="New Blog Title"
+                  id="helper-text"
                   name="newBlogTitle"
-                  placeholder="Title"
+                  value={newBlogTitle}
+                  label="Edited Title"
+                  placeholder="New Title"
                   onChange={handleInputChange}
                   margin="normal"
                 />
               </div>
-              <br />
               <div>
                 <TextField
                   className={classes.textField}
                   id="multiline-flexible"
+                  name="newBlogBody"
+                  // defaultValue={blogToEdit.blog_body}
+                  label="Edited Blog Text"
                   multiline
                   rowsMax="20"
-                  label="New Blog Text"
-                  name="newBlogBody"
-                  //   defaultValue={"New Blog"}
-                  placeholder="What's up?"
+                  // placeholder="What's up?"
                   onChange={handleInputChange}
                   margin="normal"
                 />
               </div>
               <br />
             </div>
-            <div>
+            <div className="user-info-content">
               <div id="quick-user-info">
                 <RaisedButton
                   onClick={fireRedirect}
@@ -162,7 +171,6 @@ class NewBlog extends Component {
                   Submit
                 </RaisedButton>
               </div>
-              {/* <RaisedButton>View Profile</RaisedButton> */}
             </div>
           </form>
         </div>
@@ -170,4 +178,4 @@ class NewBlog extends Component {
     );
   }
 }
-export default withStyles(styles)(NewBlog);
+export default withStyles(styles)(EditBlog);

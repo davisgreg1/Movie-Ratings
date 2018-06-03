@@ -37,6 +37,7 @@ router.get("/all_blogs", db.getPostFromUser);
 */
 router.patch("/score_update", loginRequired, db.updateUserScore);
 router.patch("/edit", loginRequired, db.updateSingleUser);
+router.patch("/edit_blog", loginRequired, db.editBlog);
 
 /**
 |--------------------------------------------------

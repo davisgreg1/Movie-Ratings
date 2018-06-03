@@ -26,7 +26,8 @@ CREATE TABLE blogs (
   user_id INTEGER REFERENCES users(ID),
   blog_title VARCHAR,
   blog_body VARCHAR,
-  time_posted TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+  time_posted TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  time_edited TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 CREATE TABLE favorites (
@@ -60,6 +61,8 @@ INSERT INTO users (username, firstname, lastname, email, blurb, imgurl, password
   VALUES ('test8', 'Test8', 'Eight', 'test@gmail.com','I like to sleep while watching movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
 INSERT INTO users (username, firstname, lastname, email, blurb, imgurl, password_digest, date_acct_created)
   VALUES ('test9', 'Test9', 'Nine', 'test@gmail.com','I like to poop out movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
+  INSERT INTO users (username, firstname, lastname, email, blurb, imgurl, password_digest, date_acct_created)
+  VALUES ('chocolatethunder', 'jr', 'welton', 'test@gmail.com','woo!','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
   
 INSERT INTO scores (user_id, points)
   VALUES (1, 100000000);
@@ -81,6 +84,8 @@ INSERT INTO scores (user_id, points)
   VALUES (9, 999380);
 INSERT INTO scores (user_id, points)
   VALUES (10, 345670);
+INSERT INTO scores (user_id, points)
+  VALUES (11, 999999999);
 
 INSERT INTO blogs (user_id, blog_title, blog_body, time_posted)
   VALUES (1, 'My First Post', 'This is my first blog post', NOW());
