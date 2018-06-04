@@ -346,6 +346,7 @@ class Profile extends React.Component {
                         </CardContent>
                       </Card>
                     </ListItem>
+                    <Divider />
                   </List>
                 ))
               )}
@@ -359,7 +360,6 @@ class Profile extends React.Component {
                 <EditBlog currentUser={currentUser} blogToEdit={blogToEdit} />
               </Modal>
             </div>
-            <Divider />
           </div>
         ) : (
           <div>Must Be Logged In...</div>

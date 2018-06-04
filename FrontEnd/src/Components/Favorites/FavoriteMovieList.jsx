@@ -2,24 +2,37 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { withStyles } from "material-ui/styles";
 import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
+import Avatar from "@material-ui/core/Avatar";
+import Chip from "@material-ui/core/Chip";
 import Button from "material-ui/Button";
 import Typography from "material-ui/Typography";
 import axios from "axios";
 import "../../Views/App.css";
 
-const styles = {
+// const styles = {
+
+// };
+const styles = theme => ({
+  root: {
+    display: "flex",
+    justifyContent: "center",
+    flexWrap: "wrap"
+  },
+  chip: {
+    margin: theme.spacing.unit
+  },
   card: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: "10px",
-    maxWidth: 345
+    // padding: "10px",
+    maxWidth: 275
   },
   media: {
     height: 0,
     paddingTop: "56.25%" // 16:9
   }
-};
+});
 
 class FavoriteMovieList extends React.Component {
   constructor(props) {
@@ -32,12 +45,12 @@ class FavoriteMovieList extends React.Component {
         data: { id: movie.id }
       })
       .then(response => {
-        console.table("response:",response)
+        console.table("response:", response);
       })
       .catch(error => {
         console.log(error);
       });
-      window.location.reload()
+    window.location.reload();
   };
 
   render() {
@@ -47,51 +60,10 @@ class FavoriteMovieList extends React.Component {
       <div className="favs-list">
         {!currentUser ? (
           <div>You must be logged in. </div>
-        ) : movies.map(movie => (
-          <div clasName="all-cards-container">
-            <Card
-              className={classes.card}
-              value={movie.movie_imdb_id}
-              name={movie.movie_title}
-            >
-              <a href={`${movie.movie_website}`} target="_blank">
-                <CardMedia
-                  className={classes.media}
-                  style={{ height: "285px", width: "285px" }}
-                  image={movie.movie_imgurl}
-                  title={movie.movie_title}
-                />
-              </a>
-              <CardContent>
-                <Typography gutterBottom variant="headline" component="h2">
-                  {movie.movie_title}
-                </Typography>
-
-              <CardActions value={movie.movie_imdb_id} name={movie.movie_title}>
-                {loggedIn ? (
-                  <Button
-                  onClick={() => removeFromFavs(movie)}
-                  value={movie.movie_imdb_id}
-                  name={movie.movie_title}
-                  >
-                    Remove From Favorites
-                  </Button>
-                ) : (
-                  <Button size="small" color="primary">
-                    <a href={movie.movie_website} target="_blank">
-                      Learn More
-                    </a>
-                  </Button>
-                )}
-              </CardActions>
-                </CardContent>
-            </Card>
-          </div>
-        )) &&
-        currentUser &&
+        ) : // currentUser &&
         movies.length > 0 ? (
           movies.map(movie => (
-            <div clasName="all-cards-container" style={{height: "50%"}}>
+            <div clasName="all-cards-container" style={{ height: "50%" }}>
               <Card
                 className={classes.card}
                 value={movie.movie_imdb_id}
@@ -105,6 +77,13 @@ class FavoriteMovieList extends React.Component {
                     title={movie.movie_title}
                   />
                 </a>
+                <Chip
+                  label="Remove"
+                  className={classes.chip}
+                  avatar={<Avatar src={movie.movie_imgurl} />}
+                  onClick={() => removeFromFavs(movie)}
+                  clickable
+                />
                 <CardContent>
                   <Typography gutterBottom variant="headline" component="h2">
                     {movie.movie_title}
@@ -115,27 +94,21 @@ class FavoriteMovieList extends React.Component {
                   value={movie.movie_imdb_id}
                   name={movie.movie_title}
                 >
-                  {loggedIn ? (
-                    <Button
-                      onClick={() => removeFromFavs(movie)}
-                      value={movie.movie_imdb_id}
-                      name={movie.movie_title}
-                    >
-                      Remove From Favorites
-                    </Button>
-                  ) : (
+                  {!loggedIn ? (
                     <Button size="small" color="primary">
                       <a href={movie.movie_website} target="_blank">
                         Learn More
                       </a>
                     </Button>
-                  )}
+                  ) : null}
                 </CardActions>
               </Card>
             </div>
           ))
         ) : (
-          <div>{`${currentUser.firstname}, go search for movies to favorite.`}</div>
+          <div>{`${
+            currentUser.firstname
+          }, go search for movies to favorite.`}</div>
         )}
       </div>
     );

@@ -111,14 +111,12 @@ const idArr = [
   "tt1259528",
   "tt2527336",
   "tt2380307",
-  "tt5519340",
   "tt4765284",
   "tt5052448",
   "tt1615160",
   "tt0451279",
   "tt4574334",
   "tt1396484",
-  "tt0116126",
   "tt5463162",
   "tt4154756",
   "tt3778644",
@@ -126,10 +124,8 @@ const idArr = [
 ];
 
 const winMessage = () => {
-  return(
-    <h3>Win!</h3>
-  )
-}
+  return <h3>Win!</h3>;
+};
 
 class Home extends React.Component {
   constructor(props) {
@@ -160,7 +156,7 @@ class Home extends React.Component {
       searchText: e.target.value
     });
     //Uncomment the following line to get live updates as user types `caution: rate limit`
-    // this.getMovie();
+    this.getMovie();
     if (!this.state.searchText.length) {
       this.setState({
         data: null
@@ -229,43 +225,39 @@ class Home extends React.Component {
       })
       .catch(error => {
         console.error(error);
-      });
-
-    const secondFetch = () => {
-      axios
-        .get(
-          `http://api.themoviedb.org/3/movie/${randomMovieID2}?api_key=${API_KEY}`
-        )
-        .then(response => {
-          this.setState({
-            movie2: response,
-            movie2Revenue: response.data.revenue,
-            movie2Budget: response.data.budget,
-            movie2MoneyEarned: eval(
-              response.data.revenue - response.data.budget
-            )
-          });
-        })
-        .then(() => {
-          this.setState({
-            winner:
-              this.state.movie1MoneyEarned >= this.state.movie2MoneyEarned
-                ? this.state.movie1.data
-                : this.state.movie2.data,
-            loser:
-              this.state.movie1MoneyEarned <= this.state.movie2MoneyEarned
-                ? this.state.movie1.data
-                : this.state.movie2.data
-          });
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    };
-    secondFetch();
+      })
+      .then(
+        axios
+          .get(
+            `http://api.themoviedb.org/3/movie/${randomMovieID2}?api_key=${API_KEY}`
+          )
+          .then(response => {
+            this.setState({
+              movie2: response,
+              movie2Revenue: response.data.revenue,
+              movie2Budget: response.data.budget,
+              movie2MoneyEarned: eval(
+                response.data.revenue - response.data.budget
+              )
+            });
+          })
+          .then(() => {
+            this.setState({
+              winner:
+                this.state.movie1MoneyEarned >= this.state.movie2MoneyEarned
+                  ? this.state.movie1.data
+                  : this.state.movie2.data,
+              loser:
+                this.state.movie1MoneyEarned <= this.state.movie2MoneyEarned
+                  ? this.state.movie1.data
+                  : this.state.movie2.data
+            });
+          })
+          .catch(error => {
+            console.error(error);
+          })
+      );
   };
-
-
 
   //When the user selects one of the movies on the home page
   getWinner = e => {
@@ -293,9 +285,12 @@ class Home extends React.Component {
 
     if (e.target.title === winner.original_title) {
       swal({
-        // html: true,
-        title: "Sweet!",
-        html: `${<h3>win</h3>}`,
+        title: "Correct!",
+        html: `<span><h1>Sign up for more!</h1></span></h6><p>${winner.original_title} earned <span class="earned-more">${currencyFormatter.format(Math.abs(diff), {
+          code: "USD"
+        })} </span> more than ${
+          loser.original_title
+        }!</p>`,
         imageWidth: 400,
         imageHeight: 200,
         imageAlt: "Custom image",
@@ -304,13 +299,12 @@ class Home extends React.Component {
     }
     if (e.target.title === loser.original_title) {
       swal({
-        title: "Sorry!",
-        text: `${e.target.title} grossed ${currencyFormatter.format(
-          Math.abs(loser.revenue),
-          { code: "USD" }
-        )}, but didn't earn more in profits than ${
-          winner.original_title
-        }. Avenge your dignity by signing up to play more!`,
+        title: "Maybe Next Time!",
+        html: `<span><h1>Sign up for more!</h1></span></h6><p>${winner.original_title} earned <span class="earned-more">${currencyFormatter.format(Math.abs(diff), {
+          code: "USD"
+        })} </span> more than ${
+          loser.original_title
+        }!</p>`,
         imageUrl: `${baseURL}${loser.backdrop_path}`,
         imageWidth: 400,
         imageHeight: 200,
@@ -357,76 +351,74 @@ class Home extends React.Component {
     return (
       <React.Fragment>
         <div className="choices-container">
-        <div className="searchy">
-          <i className="material-icons md-dark seek">search</i>
-          <Input
-            onChange={handleInput}
-            onKeyPress={_keyPress}
-            placeholder="Search for movies..."
-            fullWidth={true}
-            inputProps={{
-              "aria-label": "Description"
-            }}
-          />
-        </div>
-        <div className="home-movie-container">
-          {searchText ? (
-            <MovieList data={data} loggedIn={loggedIn} currentUser={user} />
-          ) : (
-            <div className="default-home-screens">
-              {!movie1 || !movie2 ? (
-                <CircularProgress
-                  size={50}
-                  left={70}
-                  top={0}
-                  loadingColor="#FF9800"
-                  status="loading"
-                  style={{
-                    display: "inlineBlock",
-                    position: "relative"
-                  }}
-                />
-              ) : ( 
-                <div style={movieStyles} className="home-choices"> 
-                <div className="single-movie-containers">
-                    <Paper className={"classes.root flex"} elevation={5}>
-                      <Card
-                        className={classes.card}
-                        id="movie_num_1"
-                        name="movie_num_1"
-                        onClick={getWinner}
-                      >
-                        <SingleHomeMovie
-                          data={movie1}
-                          loggedIn={loggedIn}
-                          currentUser={user}
-                        />
-                      </Card>
-                    </Paper>
+          <div className="searchy">
+            <i className="material-icons md-dark seek">search</i>
+            <Input
+              onChange={handleInput}
+              onKeyPress={_keyPress}
+              placeholder="Search for movies..."
+              fullWidth={true}
+              inputProps={{
+                "aria-label": "Description"
+              }}
+            />
+          </div>
+          <div className="home-movie-container">
+            {searchText ? (
+              <MovieList data={data} loggedIn={loggedIn} currentUser={user} />
+            ) : (
+              <div className="default-home-screens">
+                {!movie1 || !movie2 ? (
+                  <CircularProgress
+                    size={50}
+                    left={70}
+                    top={0}
+                    loadingColor="#FF9800"
+                    status="loading"
+                    style={{
+                      display: "inlineBlock",
+                      position: "relative"
+                    }}
+                  />
+                ) : (
+                  <div style={movieStyles} className="home-choices">
+                    <div className="single-movie-containers">
+                      <Paper className={"classes.root flex"} elevation={5}>
+                        <Card
+                          className={classes.card}
+                          id="movie_num_1"
+                          name="movie_num_1"
+                          onClick={getWinner}
+                        >
+                          <SingleHomeMovie
+                            data={movie1}
+                            loggedIn={loggedIn}
+                            currentUser={user}
+                          />
+                        </Card>
+                      </Paper>
+                    </div>
+                    <div className="single-movie-containers">
+                      <Paper>
+                        <Card
+                          className={classes.card}
+                          id="movie_num_2"
+                          name="movie_num_2"
+                          onClick={getWinner}
+                        >
+                          <SingleHomeMovie
+                            data={movie2}
+                            loggedIn={loggedIn}
+                            currentUser={user}
+                          />
+                        </Card>
+                      </Paper>
+                    </div>
                   </div>
-                  <div className="single-movie-containers">
-                    <Paper>
-                      <Card
-                        className={classes.card}
-                        id="movie_num_2"
-                        name="movie_num_2"
-                        onClick={getWinner}
-                      >
-                        <SingleHomeMovie
-                          data={movie2}
-                          loggedIn={loggedIn}
-                          currentUser={user}
-                        />
-                      </Card>
-                    </Paper>
-                  </div>  
-                </div>
-              )}
-            
-            </div>
-          )}
-        </div>
-    
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </React.Fragment>
     );

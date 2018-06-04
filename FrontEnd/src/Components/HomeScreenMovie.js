@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
 import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
+import Avatar from "@material-ui/core/Avatar";
+import Chip from "@material-ui/core/Chip";
 import Button from "material-ui/Button";
 import Typography from "material-ui/Typography";
 import MovieList from "./MovieList";
@@ -18,7 +20,16 @@ import "../Views/App.css";
     overflow: hidden;
 |--------------------------------------------------
 */
-const styles = {
+
+const styles = theme => ({
+  root: {
+    display: "flex",
+    justifyContent: "center",
+    flexWrap: "wrap"
+  },
+  chip: {
+    margin: theme.spacing.unit
+  },
   card: {
     // display: "flex",
     // flexDirection: "column",
@@ -38,7 +49,7 @@ const styles = {
     height: 0,
     paddingTop: "56.25%" // 16:9
   }
-};
+});
 
 class HomeScreenMovie extends React.Component {
   constructor(props) {
@@ -61,10 +72,8 @@ class HomeScreenMovie extends React.Component {
       .catch(error => {
         console.log(error);
       });
-      window.location.reload()
+    window.location.reload();
   };
-
-
 
   render() {
     const { classes, data, loggedIn, currentUser } = this.props;
@@ -100,27 +109,29 @@ class HomeScreenMovie extends React.Component {
               data.overview
             )}`}</Typography>
 
-          <CardActions value={data.id} name={data.original_title}>
-            {loggedIn ? (
-              <Button
-              onClick={() => this.addToFavs(data)}
-              value={data.id}
-              name={data.original_title}
-              >
-                Add to Favorites
-              </Button>
-            ) : (
-              <Button size="small" color="primary">
-                <a
-                  href={`https://www.themoviedb.org/movie/${data.id}`}
-                  target="_blank"
+            <CardActions value={data.id} name={data.original_title}>
+              {loggedIn ? (
+                <Chip
+                  label="Add To Favorites"
+                  className={classes.chip}
+                    value={data.id}
+                name={data.original_title}
+                  avatar={<Avatar src={baseURL + data.poster_path} />}
+                  onClick={() => this.addToFavs(data)}
+                  clickable
+                />
+              ) : (
+                <Button size="small" color="primary">
+                  <a
+                    href={`https://www.themoviedb.org/movie/${data.id}`}
+                    target="_blank"
                   >
-                  Learn More
-                </a>
-              </Button>
-            )}
-          </CardActions>
-            </CardContent>
+                    Learn More
+                  </a>
+                </Button>
+              )}
+            </CardActions>
+          </CardContent>
         </Card>
       </div>
     );
