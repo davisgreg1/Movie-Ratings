@@ -125,6 +125,12 @@ const idArr = [
   "tt1677720"
 ];
 
+const winMessage = () => {
+  return(
+    <h3>Win!</h3>
+  )
+}
+
 class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -259,10 +265,22 @@ class Home extends React.Component {
     secondFetch();
   };
 
+
+
   //When the user selects one of the movies on the home page
   getWinner = e => {
     e.preventDefault();
     e.stopPropagation();
+    /**`Congratulations, you win! ${
+          e.target.title
+        } grossed ${currencyFormatter.format(Math.abs(winner.revenue), {
+          code: "USD"
+        })} and it made a whopping ${currencyFormatter.format(Math.abs(diff), {
+          code: "USD"
+        })} more than ${
+          loser.original_title
+        }! Sign up to join the leaderboard!`,
+        imageUrl: `${baseURL}${winner.backdrop_path}` */
     const {
       winner,
       loser,
@@ -275,17 +293,9 @@ class Home extends React.Component {
 
     if (e.target.title === winner.original_title) {
       swal({
+        // html: true,
         title: "Sweet!",
-        text: `Congratulations, you win! ${
-          e.target.title
-        } grossed ${currencyFormatter.format(Math.abs(winner.revenue), {
-          code: "USD"
-        })} and it made a whopping ${currencyFormatter.format(Math.abs(diff), {
-          code: "USD"
-        })} more than ${
-          loser.original_title
-        }! Sign up to join the leaderboard!`,
-        imageUrl: `${baseURL}${winner.backdrop_path}`,
+        html: `${<h3>win</h3>}`,
         imageWidth: 400,
         imageHeight: 200,
         imageAlt: "Custom image",
