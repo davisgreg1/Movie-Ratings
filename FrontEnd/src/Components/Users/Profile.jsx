@@ -10,13 +10,16 @@ import Divider from "material-ui/Divider";
 import AppBar from "material-ui/AppBar";
 import List from "material-ui/List";
 import ListItem from "material-ui/List/ListItem";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
 import ListItemText from "material-ui/List/ListItemText";
 import Modal from "material-ui/Modal";
 import Avatar from "material-ui/Avatar";
 import Switch from "material-ui/Switch";
 import Toolbar from "material-ui/Toolbar";
 import Typography from "material-ui/Typography";
-import IconButton from "material-ui/IconButton";
+// import IconButton from "material-ui/IconButton";
+import Icon from "@material-ui/core/Icon";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Button from "material-ui/Button";
 import NavBar from "../NavBar";
@@ -27,7 +30,10 @@ import EditProfile from "./EditProfile";
 import NewBlog from "../Blogs/NewBlog";
 import EditBlog from "../Blogs/EditBlog";
 
-const styles = {
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit
+  },
   root: {
     height: "100%",
     flexGrow: 1
@@ -56,7 +62,7 @@ const styles = {
     position: "absolute",
     backgroundColor: "black"
   }
-};
+});
 
 const profileStyle = {
   border: "5px solid black",
@@ -116,7 +122,8 @@ class Profile extends React.Component {
     editOpen: false,
     blogOpen: false,
     blogEditOpen: false,
-    blogToEdit: null
+    blogToEdit: null,
+    blogToDelete: null
   };
 
   hidePic = () => {
@@ -141,6 +148,30 @@ class Profile extends React.Component {
   handleEditBlogOpen = elem => {
     // e.stopPropagation();
     this.setState({ blogEditOpen: true, blogToEdit: elem });
+  };
+
+/**
+|--------------------------------------------------
+| axios.delete(url, { data: { foo: "bar" } });
+|--------------------------------------------------
+*/
+
+  handleBlogDelete = elem => {
+    console.log("the Elem:", elem);
+    this.setState({
+      blogToDelete: elem.id
+    })
+
+    axios
+      .delete(`/users/removeBlog/${elem.id}`)
+      .then(res => {
+        console.log("response from Delete!", res);
+      })
+      .catch(err => {
+        console.log("Error in Delete Blog:", err)
+        return err;
+      });
+      window.location.reload()
   };
 
   handleBlogModalClose = e => {
@@ -222,13 +253,14 @@ class Profile extends React.Component {
       blogOpen,
       editOpen,
       blogToEdit,
-      blogEditOpen
+      blogEditOpen,
+      blogToDelete
     } = this.state;
-    const { handleEditBlogOpen } = this;
+    const { handleEditBlogOpen, handleBlogDelete } = this;
     const open = Boolean(anchorEl);
     const base = "http://res.cloudinary.com/movie-fights/image/upload/";
     let classHide = isHide ? "fadeOut" : "fadeIn";
-    console.log("blog to edit?", this.state);
+    console.log("blog to delete?", this.state);
 
     return (
       <React.Fragment>
@@ -339,9 +371,27 @@ class Profile extends React.Component {
                             )}
                           </Typography>
                           <div className="edit-blog-container">
-                            <Button onClick={() => handleEditBlogOpen(elem)}>
-                              Edit
+                            <Button
+                              variant="fab"
+                              mini
+                              style={{
+                                backgroundColor: "rgb(70, 73, 71, 0.83)",
+                                color: "white"
+                              }}
+                              onClick={() => handleEditBlogOpen(elem)}
+                              aria-label="edit"
+                              className={classes.button}
+                            >
+                              <Icon size="small">edit_icon</Icon>
                             </Button>
+                          </div>
+                          <div>
+                            <IconButton
+                              onClick={() => handleBlogDelete(elem)}
+                              aria-label="Delete"
+                            >
+                              <DeleteIcon />
+                            </IconButton>
                           </div>
                         </CardContent>
                       </Card>

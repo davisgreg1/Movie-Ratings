@@ -188,12 +188,16 @@ const editBlog = (req, res, next) => {
 };
 
 const removeBlog = (req, res, next) => {
-  db.none("DELETE * FROM blogs WHERE id = ${id}", req.body).then(data => {
+  db.result("DELETE FROM blogs WHERE id = $1", [req.params.id])
+  .then(data => {
     res.status(200).json({
       status: "Success!",
-      message: `Successfully deleted blog #${req.body.id}.`
+      message: `Successfully deleted blog.`
     });
-  });
+  })
+  .catch(err => {
+    return next(err)
+  })
 };
 /**
 |--------------------------------------------------

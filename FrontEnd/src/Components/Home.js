@@ -261,8 +261,10 @@ class Home extends React.Component {
 
   //When the user selects one of the movies on the home page
   getWinner = e => {
+    console.log("e is name?", e.currentTarget.innerText);
+    // debugger
     e.preventDefault();
-    e.stopPropagation();
+    // e.stopPropagation();
     /**`Congratulations, you win! ${
           e.target.title
         } grossed ${currencyFormatter.format(Math.abs(winner.revenue), {
@@ -283,28 +285,33 @@ class Home extends React.Component {
     } = this.state;
     let diff = movie1MoneyEarned - movie2MoneyEarned;
 
-    if (e.target.title === winner.original_title) {
+    if (e.currentTarget.innerText === winner.original_title) {
       swal({
         title: "Correct!",
-        html: `<span><h1>Sign up for more!</h1></span></h6><p>${winner.original_title} earned <span class="earned-more">${currencyFormatter.format(Math.abs(diff), {
-          code: "USD"
-        })} </span> more than ${
-          loser.original_title
-        }!</p>`,
+        html: `<span><h1>Sign up for more!</h1></span></h6><p>${
+          winner.original_title
+        } earned <span class="earned-more">${currencyFormatter.format(
+          Math.abs(diff),
+          {
+            code: "USD"
+          }
+        )} </span> more than ${loser.original_title}!</p>`,
         imageWidth: 400,
         imageHeight: 200,
         imageAlt: "Custom image",
         animation: true
       });
-    }
-    if (e.target.title === loser.original_title) {
+    } else {
       swal({
         title: "Maybe Next Time!",
-        html: `<span><h1>Sign up for more!</h1></span></h6><p>${winner.original_title} earned <span class="earned-more">${currencyFormatter.format(Math.abs(diff), {
-          code: "USD"
-        })} </span> more than ${
-          loser.original_title
-        }!</p>`,
+        html: `<span><h1>Sign up for more!</h1></span></h6><p>${
+          winner.original_title
+        } earned <span class="earned-more">${currencyFormatter.format(
+          Math.abs(diff),
+          {
+            code: "USD"
+          }
+        )} </span> more than ${loser.original_title}!</p>`,
         imageUrl: `${baseURL}${loser.backdrop_path}`,
         imageWidth: 400,
         imageHeight: 200,
@@ -348,6 +355,7 @@ class Home extends React.Component {
     const { _keyPress, handleInput, getWinner } = this;
     const open = Boolean(anchorEl);
     console.log("HOME STATE:", this.state);
+
     return (
       <React.Fragment>
         <div className="choices-container">
@@ -387,7 +395,7 @@ class Home extends React.Component {
                         <Card
                           className={classes.card}
                           id="movie_num_1"
-                          name="movie_num_1"
+                          name={movie1.original_title}
                           onClick={getWinner}
                         >
                           <SingleHomeMovie
@@ -403,7 +411,7 @@ class Home extends React.Component {
                         <Card
                           className={classes.card}
                           id="movie_num_2"
-                          name="movie_num_2"
+                          name={movie2.original_title}
                           onClick={getWinner}
                         >
                           <SingleHomeMovie

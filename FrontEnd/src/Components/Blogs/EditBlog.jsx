@@ -161,14 +161,14 @@ class EditBlog extends Component {
             <div className="user-info-content">
               <div id="quick-user-info">
                 <RaisedButton
+                  style={{ backgroundColor: "rgba(70, 73, 71, 0.83)", color: "white" }}
                   onClick={fireRedirect}
                   disabled={!newBlogBody && !newBlogTitle}
                   variant="Submit"
                   label="Submit"
                   type="submit"
                   value="submit"
-                  primary={true}
-                  style={{ backgroundColor: "rgb(70, 73, 71, 0.83)", color: "white" }}
+                  // primary={true}
                 >
                   Submit
                 </RaisedButton>

@@ -327,7 +327,7 @@ class EditProfile extends Component {
                           type="submit"
                           value="submit"
                           primary={true}
-                          style={{ backgroundColor: "#253C78", color: "white" }}
+                          style={{ backgroundColor: "rgb(70, 73, 71, 0.83)", color: "white" }}
                         >
                           Submit
                         </RaisedButton>
