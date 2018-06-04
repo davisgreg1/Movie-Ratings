@@ -346,6 +346,10 @@ margin-top: 50%;
   justify-content: center;
 }
 
+#user-banner-edit{
+  width: 100%
+}
+
 .blog-list {
   display: flex;
   flex-direction: column;
@@ -359,6 +363,7 @@ margin-top: 50%;
 }
 
 .edit-fields {
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -367,6 +372,27 @@ margin-top: 50%;
 
 #user-profile {
   outline: none;
+}
+
+#modal-form{
+  background-color: #8baaad;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+
+.text-field{
+  text-align: center;
+  padding: 30px;
+  /* display: flex;
+  justify-content: center;
+  align-content: center; */
+}
+
+#helper-text #multiline-flexible{
+  text-align: center;
 }
 
 @media only screen and (max-width: 768px) {
@@ -501,7 +527,7 @@ cursor: pointer; */
   flex-grow: 1;
   background-color: black;
 }
-/*____________________________________________________
+                                                /*____________________________________________________
                                                 | LOGIN USER BELOW
                                                 |_____________________________________________________
                                                 */

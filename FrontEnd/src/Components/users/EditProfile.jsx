@@ -164,6 +164,7 @@ class EditProfile extends Component {
   };
 
   render() {
+    console.log("the state in profile:", this.state)
     const {
       handleTextArea,
       handleInputChange,
@@ -226,7 +227,7 @@ class EditProfile extends Component {
                   </Image>
                 </button>
                 </div>
-              <div className="edit-fields">
+              <div className="edit-fieldss">
                 <form className={classes.container} noValidate autoComplete="off" onSubmit={handleProfileSubmitForm}>
                   <div
                     id="user-banner-edit"
@@ -235,7 +236,7 @@ class EditProfile extends Component {
                     <div>
                       <TextField
                         className={classes.textField}
-                        id="helperText"
+                        id="helper-text"
                         defaultValue={user.username}
                         label="Username"
                         name="newUserName"
@@ -248,7 +249,7 @@ class EditProfile extends Component {
                     <div>
                       <TextField
                         className={classes.textField}
-                        id="helperText"
+                        id="helper-text"
                         label="First Name"
                         name="newFirstName"
                         defaultValue={user.firstname}
@@ -261,8 +262,9 @@ class EditProfile extends Component {
                     <div className="edit-user-lastname">
                       <TextField
                         className={classes.textField}
-                        id="helperText"
+                        id="helper-text"
                         label="Last Name"
+                        fullWidth="true"
                         name="newLastName"
                         defaultValue={user.lastname}
                         placeholder="Last Name"
@@ -274,8 +276,9 @@ class EditProfile extends Component {
                     <div className="edit-user-email">
                       <TextField
                         className={classes.textField}
-                        id="helperText"
+                        id="helper-text"
                         label="Email"
+                        fullWidth="true"
                         name="newEmail"
                         defaultValue={user.email}
                         placeholder="Email"
@@ -291,6 +294,7 @@ class EditProfile extends Component {
                         multiline
                         rowsMax="10"
                         label="Blurb"
+                        fullWidth="true"
                         name="newBlurb"
                         defaultValue={user.blurb}
                         placeholder="Blurb"

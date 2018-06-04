@@ -117,12 +117,13 @@ class NewBlog extends Component {
     return (
       <Fragment>
         <div style={this.props.style} className="edit-fields">
-          <form onSubmit={handleNewBlogSubmit} id="input-container">
+          <form  id="modal-form" onSubmit={handleNewBlogSubmit}>
             <div id="user-banner-edit" className="background-banner sq2-edit">
-              <div style={{fontSize:"50px"}}>
+              <div  className="text-field">
                 <TextField
                   className={classes.textField}
-                  id="helperText"
+                  id="helper-text"
+                  fullWidth="true"
                   label="New Blog Title"
                   name="newBlogTitle"
                   placeholder="Title"
@@ -131,10 +132,11 @@ class NewBlog extends Component {
                 />
               </div>
               <br />
-              <div>
+              <div  className="text-field">
                 <TextField
                   className={classes.textField}
                   id="multiline-flexible"
+                  fullWidth="true"
                   multiline
                   rowsMax="20"
                   label="New Blog Text"

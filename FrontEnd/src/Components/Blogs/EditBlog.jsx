@@ -126,13 +126,14 @@ class EditBlog extends Component {
     return (
       <Fragment>
         <div style={this.props.style} className="edit-fields">
-          <form className={classes.container} noValidate autoComplete="off" onSubmit={handleEditBlogSubmit}>
+          <form  id="modal-form" className={classes.container} noValidate autoComplete="off" onSubmit={handleEditBlogSubmit}>
             <div id="user-banner-edit" className="background-banner sq2-edit">
-              <div>
+              <div className="text-field">
                 <TextField
                   className={classes.textField}
                   id="helper-text"
                   name="newBlogTitle"
+                  fullWidth="true"
                   defaultValue={blogToEdit.blog_title}
                   label="Edited Title"
                   placeholder="New Title"
@@ -140,10 +141,11 @@ class EditBlog extends Component {
                   margin="normal"
                 />
               </div>
-              <div>
+              <div className="text-field">
                 <TextField
                   className={classes.textField}
                   id="multiline-flexible"
+                  fullWidth="true"
                   name="newBlogBody"
                   defaultValue={blogToEdit.blog_body}
                   label="Edited Blog Text"
@@ -166,7 +168,7 @@ class EditBlog extends Component {
                   type="submit"
                   value="submit"
                   primary={true}
-                  style={{ backgroundColor: "#253C78", color: "white" }}
+                  style={{ backgroundColor: "rgb(70, 73, 71, 0.83)", color: "white" }}
                 >
                   Submit
                 </RaisedButton>
