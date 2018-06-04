@@ -513,6 +513,8 @@ cursor: pointer; */
   max-width: 500px;
   width: 100%;
   height: auto;
+  max-height: 500px;
+  border: 10px solid rgb(70, 73, 71, 0.83);
 }
 
 #upload_widget_btn {
