@@ -318,6 +318,7 @@ margin-top: 50%;
   flex-direction: column;
   margin-top: 5%;
   width: 100%;
+  /* padding: 15px; */
 }
 
 .profile-img {

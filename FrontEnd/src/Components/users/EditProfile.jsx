@@ -6,7 +6,7 @@ import classNames from "classnames";
 import TextField from "material-ui/TextField";
 import Input, { InputLabel, InputAdornment } from "material-ui/Input";
 import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
-import Paper from 'material-ui/Paper';
+import Paper from "material-ui/Paper";
 import CircularProgress from "material-ui/Progress/CircularProgress";
 import { FormControl, FormHelperText } from "material-ui/Form";
 import MenuItem from "material-ui/Menu/MenuItem";
@@ -64,7 +64,8 @@ class EditProfile extends Component {
       doneEditing: false,
       validEmail: false,
       showPassword: false,
-      cloudResult: false
+      cloudResult: false,
+      imageChanged: false
     };
   }
 
@@ -85,7 +86,8 @@ class EditProfile extends Component {
           } else {
             this.setState({
               newPublic_id: elem.public_id,
-              newImgURL: elem.path
+              newImgURL: elem.path,
+              imageChanged: true
             });
           }
         });
@@ -125,7 +127,8 @@ class EditProfile extends Component {
       newBlurb,
       newImgURL,
       public_id,
-      newPublic_id
+      newPublic_id,
+      imageChanged
     } = this.state;
 
     axios
@@ -164,7 +167,7 @@ class EditProfile extends Component {
   };
 
   render() {
-    console.log("the state in profile:", this.state)
+    console.log("the state in edit profile:", this.state);
     const {
       handleTextArea,
       handleInputChange,
@@ -186,13 +189,14 @@ class EditProfile extends Component {
       doneEditing,
       public_id,
       newPublic_id,
-      cloudResult
+      cloudResult,
+      imageChanged
     } = this.state;
     const { currentUser, classes } = this.props;
+    const base = "http://res.cloudinary.com/movie-fights/image/upload/";
 
-
-    if (doneEditing ) {
-      window.location.reload()
+    if (doneEditing) {
+      window.location.reload();
     }
 
     return (
@@ -212,115 +216,125 @@ class EditProfile extends Component {
                 }}
               />
             ) : (
-              // <Paper className={"paper-edit"} elevation={5}>
               <div className="ternary-div">
-              <div className="upload_widget_">
-                <button id="upload_widget_btn" onClick={makeWidget}>
-                  <Image
-                    className="upload_widget_img"
-                    cloudName="movie-fights"
-                    publicId={this.props.currentUser.public_id}
-                    crop="scale"
-                  >
-                  {/* <Transformation effect="vignette:20" quality="100" radius="0" width="250" crop="scale" />
-                  <Transformation angle="0" /> */}
-                  </Image>
-                </button>
+                <div className="upload_widget_">
+                  <button id="upload_widget_btn" onClick={makeWidget}>
+                    {!imageChanged ? (
+                      <Image
+                        className="upload_widget_img"
+                        cloudName="movie-fights"
+                        publicId={this.props.currentUser.public_id}
+                        crop="scale"
+                      />
+                    ) : (
+                      <Image
+                        className="upload_widget_img"
+                        cloudName="movie-fights"
+                        publicId={base + newPublic_id}
+                        crop="scale"
+                      />
+                    )}
+                  </button>
                 </div>
-              <div className="edit-fieldss">
-                <form className={classes.container} noValidate autoComplete="off" onSubmit={handleProfileSubmitForm}>
-                  <div
-                    id="user-banner-edit"
-                    className="background-banner sq2-edit"
+                <div className="edit-fieldss">
+                  <form
+                    className={classes.container}
+                    noValidate
+                    autoComplete="off"
+                    onSubmit={handleProfileSubmitForm}
                   >
-                    <div>
-                      <TextField
-                        className={classes.textField}
-                        id="helper-text"
-                        defaultValue={user.username}
-                        label="Username"
-                        name="newUserName"
-                        placeholder="New Username"
-                        onChange={handleInputChange}
-                        margin="normal"
-                      />
+                    <div
+                      id="user-banner-edit"
+                      className="background-banner sq2-edit"
+                    >
+                      <div>
+                        <TextField
+                          className={classes.textField}
+                          id="helper-text"
+                          defaultValue={user.username}
+                          label="Username"
+                          name="newUserName"
+                          placeholder="New Username"
+                          onChange={handleInputChange}
+                          margin="normal"
+                        />
+                      </div>
+                      <br />
+                      <div>
+                        <TextField
+                          className={classes.textField}
+                          id="helper-text"
+                          label="First Name"
+                          name="newFirstName"
+                          defaultValue={user.firstname}
+                          placeholder="First Name"
+                          onChange={handleInputChange}
+                          margin="normal"
+                        />
+                      </div>
+                      <br />
+                      <div className="edit-user-lastname">
+                        <TextField
+                          className={classes.textField}
+                          id="helper-text"
+                          label="Last Name"
+                          fullWidth="true"
+                          name="newLastName"
+                          defaultValue={user.lastname}
+                          placeholder="Last Name"
+                          onChange={handleInputChange}
+                          margin="normal"
+                        />
+                      </div>
+                      <br />
+                      <div className="edit-user-email">
+                        <TextField
+                          className={classes.textField}
+                          id="helper-text"
+                          label="Email"
+                          fullWidth="true"
+                          name="newEmail"
+                          defaultValue={user.email}
+                          placeholder="Email"
+                          onChange={handleInputChange}
+                          margin="normal"
+                        />
+                      </div>
+                      <br />
+                      <div className="edit-user-blurb">
+                        <TextField
+                          className={classes.textField}
+                          id="multiline-flexible"
+                          multiline
+                          rowsMax="10"
+                          label="Blurb"
+                          fullWidth="true"
+                          name="newBlurb"
+                          defaultValue={user.blurb}
+                          placeholder="Blurb"
+                          onChange={handleInputChange}
+                          margin="normal"
+                        />
+                      </div>
+                      <br />
                     </div>
-                    <br />
-                    <div>
-                      <TextField
-                        className={classes.textField}
-                        id="helper-text"
-                        label="First Name"
-                        name="newFirstName"
-                        defaultValue={user.firstname}
-                        placeholder="First Name"
-                        onChange={handleInputChange}
-                        margin="normal"
-                      />
+                    <div className="user-info-content">
+                      <div id="quick-user-info">
+                        <RaisedButton
+                          onClick={fireRedirect}
+                          variant="Register"
+                          label="Register"
+                          type="submit"
+                          value="submit"
+                          primary={true}
+                          style={{ backgroundColor: "#253C78", color: "white" }}
+                        >
+                          Submit
+                        </RaisedButton>
+                      </div>
                     </div>
-                    <br />
-                    <div className="edit-user-lastname">
-                      <TextField
-                        className={classes.textField}
-                        id="helper-text"
-                        label="Last Name"
-                        fullWidth="true"
-                        name="newLastName"
-                        defaultValue={user.lastname}
-                        placeholder="Last Name"
-                        onChange={handleInputChange}
-                        margin="normal"
-                      />
-                    </div>
-                    <br />
-                    <div className="edit-user-email">
-                      <TextField
-                        className={classes.textField}
-                        id="helper-text"
-                        label="Email"
-                        fullWidth="true"
-                        name="newEmail"
-                        defaultValue={user.email}
-                        placeholder="Email"
-                        onChange={handleInputChange}
-                        margin="normal"
-                      />
-                    </div>
-                    <br />
-                    <div className="edit-user-blurb">
-                      <TextField
-                        className={classes.textField}
-                        id="multiline-flexible"
-                        multiline
-                        rowsMax="10"
-                        label="Blurb"
-                        fullWidth="true"
-                        name="newBlurb"
-                        defaultValue={user.blurb}
-                        placeholder="Blurb"
-                        onChange={handleInputChange}
-                        margin="normal"
-                      />
-                    </div>
-                    <br />
-                  </div>
-                  <div className="user-info-content">
-                    <div id="quick-user-info">
-                      <RaisedButton
-                        onClick={fireRedirect}
-                        variant="Register"
-                        label="Register"
-                        type="submit"
-                        value="submit"
-                        primary={true}
-                        style={{ backgroundColor: "#253C78", color: "white" }}
-                      >
-                        Submit
-                      </RaisedButton>
-                    </div>
-                  </div>
-                </form>
-              </div>
+                  </form>
+                </div>
               </div>
               // </Paper>
             )}
