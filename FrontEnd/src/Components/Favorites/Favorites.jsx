@@ -108,7 +108,7 @@ class Favorites extends Component {
 
     return (
       <React.Fragment>
-        <div className="searchy">
+        <div className="searchy pad">
           <i className="material-icons md-dark seek">search</i>
           <Input
             onChange={handleInput}
@@ -120,7 +120,7 @@ class Favorites extends Component {
             }}
           />
         </div>
-        <div className="home-movie-container">
+        <div className="favs-movie-container">
           {searchText ? (
             <MovieList data={data} loggedIn={loggedIn} currentUser={currentUser} />
           ) : (

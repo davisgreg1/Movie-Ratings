@@ -85,7 +85,7 @@ INSERT INTO scores (user_id, points)
 INSERT INTO scores (user_id, points)
   VALUES (10, 345670);
 INSERT INTO scores (user_id, points)
-  VALUES (11, 999999999);
+  VALUES (11, 9999999);
 
 INSERT INTO blogs (user_id, blog_title, blog_body, time_posted)
   VALUES (1, 'My First Post', 'This is my first blog post', NOW());

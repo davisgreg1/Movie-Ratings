@@ -2,6 +2,7 @@ import React from "react";
 import { Link, Route } from "react-router-dom";
 // eslint-disable-next-line
 import SingleHomeMovie from "../SingleHomeMovie";
+import LeaderBoard from "./LeaderBoard";
 // eslint-disable-next-line
 // import dotenv from 'dotenv';
 import CurrentScore from "./CurrentScore";
@@ -86,14 +87,12 @@ const idArr = [
   "tt1259528",
   "tt2527336",
   "tt2380307",
-  "tt5519340",
   "tt4765284",
   "tt5052448",
   "tt1615160",
   "tt0451279",
   "tt4574334",
   "tt1396484",
-  "tt0116126",
   "tt5463162",
   "tt4154756",
   "tt3778644",
@@ -114,11 +113,16 @@ class Game extends React.Component {
       loser: {},
       movie1MoneyEarned: "",
       movie2MoneyEarned: "",
-      score: ""
+      score: "",
+      hasBeenClicked: false
     };
   }
 
   getTwoMovies = () => {
+    this.setState({
+      hasBeenClicked: false
+    });
+
     let randomMovieID1 = `${idArr[Math.floor(Math.random() * idArr.length)]}`;
     let randomMovieID2 = `${idArr[Math.floor(Math.random() * idArr.length)]}`;
     axios
@@ -172,85 +176,80 @@ class Game extends React.Component {
   };
 
   getWinner = e => {
-    // let title = e.target.title;
-    
-    // setTimeout(function(){
-      debugger;
+    if (
+      e.target.title !== this.state.winner.original_title &&
+      e.target.title !== this.state.loser.original_title
+    ) {
+      window.location.reload();
+    }
+    console.log("e:", e);
+    e.preventDefault();
+    const {
+      winner,
+      loser,
+      movie1,
+      movie2,
+      movie1MoneyEarned,
+      movie2MoneyEarned,
+      score,
+      hasBeenClicked
+    } = this.state;
+    const { classes, currentUser, originalScore, getUserScore } = this.props;
+    let diff = movie1MoneyEarned - movie2MoneyEarned;
 
-      if (
-        e.target.title !== this.state.winner.original_title &&
-        e.target.title !== this.state.loser.original_title
-      ) {
-        window.location.reload()
-      }
-      console.log("e:", e);
-      e.preventDefault();
-      const {
-        winner,
-        loser,
-        movie1,
-        movie2,
-        movie1MoneyEarned,
-        movie2MoneyEarned,
-        score
-      } = this.state;
-      const { classes, currentUser, originalScore, getUserScore } = this.props;
-      let diff = movie1MoneyEarned - movie2MoneyEarned;
-      debugger;
-      if (e.target.title === winner.original_title) {
-        console.log("winner?:", winner);
-        this.setState({
-          score: (this.state.score += 10)
-        });
-        swal({
-          title: "Sweet!",
-          customClass: "animated rubberBand",
-          html: `<span id="swal-message-right"><h6 className="swal-alert">Congratulations, you win! ${
-            winner.original_title
-          } grossed ${currencyFormatter.format(Math.abs(winner.revenue), {
-            code: "USD"
-          })} and it made a whopping ${currencyFormatter.format(
-            Math.abs(diff),
-            {
-              code: "USD"
-            }
-          )} more than ${loser.original_title}</h6 className="swal-alert"></span>`,
-          background: `#eee url(${baseURL}${winner.backdrop_path}) space`,
-          backdrop: `
+    if (e.target.title === winner.original_title && !hasBeenClicked) {
+      console.log("winner?:", winner);
+      this.setState({
+        score: (this.state.score += 10),
+        hasBeenClicked: true
+      });
+      swal({
+        title: "Sweet!",
+        customClass: "animated rubberBand",
+        html: `<div id="win-win"><span id="swal-message-right"><h6 className="swal-alert">Yes, ${currentUser.firstname}! ${
+          winner.original_title
+        } grossed ${currencyFormatter.format(Math.abs(winner.revenue), {
+          code: "USD"
+        })} and it made <h2> ${currencyFormatter.format(Math.abs(diff), {
+          code: "USD"
+        })}</h2> more than ${
+          loser.original_title
+        }</h6 className="swal-alert"></span></div>`,
+        background: `#eee url(${baseURL}${winner.backdrop_path}) space`,
+        backdrop: `
         rgba(0,255,0,0.5)`,
-          imageWidth: 400,
-          imageHeight: 200,
-          imageAlt: "Custom image",
-          animation: false
-        });
-      }
-      /**
-    |--------------------------------------------------
-    |   url(${baseURL}${loser.backdrop_path})
-    |   center left
-    |--------------------------------------------------
-    */
-      if (e.target.title === loser.original_title) {
-        swal({
-          title: "Sorry!",
-          customClass: "animated shake",
-          html: `<span id="swal-message"><h6>${
-            e.target.title
-          } grossed ${currencyFormatter.format(Math.abs(loser.revenue), {
-            code: "USD"
-          })}, but didn't earn more in profits than ${
-            winner.original_title
-          }.</h6></span>`,
-          background: `#eee url(${baseURL}${loser.backdrop_path}) space`,
-          backdrop: `
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: "Custom image",
+        animation: false
+      });
+    }
+    if (e.target.title === loser.original_title) {
+      swal({
+        title: "Sorry!",
+        customClass: "animated shake",
+        html: `<span id="swal-message"><h6>${
+          e.target.title
+        } grossed ${currencyFormatter.format(Math.abs(loser.revenue), {
+          code: "USD"
+        })}, but didn't earn more in profits than ${
+          winner.original_title
+        }.</h6></span>`,
+        background: `#eee url(${baseURL}${loser.backdrop_path}) space`,
+        backdrop: `
         rgba(255,0,0,0.5)`,
-          imageWidth: 400,
-          imageHeight: 200,
-          imageAlt: "Custom image",
-          animation: false
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: "Custom image",
+        animation: false
+      });
+      if (hasBeenClicked) {
+        this.setState({
+          score: (this.state.score += 0)
         });
       }
-      this.postScore();
+    }
+    this.postScore();
     // }, 0);
   };
 
@@ -342,11 +341,11 @@ class Game extends React.Component {
                   Select The Movie You Think Made More In Profits!!
                 </div>
               )}
+        <div>
+          <Link to="/leaderboard">View Leaderboard</Link>
+        </div>
             </div>
           )}
-        </div>
-            <div>
-          <Link to="/leaderboard">View Leaderboard</Link>
         </div>
       </React.Fragment>
     );

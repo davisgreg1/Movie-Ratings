@@ -75,6 +75,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 8px;
 }
 .home-choices {
   display: flex;
@@ -83,6 +84,10 @@ body {
 }
 .hidden {
   display: none;
+}
+
+.earned-more{
+  font-size: 25px
 }
 
 .default-home-screen {
@@ -585,6 +590,16 @@ cursor: pointer; */
   flex-wrap: wrap;
   justify-content: space-around;
 }
+.pad{
+  padding-top: 7px;
+}
+.FavoriteMovieList-card-102 {
+  display: flex;
+  /* padding: 10px; */
+  max-width: 275px;
+  align-items: center;
+  flex-direction: column;
+}
 
 /**
                                           |--------------------------------------------------
@@ -596,6 +611,11 @@ cursor: pointer; */
   color: red;
   font-size: 25px;
 }
+#win-win{
+  display: flex;
+  justify-content: center;
+  background-color: black;
+}
 .swal-alert {
   background-color: whitesmoke;
 }
@@ -605,7 +625,7 @@ cursor: pointer; */
 }
 #movie-1-and-2-container {
   background-image: url("theaterCurtain.jpg");
-  height: 1500px;
+  height: 100%;
 }
 .MuiFormGroup-root-94 {
   margin-top: -8px;
@@ -770,8 +790,34 @@ cursor: pointer; */
     flex-direction: column;
     justify-content: space-around;
   }
+
+  .MuiInput-input-102 {
+    font: inherit;
+    color: currentColor;
+    border: 0;
+    margin: 0;
+    /* padding: 19px 0 7px; */
+    display: block;
+    min-width: 0;
+    flex-grow: 1;
+    box-sizing: content-box;
+    background: none;
+    vertical-align: middle;
+    -webkit-tap-highlight-color: transparent;
+    padding-top: 19px;
+}
   .searchy {
-    /* width: 108.5vw; */
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    background-color: whitesmoke;
+    width: 100vw;
+    padding-top: 7px;
   }
   .default-home-screen {
     width: 100px;
