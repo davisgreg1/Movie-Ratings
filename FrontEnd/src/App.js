@@ -125,7 +125,7 @@ class App extends React.Component {
   handleMenu = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
-  
+
   handleClose = () => {
     this.setState({ anchorEl: null });
   };
@@ -187,7 +187,7 @@ class App extends React.Component {
 
   componentDidMount() {
     const { user } = this.state;
-    console.log("APP DID MOUNT")
+    console.log("APP DID MOUNT");
 
     axios
       .get("/users/userinfo")

@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import { Redirect } from "react-router";
 import { Route, Link, Switch } from "react-router-dom";
 import classNames from "classnames";
@@ -49,37 +48,6 @@ class LoginUser extends React.Component {
     this.setState({
       [e.target.name]: e.target.value
     });
-  };
-
-  async submitLoginForm(e){
-    e.preventDefault();
-    const { usernameInput, passwordInput, loggedIn } = this.state;
-
-    if (usernameInput.length < 3) {
-      this.setState({
-        message: "Username length must be at least 3"
-      });
-      return;
-    }
-    const res = await axios
-      .post("/users/login", {
-        username: usernameInput,
-        password: passwordInput
-      })
-      .then(res => {
-        this.props.setUser(res.data);
-        // this.setState({
-        //   user: res.data.username,
-        //   loggedIn: true
-        // });
-      })
-      .catch(err => {
-        this.setState({
-          usernameInput: "",
-          passwordInput: "",
-          message: "Username/Password not found"
-        });
-      });
   };
 
   handleClickShowPassword = () => {
