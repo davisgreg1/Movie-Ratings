@@ -7,6 +7,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "material-ui/Menu/MenuItem";
 import IconButton from "material-ui/IconButton";
 import Menu from "material-ui/Menu";
+import Fade from '@material-ui/core/Fade';
 import MenuIcon from "@material-ui/icons/Menu";
 import { withStyles } from "material-ui/styles";
 import AppBar from "material-ui/AppBar";
@@ -184,6 +185,7 @@ class NavBar extends Component {
                 }}
                 open={open}
                 onClose={this.handleClose}
+                TransitionComponent={Fade}
               >
                 <Link to={`/users/${currentUser.username}`} className="links">
                   <MenuItem onClick={this.handleClose}>Profile</MenuItem>
