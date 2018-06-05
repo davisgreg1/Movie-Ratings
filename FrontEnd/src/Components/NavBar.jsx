@@ -198,9 +198,10 @@ class NavBar extends Component {
                 </Link>
               </Menu>
               <Button
+              style={{color:"white"}}
                 href="/login"
                 onClick={logOut}
-                className={"classes.button"}
+                className={classes.button}
               >
                 Logout
               </Button>

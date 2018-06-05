@@ -193,7 +193,7 @@ class EditProfile extends Component {
       imageChanged
     } = this.state;
     const { currentUser, classes } = this.props;
-    const base = "http://res.cloudinary.com/movie-fights/image/upload/";
+    const base = "http://res.cloudinary.com/movie-fights/image/upload/a_auto/";
 
     if (doneEditing) {
       window.location.reload();

@@ -15,6 +15,7 @@ import "../../Views/animate.css";
 import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
 import CircularProgress from "material-ui/Progress/CircularProgress";
 import Button from "material-ui/Button";
+import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "material-ui/styles";
 
 const KEY = process.env.REACT_APP_OMDB_KEY;
@@ -206,11 +207,14 @@ class Game extends React.Component {
       swal({
         title: "Sweet!",
         customClass: "animated rubberBand",
-        html: `<div id="win-win"><span id="swal-message-right"><h6 className="swal-alert">Yes, ${currentUser.firstname}! ${
-          winner.original_title
-        } grossed ${currencyFormatter.format(Math.abs(winner.revenue), {
-          code: "USD"
-        })} and it made <h2> ${currencyFormatter.format(Math.abs(diff), {
+        html: `<div id="win-win"><span id="swal-message-right"><h6 className="swal-alert">Yes, ${
+          currentUser.firstname
+        }! ${winner.original_title} grossed ${currencyFormatter.format(
+          Math.abs(winner.revenue),
+          {
+            code: "USD"
+          }
+        )} and it made <h2> ${currencyFormatter.format(Math.abs(diff), {
           code: "USD"
         })}</h2> more than ${
           loser.original_title
@@ -303,17 +307,19 @@ class Game extends React.Component {
                 Your score is: <CurrentScore score={score} />
               </div>
               {!movie1 || !movie2 ? (
-                <CircularProgress
-                  size={50}
-                  left={70}
-                  top={0}
-                  loadingColor="#FF9800"
-                  status="loading"
-                  style={{
-                    display: "inlineBlock",
-                    position: "relative"
-                  }}
-                />
+                <span className="circle">
+                  <CircularProgress
+                    size={50}
+                    left={50}
+                    top={50}
+                    loadingColor="#FF9800"
+                    status="loading"
+                    style={{
+                      display: "inlineBlock",
+                      position: "relative"
+                    }}
+                  />
+                </span>
               ) : (
                 <div className="single-movie-container">
                   <Card
@@ -325,10 +331,16 @@ class Game extends React.Component {
                     <SingleHomeMovie data={movie1} />
                   </Card>
                   <div className="versus-div">
-                    <Button onClick={this.getTwoMovies}>
-                      {" "}
-                      <span id="versus-span">MORE!</span>
-                    </Button>
+                    <Tooltip
+                      id="tooltip-top-start"
+                      title="Click for 2 More!"
+                      placement="top-start"
+                    >
+                      <Button onClick={this.getTwoMovies}>
+                        {" "}
+                        <span id="versus-span">MORE!</span>
+                      </Button>
+                    </Tooltip>
                   </div>
                   <Card
                     className={classes.card}
@@ -338,12 +350,8 @@ class Game extends React.Component {
                   >
                     <SingleHomeMovie data={movie2} />
                   </Card>
-                  Select The Movie You Think Made More In Profits!!
                 </div>
               )}
-        <div>
-          <Link to="/leaderboard">View Leaderboard</Link>
-        </div>
             </div>
           )}
         </div>

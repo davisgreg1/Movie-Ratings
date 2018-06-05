@@ -24,6 +24,8 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import Button from "material-ui/Button";
 import NavBar from "../NavBar";
 import Menu, { MenuItem } from "material-ui/Menu";
+import Tooltip from '@material-ui/core/Tooltip';
+
 import "../../Views/App.css";
 import { addCommas } from "../../utils/movieData";
 import EditProfile from "./EditProfile";
@@ -150,7 +152,7 @@ class Profile extends React.Component {
     this.setState({ blogEditOpen: true, blogToEdit: elem });
   };
 
-/**
+  /**
 |--------------------------------------------------
 | axios.delete(url, { data: { foo: "bar" } });
 |--------------------------------------------------
@@ -160,18 +162,17 @@ class Profile extends React.Component {
     console.log("the Elem:", elem);
     this.setState({
       blogToDelete: elem.id
-    })
-
+    });
     axios
       .delete(`/users/removeBlog/${elem.id}`)
       .then(res => {
         console.log("response from Delete!", res);
       })
       .catch(err => {
-        console.log("Error in Delete Blog:", err)
+        console.log("Error in Delete Blog:", err);
         return err;
       });
-      window.location.reload()
+    window.location.reload();
   };
 
   handleBlogModalClose = e => {
@@ -258,10 +259,9 @@ class Profile extends React.Component {
     } = this.state;
     const { handleEditBlogOpen, handleBlogDelete } = this;
     const open = Boolean(anchorEl);
-    const base = "http://res.cloudinary.com/movie-fights/image/upload/";
+    const base = "http://res.cloudinary.com/movie-fights/image/upload/a_auto/";
     let classHide = isHide ? "fadeOut" : "fadeIn";
     console.log("blog to delete?", this.state);
-
     return (
       <React.Fragment>
         {currentUser ? (
@@ -308,7 +308,9 @@ class Profile extends React.Component {
               </div>
             </div>
             <div className={"welcome-message-profile"}>
-              Welcome {currentUser.firstname} currentscore:{addCommas(score)}
+              <span style={{ fontSize: "39px", position: "relative", top:"-11px", paddingRight:"12px" }}>Welcome</span> to your
+              dashboard {currentUser.firstname}!
+              {/* Movie Fights Score: {addCommas(score) */}
             </div>
             <div className="blog-section">
               {!allBlogs ? (
