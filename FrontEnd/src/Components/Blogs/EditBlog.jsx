@@ -125,7 +125,7 @@ class EditBlog extends Component {
 
     return (
       <Fragment>
-        <div style={this.props.style} className="edit-fields">
+        <div className="edit-fields">
           <form  id="modal-form" className={classes.container} noValidate autoComplete="off" onSubmit={handleEditBlogSubmit}>
             <div id="user-banner-edit" className="background-banner sq2-edit">
               <div className="text-field">
@@ -161,7 +161,8 @@ class EditBlog extends Component {
             <div className="user-info-content">
               <div id="quick-user-info">
                 <RaisedButton
-                  style={{ backgroundColor: "rgba(70, 73, 71, 0.83)", color: "white" }}
+                  id="dumb-btn"
+                  style={{ backgroundColor: "#507dbc;", color: "white" }}
                   onClick={fireRedirect}
                   disabled={!newBlogBody && !newBlogTitle}
                   variant="Submit"

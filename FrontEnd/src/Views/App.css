@@ -1,7 +1,7 @@
 body,
 html {
   font-family: "Architects Daughter", cursive;
-  background-color: #8baaad;
+  background-color: #507dbc;
   width: 100%;
   height: 100%;
   display: flex;
@@ -37,10 +37,10 @@ body {
 }
 
 /**
-                                                          |--------------------------------------------------
-                                                          | NAVBAR BELOW...
-                                                          |--------------------------------------------------
-                                                          */
+                |--------------------------------------------------
+                | NAVBAR BELOW...
+                |--------------------------------------------------
+                */
 
 .links {
   text-decoration: none;
@@ -58,12 +58,13 @@ body {
   display: flex;
   justify-content: space-between;
   margin-top: -2px;
-  background-color: rgb(70, 73, 71, 0.83);
+  background-color: #02182b;
+  /* background-color: rgb(70, 73, 71, 0.83); */
 }
 
-.login-btn {
+/* .login-btn {
   color: red;
-}
+} */
 /**
                                                           |--------------------------------------------------
                                                           | HOME SCREEN BELOW...
@@ -86,8 +87,8 @@ body {
   display: none;
 }
 
-.earned-more{
-  font-size: 25px
+.earned-more {
+  font-size: 25px;
 }
 
 .default-home-screen {
@@ -276,6 +277,7 @@ margin-top: 50%;
 .single-movie-container {
   width: 100vw;
   height: 100vh;
+  max-height: fit-content;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -287,21 +289,27 @@ margin-top: 50%;
   cursor: pointer;
 }
 
-        
-        /**
+/**
         |--------------------------------------------------
         | EDIT BLOG SCREEN BELOW...
         |--------------------------------------------------
         */
-          /*THIS GIVES MY EDIT BLOG MODAL A TRANSPARENT BACKGROUND. MATERIAL UI MADE IT TRICKY*/
-        .MuiModal-root-112 > :first-child {
-          background-color: rgba(0, 0, 0, 0);
-          user-select: none;
-          font-size: 50px;
-        }
+/*THIS GIVES MY EDIT BLOG MODAL A TRANSPARENT BACKGROUND. MATERIAL UI MADE IT TRICKY*/
+.MuiModal-root-112 > :nth-child {
+  background-color: rgba(0, 0, 0, 0);
+  user-select: none;
+  font-size: 50px;
+}
 
-
-        /**
+/* #dumb-btn {
+  background-color: black;
+  color: red;
+} */
+/* #quick-user-info{
+  background-color: black;
+  color: red;
+} */
+/**
         |--------------------------------------------------
         | PROFILE SCREEN BELOW...
         |--------------------------------------------------
@@ -336,6 +344,7 @@ margin-top: 50%;
 .welcome-message-profile {
   display: flex;
   justify-content: center;
+  font-size: 25px;
 }
 
 .blog-section {
@@ -352,8 +361,8 @@ margin-top: 50%;
   justify-content: center;
 }
 
-#user-banner-edit{
-  width: 100%
+#user-banner-edit {
+  width: 100%;
 }
 
 .blog-list {
@@ -380,7 +389,7 @@ margin-top: 50%;
   outline: none;
 }
 
-#modal-form{
+#modal-form {
   background-color: #8baaad;
   display: flex;
   flex-direction: column;
@@ -389,7 +398,7 @@ margin-top: 50%;
   width: 50%;
 }
 
-.text-field{
+.text-field {
   text-align: center;
   padding: 30px;
   /* display: flex;
@@ -397,7 +406,7 @@ margin-top: 50%;
   align-content: center; */
 }
 
-#helper-text #multiline-flexible{
+#helper-text #multiline-flexible {
   text-align: center;
 }
 
@@ -535,7 +544,7 @@ cursor: pointer; */
   flex-grow: 1;
   background-color: black;
 }
-                                                /*____________________________________________________
+/*____________________________________________________
                                                 | LOGIN USER BELOW
                                                 |_____________________________________________________
                                                 */
@@ -590,7 +599,7 @@ cursor: pointer; */
   flex-wrap: wrap;
   justify-content: space-around;
 }
-.pad{
+.pad {
   padding-top: 7px;
 }
 .FavoriteMovieList-card-102 {
@@ -611,7 +620,7 @@ cursor: pointer; */
   color: red;
   font-size: 25px;
 }
-#win-win{
+#win-win {
   display: flex;
   justify-content: center;
   background-color: black;
@@ -625,7 +634,8 @@ cursor: pointer; */
 }
 #movie-1-and-2-container {
   background-image: url("theaterCurtain.jpg");
-  height: 100%;
+  height: 900px;
+  /* height: 100%; */
 }
 .MuiFormGroup-root-94 {
   margin-top: -8px;
@@ -757,13 +767,13 @@ cursor: pointer; */
     width: 92vw;
     justify-content: baseline;
     /* top: 0; */
-    background-color: #3f51b5;
+    background-color: #507dbc;
   }
   .MuiPaper-root-12 {
     max-width: min-content;
     display: flex;
     flex-direction: row;
-    background-color: #3f51b5;
+    background-color: #507dbc;
   }
   .MuiCardContent-root-119 {
     display: flex;
@@ -805,7 +815,7 @@ cursor: pointer; */
     vertical-align: middle;
     -webkit-tap-highlight-color: transparent;
     padding-top: 19px;
-}
+  }
   .searchy {
     display: -ms-flexbox;
     display: flex;

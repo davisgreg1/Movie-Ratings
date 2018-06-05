@@ -75,7 +75,7 @@ class NewBlog extends Component {
   };
 
   // Track username and password input inside state
-  handleInputChange = (e) => {
+  handleInputChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -84,8 +84,8 @@ class NewBlog extends Component {
   handleSubmitClick = () => {
     this.setState({
       finished: true
-    })
-  }
+    });
+  };
 
   componentDidMount() {
     const { getAllBlogPosts } = this.props;
@@ -110,16 +110,16 @@ class NewBlog extends Component {
     const { allBlogs, currentUser, classes } = this.props;
     const { newBlogBody, newBlogTitle, finished, doneEditing } = this.state;
 
-    if (doneEditing ) {
-      window.location.reload()
+    if (doneEditing) {
+      window.location.reload();
     }
 
     return (
       <Fragment>
         <div style={this.props.style} className="edit-fields">
-          <form  id="modal-form" onSubmit={handleNewBlogSubmit}>
+          <form id="modal-form" onSubmit={handleNewBlogSubmit}>
             <div id="user-banner-edit" className="background-banner sq2-edit">
-              <div  className="text-field">
+              <div className="text-field">
                 <TextField
                   className={classes.textField}
                   id="helper-text"
@@ -132,7 +132,7 @@ class NewBlog extends Component {
                 />
               </div>
               <br />
-              <div  className="text-field">
+              <div className="text-field">
                 <TextField
                   className={classes.textField}
                   id="multiline-flexible"
@@ -158,8 +158,7 @@ class NewBlog extends Component {
                   label="Submit"
                   type="submit"
                   value="submit"
-                  primary={true}
-                  style={{ backgroundColor: "#253C78", color: "white" }}
+                  style={{ backgroundColor: "gray;", color: "white" }}
                 >
                   Submit
                 </RaisedButton>

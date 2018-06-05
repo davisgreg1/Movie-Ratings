@@ -261,20 +261,24 @@ class Home extends React.Component {
 
   //When the user selects one of the movies on the home page
   getWinner = e => {
+    
     console.log("e is name?", e.currentTarget.innerText);
     // debugger
     e.preventDefault();
     // e.stopPropagation();
     /**`Congratulations, you win! ${
-          e.target.title
-        } grossed ${currencyFormatter.format(Math.abs(winner.revenue), {
-          code: "USD"
-        })} and it made a whopping ${currencyFormatter.format(Math.abs(diff), {
-          code: "USD"
-        })} more than ${
-          loser.original_title
-        }! Sign up to join the leaderboard!`,
-        imageUrl: `${baseURL}${winner.backdrop_path}` */
+     e.target.title
+    } grossed ${currencyFormatter.format(Math.abs(winner.revenue), {
+      code: "USD"
+    })} and it made a whopping ${currencyFormatter.format(Math.abs(diff), {
+      code: "USD"
+    })} more than ${
+      loser.original_title
+    }! Sign up to join the leaderboard!`,
+    imageUrl: `${baseURL}${winner.backdrop_path}` */
+                                if (!this.state.winner  &&  !this.state.loser) {
+                                  window.location.reload()
+                                }
     const {
       winner,
       loser,
@@ -296,6 +300,7 @@ class Home extends React.Component {
             code: "USD"
           }
         )} </span> more than ${loser.original_title}!</p>`,
+        imageUrl: `${baseURL}${winner.backdrop_path}`,
         imageWidth: 400,
         imageHeight: 200,
         imageAlt: "Custom image",
