@@ -5,9 +5,7 @@ import { Route, Link, Switch } from "react-router-dom";
 import axios from "axios";
 import classNames from "classnames";
 import TextField from "material-ui/TextField";
-// import TextField from '@material-ui/core/TextField'
 import Input, { InputLabel, InputAdornment } from '@material-ui/core/Input';
-// import Input, { InputLabel, InputAdornment } from "material-ui/Input";
 import Paper from "material-ui/Paper";
 import Divider from "material-ui/Divider";
 import { FormControl, FormHelperText } from "material-ui/Form";
@@ -16,10 +14,6 @@ import Typography from "material-ui/Typography";
 import RaisedButton from "material-ui/Button";
 
 import "../../Views/App.css";
-
-const getTheTimeBlogIsPosted = event => {
-  return event.toISOString();
-};
 
 const styles = theme => ({
   root: {
@@ -106,7 +100,6 @@ class EditBlog extends Component {
     console.log("props in edit blog:", this.props);
     const {
       handleEditBlogSubmit,
-      getTheTimeBlogIsPosted,
       handleInputChange,
       fireRedirect,
       handleSubmitClick
@@ -169,7 +162,6 @@ class EditBlog extends Component {
                   label="Submit"
                   type="submit"
                   value="submit"
-                  // primary={true}
                 >
                   Submit
                 </RaisedButton>

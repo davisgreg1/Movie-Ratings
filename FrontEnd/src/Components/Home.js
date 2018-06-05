@@ -25,9 +25,7 @@ import swal from "sweetalert2";
 import "../Views/App.css";
 import { log } from "util";
 
-const API_KEY = "d3b24aad8f7a69f5d20f89822a6102f8";
-
-//Global variables for winner and loser of the two movies in the getWinner function
+const TMDB_KEY = process.env.REACT_APP_TMDB_API_KEY
 
 let baseURL = `http://image.tmdb.org/t/p/w185`;
 
@@ -123,9 +121,6 @@ const idArr = [
   "tt1677720"
 ];
 
-const winMessage = () => {
-  return <h3>Win!</h3>;
-};
 
 class Home extends React.Component {
   constructor(props) {
@@ -169,7 +164,7 @@ class Home extends React.Component {
     const { searchText } = this.state;
     axios
       .get(
-        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${searchText}&page=1&include_adult=true`
+        `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&language=en-US&query=${searchText}&page=1&include_adult=true`
       )
       .then(response => {
         this.setState({
@@ -181,9 +176,8 @@ class Home extends React.Component {
       });
   };
 
-  //So user can hit `Enter` to submit thei query
+  //So user can hit `Enter` to submit their query
   _keyPress = e => {
-    //   e.preventDefault();
     if (e.key === "Enter") {
       this.getMovie();
     }
@@ -200,11 +194,8 @@ class Home extends React.Component {
   };
 
   handleChange = (event, checked) => {
-    // console.log("event in change:", event);
     this.setState({ auth: checked });
   };
-
-  //Material UI Menu feature
 
   //The two movies the user see on the home page to choose from.
   getTwoMovies = () => {
@@ -212,8 +203,7 @@ class Home extends React.Component {
     let randomMovieID2 = `${idArr[Math.floor(Math.random() * idArr.length)]}`;
     axios
       .get(
-        `http://api.themoviedb.org/3/movie/${randomMovieID1}?api_key=${API_KEY}`
-        // `https://api.themoviedb.org/3/movie/216015?api_key=${API_KEY}&language=en-US`
+        `http://api.themoviedb.org/3/movie/${randomMovieID1}?api_key=${TMDB_KEY}`
       )
       .then(response => {
         this.setState({
@@ -229,7 +219,7 @@ class Home extends React.Component {
       .then(
         axios
           .get(
-            `http://api.themoviedb.org/3/movie/${randomMovieID2}?api_key=${API_KEY}`
+            `http://api.themoviedb.org/3/movie/${randomMovieID2}?api_key=${TMDB_KEY}`
           )
           .then(response => {
             this.setState({
@@ -260,25 +250,10 @@ class Home extends React.Component {
   };
 
   //When the user selects one of the movies on the home page
-  getWinner = e => {
-    
-    console.log("e is name?", e.currentTarget.innerText);
-    // debugger
-    e.preventDefault();
-    // e.stopPropagation();
-    /**`Congratulations, you win! ${
-     e.target.title
-    } grossed ${currencyFormatter.format(Math.abs(winner.revenue), {
-      code: "USD"
-    })} and it made a whopping ${currencyFormatter.format(Math.abs(diff), {
-      code: "USD"
-    })} more than ${
-      loser.original_title
-    }! Sign up to join the leaderboard!`,
-    imageUrl: `${baseURL}${winner.backdrop_path}` */
-                                if (!this.state.winner  &&  !this.state.loser) {
-                                  window.location.reload()
-                                }
+  getWinner = e => {    
+    if (!this.state.winner || !this.state.loser) {
+      window.location.reload();
+    }
     const {
       winner,
       loser,
@@ -288,8 +263,12 @@ class Home extends React.Component {
       movie2MoneyEarned
     } = this.state;
     let diff = movie1MoneyEarned - movie2MoneyEarned;
+    
+    //the innerText and the winner object had more spaces than the other in some cases.
+    let joinedUpE = e.currentTarget.innerText.split(" ").join("").trim();
+    let joinedUpWinner = this.state.winner.original_title.split(" ").join("").trim();
 
-    if (e.currentTarget.innerText === winner.original_title) {
+    if (joinedUpE === joinedUpWinner) {
       swal({
         title: "Correct!",
         html: `<span><h1>Sign up for more!</h1></span></h6><p>${
@@ -359,7 +338,6 @@ class Home extends React.Component {
     } = this.state;
     const { _keyPress, handleInput, getWinner } = this;
     const open = Boolean(anchorEl);
-    console.log("HOME STATE:", this.state);
 
     return (
       <React.Fragment>
@@ -432,6 +410,10 @@ class Home extends React.Component {
               </div>
             )}
           </div>
+          <p style={{ color: "black" }}>
+            "This product uses the TMDb API but is not endorsed or certified by
+            TMDb."
+          </p>
         </div>
       </React.Fragment>
     );

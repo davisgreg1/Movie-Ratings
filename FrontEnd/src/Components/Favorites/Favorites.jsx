@@ -4,7 +4,9 @@ import FavoriteMovieList from "./FavoriteMovieList";
 import MovieList from "../MovieList";
 import Input from "material-ui/Input";
 
-const API_KEY = "d3b24aad8f7a69f5d20f89822a6102f8";
+const TMDB_KEY = process.env.REACT_APP_TMDB_API_KEY
+// const key = require('../../config');
+
 
 class Favorites extends Component {
   constructor(props) {
@@ -53,7 +55,7 @@ class Favorites extends Component {
     const { searchText } = this.state;
     axios
       .get(
-        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${searchText}&page=1&include_adult=true`
+        `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&language=en-US&query=${searchText}&page=1&include_adult=true`
       )
       .then(response => {
         this.setState({

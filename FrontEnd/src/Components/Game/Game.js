@@ -19,9 +19,6 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "material-ui/styles";
 
 const KEY = process.env.REACT_APP_OMDB_KEY;
-// const API_KEY = "d3b24aad8f7a69f5d20f89822a6102f8";
-
-// let baseURL = `http://image.tmdb.org/t/p/w185`;
 
 const styles = {
   root: {
@@ -60,7 +57,6 @@ class Game extends React.Component {
       classes,
       user,
       originalScore,
-      gameMessage,
       movie1,
       movie2,
       score,
@@ -68,7 +64,7 @@ class Game extends React.Component {
       getWinner,
       getTwoMovies
     } = this.props;
-    console.log("the props in Game:", this.props);
+    
     return (
       <React.Fragment>
         <div id="movie-1-and-2-container">

@@ -15,10 +15,6 @@ import RaisedButton from "material-ui/Button";
 
 import "../../Views/App.css";
 
-const getTheTimeBlogIsPosted = event => {
-  return event.toISOString();
-};
-
 const styles = theme => ({
   root: {
     display: "flex",
@@ -52,9 +48,6 @@ class NewBlog extends Component {
     e.preventDefault();
     const { newBlogTitle, newBlogBody } = this.state;
     const { currentUser } = this.props;
-    let timeBlogPosted = new Date(Date.now());
-    console.log("timeBlogPosted.toISOString()", timeBlogPosted.toISOString());
-    console.log("currentUser is:", currentUser);
 
     axios
       .post("/users/new_blog", {
@@ -99,10 +92,8 @@ class NewBlog extends Component {
   };
 
   render() {
-    console.log("state in NewBlog:", this.state);
     const {
       handleNewBlogSubmit,
-      getTheTimeBlogIsPosted,
       handleInputChange,
       fireRedirect,
       handleSubmitClick
@@ -141,7 +132,6 @@ class NewBlog extends Component {
                   rowsMax="20"
                   label="New Blog Text"
                   name="newBlogBody"
-                  //   defaultValue={"New Blog"}
                   placeholder="What's up?"
                   onChange={handleInputChange}
                   margin="normal"
@@ -163,7 +153,6 @@ class NewBlog extends Component {
                   Submit
                 </RaisedButton>
               </div>
-              {/* <RaisedButton>View Profile</RaisedButton> */}
             </div>
           </form>
         </div>
