@@ -45,7 +45,7 @@ const styles = {
     marginRight: 20
   }
 };
-const API_KEY = "d3b24aad8f7a69f5d20f89822a6102f8";
+const TMDB_KEY = process.env.REACT_APP_TMDB_API_KEY;
 const baseURL = `http://image.tmdb.org/t/p/w185`;
 const idArr = [
   "tt0111161",
@@ -114,7 +114,6 @@ class App extends React.Component {
       fireRedirect: false,
       leaderBoardData: null,
       allBlogs: null,
-      // gameMessage: "",
       movie1: null,
       movie2: null,
       currentUser: "",
@@ -280,7 +279,7 @@ class App extends React.Component {
     let randomMovieID2 = `${idArr[Math.floor(Math.random() * idArr.length)]}`;
     axios
       .get(
-        `http://api.themoviedb.org/3/movie/${randomMovieID1}?api_key=${API_KEY}`
+        `http://api.themoviedb.org/3/movie/${randomMovieID1}?api_key=${TMDB_KEY}`
       )
       .then(response => {
         console.log("THis is response in Game's APP.js:", response);
@@ -294,7 +293,7 @@ class App extends React.Component {
       .then(
         axios
           .get(
-            `http://api.themoviedb.org/3/movie/${randomMovieID2}?api_key=${API_KEY}`
+            `http://api.themoviedb.org/3/movie/${randomMovieID2}?api_key=${TMDB_KEY}`
           )
           .then(response => {
             this.setState({
@@ -328,11 +327,7 @@ class App extends React.Component {
   };
 
   getWinner = e => {
-    if (
-      e.target.title !== this.state.winner.original_title &&
-      e.target.title !== this.state.loser.original_title
-    ) 
-    {
+    if (!this.state.winner && !this.state.loser) {
       window.location.reload();
     }
     console.log("e:", e);
@@ -451,7 +446,6 @@ class App extends React.Component {
       score,
       leaderBoardData,
       allBlogs,
-      gameMessage,
       movie1,
       movie2,
       currentUser,
@@ -549,7 +543,6 @@ class App extends React.Component {
                 currentUser={user}
                 getUserScore={getUserScore}
                 getLeaderBoard={getLeaderBoard}
-                gameMessage={gameMessage}
                 movie1={movie1}
                 movie2={movie2}
                 winner={winner}

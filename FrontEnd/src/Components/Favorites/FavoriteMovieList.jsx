@@ -9,9 +9,6 @@ import Typography from "material-ui/Typography";
 import axios from "axios";
 import "../../Views/App.css";
 
-// const styles = {
-
-// };
 const styles = theme => ({
   root: {
     display: "flex",
@@ -25,7 +22,6 @@ const styles = theme => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    // padding: "10px",
     maxWidth: 275
   },
   media: {
@@ -45,10 +41,10 @@ class FavoriteMovieList extends React.Component {
         data: { id: movie.id }
       })
       .then(response => {
-        console.table("response:", response);
+        console.log("Remove from Favs successfull");
       })
       .catch(error => {
-        console.log(error);
+        console.log("Error in Remove Fav:", error);
       });
     window.location.reload();
   };
@@ -60,8 +56,7 @@ class FavoriteMovieList extends React.Component {
       <div className="favs-list">
         {!currentUser ? (
           <div>You must be logged in. </div>
-        ) : // currentUser &&
-        movies.length > 0 ? (
+        ) : movies.length > 0 ? (
           movies.map(movie => (
             <div clasName="all-cards-container" style={{ height: "50%" }}>
               <Card

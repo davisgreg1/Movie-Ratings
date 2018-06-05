@@ -167,7 +167,6 @@ class EditProfile extends Component {
   };
 
   render() {
-    console.log("the state in edit profile:", this.state);
     const {
       handleTextArea,
       handleInputChange,
