@@ -228,14 +228,6 @@ class Profile extends React.Component {
     window.removeEventListener("scroll", this.hidePic);
   }
 
-  // static getDerivedStateFromProps = (nextProps, prevState) => {
-  //   console.log("nextProps:", nextProps);
-  //   console.log("prevState:", prevState);
-  //   return {
-  //     blogs: nextProps.allBlogs
-  //   };
-  // };
-
   render() {
     const {
       classes,
