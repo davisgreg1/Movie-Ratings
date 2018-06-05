@@ -23,6 +23,8 @@ import Users from "./Components/users/Users";
 import LoginUser from "./Components/login/LoginUser";
 import LeaderBoard from "./Components/Game/LeaderBoard";
 
+import currencyFormatter from "currency-formatter";
+import swal from "sweetalert2";
 import axios from "axios";
 
 import "./Views/App.css";
@@ -43,7 +45,60 @@ const styles = {
     marginRight: 20
   }
 };
-
+const API_KEY = "d3b24aad8f7a69f5d20f89822a6102f8";
+const baseURL = `http://image.tmdb.org/t/p/w185`;
+const idArr = [
+  "tt0111161",
+  "tt0068646",
+  "tt0071562",
+  "tt0468569",
+  "tt0050083",
+  "tt0108052",
+  "tt0110912",
+  "tt0167260",
+  "tt0060196",
+  "tt0137523",
+  "tt0120737",
+  "tt0109830",
+  "tt0080684",
+  "tt1375666",
+  "tt0167261",
+  "tt0073486",
+  "tt0099685",
+  "tt0133093",
+  "tt0047478",
+  "tt0076759",
+  "tt0120382",
+  "tt0107290",
+  "tt0477348",
+  "tt0395169",
+  "tt1201607",
+  "tt0264464",
+  "tt1856101",
+  "tt0435761",
+  "tt0361748",
+  "tt0180093",
+  "tt0054215",
+  "tt1675434",
+  "tt0120815",
+  "tt5580390",
+  "tt3501632",
+  "tt1485796",
+  "tt2283362",
+  "tt1259528",
+  "tt2527336",
+  "tt2380307",
+  "tt4765284",
+  "tt5052448",
+  "tt1615160",
+  "tt0451279",
+  "tt4574334",
+  "tt1396484",
+  "tt5463162",
+  "tt4154756",
+  "tt3778644",
+  "tt1677720"
+];
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -58,7 +113,21 @@ class App extends React.Component {
       score: "",
       fireRedirect: false,
       leaderBoardData: null,
-      allBlogs: null
+      allBlogs: null,
+      // gameMessage: "",
+      movie1: null,
+      movie2: null,
+      currentUser: "",
+      winner: null,
+      loser: null,
+      movie1MoneyEarned: "",
+      movie2MoneyEarned: "",
+      movie1Revenue: "",
+      movie2Revenue: "",
+      movie1Budget: "",
+      movie2Budget: "",
+      score: "",
+      hasBeenClicked: false
     };
   }
 
@@ -185,9 +254,164 @@ class App extends React.Component {
       });
   };
 
+  postScore = () => {
+    const { user } = this.state;
+    const { score } = this.state;
+
+    axios
+      .patch("users/score_update", {
+        points: score,
+        id: user.id
+      })
+      .then(res => {
+        console.log("Postedscore:", res);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  getTwoMovies = () => {
+    this.setState({
+      hasBeenClicked: false
+    });
+
+    let randomMovieID1 = `${idArr[Math.floor(Math.random() * idArr.length)]}`;
+    let randomMovieID2 = `${idArr[Math.floor(Math.random() * idArr.length)]}`;
+    axios
+      .get(
+        `http://api.themoviedb.org/3/movie/${randomMovieID1}?api_key=${API_KEY}`
+      )
+      .then(response => {
+        console.log("THis is response in Game's APP.js:", response);
+        this.setState({
+          movie1: response,
+          movie1Revenue: response.data.revenue,
+          movie1Budget: response.data.budget,
+          movie1MoneyEarned: eval(response.data.revenue - response.data.budget)
+        });
+      })
+      .then(
+        axios
+          .get(
+            `http://api.themoviedb.org/3/movie/${randomMovieID2}?api_key=${API_KEY}`
+          )
+          .then(response => {
+            this.setState({
+              movie2: response,
+              movie2Revenue: response.data.revenue,
+              movie2Budget: response.data.budget,
+              movie2MoneyEarned: eval(
+                response.data.revenue - response.data.budget
+              )
+            });
+          })
+          .then(() => {
+            this.setState({
+              winner:
+                this.state.movie1MoneyEarned >= this.state.movie2MoneyEarned
+                  ? this.state.movie1.data
+                  : this.state.movie2.data,
+              loser:
+                this.state.movie1MoneyEarned <= this.state.movie2MoneyEarned
+                  ? this.state.movie1.data
+                  : this.state.movie2.data
+            });
+          })
+          .catch(error => {
+            console.error(error);
+          })
+      )
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  getWinner = e => {
+    if (
+      e.target.title !== this.state.winner.original_title &&
+      e.target.title !== this.state.loser.original_title
+    ) 
+    {
+      window.location.reload();
+    }
+    console.log("e:", e);
+    e.preventDefault();
+    const {
+      winner,
+      loser,
+      user,
+      movie1,
+      movie2,
+      movie1MoneyEarned,
+      movie2MoneyEarned,
+      score,
+      hasBeenClicked
+    } = this.state;
+    const { currentUser, originalScore, getUserScore } = this.state;
+    let diff = movie1MoneyEarned - movie2MoneyEarned;
+
+    if (e.target.title === winner.original_title && !hasBeenClicked) {
+      console.log("winner?:", winner);
+      this.setState({
+        score: (this.state.score += 10),
+        hasBeenClicked: true
+      });
+      swal({
+        title: "Sweet!",
+        customClass: "animated rubberBand",
+        html: `<div id="win-win"><span id="swal-message-right"><h6 className="swal-alert">Yes, ${
+          user.firstname
+        }! ${winner.original_title} grossed ${currencyFormatter.format(
+          Math.abs(winner.revenue),
+          {
+            code: "USD"
+          }
+        )} and it made <h2> ${currencyFormatter.format(Math.abs(diff), {
+          code: "USD"
+        })}</h2> more than ${
+          loser.original_title
+        }</h6 className="swal-alert"></span></div>`,
+        background: `#eee url(${baseURL}${winner.backdrop_path}) space`,
+        backdrop: `
+        rgba(0,255,0,0.5)`,
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: "Custom image",
+        animation: false
+      });
+    }
+    if (e.target.title === loser.original_title) {
+      swal({
+        title: "Sorry!",
+        customClass: "animated shake",
+        html: `<span id="swal-message"><h6>${
+          e.target.title
+        } grossed ${currencyFormatter.format(Math.abs(loser.revenue), {
+          code: "USD"
+        })}, but didn't earn more in profits than ${
+          winner.original_title
+        }.</h6></span>`,
+        background: `#eee url(${baseURL}${loser.backdrop_path}) space`,
+        backdrop: `
+        rgba(255,0,0,0.5)`,
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: "Custom image",
+        animation: false
+      });
+      if (hasBeenClicked) {
+        this.setState({
+          score: (this.state.score += 0)
+        });
+      }
+    }
+    this.postScore();
+    // }, 0);
+  };
+
   componentDidMount() {
     const { user } = this.state;
-    console.log("APP DID MOUNT");
 
     axios
       .get("/users/userinfo")
@@ -226,7 +450,16 @@ class App extends React.Component {
       fireRedirect,
       score,
       leaderBoardData,
-      allBlogs
+      allBlogs,
+      gameMessage,
+      movie1,
+      movie2,
+      currentUser,
+      winner,
+      loser,
+      movie1MoneyEarned,
+      movie2MoneyEarned,
+      hasBeenClicked
     } = this.state;
     const { classes } = this.props;
     const {
@@ -239,11 +472,12 @@ class App extends React.Component {
       logOut,
       handleClick,
       getLeaderBoard,
-      getAllBlogPosts
+      getAllBlogPosts,
+      getTwoMovies,
+      getWinner
     } = this;
     let open = Boolean(anchorEl);
 
-    console.log("all Blogs in app.js:", allBlogs);
     return (
       <div className="app">
         <NavBar
@@ -256,7 +490,6 @@ class App extends React.Component {
           score={score}
           getUserScore={getUserScore}
         />
-
         <Switch>
           <Route
             exact
@@ -265,7 +498,6 @@ class App extends React.Component {
               <Home user={user} message={message} loggedIn={loggedIn} />
             )}
           />
-
           <Route
             path="/login"
             render={() => (
@@ -316,6 +548,18 @@ class App extends React.Component {
                 loggedIn={loggedIn}
                 currentUser={user}
                 getUserScore={getUserScore}
+                getLeaderBoard={getLeaderBoard}
+                gameMessage={gameMessage}
+                movie1={movie1}
+                movie2={movie2}
+                winner={winner}
+                loser={loser}
+                movie1MoneyEarned={movie1MoneyEarned}
+                movie2MoneyEarned={movie2MoneyEarned}
+                score={score}
+                hasBeenClicked={hasBeenClicked}
+                getTwoMovies={getTwoMovies}
+                getWinner={getWinner}
               />
             )}
           />
@@ -348,5 +592,4 @@ class App extends React.Component {
     );
   }
 }
-
 export default App;
