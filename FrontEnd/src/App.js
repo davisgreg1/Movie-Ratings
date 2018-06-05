@@ -77,8 +77,6 @@ const idArr1 =[
   "tt0076759",
   "tt0120382",
   "tt0107290",
-
-  
   "tt0477348",
   "tt0395169",
   "tt1201607",
@@ -306,7 +304,7 @@ class App extends React.Component {
               movie2Revenue: response.data.revenue,
               movie2Budget: response.data.budget,
               movie2MoneyEarned: eval(
-                response.data.revenue - response.data.budget
+              response.data.revenue - response.data.budget
               )
             });
           })
@@ -348,7 +346,7 @@ class App extends React.Component {
       score,
       hasBeenClicked
     } = this.state;
-    const { currentUser, originalScore, getUserScore } = this.state;
+    const {originalScore, getUserScore } = this.state;
     let diff = movie1MoneyEarned - movie2MoneyEarned;
 
     if (e.target.title === winner.original_title && !hasBeenClicked) {
@@ -357,6 +355,11 @@ class App extends React.Component {
         score: (this.state.score += 10),
         hasBeenClicked: true
       });
+      if (hasBeenClicked) {
+        this.setState({
+          score: (this.state.score += 0)
+        });
+      }
       swal({
         title: "Sweet!",
         customClass: "animated rubberBand",
@@ -382,6 +385,9 @@ class App extends React.Component {
       });
     }
     if (e.target.title === loser.original_title) {
+      this.setState({
+        hasBeenClicked: true
+      });
       swal({
         title: "Sorry!",
         customClass: "animated shake",
@@ -400,13 +406,15 @@ class App extends React.Component {
         imageAlt: "Custom image",
         animation: false
       });
-      if (hasBeenClicked) {
-        this.setState({
-          score: (this.state.score += 0)
-        });
-      }
+      // if (hasBeenClicked) {
+      //   this.setState({
+      //     score: (this.state.score += 0)
+      //   });
+      // }
     }
-    this.postScore();
+    if(!hasBeenClicked){
+      this.postScore();
+    }
     // }, 0);
   };
 
@@ -453,7 +461,6 @@ class App extends React.Component {
       allBlogs,
       movie1,
       movie2,
-      currentUser,
       winner,
       loser,
       movie1MoneyEarned,
