@@ -114,7 +114,7 @@ class NavBar extends Component {
               </Typography>
             </Link>
             <div className="iconbutton-container">
-              <Button href="/login" className={"login-btn"}>
+              <Button href="/login" style={{color: "white"}}>
                 Login/ Sign Up
               </Button>
             </div>
@@ -196,12 +196,14 @@ class NavBar extends Component {
                 <Link to="/favorites" className="links">
                   <MenuItem onClick={this.handleClose}>Favorites</MenuItem>
                 </Link>
+                <Link to="/leaderboard" className="links">
+                  <MenuItem onClick={this.handleClose}>Leaderboard</MenuItem>
+                </Link>
               </Menu>
               <Button
-              style={{color:"white"}}
                 href="/login"
                 onClick={logOut}
-                className={classes.button}
+                style={{color: "white"}}
               >
                 Logout
               </Button>
