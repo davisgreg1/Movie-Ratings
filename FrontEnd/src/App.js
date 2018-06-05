@@ -59,30 +59,37 @@ const idArr = [
   "tt0060196",
   "tt0137523",
   "tt0120737",
+  "tt1615160",
+  "tt0451279",
+  "tt4574334",
+  "tt5580390",
+  "tt3501632",
   "tt0109830",
   "tt0080684",
   "tt1375666",
   "tt0167261",
   "tt0073486",
   "tt0099685",
-  "tt0133093",
+  "tt0133093"
+]
+const idArr1 =[
   "tt0047478",
   "tt0076759",
   "tt0120382",
   "tt0107290",
+
+  
   "tt0477348",
   "tt0395169",
   "tt1201607",
   "tt0264464",
   "tt1856101",
   "tt0435761",
+  "tt1675434",
+  "tt0120815",
   "tt0361748",
   "tt0180093",
   "tt0054215",
-  "tt1675434",
-  "tt0120815",
-  "tt5580390",
-  "tt3501632",
   "tt1485796",
   "tt2283362",
   "tt1259528",
@@ -90,9 +97,6 @@ const idArr = [
   "tt2380307",
   "tt4765284",
   "tt5052448",
-  "tt1615160",
-  "tt0451279",
-  "tt4574334",
   "tt1396484",
   "tt5463162",
   "tt4154756",
@@ -276,7 +280,8 @@ class App extends React.Component {
     });
 
     let randomMovieID1 = `${idArr[Math.floor(Math.random() * idArr.length)]}`;
-    let randomMovieID2 = `${idArr[Math.floor(Math.random() * idArr.length)]}`;
+
+    let randomMovieID2 = `${idArr1[Math.floor(Math.random() * idArr1.length)]}`;
     axios
       .get(
         `http://api.themoviedb.org/3/movie/${randomMovieID1}?api_key=${TMDB_KEY}`
