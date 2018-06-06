@@ -1,15 +1,11 @@
 import React from "react";
-
 // eslint-disable-next-line
 import SingleHomeMovie from "../SingleHomeMovie";
-
 // eslint-disable-next-line
 // import dotenv from 'dotenv';
 import CurrentScore from "./CurrentScore";
-
 import "../../Views/App.css";
 import "../../Views/animate.css";
-
 import Card from "material-ui/Card";
 import CircularProgress from "material-ui/Progress/CircularProgress";
 import Button from "material-ui/Button";
