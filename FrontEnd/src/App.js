@@ -304,23 +304,22 @@ class App extends React.Component {
     if (!this.state.winner && !this.state.loser) {
       window.location.reload();
     }
-    console.log("e:", e);
     e.preventDefault();
     const {
       winner,
       loser,
       user,
-
       movie1MoneyEarned,
       movie2MoneyEarned,
-
       hasBeenClicked
     } = this.state;
 
     let diff = movie1MoneyEarned - movie2MoneyEarned;
-
-    if (e.target.title === winner.original_title && !hasBeenClicked) {
-      console.log("winner?:", winner);
+    let currentTargetJoined = e.currentTarget.innerText.split(" ").join("").trim();
+    let winnerJoined = winner.original_title.split(" ").join("").trim();
+    let loserJoined = loser.original_title.split(" ").join("").trim();
+    debugger;
+    if (currentTargetJoined === winnerJoined && !hasBeenClicked) {
       this.setState({
         // eslint-disable-next-line
         score: (this.state.score += 10),
@@ -333,16 +332,10 @@ class App extends React.Component {
         });
       }
       swal({
-        title: "Sweet!",
         customClass: "animated rubberBand",
         html: `<div id="win-win"><span id="swal-message-right"><h6 className="swal-alert">Yes, ${
           user.firstname
-        }! ${winner.original_title} grossed ${currencyFormatter.format(
-          Math.abs(winner.revenue),
-          {
-            code: "USD"
-          }
-        )} and it made <h2> ${currencyFormatter.format(Math.abs(diff), {
+        }! ${winner.original_title} made approximately <h2> ${currencyFormatter.format(Math.abs(diff), {
           code: "USD"
         })}</h2> more than ${
           loser.original_title
@@ -354,32 +347,35 @@ class App extends React.Component {
         imageHeight: 200,
         imageAlt: "Custom image",
         animation: false,
-        confirmButtonColor: "#02182b"
-      });
+        confirmButtonColor: "#02182b",
+        showLoaderOnConfirm: true
+      }).then(this.getTwoMovies())
     }
-    if (e.target.title === loser.original_title) {
+    if (currentTargetJoined === loserJoined) {
       this.setState({
         hasBeenClicked: true
       });
       swal({
-        title: "Sorry!",
         customClass: "animated shake",
-        html: `<span id="swal-message"><h6>${
+        html: `<div id="win-win"><span id="swal-message"><h6>Sorry, ${
+          user.firstname
+        }... ${
           e.target.title
-        } grossed ${currencyFormatter.format(Math.abs(loser.revenue), {
+        }  made approximately <h2>${currencyFormatter.format(Math.abs(diff), {
           code: "USD"
-        })}, but didn't earn more in profits than ${
+        })}</h2> less than ${
           winner.original_title
-        }.</h6></span>`,
-        background: `#eee url(${baseURL}${loser.backdrop_path}) space`,
+        }.</h6></span></div>`,
+        // background: `#eee url(${baseURL}${loser.backdrop_path}) space`,
         backdrop: `
         rgba(255,0,0,0.5)`,
         imageWidth: 400,
         imageHeight: 200,
         imageAlt: "Custom image",
         animation: false,
-        confirmButtonColor: "#02182b"
-      });
+        confirmButtonColor: "#02182b",
+        showLoaderOnConfirm: true
+      }).then(this.getTwoMovies())
     }
     if (!hasBeenClicked) {
       this.postScore();

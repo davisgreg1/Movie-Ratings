@@ -1,19 +1,13 @@
 import React from "react";
-
 // eslint-disable-next-line
 import SingleHomeMovie from "../SingleHomeMovie";
-
 // eslint-disable-next-line
 // import dotenv from 'dotenv';
 import CurrentScore from "./CurrentScore";
-
 import "../../Views/App.css";
 import "../../Views/animate.css";
-
 import Card from "material-ui/Card";
 import CircularProgress from "material-ui/Progress/CircularProgress";
-import Button from "material-ui/Button";
-import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "material-ui/styles";
 
 const styles = {
@@ -51,8 +45,7 @@ class Game extends React.Component {
       movie1,
       movie2,
       score,
-      getWinner,
-      getTwoMovies
+      getWinner
     } = this.props;
 
     return (
@@ -89,18 +82,6 @@ class Game extends React.Component {
                   >
                     <SingleHomeMovie className="single-data" data={movie1} />
                   </Card>
-                  <div className="versus-div">
-                    <Tooltip
-                      id="tooltip-top-start"
-                      title="Click for 2 More!"
-                      placement="top-start"
-                    >
-                      <Button onClick={getTwoMovies}>
-                        {" "}
-                        <span id="versus-span">MORE!</span>
-                      </Button>
-                    </Tooltip>
-                  </div>
                   <Card
                     className={classes.card}
                     id="movie_num_2"

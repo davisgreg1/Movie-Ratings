@@ -44,6 +44,20 @@ const styles = {
   }
 };
 
+const searchBarStyles =  {
+
+  display: "flex",
+
+  alignItems: "center",
+
+  justifyContent: "center",
+
+  alignContent: "center",
+  backgroundColor: "whitesmoke",
+  width: "100vw",
+  paddingTop: "7px"
+}
+
 const movieStyles = {
   display: "flex",
   // justifyContent: "spaceAround",
@@ -317,7 +331,7 @@ class Home extends React.Component {
     return (
       <React.Fragment>
         <div className="choices-container">
-          <div className="searchy">
+          <div className="searchy" style={searchBarStyles}>
             <i className="material-icons md-dark seek">search</i>
             <Input
               onChange={handleInput}

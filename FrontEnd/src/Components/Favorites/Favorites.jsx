@@ -5,9 +5,20 @@ import MovieList from "../MovieList";
 import Input from "material-ui/Input";
 
 const TMDB_KEY = process.env.REACT_APP_TMDB_API_KEY
-// const key = require('../../config');
 
+const searchBarStyles =  {
 
+  display: "flex",
+
+  alignItems: "center",
+
+  justifyContent: "center",
+
+  alignContent: "center",
+  backgroundColor: "whitesmoke",
+  width: "100vw",
+  paddingTop: "7px"
+}
 class Favorites extends Component {
   constructor(props) {
     super(props);
@@ -104,15 +115,12 @@ class Favorites extends Component {
     const { currentUser, loggedIn } = this.props;
     const { _keyPress, handleInput } = this;
 
-    // if (doneEditing ) {
-    //   window.location.reload()
-    // }
-
     return (
       <React.Fragment>
         <div className="searchy pad">
           <i className="material-icons md-dark seek">search</i>
           <Input
+            style={searchBarStyles}
             onChange={handleInput}
             onKeyPress={_keyPress}
             placeholder="Search for movies..."
