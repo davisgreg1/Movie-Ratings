@@ -45,13 +45,9 @@ const styles = {
 };
 
 const searchBarStyles =  {
-
   display: "flex",
-
   alignItems: "center",
-
   justifyContent: "center",
-
   alignContent: "center",
   backgroundColor: "whitesmoke",
   width: "100vw",
@@ -60,7 +56,6 @@ const searchBarStyles =  {
 
 const movieStyles = {
   display: "flex",
-  // justifyContent: "spaceAround",
   alignContent: "row"
 };
 
@@ -77,13 +72,20 @@ const idArr = [
   "tt0060196",
   "tt0137523",
   "tt0120737",
+  "tt1615160",
+  "tt0451279",
+  "tt4574334",
+  "tt5580390",
+  "tt3501632",
   "tt0109830",
   "tt0080684",
   "tt1375666",
   "tt0167261",
   "tt0073486",
   "tt0099685",
-  "tt0133093",
+  "tt0133093"
+];
+const idArr1 = [
   "tt0047478",
   "tt0076759",
   "tt0120382",
@@ -94,13 +96,11 @@ const idArr = [
   "tt0264464",
   "tt1856101",
   "tt0435761",
+  "tt1675434",
+  "tt0120815",
   "tt0361748",
   "tt0180093",
   "tt0054215",
-  "tt1675434",
-  "tt0120815",
-  "tt5580390",
-  "tt3501632",
   "tt1485796",
   "tt2283362",
   "tt1259528",
@@ -108,9 +108,6 @@ const idArr = [
   "tt2380307",
   "tt4765284",
   "tt5052448",
-  "tt1615160",
-  "tt0451279",
-  "tt4574334",
   "tt1396484",
   "tt5463162",
   "tt4154756",
@@ -192,7 +189,7 @@ class Home extends React.Component {
   //The two movies the user see on the home page to choose from.
   getTwoMovies = () => {
     let randomMovieID1 = `${idArr[Math.floor(Math.random() * idArr.length)]}`;
-    let randomMovieID2 = `${idArr[Math.floor(Math.random() * idArr.length)]}`;
+    let randomMovieID2 = `${idArr1[Math.floor(Math.random() * idArr1.length)]}`;
     axios
       .get(
         `http://api.themoviedb.org/3/movie/${randomMovieID1}?api_key=${TMDB_KEY}`
@@ -270,14 +267,14 @@ class Home extends React.Component {
     if (joinedUpE === joinedUpWinner) {
       swal({
         title: "Correct!",
-        html: `<span><h1>Sign up for more!</h1></span></h6><p>${
+        html: `<div class="winnerBox"><span><h1>Sign up for more!</h1></span></h6><p><span class="home-winner">${
           winner.original_title
-        } earned <span class="earned-more">${currencyFormatter.format(
+        }</span> earned <span class="earned-more">${currencyFormatter.format(
           Math.abs(diff),
           {
             code: "USD"
           }
-        )} </span> more than ${loser.original_title}!</p>`,
+        )} </span> more than <span class="home-loser">${loser.original_title}</span>!</p></div>`,
         imageUrl: `${baseURL}${winner.backdrop_path}`,
         imageWidth: 400,
         imageHeight: 200,
@@ -287,14 +284,14 @@ class Home extends React.Component {
     } else {
       swal({
         title: "Maybe Next Time!",
-        html: `<span><h1>Sign up for more!</h1></span></h6><p>${
+        html: `<div class="winnerBox"><span><h1>Sign up for more!</h1></span></h6><p><span class="home-winner">${
           winner.original_title
-        } earned <span class="earned-more">${currencyFormatter.format(
+        }</span> earned <span class="earned-more">${currencyFormatter.format(
           Math.abs(diff),
           {
             code: "USD"
           }
-        )} </span> more than ${loser.original_title}!</p>`,
+        )} </span> more than <span class="home-loser">${loser.original_title}</span>!</p></div>`,
         imageUrl: `${baseURL}${loser.backdrop_path}`,
         imageWidth: 400,
         imageHeight: 200,
