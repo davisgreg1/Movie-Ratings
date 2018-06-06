@@ -648,7 +648,7 @@ cursor: pointer; */
   font-size: 25px;
 }
 #movie-1-and-2-container {
-  background-image: url("theaterCurtain.jpg");
+  background-image: url("https://res.cloudinary.com/movie-fights/image/upload/v1528322015/theaterCurtain.jpg");
   height: 900px;
   /* height: 100%; */
 }
