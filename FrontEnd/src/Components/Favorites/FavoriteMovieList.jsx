@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { withStyles } from "material-ui/styles";
 import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
 import Avatar from "@material-ui/core/Avatar";
@@ -31,9 +30,6 @@ const styles = theme => ({
 });
 
 class FavoriteMovieList extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   removeFromFavs = movie => {
     axios

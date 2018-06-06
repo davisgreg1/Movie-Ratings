@@ -1,15 +1,14 @@
 import React from "react";
 import axios from "axios";
 import { Redirect } from "react-router";
-import { Route, Link, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import classNames from "classnames";
 import TextField from "material-ui/TextField";
 import Input, { InputLabel, InputAdornment } from "material-ui/Input";
-import { FormControl, FormHelperText } from "material-ui/Form";
-import MenuItem from "material-ui/Menu/MenuItem";
+import { FormControl } from "material-ui/Form";
+
 import { withStyles } from "material-ui/styles";
-import Toolbar from "material-ui/Toolbar";
-import Typography from "material-ui/Typography";
+
 import IconButton from "material-ui/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
@@ -35,9 +34,7 @@ const styles = theme => ({
 });
 
 class RegisterUser extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+
   state = {
     id: "",
     username: "",
@@ -48,9 +45,8 @@ class RegisterUser extends React.Component {
     email: "",
     validEmail: false,
     showPassword: false,
-    message: "Forgot password?",
     registered: false,
-    message: "By signing up, you agree to our Terms and Privacy Policy"
+    signUpMessage: "By signing up, you agree to our Terms and Privacy Policy"
   };
 
   handleInput = e => {
@@ -82,15 +78,7 @@ class RegisterUser extends React.Component {
   // When user submits form
   handleFormSubmit = e => {
     e.preventDefault();
-    const {
-      id,
-      email,
-      username,
-      firstname,
-      lastname,
-      password,
-      fullname
-    } = this.state;
+    const { email, username, firstname, lastname, password } = this.state;
 
     axios
       .post("/users/register", {
@@ -157,12 +145,10 @@ class RegisterUser extends React.Component {
 
   render() {
     const {
-      id,
       username,
       password,
       firstname,
       lastname,
-      message,
       registered,
       showPassword,
       email
@@ -278,7 +264,6 @@ class RegisterUser extends React.Component {
               </RaisedButton>
             </form>
             <br />
-            <p className="messageSize">{message}</p>
             <div className="smallerBox">
               <p className="dontHaveAcct">
                 Already have an account?<Link

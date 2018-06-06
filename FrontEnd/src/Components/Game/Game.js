@@ -1,24 +1,20 @@
 import React from "react";
-import { Link, Route } from "react-router-dom";
+
 // eslint-disable-next-line
 import SingleHomeMovie from "../SingleHomeMovie";
-import LeaderBoard from "./LeaderBoard";
+
 // eslint-disable-next-line
 // import dotenv from 'dotenv';
 import CurrentScore from "./CurrentScore";
-import currencyFormatter from "currency-formatter";
-import swal from "sweetalert2";
-import axios from "axios";
+
 import "../../Views/App.css";
 import "../../Views/animate.css";
 
-import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
+import Card from "material-ui/Card";
 import CircularProgress from "material-ui/Progress/CircularProgress";
 import Button from "material-ui/Button";
 import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "material-ui/styles";
-
-const KEY = process.env.REACT_APP_OMDB_KEY;
 
 const styles = {
   root: {
@@ -44,9 +40,6 @@ const styles = {
 };
 
 class Game extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     this.props.getTwoMovies();
@@ -55,16 +48,13 @@ class Game extends React.Component {
   render() {
     const {
       classes,
-      user,
-      originalScore,
       movie1,
       movie2,
       score,
-      currentUser,
       getWinner,
       getTwoMovies
     } = this.props;
-    
+
     return (
       <React.Fragment>
         <div id="movie-1-and-2-container">

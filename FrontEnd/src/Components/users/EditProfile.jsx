@@ -1,37 +1,13 @@
 import React, { Component, Fragment } from "react";
 import axios from "axios";
-import { Redirect } from "react-router";
-import { Route, Link, Switch } from "react-router-dom";
-import classNames from "classnames";
 import TextField from "material-ui/TextField";
-import Input, { InputLabel, InputAdornment } from "material-ui/Input";
-import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
-import Paper from "material-ui/Paper";
 import CircularProgress from "material-ui/Progress/CircularProgress";
-import { FormControl, FormHelperText } from "material-ui/Form";
-import MenuItem from "material-ui/Menu/MenuItem";
 import { withStyles } from "material-ui/styles";
-import Toolbar from "material-ui/Toolbar";
-import Typography from "material-ui/Typography";
-import IconButton from "material-ui/IconButton";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import Divider from "material-ui/Divider";
 import RaisedButton from "material-ui/Button";
 import "../../Views/App.css";
+import { Image } from "cloudinary-react";
 
-import {
-  Image,
-  Video,
-  Transformation,
-  CloudinaryContext
-} from "cloudinary-react";
-
-import cloudinary from "cloudinary-core";
-
-const cloudinaryCore = new cloudinary.Cloudinary({
-  cloud_name: "movie-fights"
-});
+// import cloudinary from "cloudinary-core";
 
 const styles = theme => ({
   root: {
@@ -79,6 +55,7 @@ class EditProfile extends Component {
         if (!result) {
           return;
         }
+        // eslint-disable-next-line
         result.map(elem => {
           console.log("cloud result:", result);
           if (!elem.public_id) {
@@ -126,9 +103,8 @@ class EditProfile extends Component {
       newEmail,
       newBlurb,
       newImgURL,
-      public_id,
-      newPublic_id,
-      imageChanged
+
+      newPublic_id
     } = this.state;
 
     axios
@@ -154,7 +130,6 @@ class EditProfile extends Component {
   };
 
   fireRedirect = () => {
-    const { doneEditing } = this.state;
     this.setState({
       doneEditing: true
     });
@@ -168,30 +143,19 @@ class EditProfile extends Component {
 
   render() {
     const {
-      handleTextArea,
       handleInputChange,
       handleProfileSubmitForm,
       fireRedirect,
-      makeWidget,
-      handleClickShowPassword,
-      handleMouseDownPassword
+      makeWidget
     } = this;
 
     const {
       user,
-      newUserName,
-      newFirstName,
-      newLastName,
-      newEmail,
-      newBlurb,
-      newImgURL,
       doneEditing,
-      public_id,
       newPublic_id,
-      cloudResult,
       imageChanged
     } = this.state;
-    const { currentUser, classes } = this.props;
+    const { classes } = this.props;
     const base = "http://res.cloudinary.com/movie-fights/image/upload/a_auto/";
 
     if (doneEditing) {
@@ -326,7 +290,10 @@ class EditProfile extends Component {
                           type="submit"
                           value="submit"
                           primary={true}
-                          style={{ backgroundColor: "rgb(70, 73, 71, 0.83)", color: "white" }}
+                          style={{
+                            backgroundColor: "rgb(70, 73, 71, 0.83)",
+                            color: "white"
+                          }}
                         >
                           Submit
                         </RaisedButton>

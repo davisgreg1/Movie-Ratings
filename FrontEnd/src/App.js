@@ -1,18 +1,5 @@
 import React from "react";
-import { Link, Route, Switch, Redirect } from "react-router-dom";
-
-import { FormControl, FormHelperText } from "material-ui/Form";
-import { FormControlLabel, FormGroup } from "material-ui/Form";
-import AppBar from "material-ui/AppBar";
-import RaisedButton from "material-ui/Button";
-import { Switch as MatUISwitch } from "material-ui/Switch";
-import Toolbar from "material-ui/Toolbar";
-import Typography from "material-ui/Typography";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import MenuItem from "material-ui/Menu/MenuItem";
-import IconButton from "material-ui/IconButton";
-import Menu from "material-ui/Menu";
-import { withStyles } from "material-ui/styles";
+import { Route, Switch } from "react-router-dom";
 
 import NavBar from "./Components/NavBar";
 import Home from "./Components/Home";
@@ -29,22 +16,6 @@ import axios from "axios";
 
 import "./Views/App.css";
 
-//Styles for Material UI
-const styles = {
-  root: {
-    height: "100%",
-    flexGrow: 1
-  },
-  flex: {
-    flex: 1,
-    color: "white",
-    paddingLeft: "0px"
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
-  }
-};
 const TMDB_KEY = process.env.REACT_APP_TMDB_API_KEY;
 const baseURL = `http://image.tmdb.org/t/p/w185`;
 const idArr = [
@@ -71,8 +42,8 @@ const idArr = [
   "tt0073486",
   "tt0099685",
   "tt0133093"
-]
-const idArr1 =[
+];
+const idArr1 = [
   "tt0047478",
   "tt0076759",
   "tt0120382",
@@ -127,7 +98,6 @@ class App extends React.Component {
       movie2Revenue: "",
       movie1Budget: "",
       movie2Budget: "",
-      score: "",
       hasBeenClicked: false
     };
   }
@@ -151,7 +121,6 @@ class App extends React.Component {
       .then(res => {
         // Current
         let user = res.data.userInfo;
-        let currentUser = this.state.user.username;
         if (!this.state.loggedIn) {
           this.setState({
             loggedIn: true,
@@ -214,7 +183,7 @@ class App extends React.Component {
 
   submitLoginForm = e => {
     e.preventDefault();
-    const { username, password, loggedIn } = this.state;
+    const { username, password } = this.state;
 
     if (username.length < 3) {
       this.setState({
@@ -290,6 +259,7 @@ class App extends React.Component {
           movie1: response,
           movie1Revenue: response.data.revenue,
           movie1Budget: response.data.budget,
+          // eslint-disable-next-line
           movie1MoneyEarned: eval(response.data.revenue - response.data.budget)
         });
       })
@@ -303,8 +273,9 @@ class App extends React.Component {
               movie2: response,
               movie2Revenue: response.data.revenue,
               movie2Budget: response.data.budget,
+              // eslint-disable-next-line
               movie2MoneyEarned: eval(
-              response.data.revenue - response.data.budget
+                response.data.revenue - response.data.budget
               )
             });
           })
@@ -339,24 +310,25 @@ class App extends React.Component {
       winner,
       loser,
       user,
-      movie1,
-      movie2,
+
       movie1MoneyEarned,
       movie2MoneyEarned,
-      score,
+
       hasBeenClicked
     } = this.state;
-    const {originalScore, getUserScore } = this.state;
+
     let diff = movie1MoneyEarned - movie2MoneyEarned;
 
     if (e.target.title === winner.original_title && !hasBeenClicked) {
       console.log("winner?:", winner);
       this.setState({
+        // eslint-disable-next-line
         score: (this.state.score += 10),
         hasBeenClicked: true
       });
       if (hasBeenClicked) {
         this.setState({
+          // eslint-disable-next-line
           score: (this.state.score += 0)
         });
       }
@@ -382,7 +354,7 @@ class App extends React.Component {
         imageHeight: 200,
         imageAlt: "Custom image",
         animation: false,
-        confirmButtonColor:"#02182b"
+        confirmButtonColor: "#02182b"
       });
     }
     if (e.target.title === loser.original_title) {
@@ -406,18 +378,15 @@ class App extends React.Component {
         imageHeight: 200,
         imageAlt: "Custom image",
         animation: false,
-        confirmButtonColor:"#02182b"
+        confirmButtonColor: "#02182b"
       });
     }
-    if(!hasBeenClicked){
+    if (!hasBeenClicked) {
       this.postScore();
     }
-
   };
 
   componentDidMount() {
-    const { user } = this.state;
-
     axios
       .get("/users/userinfo")
       .then(res => {
@@ -446,13 +415,10 @@ class App extends React.Component {
   render() {
     const {
       user,
-      visitor,
       loggedIn,
-      anchorEl,
       username,
       password,
       message,
-      fireRedirect,
       score,
       leaderBoardData,
       allBlogs,
@@ -479,7 +445,6 @@ class App extends React.Component {
       getTwoMovies,
       getWinner
     } = this;
-    let open = Boolean(anchorEl);
 
     return (
       <div className="app">
@@ -539,6 +504,7 @@ class App extends React.Component {
                 allBlogs={allBlogs}
                 getAllBlogPosts={getAllBlogPosts}
                 classes={classes}
+                loggedIn={loggedIn}
               />
             )}
           />
@@ -595,3 +561,24 @@ class App extends React.Component {
   }
 }
 export default App;
+
+/**
+|--------------------------------------------------
+| Line 101:  Duplicate key 'score'                               no-dupe-keys
+  Line 125:  'currentUser' is assigned a value but never used    no-unused-vars
+  Line 188:  'loggedIn' is assigned a value but never used       no-unused-vars
+  Line 264:  eval can be harmful                                 no-eval
+  Line 277:  eval can be harmful                                 no-eval
+  Line 313:  'movie1' is assigned a value but never used         no-unused-vars
+  Line 314:  'movie2' is assigned a value but never used         no-unused-vars
+  Line 317:  'score' is assigned a value but never used          no-unused-vars
+  Line 320:  'originalScore' is assigned a value but never used  no-unused-vars
+  Line 320:  'getUserScore' is assigned a value but never used   no-unused-vars
+  Line 326:  Do not mutate state directly. Use setState()
+  Line 331:  Do not mutate state directly. Use setState()        react/no-direct-mutation-state
+  Line 389:  'user' is assigned a value but never used           no-unused-vars
+  Line 419:  'visitor' is assigned a value but never used        no-unused-vars
+  Line 425:  'fireRedirect' is assigned a value but never used   no-unused-vars
+  Line 452:  'open' is assigned a value but never used           no-unused-vars
+|--------------------------------------------------
+*/

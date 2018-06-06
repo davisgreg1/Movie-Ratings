@@ -38,7 +38,7 @@ class Favorites extends Component {
   };
 
   handleInput = e => {
-    const { data } = this.state;
+
     this.setState({
       searchText: e.target.value
     });
@@ -88,7 +88,7 @@ class Favorites extends Component {
   };
 
   fireRedirect = () => {
-    const { doneEditing } = this.state;
+
     this.setState({
       doneEditing: true
     });
@@ -100,9 +100,9 @@ class Favorites extends Component {
   }
 
   render() {
-    const { favorites, searchText, data, doneEditing } = this.state;
+    const { favorites, searchText, data } = this.state;
     const { currentUser, loggedIn } = this.props;
-    const { _keyPress, handleInput, fireRedirect } = this;
+    const { _keyPress, handleInput } = this;
 
     // if (doneEditing ) {
     //   window.location.reload()

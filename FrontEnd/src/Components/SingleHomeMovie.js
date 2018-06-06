@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
-import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
-import Button from "material-ui/Button";
+import Card, { CardContent, CardMedia } from "material-ui/Card";
+
 import Typography from "material-ui/Typography";
-import axios from 'axios';
+
 import "../Views/App.css";
 
 const styles = {
@@ -23,12 +23,9 @@ const styles = {
 };
 
 class SingleHomeMovie extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
-    const { classes, data, loggedIn, currentUser } = this.props;
+    const { classes, data } = this.props;
     let baseURL = `http://image.tmdb.org/t/p/w185`;
     return (
       <React.Fragment>

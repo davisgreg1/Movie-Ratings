@@ -1,16 +1,11 @@
 import React, { Component, Fragment } from "react";
-import { Redirect } from "react-router";
-import { Route, Link, Switch } from "react-router-dom";
 
 import axios from "axios";
-import classNames from "classnames";
+
 import TextField from "material-ui/TextField";
-import Input, { InputLabel, InputAdornment } from "material-ui/Input";
-import Paper from "material-ui/Paper";
-// import CircularProgress from "material-ui/Progress/CircularProgress";
-import { FormControl, FormHelperText } from "material-ui/Form";
+
 import { withStyles } from "material-ui/styles";
-import Typography from "material-ui/Typography";
+
 import RaisedButton from "material-ui/Button";
 
 import "../../Views/App.css";
@@ -47,7 +42,6 @@ class NewBlog extends Component {
   handleNewBlogSubmit = e => {
     e.preventDefault();
     const { newBlogTitle, newBlogBody } = this.state;
-    const { currentUser } = this.props;
 
     axios
       .post("/users/new_blog", {
@@ -80,26 +74,16 @@ class NewBlog extends Component {
     });
   };
 
-  componentDidMount() {
-    const { getAllBlogPosts } = this.props;
-  }
-
   fireRedirect = () => {
-    const { doneEditing } = this.state;
     this.setState({
       doneEditing: true
     });
   };
 
   render() {
-    const {
-      handleNewBlogSubmit,
-      handleInputChange,
-      fireRedirect,
-      handleSubmitClick
-    } = this;
-    const { allBlogs, currentUser, classes } = this.props;
-    const { newBlogBody, newBlogTitle, finished, doneEditing } = this.state;
+    const { handleNewBlogSubmit, handleInputChange, fireRedirect } = this;
+    const { classes } = this.props;
+    const { newBlogBody, newBlogTitle, doneEditing } = this.state;
 
     if (doneEditing) {
       window.location.reload();

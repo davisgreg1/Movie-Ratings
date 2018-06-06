@@ -1,20 +1,15 @@
 import React from "react";
 import { Redirect } from "react-router";
-import { Route, Link, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import classNames from "classnames";
 import TextField from "material-ui/TextField";
 import Input, { InputLabel, InputAdornment } from "material-ui/Input";
-import { FormControl, FormHelperText } from "material-ui/Form";
-import MenuItem from "material-ui/Menu/MenuItem";
+import { FormControl } from "material-ui/Form";
 import { withStyles } from "material-ui/styles";
-import AppBar from "material-ui/AppBar";
-import Toolbar from "material-ui/Toolbar";
-import Typography from "material-ui/Typography";
 import IconButton from "material-ui/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import RaisedButton from "material-ui/Button";
-
 import "../../Views/App.css";
 
 const styles = theme => ({
@@ -59,7 +54,7 @@ class LoginUser extends React.Component {
   };
 
   render() {
-    const { fireRedirect, showPassword } = this.state;
+    const { showPassword } = this.state;
     const {
       classes,
       loggedIn,

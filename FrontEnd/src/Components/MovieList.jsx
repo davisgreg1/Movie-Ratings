@@ -1,12 +1,9 @@
 import React from "react";
 import HomeScreenMovie from "./HomeScreenMovie";
-import Divider from 'material-ui/Divider';
+
 import '../Views/App.css';
 
 class MovieList extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     const { data, loggedIn, currentUser } = this.props;

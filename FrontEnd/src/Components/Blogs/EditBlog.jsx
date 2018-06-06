@@ -1,16 +1,11 @@
 import React, { Component, Fragment } from "react";
-import { Redirect } from "react-router";
-import { Route, Link, Switch } from "react-router-dom";
 
 import axios from "axios";
-import classNames from "classnames";
+
 import TextField from "material-ui/TextField";
-import Input, { InputLabel, InputAdornment } from '@material-ui/core/Input';
-import Paper from "material-ui/Paper";
-import Divider from "material-ui/Divider";
-import { FormControl, FormHelperText } from "material-ui/Form";
+
 import { withStyles } from "material-ui/styles";
-import Typography from "material-ui/Typography";
+
 import RaisedButton from "material-ui/Button";
 
 import "../../Views/App.css";
@@ -84,12 +79,7 @@ class EditBlog extends Component {
     });
   };
 
-  componentDidMount() {
-    const { getAllBlogPosts } = this.props;
-  }
-
   fireRedirect = () => {
-    const { doneEditing } = this.state;
     this.setState({
       doneEditing: true
     });
@@ -98,19 +88,9 @@ class EditBlog extends Component {
   render() {
     // console.log("state in edit blog:", this.state);
     console.log("props in edit blog:", this.props);
-    const {
-      handleEditBlogSubmit,
-      handleInputChange,
-      fireRedirect,
-      handleSubmitClick
-    } = this;
-    const {
-      allBlogs,
-      currentUser,
-      classes,
-      blogToEdit
-    } = this.props;
-    const { newBlogBody, newBlogTitle, finished, doneEditing } = this.state;
+    const { handleEditBlogSubmit, handleInputChange, fireRedirect } = this;
+    const { classes, blogToEdit } = this.props;
+    const { newBlogBody, newBlogTitle, doneEditing } = this.state;
 
     if (doneEditing) {
       window.location.reload();
@@ -119,7 +99,13 @@ class EditBlog extends Component {
     return (
       <Fragment>
         <div className="edit-fields">
-          <form  id="modal-form" className={classes.container} noValidate autoComplete="off" onSubmit={handleEditBlogSubmit}>
+          <form
+            id="modal-form"
+            className={classes.container}
+            noValidate
+            autoComplete="off"
+            onSubmit={handleEditBlogSubmit}
+          >
             <div id="user-banner-edit" className="background-banner sq2-edit">
               <div className="text-field">
                 <TextField

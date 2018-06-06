@@ -1,13 +1,10 @@
 import React from "react";
-import { Route, Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import dateFormat from "dateformat";
 import { withStyles } from "material-ui/styles";
-import { FormControlLabel, FormGroup } from "material-ui/Form";
-import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
+import Card, { CardContent} from "material-ui/Card";
 import CircularProgress from "material-ui/Progress/CircularProgress";
 import Divider from "material-ui/Divider";
-import AppBar from "material-ui/AppBar";
 import List from "material-ui/List";
 import ListItem from "material-ui/List/ListItem";
 import IconButton from "@material-ui/core/IconButton";
@@ -15,18 +12,11 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import ListItemText from "material-ui/List/ListItemText";
 import Modal from "material-ui/Modal";
 import Avatar from "material-ui/Avatar";
-import Switch from "material-ui/Switch";
-import Toolbar from "material-ui/Toolbar";
 import Typography from "material-ui/Typography";
 import Icon from "@material-ui/core/Icon";
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import Button from "material-ui/Button";
-import NavBar from "../NavBar";
-import Menu, { MenuItem } from "material-ui/Menu";
 import Tooltip from "@material-ui/core/Tooltip";
-
 import "../../Views/App.css";
-import { addCommas } from "../../utils/movieData";
 import EditProfile from "./EditProfile";
 import NewBlog from "../Blogs/NewBlog";
 import EditBlog from "../Blogs/EditBlog";
@@ -102,14 +92,10 @@ const modalIsOpen = {
   filter: "blur(5px) grayscale(50%)"
 };
 
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
+
 
 class Profile extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+
   state = {
     auth: false,
     anchorEl: null,
@@ -213,7 +199,7 @@ class Profile extends React.Component {
   };
 
   componentDidMount() {
-    const { getUserScore, allBlogs, getAllBlogPosts } = this.props;
+    const { getUserScore, getAllBlogPosts } = this.props;
     window.addEventListener("scroll", this.hidePic);
     getUserScore();
     getAllBlogPosts();
@@ -227,28 +213,20 @@ class Profile extends React.Component {
     const {
       classes,
       currentUser,
-      score,
-      getUserScore,
-      allBlogs,
-      getAllBlogPosts
+      allBlogs
     } = this.props;
     const {
-      auth,
-      anchorEl,
-      fireRedirect,
-      blogs,
       isHide,
       blogOpen,
       editOpen,
       blogToEdit,
       blogEditOpen,
-      blogToDelete
+  
     } = this.state;
     const { handleEditBlogOpen, handleBlogDelete } = this;
-    const open = Boolean(anchorEl);
     const base = "http://res.cloudinary.com/movie-fights/image/upload/a_auto/";
+    
     let classHide = isHide ? "fadeOut" : "fadeIn";
-    console.log("blog to delete?", this.state);
     return (
       <React.Fragment>
         {currentUser ? (
@@ -262,7 +240,7 @@ class Profile extends React.Component {
                 width="175px"
                 height="175px"
                 style={profileStyle}
-                alt={`Photo of ${currentUser.firstname}`}
+                alt={`${currentUser.firstname}`}
               />
               <div>
                 {currentUser.blurb ? (
@@ -418,16 +396,6 @@ class Profile extends React.Component {
                               </Tooltip>
                             </div>
                           </div>
-                          {/* <div>
-                            <Tooltip id="tooltip-icon" title="Delete" placement="right-start">
-                              <IconButton
-                                onClick={() => handleBlogDelete(elem)}
-                                aria-label="Delete"
-                              >
-                                <DeleteIcon />
-                              </IconButton>
-                            </Tooltip>
-                          </div> */}
                         </CardContent>
                       </Card>
                     </ListItem>

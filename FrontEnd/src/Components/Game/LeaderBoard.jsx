@@ -33,7 +33,7 @@ class LeaderBoard extends React.Component {
   }
 
   render() {
-    const { classes, data, getLeaderBoard } = this.props;
+    const { classes, data } = this.props;
     console.log("leaderBoard Props:", this.props);
 
     return (

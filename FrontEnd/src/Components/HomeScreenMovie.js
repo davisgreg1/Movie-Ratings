@@ -6,7 +6,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
 import Button from "material-ui/Button";
 import Typography from "material-ui/Typography";
-import MovieList from "./MovieList";
+
 import axios from "axios";
 import { limitOverview } from "../utils/movieData";
 import "../Views/App.css";
@@ -52,9 +52,6 @@ const styles = theme => ({
 });
 
 class HomeScreenMovie extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   addToFavs = data => {
     let baseURL = `http://image.tmdb.org/t/p/w185`;
@@ -76,7 +73,7 @@ class HomeScreenMovie extends React.Component {
   };
 
   render() {
-    const { classes, data, loggedIn, currentUser } = this.props;
+    const { classes, data, loggedIn } = this.props;
     console.log("the movie PROPS IN HOMESCREEN:", this.props);
     let baseURL = `http://image.tmdb.org/t/p/w185`;
     return (

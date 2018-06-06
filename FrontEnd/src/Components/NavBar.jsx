@@ -1,22 +1,22 @@
 import React, { Component, Fragment } from "react";
-import { Redirect } from "react-router";
-import { Route, Link } from "react-router-dom";
-import { FormControl, FormHelperText } from "material-ui/Form";
-import { FormControlLabel, FormGroup } from "material-ui/Form";
+
+import {  Link } from "react-router-dom";
+
+import { FormGroup } from "material-ui/Form";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "material-ui/Menu/MenuItem";
 import IconButton from "material-ui/IconButton";
 import Menu from "material-ui/Menu";
 import Fade from '@material-ui/core/Fade';
-import MenuIcon from "@material-ui/icons/Menu";
+
 import { withStyles } from "material-ui/styles";
 import AppBar from "material-ui/AppBar";
 import Toolbar from "material-ui/Toolbar";
 import Typography from "material-ui/Typography";
-import RaisedButton from "material-ui/Button";
-import Switch from "material-ui/Switch";
+
+
 import Button from "material-ui/Button";
-import Game from "./Game/Game";
+
 import "../Views/App.css";
 //Styles for Material UI
 
@@ -48,22 +48,6 @@ class NavBar extends Component {
   }
 
   onLoadNav = () => {
-    let open = Boolean(this.state.anchorEl);
-    const styles = {
-      root: {
-        height: "100%",
-        flexGrow: 1
-      },
-      flex: {
-        flex: 1,
-        color: "white",
-        paddingLeft: "0px"
-      },
-      menuButton: {
-        marginLeft: -12,
-        marginRight: 20
-      }
-    };
     return (
       <Fragment>
         <AppBar position="sticky" className="testBar">
@@ -85,22 +69,7 @@ class NavBar extends Component {
   };
 
   loggedOutNav = () => {
-    let open = Boolean(this.state.anchorEl);
-    const styles = {
-      root: {
-        height: "100%",
-        flexGrow: 1
-      },
-      flex: {
-        flex: 1,
-        color: "white",
-        paddingLeft: "0px"
-      },
-      menuButton: {
-        marginLeft: -12,
-        marginRight: 20
-      }
-    };
+    
     return (
       <Fragment>
         <AppBar position="sticky" className="testBar">
@@ -126,25 +95,9 @@ class NavBar extends Component {
   };
 
   loggedInNav = () => {
-    const { currentUser, logOut, classes } = this.props;
+    const { currentUser, logOut } = this.props;
     const { anchorEl } = this.state;
     let open = Boolean(this.state.anchorEl);
-    const styles = {
-      root: {
-        height: "100%",
-        flexGrow: 1,
-        borderRadius: "7em"
-      },
-      flex: {
-        flex: 1,
-        color: "white",
-        paddingLeft: "0px"
-      },
-      menuButton: {
-        marginLeft: -12,
-        marginRight: 20
-      }
-    };
     return (
       <Fragment>
         <FormGroup className="seek">
@@ -252,8 +205,8 @@ class NavBar extends Component {
 
   render() {
     const { loggedInNav, loggedOutNav, onLoadNav } = this;
-    const { anchorEl, fireRedirect, goToGame } = this.state;
-    const { currentUser, classes, loggedIn, getUserInfo, logOut } = this.props;
+    const {  goToGame } = this.state;
+    const {  loggedIn } = this.props;
 
     if (goToGame) {
       console.log("clicked");

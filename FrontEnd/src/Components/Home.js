@@ -1,31 +1,22 @@
 import React from "react";
-import { Redirect } from "react-router";
-import { Link, Route } from "react-router-dom";
+
 import axios from "axios";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
-import AppBar from "material-ui/AppBar";
-import Toolbar from "material-ui/Toolbar";
-import Typography from "material-ui/Typography";
-import IconButton from "material-ui/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import AccountCircle from "@material-ui/icons/AccountCircle";
+
 import Paper from "material-ui/Paper";
 import CircularProgress from "material-ui/Progress/CircularProgress";
-import Switch from "material-ui/Switch";
-import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
+
+import Card from "material-ui/Card";
 import Input from "material-ui/Input";
 import currencyFormatter from "currency-formatter";
-import { FormControlLabel, FormGroup } from "material-ui/Form";
-import Menu, { MenuItem } from "material-ui/Menu";
-import Button from "material-ui/Button";
+
 import MovieList from "./MovieList";
 import SingleHomeMovie from "./SingleHomeMovie";
 import swal from "sweetalert2";
 import "../Views/App.css";
-import { log } from "util";
 
-const TMDB_KEY = process.env.REACT_APP_TMDB_API_KEY
+const TMDB_KEY = process.env.REACT_APP_TMDB_API_KEY;
 
 let baseURL = `http://image.tmdb.org/t/p/w185`;
 
@@ -51,14 +42,6 @@ const styles = {
     height: 0,
     paddingTop: "56.25%" // 16:9
   }
-};
-
-const myStyle = {
-  display: "flex",
-  alignItems: "flex-start",
-  height: "100%",
-  justifyContent: "center",
-  alignContent: "center"
 };
 
 const movieStyles = {
@@ -121,11 +104,7 @@ const idArr = [
   "tt1677720"
 ];
 
-
 class Home extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   state = {
     user: null,
@@ -146,7 +125,6 @@ class Home extends React.Component {
   };
 
   handleInput = e => {
-    const { data } = this.state;
     this.setState({
       searchText: e.target.value
     });
@@ -210,6 +188,7 @@ class Home extends React.Component {
           movie1: response,
           movie1Revenue: response.data.revenue,
           movie1Budget: response.data.budget,
+          // eslint-disable-next-line
           movie1MoneyEarned: eval(response.data.revenue - response.data.budget)
         });
       })
@@ -226,6 +205,7 @@ class Home extends React.Component {
               movie2: response,
               movie2Revenue: response.data.revenue,
               movie2Budget: response.data.budget,
+              // eslint-disable-next-line
               movie2MoneyEarned: eval(
                 response.data.revenue - response.data.budget
               )
@@ -250,23 +230,28 @@ class Home extends React.Component {
   };
 
   //When the user selects one of the movies on the home page
-  getWinner = e => {    
+  getWinner = e => {
     if (!this.state.winner || !this.state.loser) {
       window.location.reload();
     }
     const {
       winner,
       loser,
-      movie1,
-      movie2,
+
       movie1MoneyEarned,
       movie2MoneyEarned
     } = this.state;
     let diff = movie1MoneyEarned - movie2MoneyEarned;
-    
+
     //the innerText and the winner object had more spaces than the other in some cases.
-    let joinedUpE = e.currentTarget.innerText.split(" ").join("").trim();
-    let joinedUpWinner = this.state.winner.original_title.split(" ").join("").trim();
+    let joinedUpE = e.currentTarget.innerText
+      .split(" ")
+      .join("")
+      .trim();
+    let joinedUpWinner = this.state.winner.original_title
+      .split(" ")
+      .join("")
+      .trim();
 
     if (joinedUpE === joinedUpWinner) {
       swal({
@@ -326,18 +311,8 @@ class Home extends React.Component {
 
   render() {
     const { classes, user, loggedIn } = this.props;
-    const {
-      auth,
-      anchorEl,
-      data,
-      searchText,
-      movie1,
-      movie2,
-      winner,
-      loser
-    } = this.state;
+    const { data, searchText, movie1, movie2 } = this.state;
     const { _keyPress, handleInput, getWinner } = this;
-    const open = Boolean(anchorEl);
 
     return (
       <React.Fragment>
@@ -424,3 +399,37 @@ Home.propTypes = {
   classes: PropTypes.object.isRequired
 };
 export default withStyles(styles)(Home);
+/**
+|--------------------------------------------------
+|   Line 2:    'Redirect' is defined but never used          no-unused-vars
+  Line 3:    'Link' is defined but never used              no-unused-vars
+  Line 3:    'Route' is defined but never used             no-unused-vars
+  Line 7:    'AppBar' is defined but never used            no-unused-vars
+  Line 8:    'Toolbar' is defined but never used           no-unused-vars
+  Line 9:    'Typography' is defined but never used        no-unused-vars
+  Line 10:   'IconButton' is defined but never used        no-unused-vars
+  Line 11:   'MenuIcon' is defined but never used          no-unused-vars
+  Line 12:   'AccountCircle' is defined but never used     no-unused-vars
+  Line 15:   'Switch' is defined but never used            no-unused-vars
+  Line 16:   'CardActions' is defined but never used       no-unused-vars
+  Line 16:   'CardContent' is defined but never used       no-unused-vars
+  Line 16:   'CardMedia' is defined but never used         no-unused-vars
+  Line 19:   'FormControlLabel' is defined but never used  no-unused-vars
+  Line 19:   'FormGroup' is defined but never used         no-unused-vars
+  Line 20:   'Menu' is defined but never used              no-unused-vars
+  Line 20:   'MenuItem' is defined but never used          no-unused-vars
+  Line 21:   'Button' is defined but never used            no-unused-vars
+  Line 26:   'log' is defined but never used               no-unused-vars
+  Line 56:   'myStyle' is assigned a value but never used  no-unused-vars
+  Line 126:  Useless constructor                           no-useless-constructor
+  Line 149:  'data' is assigned a value but never used     no-unused-vars
+  Line 213:  eval can be harmful                           no-eval
+  Line 229:  eval can be harmful                           no-eval
+  Line 260:  'movie1' is assigned a value but never used   no-unused-vars
+  Line 261:  'movie2' is assigned a value but never used   no-unused-vars
+  Line 330:  'auth' is assigned a value but never used     no-unused-vars
+  Line 336:  'winner' is assigned a value but never used   no-unused-vars
+  Line 337:  'loser' is assigned a value but never used    no-unused-vars
+  Line 340:  'open' is assigned a value but never used     no-unused-vars
+|--------------------------------------------------
+*/
