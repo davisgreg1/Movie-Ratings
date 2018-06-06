@@ -366,7 +366,7 @@ class App extends React.Component {
         })}</h2> less than ${
           winner.original_title
         }.</h6></span></div>`,
-        background: `#eee url(${baseURL}${loser.backdrop_path}) space`,
+        // background: `#eee url(${baseURL}${loser.backdrop_path}) space`,
         backdrop: `
         rgba(255,0,0,0.5)`,
         imageWidth: 400,

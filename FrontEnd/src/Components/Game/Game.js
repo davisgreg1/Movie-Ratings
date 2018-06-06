@@ -8,8 +8,6 @@ import "../../Views/App.css";
 import "../../Views/animate.css";
 import Card from "material-ui/Card";
 import CircularProgress from "material-ui/Progress/CircularProgress";
-import Button from "material-ui/Button";
-import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "material-ui/styles";
 
 const styles = {
@@ -47,8 +45,7 @@ class Game extends React.Component {
       movie1,
       movie2,
       score,
-      getWinner,
-      getTwoMovies
+      getWinner
     } = this.props;
 
     return (
