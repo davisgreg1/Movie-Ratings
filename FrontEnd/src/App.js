@@ -357,7 +357,9 @@ class App extends React.Component {
       });
       swal({
         customClass: "animated shake",
-        html: `<div id="win-win"><span id="swal-message"><h6>${
+        html: `<div id="win-win"><span id="swal-message"><h6>Sorry, ${
+          user.firstname
+        }... ${
           e.target.title
         }  made approximately <h2>${currencyFormatter.format(Math.abs(diff), {
           code: "USD"
