@@ -1,9 +1,8 @@
 import React from "react";
 import { withStyles } from "material-ui/styles";
-import Card, { CardActions, CardContent, CardMedia } from "material-ui/Card";
+import Card, { CardContent, CardMedia } from "material-ui/Card";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
-import Button from "material-ui/Button";
 import Typography from "material-ui/Typography";
 import axios from "axios";
 import "../../Views/App.css";
@@ -46,7 +45,7 @@ class FavoriteMovieList extends React.Component {
   };
 
   render() {
-    const { classes, loggedIn, currentUser, movies } = this.props;
+    const { classes, currentUser, movies } = this.props;
     const { removeFromFavs } = this;
     return (
       <div className="favs-list">
@@ -54,12 +53,18 @@ class FavoriteMovieList extends React.Component {
           <div>You must be logged in. </div>
         ) : movies.length > 0 ? (
           movies.map(movie => (
-            <div clasName="all-cards-container" style={{ height: "50%" }}>
+            <div clasName="all-cards-container" style={{ display: "flex", flexDirection:"column",justifyContent:"center", alignItems:"center", minWidth: "278px", maxWidth: "600px", height: "50%" }}>
+             <CardContent>
+                  <Typography gutterBottom variant="headline" component="h2">
+                    {movie.movie_title}
+                  </Typography>
+                </CardContent>
               <Card
-                className={classes.card}
+                style={{display: "flex"}}
                 value={movie.movie_imdb_id}
                 name={movie.movie_title}
               >
+             
                 <a href={`${movie.movie_website}`} target="_blank">
                   <CardMedia
                     className={classes.media}
@@ -68,33 +73,15 @@ class FavoriteMovieList extends React.Component {
                     title={movie.movie_title}
                   />
                 </a>
-                <Chip
+              </Card>
+              <Chip
                   label="Remove"
                   className={classes.chip}
                   avatar={<Avatar src={movie.movie_imgurl} />}
                   onClick={() => removeFromFavs(movie)}
                   clickable
                 />
-                <CardContent>
-                  <Typography gutterBottom variant="headline" component="h2">
-                    {movie.movie_title}
-                  </Typography>
-                </CardContent>
-
-                <CardActions
-                  value={movie.movie_imdb_id}
-                  name={movie.movie_title}
-                >
-                  {!loggedIn ? (
-                    <Button size="small" color="primary">
-                      <a href={movie.movie_website} target="_blank">
-                        Learn More
-                      </a>
-                    </Button>
-                  ) : null}
-                </CardActions>
-              </Card>
-            </div>
+             </div>
           ))
         ) : (
           <div>{`${

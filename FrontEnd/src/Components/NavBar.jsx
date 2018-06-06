@@ -18,7 +18,6 @@ import Typography from "material-ui/Typography";
 import Button from "material-ui/Button";
 
 import "../Views/App.css";
-//Styles for Material UI
 
 const styles = {
   root: {
@@ -192,10 +191,6 @@ class NavBar extends Component {
   doSum = () => {
     window.alert("nah");
   };
-
-  // componentDidMount() {
-  //   this.props.getUserInfo;
-  // }
 
   goToGame = () => {
     this.setState({

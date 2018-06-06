@@ -54,5 +54,4 @@ class SingleHomeMovie extends React.Component {
 SingleHomeMovie.propTypes = {
   classes: PropTypes.object.isRequired
 };
-// export default HomeScreenMovie;
 export default withStyles(styles)(SingleHomeMovie);
