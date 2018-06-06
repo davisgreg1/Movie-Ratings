@@ -44,23 +44,23 @@ CREATE TABLE favorites (
 INSERT INTO users (username, firstname, lastname, email, blurb, imgurl, password_digest, date_acct_created)
   VALUES ('davisgreg1', 'Greg', 'Davis', 'davisgreg1@gmail.com','I like to watch movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
 INSERT INTO users (username, firstname, lastname, email, blurb, imgurl, password_digest, date_acct_created)
-  VALUES ('test1', 'Jim', 'Beam', 'davisgreg1@gmail.com','I enjoy movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
+  VALUES ('Jim', 'Jim', 'Beam', 'davisgreg1@gmail.com','I enjoy movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
 INSERT INTO users (username, firstname, lastname, email, blurb, imgurl, password_digest, date_acct_created)
-  VALUES ('test2', 'Back', 'Arty', 'test@gmail.com','I like to buy movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
+  VALUES ('Back', 'Back', 'Arty', 'test@gmail.com','I like to buy movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
 INSERT INTO users (username, firstname, lastname, email, blurb, imgurl, password_digest, date_acct_created)
-  VALUES ('test3', 'Hennei', 'Seigh', 'test@gmail.com','I like to sell movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
+  VALUES ('Hennei', 'Hennei', 'Seigh', 'test@gmail.com','I like to sell movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
 INSERT INTO users (username, firstname, lastname, email, blurb, imgurl, password_digest, date_acct_created)
-  VALUES ('test4', 'Eighsa', 'Spade', 'test@gmail.com','I like to upload movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
+  VALUES ('Eighsa', 'Eighsa', 'Spade', 'test@gmail.com','I like to upload movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
 INSERT INTO users (username, firstname, lastname, email, blurb, imgurl, password_digest, date_acct_created)
-  VALUES ('test5', 'Jack', 'Daniels', 'test@gmail.com','I like to download movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
+  VALUES ('Jack', 'Jack', 'Daniels', 'test@gmail.com','I like to download movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
 INSERT INTO users (username, firstname, lastname, email, blurb, imgurl, password_digest, date_acct_created)
-  VALUES ('test6', 'Conny', 'Ack', 'test@gmail.com','I like to cry to movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
+  VALUES ('Conny', 'Conny', 'Ack', 'test@gmail.com','I like to cry to movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
 INSERT INTO users (username, firstname, lastname, email, blurb, imgurl, password_digest, date_acct_created)
-  VALUES ('test7', 'Sir', 'Aôck', 'test@gmail.com','I like to laugh at movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
+  VALUES ('Siri', 'Sir', 'Aôck', 'test@gmail.com','I like to laugh at movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
 INSERT INTO users (username, firstname, lastname, email, blurb, imgurl, password_digest, date_acct_created)
-  VALUES ('test8', 'Brandy', 'Lovette', 'test@gmail.com','I like to sleep while watching movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
+  VALUES ('Brandy', 'Brandy', 'Lovette', 'test@gmail.com','I like to sleep while watching movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
 INSERT INTO users (username, firstname, lastname, email, blurb, imgurl, password_digest, date_acct_created)
-  VALUES ('test9', 'Corra', 'Naugh', 'test@gmail.com','I like action movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
+  VALUES ('Corra', 'Corra', 'Naugh', 'test@gmail.com','I like action movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
   
 INSERT INTO scores (user_id, points)
   VALUES (1, 110);
