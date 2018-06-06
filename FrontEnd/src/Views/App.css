@@ -74,6 +74,18 @@ body {
   align-items: center;
   margin-top: 8px;
 }
+
+.home-winner{
+  color: green;
+}
+.home-loser{
+  color: red;
+}
+.winnerBox{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
 .home-choices {
   display: flex;
   justify-content: center;
@@ -84,7 +96,7 @@ body {
 }
 
 .earned-more {
-  font-size: 25px;
+  font-size: 30px;
 }
 
 .default-home-screen {

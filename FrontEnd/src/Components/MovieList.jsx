@@ -1,6 +1,5 @@
 import React from "react";
 import HomeScreenMovie from "./HomeScreenMovie";
-
 import '../Views/App.css';
 
 class MovieList extends React.Component {
@@ -10,7 +9,7 @@ class MovieList extends React.Component {
     return (
       <React.Fragment>
         {data ? (
-          <div className="movie-list-container">
+          <div className="movie-list-container" style={{paddingTop:"14%"}}>
             {data.data.results.map((elem, idx) => {
              return <div className="single-movie" key={idx}><HomeScreenMovie data={elem} loggedIn={loggedIn} currentUser={currentUser}/></div>
             })}

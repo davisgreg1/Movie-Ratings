@@ -10,16 +10,6 @@ import Typography from "material-ui/Typography";
 import axios from "axios";
 import { limitOverview } from "../utils/movieData";
 import "../Views/App.css";
-/**
-|--------------------------------------------------
-|     width: 298px;
-    height: 278px;
-    position: relative;
-    box-sizing: border-box;
-    padding: 10px 16px 16px 16px;
-    overflow: hidden;
-|--------------------------------------------------
-*/
 
 const styles = theme => ({
   root: {
@@ -31,13 +21,6 @@ const styles = theme => ({
     margin: theme.spacing.unit
   },
   card: {
-    // display: "flex",
-    // flexDirection: "column",
-    // justifyContent: "spaceAround",
-    // alignItems: "center",
-    // padding: "10px",
-    // maxWidth: 345,
-    // maxHeight: 345
     width: "298px",
     height: "478px",
     position: "relative",
@@ -77,19 +60,19 @@ class HomeScreenMovie extends React.Component {
     console.log("the movie PROPS IN HOMESCREEN:", this.props);
     let baseURL = `http://image.tmdb.org/t/p/w185`;
     return (
-      <div clasName="all-cards-container">
+
+      
+      <div className="all-cards-container" style={{ display: "flex", justifyContent:"center", alignItems:"center", minWidth: "278px", maxWidth: "600px", height: "50%" }}>
         <Card
-          className={classes.card}
+          // className={classes.card}
+          style={{display: "flex"}}
           value={data.id}
           name={data.original_title}
         >
-          <a
-            href={`https://www.themoviedb.org/movie/${data.id}`}
-            target="_blank"
-          >
+          <a href={`https://www.themoviedb.org/movie/${data.id}`} target="_blank">
             <CardMedia
               className={classes.media}
-              style={{ height: "50px", width: "100%" }}
+              style={{ height: "285px", width: "285px" }}
               image={
                 data.poster_path === null
                   ? "http://www.reelviews.net/resources/img/default_poster.jpg"
@@ -98,6 +81,8 @@ class HomeScreenMovie extends React.Component {
               title={`${data.original_title}`}
             />
           </a>
+
+
           <CardContent>
             <Typography gutterBottom variant="headline" component="h2">
               {`${data.original_title}  (${data.release_date.split("-")[0]})`}
@@ -111,8 +96,8 @@ class HomeScreenMovie extends React.Component {
                 <Chip
                   label="Add To Favorites"
                   className={classes.chip}
-                    value={data.id}
-                name={data.original_title}
+                  value={data.id}
+                  name={data.original_title}
                   avatar={<Avatar src={baseURL + data.poster_path} />}
                   onClick={() => this.addToFavs(data)}
                   clickable
@@ -139,16 +124,4 @@ HomeScreenMovie.propTypes = {
   classes: PropTypes.object.isRequired,
   loggedIn: PropTypes.bool.isRequired
 };
-// export default HomeScreenMovie;
 export default withStyles(styles)(HomeScreenMovie);
-/**
-|--------------------------------------------------
-| add the add to favorites function here: grab:
-
-1. movie_imdb_id, {data.id}
-2. movie_title,  title={`${data.original_title}`
-3. movie_imgurl, `${baseURL}${data.poster_path}`
-4. movie_website,  href={`https://www.themoviedb.org/movie/${data.id}`}
-5. favorited_by: this.props.currentUser.id
-|--------------------------------------------------
-*/
