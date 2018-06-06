@@ -27,7 +27,6 @@ body {
   height: 100vh;
 }
 .app {
-  /* border: 3px solid pink; */
   width: 100vw;
   height: 100vh;
 }
@@ -36,7 +35,7 @@ body {
   display: flex;
 }
 
-/**
+                /**
                 |--------------------------------------------------
                 | NAVBAR BELOW...
                 |--------------------------------------------------
@@ -50,7 +49,7 @@ body {
 .testBar {
   display: flex;
   justify-content: space-around;
-  background-color: red;
+  /* background-color: red; */
   /* #253c78; */
 }
 
@@ -62,14 +61,11 @@ body {
   /* background-color: rgb(70, 73, 71, 0.83); */
 }
 
-/* .login-btn {
-  color: red;
-} */
-/**
-                                                          |--------------------------------------------------
-                                                          | HOME SCREEN BELOW...
-                                                          |--------------------------------------------------
-                                                          */
+                      /**
+                      |--------------------------------------------------
+                      | HOME SCREEN BELOW...
+                      |--------------------------------------------------
+                      */
 
 .choices-container {
   display: flex;
@@ -104,14 +100,12 @@ body {
 }
 
 div.home-container {
-  /* border: 2px solid rgb(185, 182, 0); */
   display: flex;
   width: 100%;
   height: 100%;
 }
 
 .app-nav {
-  /* border: 1px dashed yellowgreen; */
   display: flex;
   width: 100%;
   height: 7%;
@@ -123,7 +117,7 @@ div.home-container {
 }
 
 .home-nav {
-  /* border: 1px solid black; */
+ 
   width: 100%;
   display: flex;
   justify-content: flex-end;
@@ -132,14 +126,14 @@ div.home-container {
 }
 
 .nav-item-container {
-  /* border: 1px solid rgb(0, 255, 242); */
+
   display: flex;
   width: 25%;
   height: 5%;
 }
 
 .nav-item {
-  /* border: 1px solid black; */
+
   display: flex;
   justify-content: space-between;
   padding: 10px;
@@ -150,9 +144,6 @@ div.home-container {
   flex-direction: row;
   justify-content: center;
 }
-/* .versus-div {
-margin-top: 50%;  
-} */
 
 #versus-span {
   font-family: "Ruslan Display", cursive;
@@ -254,7 +245,6 @@ margin-top: 50%;
 }
 .movie-list {
   display: flex;
-  border: 5px solid red;
 }
 .movie-list-container {
   display: flex;
@@ -301,15 +291,7 @@ margin-top: 50%;
   font-size: 50px;
 }
 
-/* #dumb-btn {
-  background-color: black;
-  color: red;
-} */
-/* #quick-user-info{
-  background-color: black;
-  color: red;
-} */
-/**
+        /**
         |--------------------------------------------------
         | PROFILE SCREEN BELOW...
         |--------------------------------------------------
@@ -317,7 +299,6 @@ margin-top: 50%;
 
 .hide {
   display: none;
-  /* top:-40px */
 }
 
 .blurb {
@@ -331,7 +312,6 @@ margin-top: 50%;
   flex-direction: column;
   margin-top: 5%;
   width: 100%;
-  /* padding: 15px; */
 }
 
 .profile-img {
@@ -353,7 +333,6 @@ margin-top: 50%;
   width: 100vw;
   justify-content: center;
   align-items: center;
-  /* height: 100vh; */
 }
 
 #user-profile {
@@ -371,6 +350,7 @@ margin-top: 50%;
   justify-content: center;
   list-style: none;
 }
+
 .edit-blog-container {
   display: flex;
   justify-content: flex-end;
@@ -401,9 +381,6 @@ margin-top: 50%;
 .text-field {
   text-align: center;
   padding: 30px;
-  /* display: flex;
-  justify-content: center;
-  align-content: center; */
 }
 
 #helper-text #multiline-flexible {
@@ -411,68 +388,64 @@ margin-top: 50%;
 }
 
 @media only screen and (max-width: 768px) {
-  .single-movie-container {
-    /* display: flex;
-    padding: 50px;
-    padding-top: 120px; */
-
-    flex-direction: column;
-    display: flex;
-    justify-content: center;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 50px;
-    padding-top: 120px;
-  }
-  .home-movie-container {
+  #root{
+    /* background-color: #507dbc; */
+    background-color: red;
     width: 100%;
     height: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 5%;
-    align-items: center;
   }
+
+ .app {
+   width: 100%;
+   height: 100%;
+   /* display: flex;
+   flex-direction: column; */
+ }
+ .choices-container {
+  /* display: -ms-flexbox; */
+  display: flex;
+  justify-content: space-between;
+  /* -ms-flex-direction: column; */
+  /* flex-direction: column; */
+  /* -ms-flex-pack: center; */
+  /* justify-content: center; */
+  /* -ms-flex-align: center; */
+  align-content: center;
+  /* margin-top: 8px; */
 }
-/* @media only screen and (min-width: 768px) {
-  .single-movie-container {
-    flex-direction: column;
-    display: flex;
-    justify-content: center;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 50px;
-    padding-top: 120px;
-    
-  }
-} */
-@media only screen and (min-width: 523px) {
-  .single-movie-container {
-    /* display: flex;
-    justify-content: center;
-    /* padding: 50px;
-    padding-top: 120px; */
-    flex-direction: column;
-    display: flex;
-    justify-content: center;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 50px;
-    padding-top: 120px;
-  }
+.home-movie-container {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 50%;
+  height: 50%;
 }
+.MuiCardMedia-root-117 {
+  display: flex;
+  /* display: -ms-flexbox; */
+  /* border: 125px solid black; */
+  /* height: 155px; */
+  /* -ms-flex-pack: center; */
+  /* justify-content: center; */
+  /* max-height: -webkit-max-content; */
+  /* max-height: -moz-max-content; */
+  /* max-height: max-content; */
+}
+}
+
 @media only screen and (min-width: 1024px) {
   .single-movie-container {
-    width: 100%;
+    /* width: 100%;
     height: 100%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
     padding: 100px 115px 0px 100px;
-    margin-top: -100px;
+    margin-top: -100px; */
     /* display: flex;
     justify-content: center;
     justify-content: space-around;
@@ -487,7 +460,7 @@ margin-top: 50%;
   padding-bottom: 15px;
 }
 
-/*____________________________________________________
+          /*____________________________________________________
           | EDIT PROFILE BELOW
           |_____________________________________________________
           */
@@ -544,7 +517,7 @@ cursor: pointer; */
   flex-grow: 1;
   background-color: black;
 }
-/*____________________________________________________
+                                                /*____________________________________________________
                                                 | LOGIN USER BELOW
                                                 |_____________________________________________________
                                                 */

@@ -381,7 +381,8 @@ class App extends React.Component {
         imageWidth: 400,
         imageHeight: 200,
         imageAlt: "Custom image",
-        animation: false
+        animation: false,
+        confirmButtonColor:"#02182b"
       });
     }
     if (e.target.title === loser.original_title) {
@@ -404,18 +405,14 @@ class App extends React.Component {
         imageWidth: 400,
         imageHeight: 200,
         imageAlt: "Custom image",
-        animation: false
+        animation: false,
+        confirmButtonColor:"#02182b"
       });
-      // if (hasBeenClicked) {
-      //   this.setState({
-      //     score: (this.state.score += 0)
-      //   });
-      // }
     }
     if(!hasBeenClicked){
       this.postScore();
     }
-    // }, 0);
+
   };
 
   componentDidMount() {
