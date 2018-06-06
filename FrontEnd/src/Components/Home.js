@@ -44,7 +44,7 @@ const styles = {
   }
 };
 
-const searchBarStyles =  {
+const searchBarStyles = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -52,7 +52,7 @@ const searchBarStyles =  {
   backgroundColor: "whitesmoke",
   width: "100vw",
   paddingTop: "7px"
-}
+};
 
 const movieStyles = {
   display: "flex",
@@ -116,7 +116,6 @@ const idArr1 = [
 ];
 
 class Home extends React.Component {
-
   state = {
     user: null,
     searchText: "",
@@ -267,14 +266,16 @@ class Home extends React.Component {
     if (joinedUpE === joinedUpWinner) {
       swal({
         title: "Correct!",
-        html: `<div class="winnerBox"><span><h1>Sign up for more!</h1></span></h6><p><span class="home-winner">${
+        html: `<div class="winnerBox"></h6><p><span class="home-winner">${
           winner.original_title
         }</span> earned <span class="earned-more">${currencyFormatter.format(
           Math.abs(diff),
           {
             code: "USD"
           }
-        )} </span> more than <span class="home-loser">${loser.original_title}</span>!</p></div>`,
+        )} </span> more than <span class="home-loser">${
+          loser.original_title
+        }</span>!</p><span><h2>Sign up for more!</h2></span></div>`,
         imageUrl: `${baseURL}${winner.backdrop_path}`,
         imageWidth: 400,
         imageHeight: 200,
@@ -284,14 +285,16 @@ class Home extends React.Component {
     } else {
       swal({
         title: "Maybe Next Time!",
-        html: `<div class="winnerBox"><span><h1>Sign up for more!</h1></span></h6><p><span class="home-winner">${
-          winner.original_title
+        html: `<div class="winnerBox"></h6><p><span class="home-loser">${
+          loser.original_title
         }</span> earned <span class="earned-more">${currencyFormatter.format(
           Math.abs(diff),
           {
             code: "USD"
           }
-        )} </span> more than <span class="home-loser">${loser.original_title}</span>!</p></div>`,
+        )} </span> less than <span class="home-winner">${
+          winner.original_title
+        }</span>!</p><span><h2>Sign up for more!</h2></span></div>`,
         imageUrl: `${baseURL}${loser.backdrop_path}`,
         imageWidth: 400,
         imageHeight: 200,
