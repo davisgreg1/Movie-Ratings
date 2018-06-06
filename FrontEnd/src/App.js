@@ -554,24 +554,3 @@ class App extends React.Component {
   }
 }
 export default App;
-
-/**
-|--------------------------------------------------
-| Line 101:  Duplicate key 'score'                               no-dupe-keys
-  Line 125:  'currentUser' is assigned a value but never used    no-unused-vars
-  Line 188:  'loggedIn' is assigned a value but never used       no-unused-vars
-  Line 264:  eval can be harmful                                 no-eval
-  Line 277:  eval can be harmful                                 no-eval
-  Line 313:  'movie1' is assigned a value but never used         no-unused-vars
-  Line 314:  'movie2' is assigned a value but never used         no-unused-vars
-  Line 317:  'score' is assigned a value but never used          no-unused-vars
-  Line 320:  'originalScore' is assigned a value but never used  no-unused-vars
-  Line 320:  'getUserScore' is assigned a value but never used   no-unused-vars
-  Line 326:  Do not mutate state directly. Use setState()
-  Line 331:  Do not mutate state directly. Use setState()        react/no-direct-mutation-state
-  Line 389:  'user' is assigned a value but never used           no-unused-vars
-  Line 419:  'visitor' is assigned a value but never used        no-unused-vars
-  Line 425:  'fireRedirect' is assigned a value but never used   no-unused-vars
-  Line 452:  'open' is assigned a value but never used           no-unused-vars
-|--------------------------------------------------
-*/
