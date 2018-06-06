@@ -97,7 +97,7 @@ class Game extends React.Component {
                     name="movie_num_1"
                     onClick={getWinner}
                   >
-                    <SingleHomeMovie data={movie1} />
+                    <SingleHomeMovie className="single-data" data={movie1} />
                   </Card>
                   <div className="versus-div">
                     <Tooltip
@@ -117,7 +117,7 @@ class Game extends React.Component {
                     name="movie_num_2"
                     onClick={getWinner}
                   >
-                    <SingleHomeMovie data={movie2} />
+                    <SingleHomeMovie className="single-data" data={movie2} />
                   </Card>
                 </div>
               )}
