@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-
 import NavBar from "./Components/NavBar";
 import Home from "./Components/Home";
 import Game from "./Components/Game/Game";
@@ -9,11 +8,9 @@ import RegisterUser from "./Components/login/RegisterUser";
 import Users from "./Components/users/Users";
 import LoginUser from "./Components/login/LoginUser";
 import LeaderBoard from "./Components/Game/LeaderBoard";
-
 import currencyFormatter from "currency-formatter";
 import swal from "sweetalert2";
 import axios from "axios";
-
 import "./Views/App.css";
 
 const TMDB_KEY = process.env.REACT_APP_TMDB_API_KEY;
