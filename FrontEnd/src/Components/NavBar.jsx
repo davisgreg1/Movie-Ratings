@@ -1,21 +1,16 @@
 import React, { Component, Fragment } from "react";
-
 import { Link } from "react-router-dom";
-
 import { FormGroup } from "material-ui/Form";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "material-ui/Menu/MenuItem";
 import IconButton from "material-ui/IconButton";
 import Menu from "material-ui/Menu";
 import Fade from "@material-ui/core/Fade";
-
 import { withStyles } from "material-ui/styles";
 import AppBar from "material-ui/AppBar";
 import Toolbar from "material-ui/Toolbar";
 import Typography from "material-ui/Typography";
-
 import Button from "material-ui/Button";
-
 import "../Views/App.css";
 
 const styles = {

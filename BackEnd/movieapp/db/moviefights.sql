@@ -44,53 +44,48 @@ CREATE TABLE favorites (
 INSERT INTO users (username, firstname, lastname, email, blurb, imgurl, password_digest, date_acct_created)
   VALUES ('davisgreg1', 'Greg', 'Davis', 'davisgreg1@gmail.com','I like to watch movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
 INSERT INTO users (username, firstname, lastname, email, blurb, imgurl, password_digest, date_acct_created)
-  VALUES ('test1', 'Test1', 'One', 'davisgreg1@gmail.com','I like to eat movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
+  VALUES ('test1', 'Jim', 'Beam', 'davisgreg1@gmail.com','I enjoy movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
 INSERT INTO users (username, firstname, lastname, email, blurb, imgurl, password_digest, date_acct_created)
-  VALUES ('test2', 'Test2', 'Two', 'test@gmail.com','I like to buy movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
+  VALUES ('test2', 'Back', 'Arty', 'test@gmail.com','I like to buy movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
 INSERT INTO users (username, firstname, lastname, email, blurb, imgurl, password_digest, date_acct_created)
-  VALUES ('test3', 'Test3', 'Three', 'test@gmail.com','I like to sell movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
+  VALUES ('test3', 'Hennei', 'Seigh', 'test@gmail.com','I like to sell movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
 INSERT INTO users (username, firstname, lastname, email, blurb, imgurl, password_digest, date_acct_created)
-  VALUES ('test4', 'Test4', 'Four', 'test@gmail.com','I like to upload movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
+  VALUES ('test4', 'Eighsa', 'Spade', 'test@gmail.com','I like to upload movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
 INSERT INTO users (username, firstname, lastname, email, blurb, imgurl, password_digest, date_acct_created)
-  VALUES ('test5', 'Test5', 'Five', 'test@gmail.com','I like to download movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
+  VALUES ('test5', 'Jack', 'Daniels', 'test@gmail.com','I like to download movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
 INSERT INTO users (username, firstname, lastname, email, blurb, imgurl, password_digest, date_acct_created)
-  VALUES ('test6', 'Test6', 'Six', 'test@gmail.com','I like to cry to movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
+  VALUES ('test6', 'Conny', 'Ack', 'test@gmail.com','I like to cry to movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
 INSERT INTO users (username, firstname, lastname, email, blurb, imgurl, password_digest, date_acct_created)
-  VALUES ('test7', 'Test7', 'Seven', 'test@gmail.com','I like to laugh at movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
+  VALUES ('test7', 'Sir', 'Aôck', 'test@gmail.com','I like to laugh at movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
 INSERT INTO users (username, firstname, lastname, email, blurb, imgurl, password_digest, date_acct_created)
-  VALUES ('test8', 'Test8', 'Eight', 'test@gmail.com','I like to sleep while watching movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
+  VALUES ('test8', 'Brandy', 'Lovette', 'test@gmail.com','I like to sleep while watching movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
 INSERT INTO users (username, firstname, lastname, email, blurb, imgurl, password_digest, date_acct_created)
-  VALUES ('test9', 'Test9', 'Nine', 'test@gmail.com','I like to poop out movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
-  INSERT INTO users (username, firstname, lastname, email, blurb, imgurl, password_digest, date_acct_created)
-  VALUES ('chocolatethunder', 'jr', 'welton', 'test@gmail.com','woo!','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
+  VALUES ('test9', 'Corra', 'Naugh', 'test@gmail.com','I like action movies.','v1527033547/default.png', '$2a$10$Pn5oHAD1s4z1nUqltp.WnuuVjMU0z1Whyun7f/8lgtP9Uqxg1Fkf2', NOW());
   
 INSERT INTO scores (user_id, points)
-  VALUES (1, 100000000);
+  VALUES (1, 110);
 INSERT INTO scores (user_id, points)
-  VALUES (2, 8880);
+  VALUES (2, 20);
 INSERT INTO scores (user_id, points)
-  VALUES (3, 10);
+  VALUES (3, 30);
 INSERT INTO scores (user_id, points)
-  VALUES (4, 530);
+  VALUES (4, 40);
 INSERT INTO scores (user_id, points)
-  VALUES (5, 980);
+  VALUES (5, 50);
 INSERT INTO scores (user_id, points)
-  VALUES (6, 9444720);
+  VALUES (6, 60);
 INSERT INTO scores (user_id, points)
-  VALUES (7, 94830);
+  VALUES (7, 70);
 INSERT INTO scores (user_id, points)
-  VALUES (8, 27450);
+  VALUES (8, 80);
 INSERT INTO scores (user_id, points)
-  VALUES (9, 999380);
+  VALUES (9, 90);
 INSERT INTO scores (user_id, points)
-  VALUES (10, 345670);
-INSERT INTO scores (user_id, points)
-  VALUES (11, 9999999);
+  VALUES (10, 10);
+
 
 INSERT INTO blogs (user_id, blog_title, blog_body, time_posted)
-  VALUES (1, 'My First Post', 'This is my first blog post', NOW());
-INSERT INTO blogs (user_id, blog_title, blog_body, time_posted)
-  VALUES (1, 'My Other Post', 'This is my Other blog post', NOW());
+  VALUES (1, 'Avengers Infinity War', 'I cant wait to see this movie with Carmelo this weekend! So excited to see this next installment into the franchise!! GO MARVEL!!', NOW());
 INSERT INTO blogs (user_id, blog_title, blog_body, time_posted)
   VALUES (2, 'My Second Post', 'This is my 2nd blog post', NOW());
 INSERT INTO blogs (user_id, blog_title, blog_body, time_posted)

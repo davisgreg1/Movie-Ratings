@@ -130,7 +130,6 @@ class Favorites extends Component {
             }}
           />
         </div>
-        {/* <div className="favs-movie-containers" style={{paddingTop:"15%"}}> */}
           {searchText ? (
             <MovieList data={data} loggedIn={loggedIn} currentUser={currentUser} />
           ) : (
@@ -140,7 +139,6 @@ class Favorites extends Component {
               movies={favorites}
             />
           )}
-        {/* </div> */}
       </React.Fragment>
     );
   }
