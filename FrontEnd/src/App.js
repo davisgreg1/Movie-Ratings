@@ -332,7 +332,6 @@ class App extends React.Component {
         });
       }
       swal({
-        // title: "Sweet!",
         customClass: "animated rubberBand",
         html: `<div id="win-win"><span id="swal-message-right"><h6 className="swal-alert">Yes, ${
           user.firstname
@@ -357,15 +356,14 @@ class App extends React.Component {
         hasBeenClicked: true
       });
       swal({
-        // title: "Sorry!",
         customClass: "animated shake",
-        html: `<span id="swal-message"><h6>${
+        html: `<div id="win-win"><span id="swal-message"><h6>${
           e.target.title
-        }  made approximately ${currencyFormatter.format(Math.abs(diff), {
+        }  made approximately <h2>${currencyFormatter.format(Math.abs(diff), {
           code: "USD"
-        })} less than ${
+        })}</h2> less than ${
           winner.original_title
-        }.</h6></span>`,
+        }.</h6></span></div>`,
         background: `#eee url(${baseURL}${loser.backdrop_path}) space`,
         backdrop: `
         rgba(255,0,0,0.5)`,
@@ -373,7 +371,8 @@ class App extends React.Component {
         imageHeight: 200,
         imageAlt: "Custom image",
         animation: false,
-        confirmButtonColor: "#02182b"
+        confirmButtonColor: "#02182b",
+        showLoaderOnConfirm: true
       }).then(this.getTwoMovies())
     }
     if (!hasBeenClicked) {
