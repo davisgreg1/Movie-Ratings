@@ -18,13 +18,12 @@ import Avatar from "material-ui/Avatar";
 import Switch from "material-ui/Switch";
 import Toolbar from "material-ui/Toolbar";
 import Typography from "material-ui/Typography";
-// import IconButton from "material-ui/IconButton";
 import Icon from "@material-ui/core/Icon";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Button from "material-ui/Button";
 import NavBar from "../NavBar";
 import Menu, { MenuItem } from "material-ui/Menu";
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from "@material-ui/core/Tooltip";
 
 import "../../Views/App.css";
 import { addCommas } from "../../utils/movieData";
@@ -63,6 +62,9 @@ const styles = theme => ({
   paper: {
     position: "absolute",
     backgroundColor: "black"
+  },
+  fab: {
+    margin: theme.spacing.unit * 0
   }
 });
 
@@ -78,8 +80,6 @@ const modalStyleEdit = {
   alignContent: "center",
   alignItems: "center",
   boxShadow: "10px 5px 5px black"
-
-  // opacity: ".9"
 };
 
 const modalStyleBlog = {
@@ -89,8 +89,6 @@ const modalStyleBlog = {
   alignContent: "center",
   alignItems: "center",
   boxShadow: "10px 5px 5px black"
-
-  // opacity: ".9"
 };
 const modalStyleEditBlog = {
   display: "flex",
@@ -99,12 +97,9 @@ const modalStyleEditBlog = {
   alignContent: "center",
   alignItems: "center",
   boxShadow: "10px 5px 5px black"
-
-  // opacity: ".9"
 };
 const modalIsOpen = {
   filter: "blur(5px) grayscale(50%)"
-  //  transform:" scale(0.9)",
 };
 
 function rand() {
@@ -300,8 +295,17 @@ class Profile extends React.Component {
               </div>
             </div>
             <div className={"welcome-message-profile"}>
-              <span style={{ fontSize: "39px", position: "relative", top:"-11px", paddingRight:"12px" }}>Welcome</span> to your
-              dashboard {currentUser.firstname}!
+              <span
+                style={{
+                  fontSize: "39px",
+                  position: "relative",
+                  top: "-11px",
+                  paddingRight: "12px"
+                }}
+              >
+                Welcome
+              </span>{" "}
+              to your dashboard {currentUser.firstname}!
               {/* Movie Fights Score: {addCommas(score) */}
             </div>
             <div className="blog-section">
@@ -317,6 +321,19 @@ class Profile extends React.Component {
                     position: "relative"
                   }}
                 />
+              ) : allBlogs.length === 0 ? (
+                <div
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop: "15%"
+                  }}
+                >
+                  Blog about your favorite movies...or, just whatever!
+                </div>
               ) : (
                 allBlogs.map((elem, idx) => (
                   <List className="blog-list">
@@ -365,28 +382,52 @@ class Profile extends React.Component {
                             )}
                           </Typography>
                           <div className="edit-blog-container">
-                            <Button
-                              variant="fab"
-                              mini
-                              style={{
-                                backgroundColor: "rgb(70, 73, 71, 0.83)",
-                                color: "white"
-                              }}
-                              onClick={() => handleEditBlogOpen(elem)}
-                              aria-label="edit"
-                              className={classes.button}
+                            <Tooltip
+                              id="tooltip-edit"
+                              title="Edit"
+                              enterDelay={300}
+                              leaveDelay={300}
+                              placement="bottom"
                             >
-                              <Icon size="small">edit_icon</Icon>
-                            </Button>
+                              <IconButton
+                                size="mini"
+                                variant="fab"
+                                mini
+                                onClick={() => handleEditBlogOpen(elem)}
+                                aria-label="Edit"
+                                className={classes.fab}
+                              >
+                                <Icon size="mini">edit_icon</Icon>
+                              </IconButton>
+                            </Tooltip>
+                            <div>
+                              <Tooltip
+                                id="tooltip-icon"
+                                enterDelay={300}
+                                leaveDelay={300}
+                                title="Delete"
+                                placement="bottom"
+                              >
+                                <IconButton
+                                  size="mini"
+                                  onClick={() => handleBlogDelete(elem)}
+                                  aria-label="Delete"
+                                >
+                                  <DeleteIcon />
+                                </IconButton>
+                              </Tooltip>
+                            </div>
                           </div>
-                          <div>
-                            <IconButton
-                              onClick={() => handleBlogDelete(elem)}
-                              aria-label="Delete"
-                            >
-                              <DeleteIcon />
-                            </IconButton>
-                          </div>
+                          {/* <div>
+                            <Tooltip id="tooltip-icon" title="Delete" placement="right-start">
+                              <IconButton
+                                onClick={() => handleBlogDelete(elem)}
+                                aria-label="Delete"
+                              >
+                                <DeleteIcon />
+                              </IconButton>
+                            </Tooltip>
+                          </div> */}
                         </CardContent>
                       </Card>
                     </ListItem>

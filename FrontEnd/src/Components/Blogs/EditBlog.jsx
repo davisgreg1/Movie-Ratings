@@ -155,7 +155,7 @@ class EditBlog extends Component {
               <div id="quick-user-info">
                 <RaisedButton
                   id="dumb-btn"
-                  style={{ backgroundColor: "#507dbc;", color: "white" }}
+                  style={{ backgroundColor: "#507dbc", color: "white" }}
                   onClick={fireRedirect}
                   disabled={!newBlogBody && !newBlogTitle}
                   variant="Submit"
