@@ -41,8 +41,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, "client/build")));
 
-app.use("/users", users);
 app.use("/", index);
+app.use("/users", users);
 
 //this takes all my front end routes
 app.get("*", (req, res) => {
