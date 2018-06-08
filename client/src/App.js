@@ -13,6 +13,9 @@ import swal from "sweetalert2";
 import axios from "axios";
 import "./Views/App.css";
 
+import dotenv from "dotenv";
+dotenv.load();
+
 const TMDB_KEY = process.env.REACT_APP_TMDB_API_KEY;
 const baseURL = `http://image.tmdb.org/t/p/w185`;
 const idArr = [

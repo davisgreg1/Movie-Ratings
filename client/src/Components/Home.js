@@ -12,9 +12,12 @@ import Input from "material-ui/Input";
 import currencyFormatter from "currency-formatter";
 
 import MovieList from "./MovieList";
-import SingleHomeMovie from "./SingleHomeMovie";
+import SingleHomeMovie from "./SingleHomeMovie"
 import swal from "sweetalert2";
 import "../Views/App.css";
+
+import dotenv from "dotenv";
+dotenv.load();
 
 const TMDB_KEY = process.env.REACT_APP_TMDB_API_KEY;
 
