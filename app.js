@@ -8,6 +8,7 @@ const session = require("express-session");
 const jwt = require('jsonwebtoken');
 const passport = require("passport");
 
+//not using index at this time.
 var index = require('./routes/index');
 var users = require('./routes/users');
 
