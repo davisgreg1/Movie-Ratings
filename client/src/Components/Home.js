@@ -185,6 +185,7 @@ class Home extends React.Component {
 
   //The two movies the user see on the home page to choose from.
   getTwoMovies = () => {
+    debugger;
     let randomMovieID1 = `${idArr[Math.floor(Math.random() * idArr.length)]}`;
     let randomMovieID2 = `${idArr1[Math.floor(Math.random() * idArr1.length)]}`;
     axios
