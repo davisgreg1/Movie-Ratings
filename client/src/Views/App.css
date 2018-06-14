@@ -399,9 +399,8 @@ div.home-container {
   text-align: center;
 }
 
-@media only screen and (max-width: 768px) {
+/* @media only screen and (max-width: 768px) {
   #root{
-    /* background-color: #507dbc; */
     background-color: red;
     width: 100%;
     height: 100%;
@@ -410,21 +409,12 @@ div.home-container {
  .app {
    width: 100%;
    height: 100%;
-   /* display: flex;
-   flex-direction: column; */
  }
  .choices-container {
-  /* display: -ms-flexbox; */
-  display: flex;
-
-  justify-content: space-between;
-  /* -ms-flex-direction: column; */
-  /* flex-direction: column; */
-  /* -ms-flex-pack: center; */
-  /* justify-content: center; */
-  /* -ms-flex-align: center; */
-  align-content: center;
-  /* margin-top: 8px; */
+   display: flex;
+   justify-content: space-between;
+   align-content: center;   
+   display: -ms-flexbox;
 }
 .default-home-screens{
   display: flex;
@@ -434,7 +424,6 @@ div.home-container {
 .home-choices{
   width: 100%;
   height: 100%;
-  /* border: 10px solid yellow; */
   display: flex;
   flex-direction: column;
   margin-left: -60px;
@@ -467,19 +456,16 @@ div.home-container {
   display: -ms-flexbox;
   display: flex;
   padding: 10px;
-  /* max-width: 345px; */
   -ms-flex-align: center;
   align-items: center;
   -ms-flex-direction: column;
   flex-direction: column;
-  /* width: 150px; */
   min-height: 275px;
 }
+} */
 
-}
-
-@media only screen and (min-width: 1024px) {
-  .single-movie-container {
+/* @media only screen and (min-width: 1024px) { */
+  /* .single-movie-container { */
     /* width: 100%;
     height: 100%;
     display: flex;
@@ -495,8 +481,8 @@ div.home-container {
     flex-wrap: wrap;
     padding: 50px;
     padding-top: 120px; */
-  }
-}
+  /* } */
+/* } */
 
 .single-movie {
   padding-bottom: 15px;
