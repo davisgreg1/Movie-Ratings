@@ -1,21 +1,16 @@
 import React from "react";
-
 import axios from "axios";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
-
 import Paper from "material-ui/Paper";
 import CircularProgress from "material-ui/Progress/CircularProgress";
-
 import Card from "material-ui/Card";
 import Input from "material-ui/Input";
 import currencyFormatter from "currency-formatter";
-
 import MovieList from "./MovieList";
 import SingleHomeMovie from "./SingleHomeMovie"
 import swal from "sweetalert2";
 import "../Views/App.css";
-
 import dotenv from "dotenv";
 dotenv.load();
 
@@ -284,7 +279,7 @@ class Home extends React.Component {
         imageHeight: 200,
         imageAlt: "Custom image",
         animation: true
-      });
+      })
     } else {
       swal({
         title: "Maybe Next Time!",
@@ -416,37 +411,3 @@ Home.propTypes = {
   classes: PropTypes.object.isRequired
 };
 export default withStyles(styles)(Home);
-/**
-|--------------------------------------------------
-|   Line 2:    'Redirect' is defined but never used          no-unused-vars
-  Line 3:    'Link' is defined but never used              no-unused-vars
-  Line 3:    'Route' is defined but never used             no-unused-vars
-  Line 7:    'AppBar' is defined but never used            no-unused-vars
-  Line 8:    'Toolbar' is defined but never used           no-unused-vars
-  Line 9:    'Typography' is defined but never used        no-unused-vars
-  Line 10:   'IconButton' is defined but never used        no-unused-vars
-  Line 11:   'MenuIcon' is defined but never used          no-unused-vars
-  Line 12:   'AccountCircle' is defined but never used     no-unused-vars
-  Line 15:   'Switch' is defined but never used            no-unused-vars
-  Line 16:   'CardActions' is defined but never used       no-unused-vars
-  Line 16:   'CardContent' is defined but never used       no-unused-vars
-  Line 16:   'CardMedia' is defined but never used         no-unused-vars
-  Line 19:   'FormControlLabel' is defined but never used  no-unused-vars
-  Line 19:   'FormGroup' is defined but never used         no-unused-vars
-  Line 20:   'Menu' is defined but never used              no-unused-vars
-  Line 20:   'MenuItem' is defined but never used          no-unused-vars
-  Line 21:   'Button' is defined but never used            no-unused-vars
-  Line 26:   'log' is defined but never used               no-unused-vars
-  Line 56:   'myStyle' is assigned a value but never used  no-unused-vars
-  Line 126:  Useless constructor                           no-useless-constructor
-  Line 149:  'data' is assigned a value but never used     no-unused-vars
-  Line 213:  eval can be harmful                           no-eval
-  Line 229:  eval can be harmful                           no-eval
-  Line 260:  'movie1' is assigned a value but never used   no-unused-vars
-  Line 261:  'movie2' is assigned a value but never used   no-unused-vars
-  Line 330:  'auth' is assigned a value but never used     no-unused-vars
-  Line 336:  'winner' is assigned a value but never used   no-unused-vars
-  Line 337:  'loser' is assigned a value but never used    no-unused-vars
-  Line 340:  'open' is assigned a value but never used     no-unused-vars
-|--------------------------------------------------
-*/

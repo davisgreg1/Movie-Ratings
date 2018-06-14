@@ -757,6 +757,7 @@ cursor: pointer; */
   }
 } */
 /* anything smaller than 570px GS5, PIXEL 2, PIXEL 2XL, IPHONE 5S, IPHONE 678 AND PLUS, IPHONE X */
+/*
 @media all and (max-width: 768px) {
   body,
   html {
@@ -781,7 +782,6 @@ cursor: pointer; */
     display: flex;
     width: 92vw;
     justify-content: baseline;
-    /* top: 0; */
     background-color: #507dbc;
   }
   .MuiPaper-root-12 {
@@ -821,7 +821,6 @@ cursor: pointer; */
     color: currentColor;
     border: 0;
     margin: 0;
-    /* padding: 19px 0 7px; */
     display: block;
     min-width: 0;
     flex-grow: 1;
@@ -849,13 +848,8 @@ cursor: pointer; */
     display: flex;
     flex-wrap: wrap;
     max-height: fit-content;
-    /* flex-direction: column;
-    width: 100%;
-    height: 100%;
-    justify-content: center; */
   }
   .SingleHomeMovie-card-115 {
-    /* height: 400px; */
     display: flex;
     padding: 10px;
     max-width: 345px;
@@ -865,3 +859,4 @@ cursor: pointer; */
     min-height: 275px;
   }
 }
+*/
