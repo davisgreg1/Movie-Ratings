@@ -199,9 +199,9 @@ class Profile extends React.Component {
   };
 
   componentDidMount() {
-    const { getUserScore, getAllBlogPosts } = this.props;
+    const { getAllBlogPosts } = this.props;
     window.addEventListener("scroll", this.hidePic);
-    getUserScore();
+
     getAllBlogPosts();
   }
 
@@ -284,7 +284,6 @@ class Profile extends React.Component {
                 Welcome
               </span>{" "}
               to your dashboard {currentUser.firstname}!
-              {/* Movie Fights Score: {addCommas(score) */}
             </div>
             <div className="blog-section">
               {!allBlogs ? (

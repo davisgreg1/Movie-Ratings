@@ -321,4 +321,8 @@ class Game extends React.Component {
         );
       }
     }
+<<<<<<< HEAD
     export default withStyles(styles)(Game);
+=======
+    export default withStyles(styles)(Game);
+>>>>>>> 2f22605c54dc18ff7a4e2ebaedfbfcb8698710d3
