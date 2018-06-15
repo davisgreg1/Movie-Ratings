@@ -112,13 +112,13 @@ class Game extends React.Component {
       movie2Revenue: "",
       movie1Budget: "",
       movie2Budget: "",
-      hasBeenClicked: false,
+      hasBeenClicked: false
     }
   }
 
   postScore = () => {
-    const { newScore} = this.state;
-    const { currentUser} = this.props;
+    const {newScore} = this.state;
+    const {currentUser} = this.props;
 
     axios
       .patch("users/score_update", {
@@ -142,7 +142,7 @@ class Game extends React.Component {
         this.setState({
           movie1: response, movie1Revenue: response.data.revenue, movie1Budget: response.data.budget,
           // eslint-disable-next-line
-          movie1MoneyEarned:  (parseInt(response.data.revenue) - parseInt(response.data.budget))
+          movie1MoneyEarned: (parseInt(response.data.revenue) - parseInt(response.data.budget))
         });
       })
       .then(axios.get(`http://api.themoviedb.org/3/movie/${randomMovieID2}?api_key=${TMDB_KEY}`).then(response => {
@@ -176,13 +176,7 @@ class Game extends React.Component {
         .reload();
     }
     e.preventDefault();
-    const {
-      winner,
-      loser,
-      movie1MoneyEarned,
-      movie2MoneyEarned,
-      hasBeenClicked
-    } = this.state;
+    const {winner, loser, movie1MoneyEarned, movie2MoneyEarned, hasBeenClicked} = this.state;
 
     let diff = movie1MoneyEarned - movie2MoneyEarned;
     let currentTargetJoined = e
@@ -233,8 +227,7 @@ class Game extends React.Component {
             showLoaderOnConfirm: true
           })
           .then(this.getTwoMovies())
-      }
-      else if (currentTargetJoined === loserJoined) {
+      } else if (currentTargetJoined === loserJoined) {
         this.setState({hasBeenClicked: true});
         swal({
           customClass: "animated headShake",
@@ -261,25 +254,26 @@ class Game extends React.Component {
         }
       };
 
-      componentDidMount() {
-       this.getTwoMovies()
+      getScore = () => {
         axios
           .get("/users/getcurrentscore")
           .then(res => {
-            this.setState({
-              newScore: res.data.data.points
-            });
+            this.setState({newScore: res.data.data.points});
           })
           .catch(err => {
             console.error("Error getting user score:", err);
           });
+      }
 
+      componentDidMount = () => {
+        this.getScore();
+        this.getTwoMovies();
       }
 
       render() {
         const {movie1, movie2, newScore} = this.state;
-        const {classes}=this.props
-        const {getWinner}=this
+        const {classes} = this.props
+        const {getWinner} = this
         return (
           <React.Fragment>
             <div id="movie-1-and-2-container">
@@ -294,22 +288,14 @@ class Game extends React.Component {
                       <CurrentScore score={newScore}/>
                     </div>
                     {!movie1 || !movie2
-                      ? 
-                      // (
-                      //   <span className="circle">
-                      //     <CircularProgress
-                      //       size={50}
-                      //       left={50}
-                      //       top={50}
-                      //       loadingColor="#FF9800"
-                      //       status="loading"
-                      //       style={{
-                      //       display: "inlineBlock",
-                      //       position: "relative"
-                      //     }}/>
-                      //   </span>
-                      // )
-                      window.location.reload()
+                      ?
+                      // (   <span className="circle">     <CircularProgress       size={50} left={50}
+                      //       top={50}       loadingColor="#FF9800"       status="loading"
+                      // style={{       display: "inlineBlock",       position: "relative" }}/>
+                      // </span> )
+                      window
+                        .location
+                        .reload()
                       : (
                         <div className="single-movie-container">
                           <Card
