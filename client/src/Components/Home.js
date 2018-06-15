@@ -158,7 +158,7 @@ class Home extends React.Component {
         });
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
       });
   };
 
@@ -193,7 +193,6 @@ class Home extends React.Component {
         `http://api.themoviedb.org/3/movie/${randomMovieID1}?api_key=${TMDB_KEY}`
       )
       .then(response => {
-        console.log("HOme.js Response:", response)
         this.setState({
           movie1: response,
           movie1Revenue: response.data.revenue,

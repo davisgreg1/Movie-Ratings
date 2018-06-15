@@ -393,7 +393,7 @@ class App extends React.Component {
         });
       })
       .catch(err => {
-        console.log("Error Getting User Info:", err);
+        console.error("Error Getting User Info:", err);
       });
 
     axios
@@ -405,7 +405,7 @@ class App extends React.Component {
       })
       .then(this.getLeaderBoard())
       .catch(err => {
-        console.log("Error Getting Score:", err);
+        console.error("Error Getting Score:", err);
       });
   }
 

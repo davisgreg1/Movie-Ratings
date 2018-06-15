@@ -23,7 +23,7 @@ export const signUp = user => dispatch => {
       dispatch(receiveCurrentUser(user));
     },
     error => {
-      console.log(("Sign-Up", error));
+      console.err(("Sign-Up", error));
     }
   );
 };
@@ -34,7 +34,7 @@ export const signIn = user => dispatch => {
       dispatch(receiveCurrentUser(user));
     },
     error => {
-      console.log(("Sign-In ", error));
+      console.err(("Sign-In ", error));
     }
   );
 };
@@ -45,7 +45,7 @@ export const signOut = () => dispatch => {
       dispatch(receiveCurrentUser(null));
     },
     error => {
-      console.log(("Log-Out", error));
+      console.err(("Log-Out", error));
     }
   );
 };

@@ -38,9 +38,6 @@ componentWillMount = () => {
       loggedIn
     } = this.props;
     const {fireRedirect} = this.state;
-    console.log("user in user profile:", user);
-    console.log("props in User Pro:", this.props)
-    console.log("props in User Pro:", loggedIn)
     // let user = { ...user };
 
     if(fireRedirect){

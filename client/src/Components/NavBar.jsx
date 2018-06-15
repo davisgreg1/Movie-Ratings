@@ -175,9 +175,7 @@ class NavBar extends Component {
   handleClose = () => {
     this.setState({ anchorEl: null });
   };
-  doSum = () => {
-    window.alert("nah");
-  };
+
 
   goToGame = () => {
     this.setState({
@@ -191,7 +189,7 @@ class NavBar extends Component {
     const { loggedIn } = this.props;
 
     if (goToGame) {
-      console.log("clicked");
+
     }
 
     if (loggedIn) {

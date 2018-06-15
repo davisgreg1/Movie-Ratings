@@ -42,10 +42,6 @@ class EditBlog extends Component {
     e.preventDefault();
     const { newBlogTitle, newBlogBody } = this.state;
     const { currentUser, blogToEdit } = this.props;
-    // let timeBlogPosted = new Date(Date.now());
-    console.log("currentUser is:", currentUser);
-    console.log("Blog to edit is:", blogToEdit);
-
     axios
       .patch("/users/edit_blog", {
         blog_title: newBlogTitle,
@@ -85,8 +81,6 @@ class EditBlog extends Component {
   };
 
   render() {
-    // console.log("state in edit blog:", this.state);
-    console.log("props in edit blog:", this.props);
     const { handleEditBlogSubmit, handleInputChange, fireRedirect } = this;
     const { classes, blogToEdit } = this.props;
     const { newBlogBody, newBlogTitle, doneEditing } = this.state;

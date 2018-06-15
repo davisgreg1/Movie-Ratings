@@ -57,7 +57,6 @@ class EditProfile extends Component {
         }
         // eslint-disable-next-line
         result.map(elem => {
-          console.log("cloud result:", result);
           if (!elem.public_id) {
             return "default";
           } else {
