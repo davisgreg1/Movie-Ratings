@@ -287,7 +287,8 @@ class Game extends React.Component {
                       Your score is:
                       <CurrentScore score={newScore}/>
                     </div>
-                    {!movie1 || !movie2
+                    {/* {
+                      !movie1 || !movie2
                       ?
                       // (   <span className="circle">     <CircularProgress       size={50} left={50}
                       //       top={50}       loadingColor="#FF9800"       status="loading"
@@ -313,9 +314,13 @@ class Game extends React.Component {
                             <SingleHomeMovie className="single-data" data={movie2}/>
                           </Card>
                         </div>
-                      )}
+                      )
+                      } */}
                   </div>
                 )}
+                  <p className="construction" style={{display:"flex", justifyContent:"center", alignContent:"center", marginTop:"15%", fontSize:"30px"}}>
+                      GAME IS UNDER CONSTRUCTION
+                    </p>
             </div>
           </React.Fragment>
         );
