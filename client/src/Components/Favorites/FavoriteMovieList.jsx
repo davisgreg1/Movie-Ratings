@@ -36,10 +36,9 @@ class FavoriteMovieList extends React.Component {
         data: { id: movie.id }
       })
       .then(response => {
-        console.log("Remove from Favs successfull");
       })
       .catch(error => {
-        console.log("Error in Remove Fav:", error);
+        console.error("Error in Remove Fav:", error);
       });
     window.location.reload();
   };

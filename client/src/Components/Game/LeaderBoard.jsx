@@ -34,7 +34,6 @@ class LeaderBoard extends React.Component {
 
   render() {
     const { classes, data } = this.props;
-    console.log("leaderBoard Props:", this.props);
 
     return (
       <Paper className={classes.root}>

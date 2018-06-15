@@ -140,17 +140,17 @@ class Profile extends React.Component {
 */
 
   handleBlogDelete = elem => {
-    console.log("the Elem:", elem);
+
     this.setState({
       blogToDelete: elem.id
     });
     axios
       .delete(`/users/removeBlog/${elem.id}`)
       .then(res => {
-        console.log("response from Delete!", res);
+
       })
       .catch(err => {
-        console.log("Error in Delete Blog:", err);
+       console.error("Error in Delete Blog:", err);
         return err;
       });
     window.location.reload();
@@ -194,7 +194,7 @@ class Profile extends React.Component {
         });
       })
       .catch(err => {
-        console.log("Error Getting Blogs:", err);
+       console.error("Error Getting Blogs:", err);
       });
   };
 

@@ -89,7 +89,7 @@ class RegisterUser extends React.Component {
       })
 
       .then(res => {
-        console.log("REZ from post:", res);
+
         this.setState({
           id: res.data.data.id,
           username: "",
@@ -105,15 +105,13 @@ class RegisterUser extends React.Component {
             id: this.state.id
           })
           .then(res => {
-            console.log("state in zeroo:", this.state);
-            console.log("Score RES:", res);
           })
           .catch(err => {
-            console.log("settLE ERr:", err);
+            console.error("settle score", err);
           });
       })
       .catch(err => {
-        console.log(err);
+        console.error(err);
         this.setState({
           email: "",
           firstname: "",
@@ -126,19 +124,18 @@ class RegisterUser extends React.Component {
   };
 
   settleTheScore = () => {
-    console.log("the state in settle the score", this.state);
     if (this.state.id === "") {
-      return console.log("the id is empty:", this.state);
+
     }
     axios
       .post("users/score_zero", {
         user_id: this.state.id
       })
       .then(res => {
-        console.log("Score RES:", res);
+
       })
       .catch(err => {
-        console.log("settLE ERr:", err);
+        console.error("settLE ERr:", err);
       });
   };
 

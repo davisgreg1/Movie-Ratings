@@ -47,17 +47,17 @@ class HomeScreenMovie extends React.Component {
         favorited_by: this.props.currentUser.id
       })
       .then(res => {
-        console.log(res);
+
       })
       .catch(error => {
-        console.log(error);
+        console.error("addToFavs",error);
       });
     window.location.reload();
   };
 
   render() {
     const { classes, data, loggedIn } = this.props;
-    console.log("the movie PROPS IN HOMESCREEN:", this.props);
+ 
     let baseURL = `http://image.tmdb.org/t/p/w185`;
     return (
 

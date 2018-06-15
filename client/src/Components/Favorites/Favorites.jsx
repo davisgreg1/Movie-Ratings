@@ -41,10 +41,9 @@ class Favorites extends Component {
           movieData: response,
           favorites: response.data.data
         });
-        console.log("Favs:", response);
       })
       .catch(error => {
-        console.log(error);
+        console.err("getAllFavs",error);
       });
   };
 
@@ -74,7 +73,7 @@ class Favorites extends Component {
         });
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
       });
    
   };

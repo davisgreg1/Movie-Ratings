@@ -111,7 +111,7 @@ class App extends React.Component {
         });
       })
       .catch(err => {
-        console.log(err);
+        console.error("Logout",err);
       });
   };
 
@@ -144,7 +144,7 @@ class App extends React.Component {
         });
       })
       .catch(err => {
-        console.log("Error Getting Blogs:", err);
+        console.error("Error Getting Blogs:", err);
       });
   };
 
@@ -157,7 +157,7 @@ class App extends React.Component {
         });
       })
       .catch(err => {
-        console.log("Error getting user score:", err);
+        console.error("Error getting user score:", err);
       });
   };
 
@@ -220,7 +220,7 @@ class App extends React.Component {
         });
       })
       .catch(err => {
-        console.log("error getting LeaderBoard:", err);
+        console.error("error getting LeaderBoard:", err);
       });
   };
 
@@ -234,10 +234,10 @@ class App extends React.Component {
         id: user.id
       })
       .then(res => {
-        console.log("Postedscore:", res);
+
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
       });
   };
 
@@ -254,7 +254,6 @@ class App extends React.Component {
         `http://api.themoviedb.org/3/movie/${randomMovieID1}?api_key=${TMDB_KEY}`
       )
       .then(response => {
-        console.log("THis is response in Game's APP.js:", response);
         this.setState({
           movie1: response,
           movie1Revenue: response.data.revenue,
@@ -296,7 +295,7 @@ class App extends React.Component {
           })
       )
       .catch(error => {
-        console.log(error);
+        console.error(error);
       });
   };
 
