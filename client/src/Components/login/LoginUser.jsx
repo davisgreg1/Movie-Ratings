@@ -77,7 +77,7 @@ class LoginUser extends React.Component {
           <div className="loginBox">
             <h1 className="site-name"> Movie Fights </h1>
 
-            <form onSubmit={submitLoginForm}>
+            <form className = "login-form" onSubmit={submitLoginForm}>
               <div className="login-user-username">
                 <TextField
                   className={classes.textField}

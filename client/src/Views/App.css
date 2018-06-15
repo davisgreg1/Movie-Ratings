@@ -569,6 +569,16 @@ cursor: pointer; */
   display: flex;
   justify-content: center;
 }
+.login-user-username{
+  width: 216px;
+  align-self: end;
+}
+
+.login-form{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
 
 #register-form {
   display: flex;
