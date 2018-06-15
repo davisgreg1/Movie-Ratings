@@ -1,12 +1,14 @@
-import React, { Component, Fragment } from "react";
-import { Link } from "react-router-dom";
-import { FormGroup } from "material-ui/Form";
+import React, {Component, Fragment} from "react";
+import {Link} from "react-router-dom";
+import {FormGroup} from "material-ui/Form";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "material-ui/Menu/MenuItem";
 import IconButton from "material-ui/IconButton";
 import Menu from "material-ui/Menu";
 import Fade from "@material-ui/core/Fade";
-import { withStyles } from "material-ui/styles";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import {withStyles} from "material-ui/styles";
 import AppBar from "material-ui/AppBar";
 import Toolbar from "material-ui/Toolbar";
 import Typography from "material-ui/Typography";
@@ -46,11 +48,7 @@ class NavBar extends Component {
         <AppBar position="sticky" className="testBar">
           <Toolbar className="testToolBar">
             <Link to="/">
-              <Typography
-                variant="title"
-                color="inherit"
-                className="NavBar-flex-2"
-              >
+              <Typography variant="title" color="inherit" className="NavBar-flex-2">
                 Movie Fights!
               </Typography>
             </Link>
@@ -67,16 +65,14 @@ class NavBar extends Component {
         <AppBar position="sticky" className="testBar">
           <Toolbar className="testToolBar">
             <Link to="/" className="links">
-              <Typography
-                variant="title"
-                color="inherit"
-                className="NavBar-flex-2"
-              >
+              <Typography variant="title" color="inherit" className="NavBar-flex-2">
                 Movie Fights!
               </Typography>
             </Link>
             <div className="iconbutton-container">
-              <Button href="/login" style={{ color: "white" }}>
+              <Button href="/login" style={{
+                color: "white"
+              }}>
                 Login/ Sign Up
               </Button>
             </div>
@@ -87,65 +83,68 @@ class NavBar extends Component {
   };
 
   loggedInNav = () => {
-    const { currentUser, logOut } = this.props;
-    const { anchorEl } = this.state;
+    const {currentUser, logOut} = this.props;
+    const {anchorEl} = this.state;
     let open = Boolean(this.state.anchorEl);
     return (
       <Fragment>
         <FormGroup className="seek">
           <Link to={`/users/${currentUser.username}`}>
-            <div title="Profile" />
+            <div title="Profile"/>
           </Link>
         </FormGroup>
         <AppBar position="sticky" className="testBar">
           <Toolbar className="testToolBar">
             <Link to="/" className="links">
-              <Typography
-                variant="title"
-                color="inherit"
-                className={this.props.classes.flex}
-              >
+              <Typography variant="title" color="inherit" className={this.props.classes.flex}>
                 Movie Fights!
               </Typography>
             </Link>
             <div>
               <IconButton
-                aria-owns={open ? "menu-appbar" : null}
+                aria-owns={open
+                ? "menu-appbar"
+                : null}
                 aria-haspopup="true"
                 onClick={this.handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
+                color="inherit">
+                <AccountCircle/>
               </IconButton>
-              <Menu
+              <Menu style={{outline: "none"}}
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right"
-                }}
+                vertical: "top",
+                horizontal: "right"
+              }}
                 transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right"
-                }}
+                vertical: "top",
+                horizontal: "right"
+              }}
                 open={open}
                 onClose={this.handleClose}
-                TransitionComponent={Fade}
-              >
-                <Link to={`/users/${currentUser.username}`} className="links">
-                  <MenuItem onClick={this.handleClose}>My Dashboard</MenuItem>
-                </Link>
-                <Link to="/game" className="links">
-                  <MenuItem onClick={this.handleClose}>Game</MenuItem>
-                </Link>
-                <Link to="/favorites" className="links">
-                  <MenuItem onClick={this.handleClose}>My Favorites</MenuItem>
-                </Link>
-                <Link to="/leaderboard" className="links">
-                  <MenuItem onClick={this.handleClose}>Leaderboard</MenuItem>
-                </Link>
+                TransitionComponent={Fade}>
+                <List>
+                  <Link to={`/users/${currentUser.username}`} className="links">
+                    <ListItem onClick={this.handleClose}>My Dashboard</ListItem>
+                  </Link>
+                  <Link to="/game" className="links">
+                    <ListItem onClick={this.handleClose}>Game</ListItem>
+                  </Link>
+                  <Link to="/favorites" className="links">
+                    <ListItem onClick={this.handleClose}>My Favorites</ListItem>
+                  </Link>
+                  <Link to="/leaderboard" className="links">
+                    <ListItem onClick={this.handleClose}>Leaderboard</ListItem>
+                  </Link>
+                </List>
               </Menu>
-              <Button href="/login" onClick={logOut} style={{ color: "white" }}>
+              <Button
+                href="/login"
+                onClick={logOut}
+                style={{
+                color: "white"
+              }}>
                 Logout
               </Button>
             </div>
@@ -157,25 +156,20 @@ class NavBar extends Component {
 
   handleChange = event => {
     if (this.props.currentUser) {
-      this.setState({
-        checked: true
-      });
+      this.setState({checked: true});
     } else {
-      this.setState({
-        checked: false
-      });
+      this.setState({checked: false});
     }
   };
 
   //Material UI Menu feature
   handleMenu = event => {
-    this.setState({ anchorEl: event.currentTarget });
+    this.setState({anchorEl: event.currentTarget});
   };
 
   handleClose = () => {
-    this.setState({ anchorEl: null });
+    this.setState({anchorEl: null});
   };
-
 
   goToGame = () => {
     this.setState({
@@ -184,13 +178,11 @@ class NavBar extends Component {
   };
 
   render() {
-    const { loggedInNav, loggedOutNav, onLoadNav } = this;
-    const { goToGame } = this.state;
-    const { loggedIn } = this.props;
+    const {loggedInNav, loggedOutNav, onLoadNav} = this;
+    const {goToGame} = this.state;
+    const {loggedIn} = this.props;
 
-    if (goToGame) {
-
-    }
+    if (goToGame) {}
 
     if (loggedIn) {
       return loggedInNav();
