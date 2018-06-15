@@ -13,8 +13,17 @@ import swal from "sweetalert2";
 import axios from "axios";
 import "./Views/App.css";
 
+//very fragile
+import JssProvider from 'react-jss/lib/JssProvider';
+import { createGenerateClassName } from '@material-ui/core/styles';
+
 import dotenv from "dotenv";
 dotenv.load();
+
+const generateClassName = createGenerateClassName({
+  dangerouslyUseGlobalCSS: true,
+  productionPrefix: 'c',
+});
 
 const TMDB_KEY = process.env.REACT_APP_TMDB_API_KEY;
 const baseURL = `http://image.tmdb.org/t/p/w185`;
@@ -72,6 +81,8 @@ const idArr1 = [
   "tt3778644",
   "tt1677720"
 ];
+
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -444,6 +455,7 @@ class App extends React.Component {
     } = this;
 
     return (
+      <JssProvider generateClassName={generateClassName}>
       <div className="app">
         <NavBar
           loggedIn={loggedIn}
@@ -554,6 +566,7 @@ class App extends React.Component {
           />
         </Switch>
       </div>
+      </JssProvider>
     );
   }
 }
