@@ -185,7 +185,7 @@ class Home extends React.Component {
 
   //The two movies the user see on the home page to choose from.
   getTwoMovies = () => {
-    debugger;
+    // debugger;
     let randomMovieID1 = `${idArr[Math.floor(Math.random() * idArr.length)]}`;
     let randomMovieID2 = `${idArr1[Math.floor(Math.random() * idArr1.length)]}`;
     axios
@@ -193,6 +193,7 @@ class Home extends React.Component {
         `http://api.themoviedb.org/3/movie/${randomMovieID1}?api_key=${TMDB_KEY}`
       )
       .then(response => {
+        console.log("HOme.js Response:", response)
         this.setState({
           movie1: response,
           movie1Revenue: response.data.revenue,
@@ -246,7 +247,6 @@ class Home extends React.Component {
     const {
       winner,
       loser,
-
       movie1MoneyEarned,
       movie2MoneyEarned
     } = this.state;

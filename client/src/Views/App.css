@@ -49,8 +49,6 @@ body {
 .testBar {
   display: flex;
   justify-content: space-around;
-  /* background-color: red; */
-  /* #253c78; */
 }
 
 .testToolBar {
@@ -58,7 +56,6 @@ body {
   justify-content: space-between;
   margin-top: -2px;
   background-color: #02182b;
-  /* background-color: rgb(70, 73, 71, 0.83); */
 }
 
                       /**
