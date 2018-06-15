@@ -2,7 +2,6 @@ import React, {Component, Fragment} from "react";
 import {Link} from "react-router-dom";
 import {FormGroup} from "material-ui/Form";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import MenuItem from "material-ui/Menu/MenuItem";
 import IconButton from "material-ui/IconButton";
 import Menu from "material-ui/Menu";
 import Fade from "@material-ui/core/Fade";

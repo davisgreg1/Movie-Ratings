@@ -41,7 +41,6 @@ class EditBlog extends Component {
   handleEditBlogSubmit = e => {
     e.preventDefault();
     const { newBlogTitle, newBlogBody } = this.state;
-    const { currentUser, blogToEdit } = this.props;
     axios
       .patch("/users/edit_blog", {
         blog_title: newBlogTitle,

@@ -2,21 +2,13 @@ import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import {withStyles} from "material-ui/styles";
-import Paper from "material-ui/Paper";
-import CircularProgress from "material-ui/Progress/CircularProgress";
-import Card from "material-ui/Card";
 import Input from "material-ui/Input";
-import currencyFormatter from "currency-formatter";
 import MovieList from "./MovieList";
-import SingleHomeMovie from "./SingleHomeMovie"
-import swal from "sweetalert2";
 import "../Views/App.css";
 import dotenv from "dotenv";
 dotenv.load();
 
 const TMDB_KEY = process.env.REACT_APP_TMDB_API_KEY;
-
-let baseURL = `http://image.tmdb.org/t/p/w185`;
 
 //Styles for Material UI
 const styles = {
@@ -50,11 +42,6 @@ const searchBarStyles = {
   backgroundColor: "whitesmoke",
   width: "100vw",
   paddingTop: "7px"
-};
-
-const movieStyles = {
-  display: "flex",
-  alignContent: "row"
 };
 
 //An array of IMDB ids to show 2 random movies on the home screen
@@ -217,63 +204,6 @@ class Home extends React.Component {
         console.error(error);
       }));
   };
-
-  //When the user selects one of the movies on the home page
-  // getWinner = e => {
-  //   if (!this.state.winner || !this.state.loser) {
-  //     window
-  //       .location
-  //       .reload();
-  //   }
-  //   const {winner, loser, movie1MoneyEarned, movie2MoneyEarned} = this.state;
-  //   let diff = movie1MoneyEarned - movie2MoneyEarned;
-
-  //   // the innerText and the winner object had more spaces than the other in some
-  //   // cases.
-  //   let joinedUpE = e
-  //     .currentTarget
-  //     .innerText
-  //     .split(" ")
-  //     .join("")
-  //     .trim();
-  //   let joinedUpWinner = this
-  //     .state
-  //     .winner
-  //     .original_title
-  //     .split(" ")
-  //     .join("")
-  //     .trim();
-
-  //   if (joinedUpE === joinedUpWinner) {
-  //     swal({
-  //       title: "Correct!",
-  //       html: `<div class="winnerBox"></h6><p><span class="home-winner">${winner
-  //         .original_title}</span> earned <span class="earned-more">${currencyFormatter
-  //         .format(Math.abs(diff), {
-  //           code: "USD"}
-  //       )} </span> more than <span class="home-loser">${loser.original_title}</span>!</p><span><h2>Sign up for more!</h2></span></div>`,
-  //           imageUrl: `${baseURL}${winner.backdrop_path}`,
-  //           imageWidth: 400,
-  //           imageHeight: 200,
-  //           imageAlt: "Custom image",
-  //           animation: true
-  //         })
-  //     } else {
-  //       swal({
-  //         title: "Maybe Next Time!",
-  //         html: `<div class="winnerBox"></h6><p><span class="home-loser">${loser
-  //           .original_title}</span> earned <span class="earned-more">${currencyFormatter
-  //           .format(Math.abs(diff), {
-  //             code: "USD"}
-  //       )} </span> less than <span class="home-winner">${winner.original_title}</span>!</p><span><h2>Sign up for more!</h2></span></div>`,
-  //             imageUrl: `${baseURL}${loser.backdrop_path}`,
-  //             imageWidth: 400,
-  //             imageHeight: 200,
-  //             imageAlt: "Custom image",
-  //             animation: true
-  //           });
-  //       }};
-
       setAuth = () => {
         if (this.state.user) {
           this.setState({
@@ -292,9 +222,9 @@ class Home extends React.Component {
       }
 
       render() {
-        const {classes, user, loggedIn} = this.props;
-        const {data, searchText, movie1, movie2} = this.state;
-        const {_keyPress, handleInput, getWinner} = this;
+        const { user, loggedIn} = this.props;
+        const {data, searchText} = this.state;
+        const {_keyPress, handleInput} = this;
 
         return (
           <React.Fragment>
