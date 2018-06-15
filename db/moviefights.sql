@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS moviefights;
-CREATE DATABASE moviefights;
+-- DROP DATABASE IF EXISTS moviefights;
+-- CREATE DATABASE moviefights;
 
-\c moviefights;
+-- \c moviefights;
 
 CREATE TABLE users (
   ID SERIAL PRIMARY KEY,
