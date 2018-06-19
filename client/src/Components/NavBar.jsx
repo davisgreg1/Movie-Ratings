@@ -123,7 +123,7 @@ class NavBar extends Component {
                 open={open}
                 onClose={this.handleClose}
                 TransitionComponent={Fade}>
-                <List>
+                <List style={{outline: "none"}}>
                   <Link to={`/users/${currentUser.username}`} className="links">
                     <ListItem onClick={this.handleClose}>My Dashboard</ListItem>
                   </Link>
