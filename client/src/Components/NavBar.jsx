@@ -67,11 +67,11 @@ class NavBar extends Component {
         <AppBar position="sticky" className="testBar">
           <Toolbar className="testToolBar">
             <Link to="/" className="links">
-              <Typography variant="title" color="inherit" className="NavBar-flex-2">
+              <Typography variant="title" color="inherit" className={this.props.classes.flex}>
                 Movie Fights!
               </Typography>
             </Link>
-            <div className="iconbutton-container">
+            <div className= "user-nav-options iconbutton-container">
               <Button href="/login" style={{
                 color: "white"
               }}>
