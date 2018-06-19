@@ -8,7 +8,7 @@ import "../Views/App.css";
 import dotenv from "dotenv";
 dotenv.load();
 
-const TMDB_KEY = process.env.REACT_APP_TMDB_API_KEY;
+const TMDB_KEY = process.env.REACT_APP_TMDB_API_KEY
 
 //Styles for Material UI
 const styles = {
@@ -121,7 +121,7 @@ class Home extends React.Component {
       winner: null,
       loser: null
     }
-    this.getTwoMovies = this.getTwoMovies.bind(this);
+    // this.getTwoMovies = this.getTwoMovies.bind(this);
   }
   
  
@@ -138,15 +138,16 @@ class Home extends React.Component {
 
   //List of movies based on the user's search
   getMovie = () => {
+    debugger;
     const {searchText} = this.state;
     axios
-      .get(`https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&language=en-US&query=${searchText}&page=1&include_adult=true`)
-      .then(response => {
-        this.setState({data: response});
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    .get(`https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&language=en-US&query=${searchText}&page=1&include_adult=true`)
+    .then(response => {
+      this.setState({data: response});
+    })
+    .catch(error => {
+      console.error(error);
+    });
   };
 
   //So user can hit `Enter` to submit their query
@@ -169,41 +170,41 @@ class Home extends React.Component {
   };
 
   //The two movies the user see on the home page to choose from.
-  getTwoMovies = () => {
-    debugger;
-    let randomMovieID1 = `${idArr[Math.floor(Math.random() * idArr.length)]}`;
-    let randomMovieID2 = `${idArr1[Math.floor(Math.random() * idArr1.length)]}`;
-    axios
-      .get(`https://api.themoviedb.org/3/find/${randomMovieID1}?api_key=${TMDB_KEY}&language=en-US&external_source=imdb_id`)
-      .then(response => {
-        this.setState({
-          movie1: response, movie1Revenue: response.data.revenue, movie1Budget: response.data.budget,
-          // eslint-disable-next-line
-          movie1MoneyEarned: eval(response.data.revenue - response.data.budget)
-        });
-      })
-      .catch(error => {
-        console.error(error);
-      })
-      .then(axios.get(`https://api.themoviedb.org/3/find/${randomMovieID2}?api_key=${TMDB_KEY}&language=en-US&external_source=imdb_id`).then(response => {
-        this.setState({
-          movie2: response, movie2Revenue: response.data.revenue, movie2Budget: response.data.budget,
-          // eslint-disable-next-line
-          movie2MoneyEarned: eval(response.data.revenue - response.data.budget)
-        });
-      }).then(() => {
-        this.setState({
-          winner: this.state.movie1MoneyEarned >= this.state.movie2MoneyEarned
-            ? this.state.movie1.data
-            : this.state.movie2.data,
-          loser: this.state.movie1MoneyEarned <= this.state.movie2MoneyEarned
-            ? this.state.movie1.data
-            : this.state.movie2.data
-        });
-      }).catch(error => {
-        console.error(error);
-      }));
-  };
+  // getTwoMovies = () => {
+    // debugger;
+  //   let randomMovieID1 = `${idArr[Math.floor(Math.random() * idArr.length)]}`;
+  //   let randomMovieID2 = `${idArr1[Math.floor(Math.random() * idArr1.length)]}`;
+  //   axios
+  //     .get(`https://api.themoviedb.org/3/find/${randomMovieID1}?api_key=${TMDB_KEY}&language=en-US&external_source=imdb_id`)
+  //     .then(response => {
+  //       this.setState({
+  //         movie1: response, movie1Revenue: response.data.revenue, movie1Budget: response.data.budget,
+  //         // eslint-disable-next-line
+  //         movie1MoneyEarned: eval(response.data.revenue - response.data.budget)
+  //       });
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //     })
+  //     .then(axios.get(`https://api.themoviedb.org/3/find/${randomMovieID2}?api_key=${TMDB_KEY}&language=en-US&external_source=imdb_id`).then(response => {
+  //       this.setState({
+  //         movie2: response, movie2Revenue: response.data.revenue, movie2Budget: response.data.budget,
+  //         // eslint-disable-next-line
+  //         movie2MoneyEarned: eval(response.data.revenue - response.data.budget)
+  //       });
+  //     }).then(() => {
+  //       this.setState({
+  //         winner: this.state.movie1MoneyEarned >= this.state.movie2MoneyEarned
+  //           ? this.state.movie1.data
+  //           : this.state.movie2.data,
+  //         loser: this.state.movie1MoneyEarned <= this.state.movie2MoneyEarned
+  //           ? this.state.movie1.data
+  //           : this.state.movie2.data
+  //       });
+  //     }).catch(error => {
+  //       console.error(error);
+  //     }));
+  // };
       setAuth = () => {
         if (this.state.user) {
           this.setState({
@@ -217,7 +218,7 @@ class Home extends React.Component {
       };
 
       componentWillMount() {
-        this.getTwoMovies();
+        // this.getTwoMovies();
         this.setUser();
       }
 
@@ -225,6 +226,7 @@ class Home extends React.Component {
         const { user, loggedIn} = this.props;
         const {data, searchText} = this.state;
         const {_keyPress, handleInput} = this;
+        console.log("data", data)
 
         return (
           <React.Fragment>
