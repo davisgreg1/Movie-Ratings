@@ -35,7 +35,7 @@ body {
   display: flex;
 }
 
-                /**
+/**
                 |--------------------------------------------------
                 | NAVBAR BELOW...
                 |--------------------------------------------------
@@ -50,7 +50,9 @@ body {
   display: flex;
   justify-content: space-around;
 }
-
+NavBar-flex-2 {
+  padding-left: 25px;
+}
 .testToolBar {
   display: flex;
   justify-content: space-between;
@@ -58,7 +60,11 @@ body {
   background-color: #02182b;
 }
 
-                      /**
+.user-nav-options{
+  padding-right: 25px;
+}
+
+/**
                       |--------------------------------------------------
                       | HOME SCREEN BELOW...
                       |--------------------------------------------------
@@ -72,13 +78,13 @@ body {
   margin-top: 8px;
 }
 
-.home-winner{
+.home-winner {
   color: green;
 }
-.home-loser{
+.home-loser {
   color: red;
 }
-.winnerBox{
+.winnerBox {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -126,7 +132,6 @@ div.home-container {
 }
 
 .home-nav {
- 
   width: 100%;
   display: flex;
   justify-content: flex-end;
@@ -135,14 +140,12 @@ div.home-container {
 }
 
 .nav-item-container {
-
   display: flex;
   width: 25%;
   height: 5%;
 }
 
 .nav-item {
-
   display: flex;
   justify-content: space-between;
   padding: 10px;
@@ -300,7 +303,7 @@ div.home-container {
   font-size: 50px;
 }
 
-        /**
+/**
         |--------------------------------------------------
         | PROFILE SCREEN BELOW...
         |--------------------------------------------------
@@ -325,11 +328,14 @@ div.home-container {
 
 .profile-img {
   display: flex;
-  justify-content: center;
   flex-direction: column;
   position: fixed;
+  align-items: center;
+  padding-left: 25px;
 }
-
+/* .user-choices{
+  padding-right: 25px;
+} */
 .welcome-message-profile {
   display: flex;
   justify-content: center;
@@ -462,8 +468,8 @@ div.home-container {
 } */
 
 /* @media only screen and (min-width: 1024px) { */
-  /* .single-movie-container { */
-    /* width: 100%;
+/* .single-movie-container { */
+/* width: 100%;
     height: 100%;
     display: flex;
     flex-direction: row;
@@ -471,21 +477,21 @@ div.home-container {
     justify-content: space-around;
     padding: 100px 115px 0px 100px;
     margin-top: -100px; */
-    /* display: flex;
+/* display: flex;
     justify-content: center;
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
     padding: 50px;
     padding-top: 120px; */
-  /* } */
+/* } */
 /* } */
 
 .single-movie {
   padding-bottom: 15px;
 }
 
-          /*____________________________________________________
+/*____________________________________________________
           | EDIT PROFILE BELOW
           |_____________________________________________________
           */
@@ -542,7 +548,7 @@ cursor: pointer; */
   flex-grow: 1;
   background-color: black;
 }
-                                                /*____________________________________________________
+/*____________________________________________________
                                                 | LOGIN USER BELOW
                                                 |_____________________________________________________
                                                 */
@@ -569,12 +575,12 @@ cursor: pointer; */
   display: flex;
   justify-content: center;
 }
-.login-user-username{
+.login-user-username {
   width: 216px;
   align-self: end;
 }
 
-.login-form{
+.login-form {
   display: flex;
   justify-content: center;
   flex-direction: column;

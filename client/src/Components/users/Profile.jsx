@@ -92,10 +92,7 @@ const modalIsOpen = {
   filter: "blur(5px) grayscale(50%)"
 };
 
-
-
 class Profile extends React.Component {
-
   state = {
     auth: false,
     anchorEl: null,
@@ -242,12 +239,12 @@ class Profile extends React.Component {
                 style={profileStyle}
                 alt={`${currentUser.firstname}`}
               />
-              <div>
+              <div className="user-choices">
                 {currentUser.blurb ? (
                   <p className="blurb">"{currentUser.blurb}"</p>
                 ) : null}
               </div>
-              <div>
+              <div className="user-choices">
                 <Modal
                   style={modalStyleBlog}
                   aria-labelledby="openBlogTitle"
@@ -259,7 +256,7 @@ class Profile extends React.Component {
                 </Modal>
                 <Button onClick={this.handleBlogOpen}>New Blog</Button>
               </div>
-              <div>
+              <div className="user-choices">
                 <Modal
                   style={modalStyleEdit}
                   aria-labelledby="openEditProfileTitle"
