@@ -15,19 +15,22 @@ import Button from "material-ui/Button";
 import "../Views/App.css";
 
 const styles = {
-  root: {
-    height: "100%",
-    flexGrow: 1
-  },
   flex: {
     flex: 1,
     color: "white",
-    paddingLeft: "0px"
+    paddingLeft: "25px"
   },
   menuButton: {
     marginLeft: -12,
     marginRight: 20
-  }
+  },
+  root: {
+    height: "100%",
+    flexGrow: 1
+    // width: '100%',
+    // maxWidth: 360,
+    // backgroundColor: theme.palette.background.paper,
+  },
 };
 
 class NavBar extends Component {
@@ -82,7 +85,7 @@ class NavBar extends Component {
   };
 
   loggedInNav = () => {
-    const {currentUser, logOut} = this.props;
+    const {currentUser, logOut, classes} = this.props;
     const {anchorEl} = this.state;
     let open = Boolean(this.state.anchorEl);
     return (
@@ -99,7 +102,7 @@ class NavBar extends Component {
                 Movie Fights!
               </Typography>
             </Link>
-            <div>
+            <div className="user-nav-options">
               <IconButton
                 aria-owns={open
                 ? "menu-appbar"
@@ -123,7 +126,7 @@ class NavBar extends Component {
                 open={open}
                 onClose={this.handleClose}
                 TransitionComponent={Fade}>
-                <List style={{outline: "none"}}>
+                <List component="nav" style={{outline: "none"}}>
                   <Link to={`/users/${currentUser.username}`} className="links">
                     <ListItem onClick={this.handleClose}>My Dashboard</ListItem>
                   </Link>
