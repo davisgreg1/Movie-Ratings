@@ -1,14 +1,15 @@
 import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
-import {withStyles} from "material-ui/styles";
+import { withStyles } from "material-ui/styles";
 import Input from "material-ui/Input";
 import MovieList from "./MovieList";
+import TopMovies from "./TopMovies";
 import "../Views/App.css";
 import dotenv from "dotenv";
 dotenv.load();
 
-const TMDB_KEY = process.env.REACT_APP_TMDB_API_KEY
+const TMDB_KEY = process.env.REACT_APP_TMDB_API_KEY;
 
 //Styles for Material UI
 const styles = {
@@ -102,8 +103,8 @@ const idArr1 = [
 
 class Home extends React.Component {
   constructor(props) {
-    super(props)
-  
+    super(props);
+
     this.state = {
       user: null,
       searchText: "",
@@ -119,35 +120,36 @@ class Home extends React.Component {
       movie2Budget: "",
       movie2MoneyEarned: "",
       winner: null,
-      loser: null
-    }
+      loser: null,
+      topMovies: null
+    };
     // this.getTwoMovies = this.getTwoMovies.bind(this);
   }
-  
- 
 
   handleInput = e => {
-    this.setState({searchText: e.target.value});
+    this.setState({ searchText: e.target.value });
     // Uncomment the following line to get live updates as user types `caution: rate
     // limit`
     this.getMovie();
     if (!this.state.searchText.length) {
-      this.setState({data: null});
+      this.setState({ data: null });
     }
   };
 
   //List of movies based on the user's search
   getMovie = () => {
     debugger;
-    const {searchText} = this.state;
+    const { searchText } = this.state;
     axios
-    .get(`https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&language=en-US&query=${searchText}&page=1&include_adult=true`)
-    .then(response => {
-      this.setState({data: response});
-    })
-    .catch(error => {
-      console.error(error);
-    });
+      .get(
+        `https://api.themoviedb.org/3/search/movie?api_key=d3b24aad8f7a69f5d20f89822a6102f8&language=en-US&query=${searchText}&page=1&include_adult=true`
+      )
+      .then(response => {
+        this.setState({ data: response });
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
 
   //So user can hit `Enter` to submit their query
@@ -159,19 +161,34 @@ class Home extends React.Component {
 
   //To clear the list of movies from the screen if there's no text in Search Bar
   clearData = () => {
-    const {searchText} = this.state;
+    const { searchText } = this.state;
     if (!searchText) {
-      this.setState({data: null});
+      this.setState({ data: null });
     }
   };
 
   handleChange = (event, checked) => {
-    this.setState({auth: checked});
+    this.setState({ auth: checked });
+  };
+
+  getTopMovies = () => {
+    axios
+      .get(
+        `https://api.themoviedb.org/3/discover/movie?api_key=d3b24aad8f7a69f5d20f89822a6102f8&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`
+      )
+      .then(res => {
+        this.setState({
+          topMovies: res.data.results
+        });
+      })
+      .catch(err => {
+        console.error(err);
+      });
   };
 
   //The two movies the user see on the home page to choose from.
   // getTwoMovies = () => {
-    // debugger;
+  // debugger;
   //   let randomMovieID1 = `${idArr[Math.floor(Math.random() * idArr.length)]}`;
   //   let randomMovieID2 = `${idArr1[Math.floor(Math.random() * idArr1.length)]}`;
   //   axios
@@ -205,62 +222,60 @@ class Home extends React.Component {
   //       console.error(error);
   //     }));
   // };
-      setAuth = () => {
-        if (this.state.user) {
-          this.setState({
-            auth: !this.state.auth
-          });
-        }
-      };
-
-      setUser = () => {
-        this.setState({user: this.props.user});
-      };
-
-      componentWillMount() {
-        // this.getTwoMovies();
-        this.setUser();
-      }
-
-      render() {
-        const { user, loggedIn} = this.props;
-        const {data, searchText} = this.state;
-        const {_keyPress, handleInput} = this;
-        console.log("data", data)
-
-        return (
-          <React.Fragment>
-            <div className="choices-container">
-              <div className="searchy" style={searchBarStyles}>
-                <i className="material-icons md-dark seek">search</i>
-                <Input
-                  onChange={handleInput}
-                  onKeyPress={_keyPress}
-                  placeholder="Search for movies..."
-                  fullWidth={true}
-                  inputProps={{
-                  "aria-label": "Description"
-                }}/>
-              </div>
-              <div className="home-movie-container">
-                {searchText
-                  ? (<MovieList data={data} loggedIn={loggedIn} currentUser={user}/>)
-                  :
-             
-              <p style={{
-                color: "black"
-              }}>
-                "This product uses the TMDb API but is not endorsed or certified by TMDb."
-              </p>
-                  }
-              </div>
-            </div>
-          </React.Fragment>
-        );
-      }
+  setAuth = () => {
+    if (this.state.user) {
+      this.setState({
+        auth: !this.state.auth
+      });
     }
+  };
 
-    Home.propTypes = {
-      classes: PropTypes.object.isRequired
-    };
-    export default withStyles(styles)(Home);
+  setUser = () => {
+    this.setState({ user: this.props.user });
+  };
+
+  componentWillMount() {
+    this.getTopMovies();
+    this.setUser();
+  }
+
+  render() {
+    const { user, loggedIn } = this.props;
+    const { data, searchText,topMovies } = this.state;
+    const { _keyPress, handleInput } = this;
+    console.log("state", this.state);
+
+    return (
+      <React.Fragment>
+        <div className="choices-container">
+          <div className="searchy" style={searchBarStyles}>
+            <i className="material-icons md-dark seek">search</i>
+            <Input
+              onChange={handleInput}
+              onKeyPress={_keyPress}
+              placeholder="Search for movies..."
+              fullWidth={true}
+              inputProps={{
+                "aria-label": "Description"
+              }}
+            />
+          </div>
+          <div className="home-movie-container">
+            {searchText ? (
+              <MovieList data={data} loggedIn={loggedIn} currentUser={user} />
+            ) : (
+              <TopMovies
+                message={`This product uses the TMDb API but is not endorsed or certified by TMDb.`} topMovies={topMovies}
+              />
+            )}
+          </div>
+        </div>
+      </React.Fragment>
+    );
+  }
+}
+
+Home.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+export default withStyles(styles)(Home);

@@ -241,8 +241,9 @@ div.home-container {
   height: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 5%;
+  margin-top: 2%;
   align-items: center;
+  flex-direction: column;
 }
 
 .all-cards-container {
