@@ -142,7 +142,7 @@ class Home extends React.Component {
     const { searchText } = this.state;
     axios
       .get(
-        `https://api.themoviedb.org/3/search/movie?api_key=d3b24aad8f7a69f5d20f89822a6102f8&language=en-US&query=${searchText}&page=1&include_adult=true`
+        `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&language=en-US&query=${searchText}&page=1&include_adult=true`
       )
       .then(response => {
         this.setState({ data: response });
@@ -174,7 +174,7 @@ class Home extends React.Component {
   getTopMovies = () => {
     axios
       .get(
-        `https://api.themoviedb.org/3/discover/movie?api_key=d3b24aad8f7a69f5d20f89822a6102f8&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`
+        `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`
       )
       .then(res => {
         this.setState({
