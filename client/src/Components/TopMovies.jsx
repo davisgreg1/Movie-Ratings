@@ -25,6 +25,9 @@ const styles = theme => ({
 });
 
 function TopMovies(props) {
+  console.log("height:",window.innerHeight, "width:", window.innerWidth)
+  const mobileScreen = window.innerWidth <= 768;
+
   const baseURL = `http://image.tmdb.org/t/p/w185`;
   const { classes, topMovies, message } = props;
 
@@ -40,7 +43,7 @@ function TopMovies(props) {
                   status="loading"
                 /> : 
       <div className={classes.root}>
-        <GridList cellHeight={560} className={classes.gridList} cols={topMovies.length % 2 === 0 ? 4 : 3}>
+        <GridList cellHeight={560} className={classes.gridList} cols={mobileScreen ? 2 : topMovies.length % 2 === 0 ? 4 : 3}>
           {topMovies.map((movie, idx) => (
             <GridListTile key={idx} cols={1} style={{height:"450px"}} className="top-movie-posters">
               <img src={`${baseURL}${movie.poster_path}`} alt={movie.title} />
