@@ -13,19 +13,23 @@ body {
   /* background-color: whitesmoke; */
   color: white;
 }
+
 /* input{
   background-color: whitesmoke;
 } */
+
 #root {
   width: 100vw;
   height: 100vh;
   /* padding-left: 40px;
   padding-right: 40px; */
 }
+
 .entire-app {
   width: 100vw;
   height: 100vh;
 }
+
 .app {
   width: 100vw;
   height: 100vh;
@@ -50,9 +54,11 @@ body {
   display: flex;
   justify-content: space-around;
 }
+
 NavBar-flex-2 {
   padding-left: 25px;
 }
+
 .testToolBar {
   display: flex;
   justify-content: space-between;
@@ -60,7 +66,7 @@ NavBar-flex-2 {
   background-color: #02182b;
 }
 
-.user-nav-options{
+.user-nav-options {
   padding-right: 25px;
 }
 
@@ -76,24 +82,29 @@ NavBar-flex-2 {
   justify-content: center;
   align-items: center;
   margin-top: 8px;
+  height: 100%;
 }
 
 .home-winner {
   color: green;
 }
+
 .home-loser {
   color: red;
 }
+
 .winnerBox {
   display: flex;
   justify-content: center;
   flex-direction: column;
 }
+
 .home-choices {
   display: flex;
   justify-content: center;
   width: 100%;
 }
+
 .hidden {
   display: none;
 }
@@ -167,16 +178,15 @@ div.home-container {
   font-family: "Material Icons";
   font-style: normal;
   font-weight: 400;
-  src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
-  src: local("Material Icons"), local("MaterialIcons-Regular"),
-    url(https://example.com/MaterialIcons-Regular.woff2) format("woff2"),
-    url(https://example.com/MaterialIcons-Regular.woff) format("woff"),
-    url(https://example.com/MaterialIcons-Regular.ttf) format("truetype");
+  src: url(https://example.com/MaterialIcons-Regular.eot);
+  /* For IE6-8 */
+  src: local("Material Icons"), local("MaterialIcons-Regular"), url(https://example.com/MaterialIcons-Regular.woff2) format("woff2"), url(https://example.com/MaterialIcons-Regular.woff) format("woff"), url(https://example.com/MaterialIcons-Regular.ttf) format("truetype");
 }
 
 .material-icons.md-dark {
   color: rgba(0, 0, 0, 0.54);
 }
+
 .material-icons.md-dark.md-inactive {
   color: rgba(0, 0, 0, 0.26);
 }
@@ -184,6 +194,7 @@ div.home-container {
 .material-icons.md-light {
   color: rgba(255, 255, 255, 1);
 }
+
 .material-icons.md-light.md-inactive {
   color: rgba(255, 255, 255, 0.3);
 }
@@ -192,7 +203,8 @@ div.home-container {
   font-family: "Material Icons";
   font-weight: normal;
   font-style: normal;
-  font-size: 24px; /* Preferred icon size */
+  font-size: 24px;
+  /* Preferred icon size */
   display: inline-block;
   line-height: 1;
   text-transform: none;
@@ -200,15 +212,12 @@ div.home-container {
   word-wrap: normal;
   white-space: nowrap;
   direction: ltr;
-
   /* Support for all WebKit browsers. */
   -webkit-font-smoothing: antialiased;
   /* Support for Safari and Chrome. */
   text-rendering: optimizeLegibility;
-
   /* Support for Firefox. */
   -moz-osx-font-smoothing: grayscale;
-
   /* Support for IE. */
   font-feature-settings: "liga";
 }
@@ -240,25 +249,41 @@ div.home-container {
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: center;
-  margin-top: 2%;
+  justify-content: space-between;
   align-items: center;
   flex-direction: column;
+}
+
+.loading-circ {
+  display: flex;
+  align-self: center;
+  margin-bottom: 25%;
+}
+
+#tmdb-line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1%;
 }
 
 .all-cards-container {
   display: flex;
   justify-content: space-around;
 }
+
 .aSingleMovieCard {
   display: flex;
 }
+
 .card-container {
   display: flex;
 }
+
 .movie-list {
   display: flex;
 }
+
 .movie-list-container {
   display: flex;
   flex-direction: row;
@@ -288,6 +313,7 @@ div.home-container {
   padding: 100px 115px 0px 100px;
   margin-top: -100px;
 }
+
 .movie-btn {
   cursor: pointer;
 }
@@ -297,8 +323,10 @@ div.home-container {
         | EDIT BLOG SCREEN BELOW...
         |--------------------------------------------------
         */
+
 /*THIS GIVES MY EDIT BLOG MODAL A TRANSPARENT BACKGROUND. MATERIAL UI MADE IT TRICKY*/
-.MuiModal-root-112 > :nth-child {
+
+.MuiModal-root-112> :nth-child {
   background-color: rgba(0, 0, 0, 0);
   user-select: none;
   font-size: 50px;
@@ -334,9 +362,11 @@ div.home-container {
   align-items: center;
   padding-left: 25px;
 }
+
 /* .user-choices{
   padding-right: 25px;
 } */
+
 .welcome-message-profile {
   display: flex;
   justify-content: center;
@@ -403,90 +433,43 @@ div.home-container {
   text-align: center;
 }
 
-/* @media only screen and (max-width: 768px) {
-  #root{
-    background-color: red;
-    width: 100%;
-    height: 100%;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 768px) {
+  #greeting {
+    display: none;
   }
-
- .app {
-   width: 100%;
-   height: 100%;
- }
- .choices-container {
-   display: flex;
-   justify-content: space-between;
-   align-content: center;   
-   display: -ms-flexbox;
-}
-.default-home-screens{
-  display: flex;
-  width: 100%;
-  height: 100%;
-}
-.home-choices{
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-left: -60px;
-}
-.home-movie-container {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -ms-flex-direction: column;
-  flex-direction: column;
-    width: 100%;
-    height: 100%
-}
-.single-movie-containers{
-  display: flex;
-  width: 100%;
-  height: 100%;
-}
-#movie_num_1 #movie_num_2{
-  display: flex;
-  width: 100%;
-  height: 100%;
-}
-.single-data{
-  width: 100%;
-}
-.SingleHomeMovie-card-115 {
-  height: 400px;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 10px;
-  -ms-flex-align: center;
-  align-items: center;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  min-height: 275px;
-}
-} */
-
-/* @media only screen and (min-width: 1024px) { */
-/* .single-movie-container { */
-/* width: 100%;
-    height: 100%;
+  .profile {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 100px 115px 0px 100px;
-    margin-top: -100px; */
-/* display: flex;
     justify-content: center;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 50px;
-    padding-top: 120px; */
-/* } */
-/* } */
+    flex-direction: column;
+  }
+  .profile-img {
+    position: inherit;
+  }
+  .loading-circ {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-item-align: center;
+    align-self: center;
+    margin-bottom: 90%;
+  }
+  #modal-form {
+    width: inherit;
+  }
+}
 
 .single-movie {
   padding-bottom: 15px;
@@ -496,6 +479,7 @@ div.home-container {
           | EDIT PROFILE BELOW
           |_____________________________________________________
           */
+
 .MuiModal-root-112 {
   /* background-color: gainsboro; */
   /* opacity: .9; */
@@ -524,7 +508,8 @@ box-sizing: border-box;
 overflow: hidden; 
 */
   background-color: #8baaad;
-  border-style: none; /*
+  border-style: none;
+  /*
 cursor: pointer; */
 }
 
@@ -549,6 +534,7 @@ cursor: pointer; */
   flex-grow: 1;
   background-color: black;
 }
+
 /*____________________________________________________
                                                 | LOGIN USER BELOW
                                                 |_____________________________________________________
@@ -562,6 +548,7 @@ cursor: pointer; */
   flex-direction: column;
   align-items: center;
 }
+
 .login-user-container {
   width: 100vw;
   /* height: 100vh; */
@@ -571,11 +558,13 @@ cursor: pointer; */
   align-content: center;
   align-items: center;
 }
+
 .login-user-username,
 .login-user-password {
   display: flex;
   justify-content: center;
 }
+
 .login-user-username {
   width: 216px;
   align-self: end;
@@ -593,6 +582,7 @@ cursor: pointer; */
   justify-content: center;
   align-items: center;
 }
+
 .getAppBox {
   /* height: 100%; */
   width: 100vw;
@@ -614,9 +604,11 @@ cursor: pointer; */
   flex-wrap: wrap;
   justify-content: space-around;
 }
+
 .pad {
   padding-top: 7px;
 }
+
 .FavoriteMovieList-card-102 {
   display: flex;
   /* padding: 10px; */
@@ -635,27 +627,34 @@ cursor: pointer; */
   color: red;
   font-size: 25px;
 }
+
 #win-win {
   display: flex;
   justify-content: center;
   background-color: black;
 }
+
 .swal-alert {
   background-color: whitesmoke;
 }
+
 #swal-message-right {
   color: green;
   font-size: 25px;
 }
+
 #movie-1-and-2-container {
   background-image: url("https://res.cloudinary.com/movie-fights/image/upload/v1528322015/theaterCurtain.jpg");
   height: 900px;
   /* height: 100%; */
 }
+
 .MuiFormGroup-root-94 {
   margin-top: -8px;
 }
+
 /* default */
+
 /* @media only screen and (min-width: 500px) {
   body,
   html {
@@ -670,6 +669,7 @@ cursor: pointer; */
 } */
 
 /* web displays and above also iPad Pro*/
+
 /* @media all and (min-width: 1024px) and (max-width: 1370px) {
   body,
   html, #root {
@@ -744,6 +744,7 @@ cursor: pointer; */
 }  */
 
 /* iPad but not iPad Pro*/
+
 /* @media all and (min-width: 570px) and (max-width: 767px) {
   body,
   html {
@@ -756,7 +757,9 @@ cursor: pointer; */
     color: white;
   }
 } */
+
 /* anything smaller than 570px GS5, PIXEL 2, PIXEL 2XL, IPHONE 5S, IPHONE 678 AND PLUS, IPHONE X */
+
 /*
 @media all and (max-width: 768px) {
   body,

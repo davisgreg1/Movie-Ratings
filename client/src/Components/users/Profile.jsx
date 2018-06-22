@@ -93,26 +93,31 @@ const modalIsOpen = {
 };
 
 class Profile extends React.Component {
-  state = {
-    auth: false,
-    anchorEl: null,
-    fireRedirect: false,
-    blogs: null,
-    isHide: false,
-    editOpen: false,
-    blogOpen: false,
-    blogEditOpen: false,
-    blogToEdit: null,
-    blogToDelete: null
-  };
-
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+      auth: false,
+      anchorEl: null,
+      fireRedirect: false,
+      blogs: null,
+      isHide: false,
+      editOpen: false,
+      blogOpen: false,
+      blogEditOpen: false,
+      blogToEdit: null,
+      blogToDelete: null
+    };
+   this.hidePic = this.hidePic.bind(this);
+  }
+  
   hidePic = () => {
     let { isHide } = this.state;
     window.scrollY > this.prev
       ? !isHide && this.setState({ isHide: true })
       : isHide && this.setState({ isHide: false });
 
-    this.prev = window.scrollY;
+    this.prev = window.scrollY + 1;
   };
 
   handleBlogOpen = e => {
@@ -228,10 +233,12 @@ class Profile extends React.Component {
       <React.Fragment>
         {currentUser ? (
           <div
-            className="flex profile"
+            className="profile"
             style={blogOpen || editOpen || blogEditOpen ? modalIsOpen : null}
           >
+            {/* left section of profile */}
             <div className={"animated profile-img " + classHide}>
+            {/* user image */}
               <img
                 src={`${base}${currentUser.imgurl}`}
                 width="175px"
@@ -239,11 +246,13 @@ class Profile extends React.Component {
                 style={profileStyle}
                 alt={`${currentUser.firstname}`}
               />
+              {/* user blurb */}
               <div className="user-choices">
                 {currentUser.blurb ? (
                   <p className="blurb">"{currentUser.blurb}"</p>
                 ) : null}
               </div>
+                {/* new blog */}
               <div className="user-choices">
                 <Modal
                   style={modalStyleBlog}
@@ -256,6 +265,7 @@ class Profile extends React.Component {
                 </Modal>
                 <Button onClick={this.handleBlogOpen}>New Blog</Button>
               </div>
+                  {/* edit profile */}
               <div className="user-choices">
                 <Modal
                   style={modalStyleEdit}
@@ -269,7 +279,8 @@ class Profile extends React.Component {
                 <Button onClick={this.handleEditOpen}>Edit Profile</Button>
               </div>
             </div>
-            <div className={"welcome-message-profile"}>
+            {/* welcome greeting */}
+            <div className={"welcome-message-profile"} id="greeting">
               <span
                 style={{
                   fontSize: "39px",
@@ -282,6 +293,8 @@ class Profile extends React.Component {
               </span>{" "}
               to your dashboard {currentUser.firstname}!
             </div>
+
+            {/* blog section */}
             <div className="blog-section">
               {!allBlogs ? (
                 <CircularProgress
@@ -409,6 +422,7 @@ class Profile extends React.Component {
                 <EditBlog currentUser={currentUser} blogToEdit={blogToEdit} />
               </Modal>
             </div>
+
           </div>
         ) : (
           <div>Must Be Logged In...</div>

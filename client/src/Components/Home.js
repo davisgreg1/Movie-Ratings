@@ -186,42 +186,6 @@ class Home extends React.Component {
       });
   };
 
-  //The two movies the user see on the home page to choose from.
-  // getTwoMovies = () => {
-  // debugger;
-  //   let randomMovieID1 = `${idArr[Math.floor(Math.random() * idArr.length)]}`;
-  //   let randomMovieID2 = `${idArr1[Math.floor(Math.random() * idArr1.length)]}`;
-  //   axios
-  //     .get(`https://api.themoviedb.org/3/find/${randomMovieID1}?api_key=${TMDB_KEY}&language=en-US&external_source=imdb_id`)
-  //     .then(response => {
-  //       this.setState({
-  //         movie1: response, movie1Revenue: response.data.revenue, movie1Budget: response.data.budget,
-  //         // eslint-disable-next-line
-  //         movie1MoneyEarned: eval(response.data.revenue - response.data.budget)
-  //       });
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //     })
-  //     .then(axios.get(`https://api.themoviedb.org/3/find/${randomMovieID2}?api_key=${TMDB_KEY}&language=en-US&external_source=imdb_id`).then(response => {
-  //       this.setState({
-  //         movie2: response, movie2Revenue: response.data.revenue, movie2Budget: response.data.budget,
-  //         // eslint-disable-next-line
-  //         movie2MoneyEarned: eval(response.data.revenue - response.data.budget)
-  //       });
-  //     }).then(() => {
-  //       this.setState({
-  //         winner: this.state.movie1MoneyEarned >= this.state.movie2MoneyEarned
-  //           ? this.state.movie1.data
-  //           : this.state.movie2.data,
-  //         loser: this.state.movie1MoneyEarned <= this.state.movie2MoneyEarned
-  //           ? this.state.movie1.data
-  //           : this.state.movie2.data
-  //       });
-  //     }).catch(error => {
-  //       console.error(error);
-  //     }));
-  // };
   setAuth = () => {
     if (this.state.user) {
       this.setState({
@@ -261,6 +225,7 @@ class Home extends React.Component {
             />
           </div>
           <div className="home-movie-container">
+          <div style={{fontSize:"30px"}}>TOP MOVIES</div>
             {searchText ? (
               <MovieList data={data} loggedIn={loggedIn} currentUser={user} />
             ) : (
