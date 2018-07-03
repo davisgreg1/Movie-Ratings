@@ -216,7 +216,7 @@ class Home extends React.Component {
             <i className="material-icons md-dark seek">search</i>
             <Input
               onChange={handleInput}
-              onKeyPress={_keyPress}
+              onKeyDown={_keyPress}
               placeholder="Search for movies..."
               fullWidth={true}
               inputProps={{
