@@ -141,7 +141,7 @@ class Game extends React.Component {
     let randomMovieID2 = `${idArr1[Math.floor(Math.random() * idArr1.length)]}`;
 
     axios
-      .get(`http://api.themoviedb.org/3/movie/${randomMovieID1}?api_key=${TMDB_KEY}&language=en-US`)
+      .get(`https://api.themoviedb.org/3/movie/${randomMovieID1}?api_key=${TMDB_KEY}&language=en-US`)
       .then(response => {
         this.setState({
           movie1: response, movie1Revenue: response.data.revenue, movie1Budget: response.data.budget,
@@ -149,7 +149,7 @@ class Game extends React.Component {
           movie1MoneyEarned: (parseInt(response.data.revenue) - parseInt(response.data.budget))
         });
       })
-      .then(axios.get(`http://api.themoviedb.org/3/movie/${randomMovieID2}?api_key=${TMDB_KEY}&language=en-US`)
+      .then(axios.get(`https://api.themoviedb.org/3/movie/${randomMovieID2}?api_key=${TMDB_KEY}&language=en-US`)
         .then(response => {
         this.setState({
           movie2: response, movie2Revenue: response.data.revenue, movie2Budget: response.data.budget,
