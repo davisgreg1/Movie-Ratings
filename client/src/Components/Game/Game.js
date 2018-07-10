@@ -274,7 +274,6 @@ class Game extends React.Component {
         const {movie1, movie2, newScore} = this.state;
         const {classes} = this.props
         const {getWinner} = this
-        console.log("state in game:", this.state)
         return (
           <React.Fragment>
             <div id="movie-1-and-2-container">
@@ -303,7 +302,6 @@ class Game extends React.Component {
                           }}/>
                         </span>
                       )
-                      // window   .location   .reload()
                       : (
                         <div className="single-movie-container">
                           <Card
@@ -322,20 +320,10 @@ class Game extends React.Component {
                           </Card>
                         </div>
                       )
-}
+                    }
                   </div>
                 )}
-              {/* <p
-                className="construction"
-                style={{
-                display: "flex",
-                justifyContent: "center",
-                alignContent: "center",
-                marginTop: "15%",
-                fontSize: "30px"
-              }}>
-                GAME IS CURRENTLY UNDER CONSTRUCTION
-              </p> */}
+
             </div>
           </React.Fragment>
         );
