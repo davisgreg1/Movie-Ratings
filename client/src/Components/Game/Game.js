@@ -302,7 +302,6 @@ class Game extends React.Component {
                           }}/>
                         </span>
                       )
-                      // window   .location   .reload()
                       : (
                         <div className="single-movie-container">
                           <Card
@@ -324,17 +323,7 @@ class Game extends React.Component {
 }
                   </div>
                 )}
-              {/* <p
-                className="construction"
-                style={{
-                display: "flex",
-                justifyContent: "center",
-                alignContent: "center",
-                marginTop: "15%",
-                fontSize: "30px"
-              }}>
-                GAME IS CURRENTLY UNDER CONSTRUCTION
-              </p> */}
+         
             </div>
           </React.Fragment>
         );
