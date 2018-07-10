@@ -320,10 +320,10 @@ class Game extends React.Component {
                           </Card>
                         </div>
                       )
-}
+                    }
                   </div>
                 )}
-         
+
             </div>
           </React.Fragment>
         );
