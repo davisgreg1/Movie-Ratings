@@ -271,6 +271,7 @@ class Game extends React.Component {
       }
 
       render() {
+        console.log("state in Game:", this.state)
         const {movie1, movie2, newScore} = this.state;
         const {classes} = this.props
         const {getWinner} = this
@@ -323,7 +324,6 @@ class Game extends React.Component {
                     }
                   </div>
                 )}
-
             </div>
           </React.Fragment>
         );

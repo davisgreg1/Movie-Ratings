@@ -207,7 +207,6 @@ class Home extends React.Component {
     const { user, loggedIn } = this.props;
     const { data, searchText,topMovies } = this.state;
     const { _keyPress, handleInput } = this;
-    console.log("state", this.state);
 
     return (
       <React.Fragment>
