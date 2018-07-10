@@ -19,58 +19,58 @@ const TMDB_KEY = process.env.REACT_APP_TMDB_API_KEY;
 const baseURL = `http://image.tmdb.org/t/p/w185`;
 
 const idArr = [
-  "tt0111161",
-  "tt0068646",
-  "tt0071562",
-  "tt0468569",
-  "tt0050083",
-  "tt0108052",
-  "tt0110912",
-  "tt0167260",
-  "tt0060196",
-  "tt0137523",
-  "tt0120737",
-  "tt1615160",
-  "tt0451279",
-  "tt4574334",
-  "tt5580390",
-  "tt3501632",
-  "tt0109830",
-  "tt0080684",
-  "tt1375666",
-  "tt0167261",
-  "tt0073486",
-  "tt0099685",
-  "tt0133093"
+  "278",
+  "238",
+  "424",
+  "497",
+  "680",
+  "550",
+  "155",
+  "539",
+  "769",
+  "13",
+  "1891",
+  "73",
+  "122",
+  "27205",
+  "274",
+  "11",
+  "157336",
+  "8587",
+  "111",
+  "98",
+  "603",
+  "16869",
+  "348"
 ];
 const idArr1 = [
-  "tt0047478",
-  "tt0076759",
-  "tt0120382",
-  "tt0107290",
-  "tt0477348",
-  "tt0395169",
-  "tt1201607",
-  "tt0264464",
-  "tt1856101",
-  "tt0435761",
-  "tt1675434",
-  "tt0120815",
-  "tt0361748",
-  "tt0180093",
-  "tt0054215",
-  "tt1485796",
-  "tt2283362",
-  "tt1259528",
-  "tt2527336",
-  "tt2380307",
-  "tt4765284",
-  "tt5052448",
-  "tt1396484",
-  "tt5463162",
-  "tt4154756",
-  "tt3778644",
-  "tt1677720"
+  "857",
+  "489",
+  "641",
+  "150540",
+  "37165",
+  "68718",
+  "106646",
+  "76203",
+  "313369",
+  "118340",
+  "354912",
+  "24",
+  "640",
+  "1402",
+  "11036",
+  "142",
+  "286217",
+  "100402",
+  "383498",
+  "8358",
+  "650",
+  "1372",
+  "419430",
+  "9516",
+  "101299",
+  "601",
+  "64956"
 ];
 
 const styles = {
@@ -130,14 +130,18 @@ class Game extends React.Component {
         console.error(error);
       });
   };
-
+/**
+|--------------------------------------------------
+| https://api.themoviedb.org/3/movie/354912?api_key=d3b24aad8f7a69f5d20f89822a6102f8&language=en-US
+|--------------------------------------------------
+*/
   getTwoMovies = () => {
     this.setState({hasBeenClicked: false});
     let randomMovieID1 = `${idArr[Math.floor(Math.random() * idArr.length)]}`;
     let randomMovieID2 = `${idArr1[Math.floor(Math.random() * idArr1.length)]}`;
 
     axios
-      .get(`http://api.themoviedb.org/3/movie/${randomMovieID1}?api_key=d3b24aad8f7a69f5d20f89822a6102f8`)
+      .get(`http://api.themoviedb.org/3/movie/${randomMovieID1}?api_key=${TMDB_KEY}&language=en-US`)
       .then(response => {
         this.setState({
           movie1: response, movie1Revenue: response.data.revenue, movie1Budget: response.data.budget,
@@ -145,7 +149,8 @@ class Game extends React.Component {
           movie1MoneyEarned: (parseInt(response.data.revenue) - parseInt(response.data.budget))
         });
       })
-      .then(axios.get(`http://api.themoviedb.org/3/movie/${randomMovieID2}?api_key=d3b24aad8f7a69f5d20f89822a6102f8`).then(response => {
+      .then(axios.get(`http://api.themoviedb.org/3/movie/${randomMovieID2}?api_key=${TMDB_KEY}&language=en-US`)
+        .then(response => {
         this.setState({
           movie2: response, movie2Revenue: response.data.revenue, movie2Budget: response.data.budget,
           // eslint-disable-next-line
