@@ -9,7 +9,7 @@ import CurrentScore from "./CurrentScore";
 import "../../Views/App.css";
 import "../../Views/animate.css";
 import Card from "material-ui/Card";
-// import CircularProgress from "material-ui/Progress/CircularProgress";
+import CircularProgress from "material-ui/Progress/CircularProgress";
 import {withStyles} from "material-ui/styles";
 
 import dotenv from "dotenv";
@@ -274,6 +274,7 @@ class Game extends React.Component {
         const {movie1, movie2, newScore} = this.state;
         const {classes} = this.props
         const {getWinner} = this
+        console.log("state in game:", this.state)
         return (
           <React.Fragment>
             <div id="movie-1-and-2-container">
@@ -287,16 +288,22 @@ class Game extends React.Component {
                       Your score is:
                       <CurrentScore score={newScore}/>
                     </div>
-                    {/* {
-                      !movie1 || !movie2
-                      ?
-                      // (   <span className="circle">     <CircularProgress       size={50} left={50}
-                      //       top={50}       loadingColor="#FF9800"       status="loading"
-                      // style={{       display: "inlineBlock",       position: "relative" }}/>
-                      // </span> )
-                      window
-                        .location
-                        .reload()
+                    {!movie1 || !movie2
+                      ? (
+                        <span className="circle">
+                          <CircularProgress
+                            size={50}
+                            left={50}
+                            top={50}
+                            loadingColor="#FF9800"
+                            status="loading"
+                            style={{
+                            display: "inlineBlock",
+                            position: "relative"
+                          }}/>
+                        </span>
+                      )
+                      // window   .location   .reload()
                       : (
                         <div className="single-movie-container">
                           <Card
@@ -315,12 +322,20 @@ class Game extends React.Component {
                           </Card>
                         </div>
                       )
-                      } */}
+}
                   </div>
                 )}
-                  <p className="construction" style={{display:"flex", justifyContent:"center", alignContent:"center", marginTop:"15%", fontSize:"30px"}}>
-                      GAME IS UNDER CONSTRUCTION
-                    </p>
+              {/* <p
+                className="construction"
+                style={{
+                display: "flex",
+                justifyContent: "center",
+                alignContent: "center",
+                marginTop: "15%",
+                fontSize: "30px"
+              }}>
+                GAME IS CURRENTLY UNDER CONSTRUCTION
+              </p> */}
             </div>
           </React.Fragment>
         );
