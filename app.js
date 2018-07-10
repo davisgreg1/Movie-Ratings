@@ -5,7 +5,6 @@ var logger = require("morgan");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 const session = require("express-session");
-const jwt = require("jsonwebtoken");
 const passport = require("passport");
 
 //not using index at this time.

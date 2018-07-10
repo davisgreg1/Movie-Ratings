@@ -8,6 +8,7 @@ import TableHead from "material-ui/Table/TableHead";
 import TableRow from "material-ui/Table/TableRow";
 import Paper from "material-ui/Paper";
 import { addCommas } from "../../utils/movieData";
+import "../../Views/App.css";
 
 const styles = theme => ({
   root: {
@@ -36,10 +37,10 @@ class LeaderBoard extends React.Component {
     const { classes, data } = this.props;
 
     return (
-      <Paper className={classes.root}>
+      <Paper className={classes.root} id="leaderboards">
         {data ? (
-          <Table className={classes.table}>
-            <TableHead>
+          <Table className={classes.table} >
+            <TableHead className="leaderboard-data">
               <TableRow>
                 <TableCell>Player</TableCell>
                 <TableCell numeric>Points</TableCell>

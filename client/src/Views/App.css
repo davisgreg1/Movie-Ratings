@@ -64,6 +64,7 @@ NavBar-flex-2 {
   justify-content: space-between;
   margin-top: -2px;
   background-color: #02182b;
+  width: auto;
 }
 
 .user-nav-options {
@@ -433,19 +434,73 @@ div.home-container {
   text-align: center;
 }
 
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3) {
+  #greeting {
+    display: none;
+  }
+  .profile {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .profile-img {
+    position: inherit;
+  }
+  .loading-circ {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-item-align: center;
+    align-self: center;
+    margin-bottom: 90%;
+  }
+  #modal-form {
+    width: inherit;
+  }
+  .testBar {
+    justify-content: space-between;
+  }
 
+}
 
-
-
-
-
-
-
-
-
-
-
-
+/* @media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) {
+  body,
+  html {
+    display: flex;
+    justify-content: center;
+    width: 200px;
+  }
+  #greeting {
+    display: none;
+  }
+  .profile {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .profile-img {
+    position: inherit;
+  }
+  .loading-circ {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-item-align: center;
+    align-self: center;
+    margin-bottom: 90%;
+  }
+  #modal-form {
+    width: inherit;
+  }
+  .testToolBar {
+    width: 50%;
+  }
+  .testBar {
+    width: 50%;
+    justify-content: space-between;
+  }
+} */
 
 @media only screen and (max-width: 768px) {
   #greeting {
@@ -468,6 +523,12 @@ div.home-container {
   }
   #modal-form {
     width: inherit;
+  }
+  .testBar {
+    justify-content: space-between;
+  }
+  .leaderboard-data{
+    width: 50%
   }
 }
 
