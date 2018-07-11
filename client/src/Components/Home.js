@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
-import { withStyles } from "material-ui/styles";
+import {withStyles} from "material-ui/styles";
 import Input from "material-ui/Input";
 import MovieList from "./MovieList";
 import TopMovies from "./TopMovies";
@@ -127,25 +127,23 @@ class Home extends React.Component {
   }
 
   handleInput = e => {
-    this.setState({ searchText: e.target.value });
+    this.setState({searchText: e.target.value});
     // Uncomment the following line to get live updates as user types `caution: rate
     // limit`
     this.getMovie();
     if (!this.state.searchText.length) {
-      this.setState({ data: null });
+      this.setState({data: null});
     }
   };
 
   //List of movies based on the user's search
   getMovie = () => {
     debugger;
-    const { searchText } = this.state;
+    const {searchText} = this.state;
     axios
-      .get(
-        `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&language=en-US&query=${searchText}&page=1&include_adult=true`
-      )
+      .get(`https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&language=en-US&query=${searchText}&page=1&include_adult=true`)
       .then(response => {
-        this.setState({ data: response });
+        this.setState({data: response});
       })
       .catch(error => {
         console.error(error);
@@ -161,25 +159,21 @@ class Home extends React.Component {
 
   //To clear the list of movies from the screen if there's no text in Search Bar
   clearData = () => {
-    const { searchText } = this.state;
+    const {searchText} = this.state;
     if (!searchText) {
-      this.setState({ data: null });
+      this.setState({data: null});
     }
   };
 
   handleChange = (event, checked) => {
-    this.setState({ auth: checked });
+    this.setState({auth: checked});
   };
 
   getTopMovies = () => {
     axios
-      .get(
-        `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`
-      )
+      .get(`https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`)
       .then(res => {
-        this.setState({
-          topMovies: res.data.results
-        });
+        this.setState({topMovies: res.data.results});
       })
       .catch(err => {
         console.error(err);
@@ -195,7 +189,7 @@ class Home extends React.Component {
   };
 
   setUser = () => {
-    this.setState({ user: this.props.user });
+    this.setState({user: this.props.user});
   };
 
   componentWillMount() {
@@ -204,9 +198,9 @@ class Home extends React.Component {
   }
 
   render() {
-    const { user, loggedIn } = this.props;
-    const { data, searchText,topMovies } = this.state;
-    const { _keyPress, handleInput } = this;
+    const {user, loggedIn} = this.props;
+    const {data, searchText, topMovies} = this.state;
+    const {_keyPress, handleInput} = this;
 
     return (
       <React.Fragment>
@@ -219,19 +213,20 @@ class Home extends React.Component {
               placeholder="Search for movies..."
               fullWidth={true}
               inputProps={{
-                "aria-label": "Description"
-              }}
-            />
+              "aria-label": "Description"
+            }}/>
           </div>
           <div className="home-movie-container">
-          <div style={{fontSize:"30px"}}>TOP MOVIES</div>
-            {searchText ? (
-              <MovieList data={data} loggedIn={loggedIn} currentUser={user} />
-            ) : (
-              <TopMovies
-                message={`This product uses the TMDb API but is not endorsed or certified by TMDb.`} topMovies={topMovies}
-              />
-            )}
+            <div style={{
+              fontSize: "30px"
+            }}>TOP MOVIES</div>
+            {searchText
+              ? (<MovieList data={data} loggedIn={loggedIn} currentUser={user}/>)
+              : (<TopMovies
+                loggedIn={loggedIn}
+                currentUser={user}
+                message={`This product uses the TMDb API but is not endorsed or certified by TMDb.`}
+                topMovies={topMovies}/>)}
           </div>
         </div>
       </React.Fragment>

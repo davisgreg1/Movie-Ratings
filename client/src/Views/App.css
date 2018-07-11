@@ -559,6 +559,10 @@ div.home-container {
   /* height: 100vh; */
 }
 
+.upload_widget_{
+  cursor: pointer;
+}
+
 #upload_widget_opener {
   /* display: flex; */
   /* justify-content: center;

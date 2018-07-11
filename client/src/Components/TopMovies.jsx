@@ -1,10 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
+import IconButton from "@material-ui/core/IconButton";
+import StarBorderIcon from '@material-ui/icons/StarBorder';
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import CircularProgress from "@material-ui/core/CircularProgress";
+import axios from "axios";
 
 const styles = theme => ({
   root: {
@@ -21,15 +24,37 @@ const styles = theme => ({
   },
   subheader: {
     width: "100%"
-  }
+  },
+  icon: {
+    color: 'white',
+  },
+  clickedIcon: {
+    color: 'gold',
+  },
 });
 
 function TopMovies(props) {
-  console.log("height:",window.innerHeight, "width:", window.innerWidth)
   const mobileScreen = window.innerWidth <= 768;
-
   const baseURL = `http://image.tmdb.org/t/p/w185`;
-  const { classes, topMovies, message } = props;
+  const { classes, topMovies, message, loggedIn } = props;
+
+  const addToFavs = movie => {
+    const {currentUser} = props;
+    let baseURL = `http://image.tmdb.org/t/p/w185`;
+    axios
+      .post("/users/addFavorites", {
+        movie_imdb_id: movie.id,
+        movie_title: movie.original_title,
+        movie_imgurl: `${baseURL}${movie.poster_path}`,
+        movie_website: `https://www.themoviedb.org/movie/${movie.id}`,
+        favorited_by: currentUser.id
+      })
+      .then(res => {})
+      .catch(error => {
+        console.error("addToFavs in TopMovies:",error)
+      });
+    // window.location.reload();
+  };
 
   return (
     <React.Fragment>
@@ -49,12 +74,12 @@ function TopMovies(props) {
               <img src={`${baseURL}${movie.poster_path}`} alt={movie.title} />
               <GridListTileBar
               title={movie.title}
-              subtitle={<span>Sign up to Play Movie Fights</span>}
-            //   actionIcon={
-            //     <IconButton className={classes.icon}>
-            //       <InfoIcon />
-            //     </IconButton>
-            //   }
+              subtitle={!loggedIn ?<span>Sign up to Play Movie Fights</span>:null}
+              actionIcon= {loggedIn ? 
+                <IconButton className={classes.icon}>
+                  <StarBorderIcon onClick={()=>addToFavs(movie)}/>
+                </IconButton>
+              :null}
             />
             </GridListTile>
           ))}
