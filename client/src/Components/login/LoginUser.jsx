@@ -103,6 +103,7 @@ class LoginUser extends React.Component {
                       id="adornment-password"
                       type={showPassword ? "text" : "password"}
                       value={password}
+                      placeholder="Password"
                       name="password"
                       onChange={handleInputChange}
                       endAdornment={
