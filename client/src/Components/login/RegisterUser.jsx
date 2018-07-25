@@ -228,6 +228,7 @@ class RegisterUser extends React.Component {
                     id="adornment-password"
                     type={showPassword ? "text" : "password"}
                     value={password}
+                    placeholder="Password"
                     name="password"
                     onChange={handleInput}
                     endAdornment={
