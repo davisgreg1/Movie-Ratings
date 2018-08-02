@@ -92,7 +92,7 @@ class TopMovies extends React.Component {
               actionIcon = {loggedIn ? 
                 <IconButton className={classes.icon}>
                   <StarBorderIcon onClick={()=>addToFavs(movie)}/>
-                </IconButton>https://moviefights.herokuapp.com/register
+                </IconButton>
               : null}
             />
             </GridListTile>
