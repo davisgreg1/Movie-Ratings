@@ -33,14 +33,21 @@ const styles = theme => ({
   },
 });
 
-function TopMovies(props) {
-  const mobileScreen = window.innerWidth <= 768;
-  const baseURL = `http://image.tmdb.org/t/p/w185`;
-  const { classes, topMovies, message, loggedIn } = props;
+class TopMovies extends React.Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+       favClicked: false
+    }
+  }
+   addToFavs = movie => {
+     const {currentUser} = this.props;
+     let baseURL = `http://image.tmdb.org/t/p/w185`;
 
-  const addToFavs = movie => {
-    const {currentUser} = props;
-    let baseURL = `http://image.tmdb.org/t/p/w185`;
+     this.setState({
+       favClicked: true
+     })
     axios
       .post("/users/addFavorites", {
         movie_imdb_id: movie.id,
@@ -56,6 +63,12 @@ function TopMovies(props) {
     // window.location.reload();
   };
 
+  render(){
+    const { classes, topMovies, message, loggedIn } = this.props;
+    const {favClicked}=this.state;
+    const {addToFavs}=this;   
+    const mobileScreen = window.innerWidth <= 768;
+    const baseURL = `http://image.tmdb.org/t/p/w185`;
   return (
     <React.Fragment>
         {!topMovies ?      
@@ -70,24 +83,25 @@ function TopMovies(props) {
       <div className={classes.root}>
         <GridList cellHeight={560} className={classes.gridList} cols={mobileScreen ? 2 : topMovies.length % 2 === 0 ? 4 : 3}>
           {topMovies.map((movie, idx) => (
-            <GridListTile key={idx} cols={1} style={{height:"450px"}} className="top-movie-posters">
+            <GridListTile key={idx} cols={1} style={{height:"450px"}}        className="top-movie-posters">
               <img src={`${baseURL}${movie.poster_path}`} alt={movie.title} />
               <GridListTileBar
               title={movie.title}
-              subtitle={!loggedIn ?<span>Sign up to Play Movie Fights</span>:null}
-              actionIcon= {loggedIn ? 
+              subtitle={!loggedIn ? <span>Sign up to Play Movie Fights</span> : null}
+              actionIcon = {loggedIn ? 
                 <IconButton className={classes.icon}>
                   <StarBorderIcon onClick={()=>addToFavs(movie)}/>
-                </IconButton>
-              :null}
+                </IconButton>https://moviefights.herokuapp.com/register
+              : null}
             />
             </GridListTile>
           ))}
         </GridList>
-      <p id="tmdb-line"><img id="tmdb-logo" width="36px" height="36px" src="https://www.themoviedb.org/static_cache/v4/logos/208x226-stacked-green-9484383bd9853615c113f020def5cbe27f6d08a84ff834f41371f223ebad4a3c.png" alt="tmdb logo"/>{message}</p>
+      <p id="tmdb-line"><img id="tmdb-logo" width="36px" height="36px" src="https://www.themoviedb.org/assets/1/v4/logos/312x276-primary-green-74212f6247252a023be0f02a5a45794925c3689117da9d20ffe47742a665c518.png" alt="tmdb logo"/>{message}</p>
       </div>}
     </React.Fragment>
   );
+}
 }
 
 TopMovies.propTypes = {
