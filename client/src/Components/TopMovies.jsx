@@ -8,6 +8,7 @@ import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "axios";
+import tmdbLogo from "../Assets/tmdbLogo.png";
 
 const styles = theme => ({
   root: {
@@ -97,7 +98,7 @@ class TopMovies extends React.Component {
             </GridListTile>
           ))}
         </GridList>
-      <p id="tmdb-line"><img id="tmdb-logo" width="36px" height="36px" src="https://www.themoviedb.org/assets/1/v4/logos/312x276-primary-green-74212f6247252a023be0f02a5a45794925c3689117da9d20ffe47742a665c518.png" alt="tmdb logo"/>{message}</p>
+      <p id="tmdb-line"><img id="tmdb-logo" width="36px" height="36px" src={tmdbLogo} alt="tmdb logo"/>{message}</p>
       </div>}
     </React.Fragment>
   );
