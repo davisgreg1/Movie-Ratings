@@ -90,8 +90,8 @@ class TopMovies extends React.Component {
               title={movie.title}
               subtitle={!loggedIn ? <span>Sign up to Play Movie Fights</span> : null}
               actionIcon = {loggedIn ? 
-                <IconButton className={classes.icon}>
-                  <StarBorderIcon onClick={()=>addToFavs(movie)}/>
+                <IconButton className={classes.icon} onClick={(e)=>console.log(e)}>
+                  <StarBorderIcon onClick={() => addToFavs(movie)}/>
                 </IconButton>
               : null}
             />

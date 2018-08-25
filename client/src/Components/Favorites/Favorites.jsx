@@ -3,6 +3,8 @@ import axios from "axios";
 import FavoriteMovieList from "./FavoriteMovieList";
 import MovieList from "../MovieList";
 import Input from "material-ui/Input";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const TMDB_KEY = process.env.REACT_APP_TMDB_API_KEY
 
@@ -107,6 +109,7 @@ class Favorites extends Component {
   componentDidMount() {
     this.getAllFavs();
     this.setState({ user: this.props.currentUser });
+    AOS.init({duration: 1500});
   }
 
   render() {

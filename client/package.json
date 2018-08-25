@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^1.2.0",
     "@material-ui/icons": "^1.0.0-beta.43",
+    "aos": "^2.3.3",
     "axios": "^0.17.1",
     "cloudinary-core": "^2.5.0",
     "cloudinary-react": "^1.0.6",
