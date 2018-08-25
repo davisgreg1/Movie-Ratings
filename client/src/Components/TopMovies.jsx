@@ -90,15 +90,15 @@ class TopMovies extends React.Component {
               title={movie.title}
               subtitle={!loggedIn ? <span>Sign up to Play Movie Fights</span> : null}
               actionIcon = {loggedIn ? 
-                <IconButton className={classes.icon} onClick={(e)=>console.log(e)}>
+                <IconButton className={classes.icon} onClick={(movie)=>console.log(movie.title)}>
                   <StarBorderIcon onClick={() => addToFavs(movie)}/>
                 </IconButton>
               : null}
             />
             </GridListTile>
           ))}
-        </GridList>
       <p id="tmdb-line"><img id="tmdb-logo" width="36px" height="36px" src={tmdbLogo} alt="tmdb logo"/>{message}</p>
+        </GridList>
       </div>}
     </React.Fragment>
   );
