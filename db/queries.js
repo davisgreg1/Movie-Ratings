@@ -1,7 +1,7 @@
 const pgp = require("pg-promise")({});
 const connectionString = "postgres://localhost/moviefights";
 const db = require("./index");
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
 dotenv.load();
 
@@ -58,7 +58,7 @@ const registerUser = (req, res, next) => {
             from: 'davisgreg1@gmail.com', // sender address
             to: `${user.email}`, // list of receivers
             subject: `Thanks for signing up ${user.firstname}!`, // Subject line
-            html: '<h1>Welcome to Movie Fights!</h1> <p>I really appreciate you. Have fun blogging and moving up the leaderboard!</p>'// plain text body
+            html: '<h1>Welcome to Movie Fights!</h1> <p>I really appreciate you. Have fun blogging and moving up the leaderboard!</p> <br /><br /><a href="https://moviefights.herokuapp.com/">Go to my dashboard.</a>'// plain text body
           };
 
           transporter.sendMail(mailOptions, function (err, info) {
@@ -71,7 +71,7 @@ const registerUser = (req, res, next) => {
       })(req, res, next);
     })
     .catch(err => {
-      console.log(error);
+      console.log("error in Register:", err);
       res.status(500).json({
         status: "Error",
         error: err
