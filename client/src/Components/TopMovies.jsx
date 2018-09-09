@@ -20,8 +20,9 @@ const styles = theme => ({
     height:"100%",
   },
   gridList: {
-    width: "100%",
-    height: 550
+    width: "auto%",
+    height: "auto",
+    border: "5px solid purple"
   },
   subheader: {
     width: "100%"
@@ -97,7 +98,7 @@ class TopMovies extends React.Component {
             />
             </GridListTile>
           ))}
-      <p id="tmdb-line"><img id="tmdb-logo" width="36px" height="36px" src={tmdbLogo} alt="tmdb logo"/>{message}</p>
+      <p id="tmdb-line"><img id="tmdb-logo" src={tmdbLogo} alt="tmdb logo"/>{message}</p>
         </GridList>
       </div>}
     </React.Fragment>
