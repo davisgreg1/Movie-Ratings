@@ -425,7 +425,7 @@ class Profile extends React.Component {
 
           </div>
         ) : (
-          <div>Must Be Logged In...</div>
+          <div style={{display: "flex", justifyContent: "center", alignContent: "center", alignItems: "center", height:"100vh"}}>Must Be Logged In...</div>
         )}
       </React.Fragment>
     );
