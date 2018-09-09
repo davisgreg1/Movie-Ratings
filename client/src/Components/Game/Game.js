@@ -112,10 +112,11 @@ class Game extends React.Component {
       movie2Revenue: "",
       movie1Budget: "",
       movie2Budget: "",
-      hasBeenClicked: false
+      hasBeenClicked: false,
+      loading: false
     }
   }
-
+    //posts the score to db
   postScore = () => {
     const {newScore} = this.state;
     const {currentUser} = this.props;
@@ -130,49 +131,33 @@ class Game extends React.Component {
         console.error(error);
       });
   };
-/**
-|--------------------------------------------------
-| https://api.themoviedb.org/3/movie/354912?api_key=d3b24aad8f7a69f5d20f89822a6102f8&language=en-US
-|--------------------------------------------------
-*/
-  getTwoMovies = () => {
+  //async function to get the first movie
+  getMovie1 = async() => {
     this.setState({hasBeenClicked: false});
     let randomMovieID1 = `${idArr[Math.floor(Math.random() * idArr.length)]}`;
-    let randomMovieID2 = `${idArr1[Math.floor(Math.random() * idArr1.length)]}`;
+    try {
+      let flick1 = await axios.get(`https://api.themoviedb.org/3/movie/${randomMovieID1}?api_key=${TMDB_KEY}&language=en-US`);
+      let response = await flick1;
+      return response.data;
 
-    axios
-      .get(`https://api.themoviedb.org/3/movie/${randomMovieID1}?api_key=${TMDB_KEY}&language=en-US`)
-      .then(response => {
-        this.setState({
-          movie1: response, movie1Revenue: response.data.revenue, movie1Budget: response.data.budget,
-          // eslint-disable-next-line
-          movie1MoneyEarned: (parseInt(response.data.revenue) - parseInt(response.data.budget))
-        });
-      })
-      .then(axios.get(`https://api.themoviedb.org/3/movie/${randomMovieID2}?api_key=${TMDB_KEY}&language=en-US`)
-        .then(response => {
-        this.setState({
-          movie2: response, movie2Revenue: response.data.revenue, movie2Budget: response.data.budget,
-          // eslint-disable-next-line
-          movie2MoneyEarned: (parseInt(response.data.revenue) - parseInt(response.data.budget))
-        });
-      }).then(() => {
-        this.setState({
-          winner: this.state.movie1MoneyEarned >= this.state.movie2MoneyEarned
-            ? this.state.movie1.data
-            : this.state.movie2.data,
-          loser: this.state.movie1MoneyEarned <= this.state.movie2MoneyEarned
-            ? this.state.movie1.data
-            : this.state.movie2.data
-        });
-      }).catch(error => {
-        console.error(error);
-      }))
-      .catch(error => {
-        console.error(error);
-      });
+    } catch (err) {
+      console.log("Error in getMovie1:", err);
+    }
   };
 
+    //async function to get the second movie
+  getMovie2 = async() => {
+    this.setState({hasBeenClicked: false});
+    let randomMovieID2 = `${idArr1[Math.floor(Math.random() * idArr1.length)]}`;
+    try {
+      let flick2 = await axios.get(`https://api.themoviedb.org/3/movie/${randomMovieID2}?api_key=${TMDB_KEY}&language=en-US`);
+      let response = await flick2;
+      return response.data;
+    } catch (err) {
+      console.log("Error in getMovie2:", err)
+    }
+  }
+  //function to grab the winning click.
   getWinner = e => {
     const {currentUser} = this.props;
     if (!this.state.winner && !this.state.loser) {
@@ -184,12 +169,14 @@ class Game extends React.Component {
     const {winner, loser, movie1MoneyEarned, movie2MoneyEarned, hasBeenClicked} = this.state;
 
     let diff = movie1MoneyEarned - movie2MoneyEarned;
+    //some of the names of the movies are slightly different. so I trim them.
     let currentTargetJoined = e
       .currentTarget
       .innerText
       .split(" ")
       .join("")
       .trim();
+
     let winnerJoined = winner
       .original_title
       .split(" ")
@@ -214,6 +201,7 @@ class Game extends React.Component {
           newScore: this.state.newScore
         });
       }
+      //cool swal alert to tell user if they lost or won
       swal({
         customClass: "animated rubberBand",
         html: `<div id="win-win"><span id="swal-message-right"><h6 className="swal-alert">Yes, ${currentUser
@@ -258,7 +246,7 @@ class Game extends React.Component {
           this.postScore();
         }
       };
-
+      //gets the current user score from db
       getScore = () => {
         axios
           .get("/users/getcurrentscore")
@@ -269,16 +257,47 @@ class Game extends React.Component {
             console.error("Error getting user score:", err);
           });
       }
+      // getTwoMovies is onClick for the movies, that automatically reloads 2 new movies to choose from
+      getTwoMovies = () => {
+        this.setState({loading: true})
+        //using Promise.all to ensure the first movie is in state.
+        return (Promise.all([
+          this.getMovie1(),
+          this.getMovie2()
+        ]).then(result => {
+          const movieData1 = result[0];
+          const movieData2 = result[1];
 
-      componentDidMount = () => {
+          this.setState({
+            movie1: movieData1,
+            movie1Revenue: movieData1.revenue,
+            movie1Budget: movieData1.budget,
+            movie2: movieData2,
+            movie2Revenue: movieData2.revenue,
+            movie2Budget: movieData2.budget,
+            movie1MoneyEarned: (parseInt(movieData1.revenue) - parseInt(movieData1.budget)),
+            movie2MoneyEarned: (parseInt(movieData2.revenue) - parseInt(movieData2.budget)),
+            loading: false,
+            winner: (parseInt(movieData1.revenue) - parseInt(movieData1.budget)) >= (parseInt(movieData2.revenue) - parseInt(movieData2.budget))
+              ? movieData1
+              : movieData2,
+            loser: (parseInt(movieData1.revenue) - parseInt(movieData1.budget)) <= (parseInt(movieData2.revenue) - parseInt(movieData2.budget))
+              ? movieData1
+              : movieData2
+          })
+
+        }))
+      }
+
+      componentWillMount = () => {
         this.getScore();
         this.getTwoMovies();
       }
 
       render() {
-        const {movie1, movie2, newScore} = this.state;
-        const {classes} = this.props
-        const {getWinner} = this
+        const {movie1, movie2, newScore, loading, winner, loser} = this.state;
+        const {classes} = this.props;
+        const {getWinner} = this;
         return (
           <React.Fragment>
             <div id="movie-1-and-2-container">
@@ -292,20 +311,23 @@ class Game extends React.Component {
                       Your score is:
                       <CurrentScore score={newScore}/>
                     </div>
-                    {!movie1 || !movie2
+                    {loading || !movie1 || !movie2
                       ? (
-                        <span className="circle">
-                          <CircularProgress
+                        // <div className="circle">
+                        <div  style={{
+                          display: "flex", justifyContent: "center", alignContent: "center", alignItems: "center", height:"100vh"
+                      }}>
+                      Loading...
+                          {/* <CircularProgress
                             size={50}
                             left={50}
                             top={50}
                             loadingColor="#FF9800"
                             status="loading"
                             style={{
-                            display: "inlineBlock",
-                            position: "relative"
-                          }}/>
-                        </span>
+                              display: "flex", justifyContent: "center", alignContent: "center", alignItems: "center", height:"100vh"
+                          }}/> */}
+                        </div>
                       )
                       : (
                         <div className="single-movie-container">
@@ -325,7 +347,7 @@ class Game extends React.Component {
                           </Card>
                         </div>
                       )
-                    }
+}
                   </div>
                 )}
             </div>
