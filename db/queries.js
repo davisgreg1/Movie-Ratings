@@ -1,6 +1,11 @@
 const pgp = require("pg-promise")({});
 const connectionString = "postgres://localhost/moviefights";
-const db = require("./index")
+const db = require("./index");
+const nodemailer = require('nodemailer');
+const dotenv = require("dotenv");
+dotenv.load();
+
+const GMAIL_PASS = process.env.GMAIL_PASS;
 
 const authHelpers = require("../auth/helpers");
 const passport = require("../auth/local");
@@ -41,6 +46,27 @@ const registerUser = (req, res, next) => {
             data: user,
             message: "Registered one user"
           });
+          const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                   user: 'davisgreg1@gmail.com',
+                   pass: GMAIL_PASS
+               }
+           });
+
+           const mailOptions = {
+            from: 'davisgreg1@gmail.com', // sender address
+            to: `${user.email}`, // list of receivers
+            subject: `Thanks for signing up ${user.firstname}!`, // Subject line
+            html: '<h1>Welcome to Movie Fights!</h1> <p>I really appreciate you. Have fun blogging and moving up the leaderboard!</p>'// plain text body
+          };
+
+          transporter.sendMail(mailOptions, function (err, info) {
+            if(err)
+              console.log("Error Sending Email:", err)
+            else
+              console.log("Email info:", info);
+         });
         }
       })(req, res, next);
     })
