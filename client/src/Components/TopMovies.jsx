@@ -22,7 +22,6 @@ const styles = theme => ({
   gridList: {
     width: "auto%",
     height: "auto",
-    border: "5px solid purple"
   },
   subheader: {
     width: "100%"
