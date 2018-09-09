@@ -34,15 +34,15 @@ class SingleHomeMovie extends React.Component {
               className={classes.media}
               style={{ height: "285px", width: "285px" }}
               image={
-                data.data.poster_path === null
+                data.poster_path === null
                   ? "http://www.reelviews.net/resources/img/default_poster.jpg"
-                  : `${baseURL}${data.data.poster_path}`
+                  : `${baseURL}${data.poster_path}`
               }
-              title={`${data.data.original_title}`}
+              title={`${data.original_title}`}
             />
             <CardContent>
               <Typography gutterBottom variant="headline" component="h2">
-                {`${data.data.original_title}`}
+                {`${data.original_title}`}
               </Typography>
             </CardContent>
           </Card>
