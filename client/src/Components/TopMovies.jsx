@@ -71,7 +71,7 @@ class TopMovies extends React.Component {
     const mobileScreen = window.innerWidth <= 768;
     const baseURL = `http://image.tmdb.org/t/p/w185`;
   return (
-    <React.Fragment>
+    <div style={{height: "100vh"}}>
         {!topMovies ?      
                 <CircularProgress
                   className="loading-circ"
@@ -97,10 +97,10 @@ class TopMovies extends React.Component {
             />
             </GridListTile>
           ))}
-      <p id="tmdb-line"><img id="tmdb-logo" src={tmdbLogo} alt="tmdb logo"/>{message}</p>
+      <p style={{width:"100%", display:"flex", justifyContent:"center",alignItems: "center", alignContent:"center", height:"5px", fontSize:"12px"}} id="tmdb-line"><img id="tmdb-logo" src={tmdbLogo} width="25px" height="25px" alt="tmdb logo"/>{message}</p>
         </GridList>
       </div>}
-    </React.Fragment>
+    </div>
   );
 }
 }
