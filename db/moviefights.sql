@@ -17,17 +17,19 @@ CREATE TABLE users (
 );
 
 CREATE TABLE scores (
-  user_id INTEGER REFERENCES users(ID),
-  points INTEGER DEFAULT 0
+  points INTEGER DEFAULT 0,
+  user_id INTEGER REFERENCES users(ID) 
+  ON DELETE CASCADE
 );
 
 CREATE TABLE blogs (
   ID SERIAL PRIMARY KEY,
-  user_id INTEGER REFERENCES users(ID),
   blog_title VARCHAR,
   blog_body VARCHAR,
   time_posted TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  time_edited TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
+  time_edited TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  user_id INTEGER REFERENCES users(ID)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE favorites (
@@ -37,6 +39,7 @@ CREATE TABLE favorites (
   movie_imgurl VARCHAR,
   movie_website VARCHAR,
   favorited_by INTEGER REFERENCES users(ID)
+    ON DELETE CASCADE
 );
 
 -- testpass
