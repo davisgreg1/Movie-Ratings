@@ -60,7 +60,7 @@ const registerUser = (req, res, next) => {
             from: myEmail, // sender address
             to: `${user.email}`, // list of receivers
             subject: `Thanks for signing up ${user.firstname}!`, // Subject line
-            html: `<h1>Welcome to Movie Fights!</h1> <p>I really appreciate you, ${user.firstname}. Have fun blogging and I'll see you on the leaderboard!</p> <br /><br /> <a href="https://moviefights.herokuapp.com/users/${user.username}/" target="_blank">My Dashboard!</a>`
+            html: `<h1>Welcome to Movie Fights!</h1> <p>I really appreciate you, ${user.firstname}. Have fun blogging and I'll see you on the leaderboard!</p> <br /> <br /> <a href="https://moviefights.herokuapp.com/users/${user.username}/" target="_blank">My Dashboard!</a>`
           };
 
           transporter.sendMail(mailOptions, function (err, info) {
