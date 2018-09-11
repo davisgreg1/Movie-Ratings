@@ -303,7 +303,9 @@ class Game extends React.Component {
             <div id="movie-1-and-2-container">
               {!this.props.currentUser
                 ? (
-                  <div>MUST BE LOGGED IN.</div>
+                  <div style={{
+                    display: "flex", justifyContent: "center", alignContent: "center", alignItems: "center", height:"100vh"
+                }}>MUST BE LOGGED IN.</div>
                 )
                 : (
                   <div className="default-home-screen">
