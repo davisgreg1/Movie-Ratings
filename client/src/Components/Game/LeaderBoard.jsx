@@ -16,8 +16,13 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3,
     overflowX: "auto"
   },
+  phoneTable:{
+    minWidth: 100,
+    height: "90vh"
+  },
   table: {
-    minWidth: 700
+    minWidth: 500,
+    height: "88vh"
   }
 });
 
@@ -35,11 +40,12 @@ class LeaderBoard extends React.Component {
 
   render() {
     const { classes, data } = this.props;
+    const mobileScreen = window.innerWidth <= 768;
 
     return (
       <Paper className={classes.root} id="leaderboards">
         {data ? (
-          <Table className={classes.table} >
+          <Table className={mobileScreen ? classes.phoneTable : classes.table} >
             <TableHead className="leaderboard-data">
               <TableRow>
                 <TableCell>Player</TableCell>
