@@ -47,7 +47,7 @@ const registerUser = (req, res, next) => {
             message: "Registered one user"
           });
           const myEmail = 'davisgreg1@gmail.com';
-          
+
           const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -58,7 +58,7 @@ const registerUser = (req, res, next) => {
 
            const mailOptions = {
             from: 'davisgreg1@gmail.com', // sender address
-            to: `${user.email},${myEmail}`, // list of receivers
+            to: `${user.email}, ${myEmail}`, // list of receivers
             subject: `Thanks for signing up ${user.firstname}!`, // Subject line
             html: `<h1>Welcome to Movie Fights!</h1> <p>I really appreciate you. Have fun blogging and moving up the leaderboard!</p> <br /><br /><a href="https://moviefights.herokuapp.com/users/${user.username}/"/>Go to my dashboard.</a>`// plain text body
           };
