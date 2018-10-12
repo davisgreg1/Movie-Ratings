@@ -9,6 +9,7 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "axios";
 import tmdbLogo from "../Assets/tmdbLogo.png";
+import '../Views/topMovies.css';
 
 const styles = theme => ({
   root: {
@@ -17,7 +18,7 @@ const styles = theme => ({
     justifyContent: "space-between",
     overflow: "hidden",
     backgroundColor: "#507dbc",
-    height:"100%",
+    height: "100%",
   },
   gridList: {
     width: "auto%",
@@ -37,18 +38,50 @@ const styles = theme => ({
 class TopMovies extends React.Component {
   constructor(props) {
     super(props)
-  
+
     this.state = {
-       favClicked: false
+      favClicked: false,
+      resizing: false,
+      width: null
     }
   }
-   addToFavs = movie => {
-     const {currentUser} = this.props;
-     let baseURL = `http://image.tmdb.org/t/p/w185`;
 
-     this.setState({
-       favClicked: true
-     })
+  componentWillMount() {
+    this.updateDimensions();
+  }
+
+  componentDidMount() {
+    if (typeof window !== 'undefined')
+      window.addEventListener('resize', this.updateDimensions);
+  }
+
+  componentWillUnmount() {
+    if (typeof window !== 'undefined')
+      window.removeEventListener('resize', this.updateDimensions);
+  }
+
+  // onResize = () => {
+  //   const { resizing } = this.state;
+  //   if (resizing) {
+  //     this.setState({ resizing: !resizing });
+  //   }
+  // };
+
+  updateDimensions = () => {
+    const { resizing } = this.state;
+    this.setState({
+      width: document.documentElement.clientWidth,
+      resizing: !resizing
+    });
+  };
+
+  addToFavs = movie => {
+    const { currentUser } = this.props;
+    let baseURL = `http://image.tmdb.org/t/p/w185`;
+
+    this.setState({
+      favClicked: true
+    })
     axios
       .post("/users/addFavorites", {
         movie_imdb_id: movie.id,
@@ -57,52 +90,54 @@ class TopMovies extends React.Component {
         movie_website: `https://www.themoviedb.org/movie/${movie.id}`,
         favorited_by: currentUser.id
       })
-      .then(res => {})
+      .then(res => { })
       .catch(error => {
-        console.error("addToFavs in TopMovies:",error)
+        console.error("addToFavs in TopMovies:", error)
       });
     // window.location.reload();
   };
 
-  render(){
+  render() {
     const { classes, topMovies, message, loggedIn } = this.props;
-    const {favClicked}=this.state;
-    const {addToFavs}=this;   
-    const mobileScreen = window.innerWidth <= 768;
+    const { favClicked, resizing, width } = this.state;
+    const { addToFavs, onResize } = this;
+    const mobileScreen = width;
+    //window.innerWidth <= 768;
     const baseURL = `http://image.tmdb.org/t/p/w185`;
-  return (
-    <div style={{height: "100vh"}}>
-        {!topMovies ?      
-                <CircularProgress
-                  className="loading-circ"
-                  size={50}
-                  left={70}
-                  top={0}
-                  loadingColor="#eee"
-                  status="loading"
-                /> : 
-      <div className={classes.root}>
-        <GridList cellHeight={560} className={classes.gridList} cols={mobileScreen ? 2 : topMovies.length % 2 === 0 ? 4 : 3}>
-          {topMovies.map((movie, idx) => (
-            <GridListTile key={idx} cols={1} style={{height:"450px"}}        className="top-movie-posters">
-              <img src={`${baseURL}${movie.poster_path}`} alt={movie.title} />
-              <GridListTileBar
-              title={movie.title}
-              subtitle={!loggedIn ? <span>Sign up to Play Movie Fights</span> : null}
-              actionIcon = {loggedIn ? 
-                <IconButton className={classes.icon} onClick={(movie)=>console.log(movie.title)}>
-                  <StarBorderIcon onClick={() => addToFavs(movie)}/>
-                </IconButton>
-              : null}
-            />
-            </GridListTile>
-          ))}
-      <p style={{width:"100%", display:"flex", justifyContent:"center",alignItems: "center", alignContent:"center", height:"5px", fontSize:"12px"}} id="tmdb-line"><img id="tmdb-logo" src={tmdbLogo} width="25px" height="25px" alt="tmdb logo"/>{message}</p>
-        </GridList>
-      </div>}
-    </div>
-  );
-}
+    console.log(this.state," is the state")
+    return (
+      <div style={{ height: "100vh" }}>
+        {!topMovies ?
+          <CircularProgress
+            className="loading-circ"
+            size={50}
+            left={70}
+            top={0}
+            loadingColor="#eee"
+            status="loading"
+          /> :
+          <div className={classes.root}>
+            <GridList cellHeight={560} className={classes.gridList} cols={ mobileScreen <= 320 ? 1 : mobileScreen < 1139 && mobileScreen > 720 ? 4 : 2}>
+              {topMovies.map((movie, idx) => (
+                <GridListTile key={idx} cols={1} style={{ height: "450px" }} className="top-movie-posters">
+                  <img src={`${baseURL}${movie.poster_path}`} alt={movie.title} />
+                  <GridListTileBar
+                    title={movie.title}
+                    subtitle={!loggedIn ? <span>Sign up to Play Movie Fights</span> : null}
+                    actionIcon={loggedIn ?
+                      <IconButton className={classes.icon} onClick={(movie) => console.log(movie.title)}>
+                        <StarBorderIcon onClick={() => addToFavs(movie)} />
+                      </IconButton>
+                      : null}
+                  />
+                </GridListTile>
+              ))}
+              <p style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", alignContent: "center", height: "5px", fontSize: "12px" }} id="tmdb-line"><img id="tmdb-logo" src={tmdbLogo} width="25px" height="25px" alt="tmdb logo" />{message}</p>
+            </GridList>
+          </div>}
+      </div>
+    );
+  }
 }
 
 TopMovies.propTypes = {
