@@ -15,6 +15,7 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import RaisedButton from "material-ui/Button";
 // import AppBar from "material-ui/AppBar";
 import Profile from "../users/Profile";
+import LeaderBoard from "../Game/LeaderBoard";
 import "../../Views/App.css";
 
 const styles = theme => ({
@@ -161,6 +162,7 @@ class RegisterUser extends React.Component {
     }
     return (
       <React.Fragment>
+        {/* <LeaderBoard /> */}
         <div className="login-user-container">
           <div className="loginBox">
             <h1 className="site-name"> Movie Fights </h1>

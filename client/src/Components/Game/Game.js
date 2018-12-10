@@ -298,9 +298,10 @@ class Game extends React.Component {
         const {movie1, movie2, newScore, loading, winner, loser} = this.state;
         const {classes} = this.props;
         const {getWinner} = this;
+        const mobileScreen = window.innerWidth <= 768;
         return (
-          <React.Fragment>
-            <div id="movie-1-and-2-container">
+          // <div>
+            <div className={ mobileScreen ? "movie-1-and-2-container-phone curtain" : "movie-1-and-2-container curtain"}>
               {!this.props.currentUser
                 ? (
                   <div style={{
@@ -332,7 +333,7 @@ class Game extends React.Component {
                         </div>
                       )
                       : (
-                        <div className="single-movie-container">
+                        <div className={mobileScreen ?"single-phonemovie-container":"single-movie-container"}>
                           <Card
                             className={classes.card}
                             id="movie_num_1"
@@ -353,7 +354,7 @@ class Game extends React.Component {
                   </div>
                 )}
             </div>
-          </React.Fragment>
+          // </div>
         );
       }
     }

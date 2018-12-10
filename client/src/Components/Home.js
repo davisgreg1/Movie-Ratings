@@ -138,7 +138,6 @@ class Home extends React.Component {
 
   //List of movies based on the user's search
   getMovie = () => {
-    debugger;
     const {searchText} = this.state;
     axios
       .get(`https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&language=en-US&query=${searchText}&page=1&include_adult=true`)

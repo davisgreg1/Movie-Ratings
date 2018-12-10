@@ -242,6 +242,7 @@ class App extends React.Component {
                 <RegisterUser
                   frontendRegister={frontendRegister}
                   appLogIn={appLogIn}
+                  // getLeaderBoard={getLeaderBoard}
                 />
               );
             }}
