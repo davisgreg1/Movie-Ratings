@@ -60,13 +60,6 @@ class TopMovies extends React.Component {
       window.removeEventListener('resize', this.updateDimensions);
   }
 
-  // onResize = () => {
-  //   const { resizing } = this.state;
-  //   if (resizing) {
-  //     this.setState({ resizing: !resizing });
-  //   }
-  // };
-
   updateDimensions = () => {
     const { resizing } = this.state;
     this.setState({
@@ -94,7 +87,6 @@ class TopMovies extends React.Component {
       .catch(error => {
         console.error("addToFavs in TopMovies:", error)
       });
-    // window.location.reload();
   };
 
   movieCols = () => {
@@ -119,7 +111,6 @@ class TopMovies extends React.Component {
     const { favClicked, resizing, width } = this.state;
     const { addToFavs, onResize, movieCols } = this;
     const mobileScreen = width;
-    //window.innerWidth <= 768;
     const baseURL = `http://image.tmdb.org/t/p/w185`;
     return (
       <div style={{ height: "100vh" }}>
