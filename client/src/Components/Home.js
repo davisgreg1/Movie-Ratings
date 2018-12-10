@@ -202,7 +202,6 @@ class Home extends React.Component {
     const {_keyPress, handleInput} = this;
 
     return (
-      <React.Fragment>
         <div className="choices-container">
           <div className="searchy" style={searchBarStyles}>
             <i className="material-icons md-dark seek">search</i>
@@ -228,7 +227,6 @@ class Home extends React.Component {
                 topMovies={topMovies}/>)}
           </div>
         </div>
-      </React.Fragment>
     );
   }
 }

@@ -12,16 +12,18 @@ import "../../Views/App.css";
 
 const styles = theme => ({
   root: {
-    width: "100%",
+    width: "95vw",
     marginTop: theme.spacing.unit * 3,
-    overflowX: "auto"
+    marginBottom: theme.spacing.unit * 3,
+    overflowX: "auto",
+    display: "flex",
+    justifyContent: "center",
+    margin: "auto"
   },
   phoneTable:{
-    minWidth: 100,
     height: "90vh"
   },
   table: {
-    minWidth: 500,
     height: "88vh"
   }
 });

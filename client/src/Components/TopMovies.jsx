@@ -19,6 +19,7 @@ const styles = theme => ({
     overflow: "hidden",
     backgroundColor: "#507dbc",
     height: "100%",
+    padding:"15px"
   },
   gridList: {
     width: "auto",
@@ -132,7 +133,7 @@ class TopMovies extends React.Component {
                     title={movie.title}
                     subtitle={!loggedIn ? <span>Sign up to Play Movie Fights</span> : null}
                     actionIcon={loggedIn ?
-                      <IconButton className={classes.icon} onClick={(movie) => console.log(movie.title)}>
+                      <IconButton className={classes.icon}>
                         <StarBorderIcon onClick={() => addToFavs(movie)} />
                       </IconButton>
                       : null}
