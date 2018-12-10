@@ -133,7 +133,11 @@ class TopMovies extends React.Component {
             status="loading"
           /> :
           <div className={classes.root}>
+<<<<<<< HEAD
             <GridList cellHeight={560} className={classes.gridList} cols={ movieCols() }>
+=======
+            <GridList cellHeight={560} className={classes.gridList} cols={ mobileScreen <= 320 ? 1 : mobileScreen > 320 && mobileScreen < 721 ? 4 : 3}>
+>>>>>>> b1e4ecfe5cf6fea1f9cae287866209bc84f61ece
               {topMovies.map((movie, idx) => (
                 <GridListTile key={idx} cols={1} style={{ height: "450px" }} className="top-movie-posters">
                   <img src={`${baseURL}${movie.poster_path}`} alt={movie.title} />
