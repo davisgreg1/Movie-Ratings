@@ -22,7 +22,9 @@ const loginUser = (req, res, next) => {
         if (err) {
           res.status(500).send("error");
         } else {
-          res.status(200).send({ ...req.user, password_digest: null });
+          res.status(200).send({ ...req.user,
+            password_digest: null
+          });
         }
       });
     }
@@ -51,43 +53,43 @@ const registerUser = (req, res, next) => {
           const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                   user: myEmail,
-                   pass: GMAIL_PASS
-               }
-           });
+              user: myEmail,
+              pass: GMAIL_PASS
+            }
+          });
 
-           const mailOptions = {
+          const mailOptions = {
             from: myEmail, // sender address
             to: `${user.email}`, // list of receivers
             subject: `Thanks for signing up ${user.firstname}!`, // Subject line
-            html: `<h1>Welcome to Movie Fights!</h1> o
+            html: `<h1>Welcome to Movie Fights!</h1>
             <p>How to use the site:</p>
-            <ul>
-            <li>My Dashboard
-              <li>Here you can set up your profile by uploading a photo of yourself and editing your bio.</li>
-              <li>Here you can privately blog about anything you'd like! Sort of like a diary or journal!</li>
-              </li>
-            <li>Game
-              <li>Here you can guess by clicking which of two movies earned more money than the other! It's really fun. The pop up message will inform you how much more or less your pick earned than the other in the box office.</li>
-              <li>Each correct guess nets you 10 points!</li>
-            </li>
-            <li>My Favorites
-              <li>Here you can view all of your favorite movies!</li>
-              <li>You can add movies to your favorites by searching for them on the favorites page or the home page!</li>
-            </li>
-            <li>Leaderboard
-              <li>Here you have a leaderboard so you can see how you stack up against other players!</li>
-            </li>
-            </ul>
+
+            <strong>My Dashboard</strong>
+              <p>Here you can set up your profile by uploading a photo of yourself and editing your bio.</p>
+              <p>Here you can privately blog about anything you'd like! Sort of like a diary or journal!</p>
+              <br />
+            <strong>Game</stro>
+              <p>Here you can guess by clicking which of two movies earned more money than the other! It's really fun. The pop up message will inform you how much more or less your pick earned than the other in the box office.</p>
+              <p>Each correct guess nets you 10 points!</p>
+              <br />
+            <strong>My Favorites</strong>
+              <p>Here you can view all of your favorite movies!</p>
+              <p>You can add movies to your favorites by searching for them on the favorites page or the home page!</p>
+              <br />
+            <strong>Leaderboard</strong>
+              <p>Here you have a leaderboard so you can see how you stack up against other players!</p>
+              <br />
+              <br />
             <p>I really appreciate you, ${user.firstname}!</p> <p>Have fun playing my movie-fights game and blogging and I'll see you on the leaderboard!</p> <br /> <br /> <a href="https://moviefights.herokuapp.com/users/${user.username}/" target="_blank">Go to my dashboard!</a>`
           };
 
           transporter.sendMail(mailOptions, function (err, info) {
-            if(err)
+            if (err)
               console.log("Error Sending Email:", err)
             else
               console.log("Email Info:", info);
-         });
+          });
         }
       })(req, res, next);
     })
@@ -104,8 +106,7 @@ updateSingleUser = (req, res, next) => {
   // const hash = authHelpers.createHash(req.body.password);
   db
     .none(
-      "UPDATE users SET username = ${username},  imgurl = ${imgurl}, firstname = ${firstname}, lastname = ${lastname}, email = ${email}, blurb = ${blurb}, public_id= ${public_id} WHERE id = ${id}",
-      {
+      "UPDATE users SET username = ${username},  imgurl = ${imgurl}, firstname = ${firstname}, lastname = ${lastname}, email = ${email}, blurb = ${blurb}, public_id= ${public_id} WHERE id = ${id}", {
         username: req.body.username,
         firstname: req.body.firstname,
         lastname: req.body.lastname,
@@ -199,8 +200,7 @@ const getPostFromUser = (req, res, next) => {
 const postNewBlog = (req, res, next) => {
   db
     .any(
-      "INSERT INTO blogs (user_id, blog_title, blog_body, time_posted) VALUES (${user_id}, ${blog_title}, ${blog_body}, NOW())",
-      {
+      "INSERT INTO blogs (user_id, blog_title, blog_body, time_posted) VALUES (${user_id}, ${blog_title}, ${blog_body}, NOW())", {
         user_id: req.user.id,
         blog_title: req.body.blog_title,
         blog_body: req.body.blog_body
@@ -236,15 +236,15 @@ const editBlog = (req, res, next) => {
 
 const removeBlog = (req, res, next) => {
   db.result("DELETE FROM blogs WHERE id = $1", [req.params.id])
-  .then(data => {
-    res.status(200).json({
-      status: "Success!",
-      message: `Successfully deleted blog.`
-    });
-  })
-  .catch(err => {
-    return next(err)
-  })
+    .then(data => {
+      res.status(200).json({
+        status: "Success!",
+        message: `Successfully deleted blog.`
+      });
+    })
+    .catch(err => {
+      return next(err)
+    })
 };
 /**
 |--------------------------------------------------
@@ -319,7 +319,9 @@ const getUserByUsername = (req, res, next) => {
     })
     .catch(err => {
       console.log(`err in getUserByUsername`, err);
-      res.status(500).json({ message: `FAILED: getUserByUsername` });
+      res.status(500).json({
+        message: `FAILED: getUserByUsername`
+      });
     });
 };
 
