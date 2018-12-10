@@ -314,7 +314,12 @@ div.home-container {
   padding: 100px 115px 0px 100px;
   margin-top: -100px;
 }
-
+.single-phonemovie-container{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 80%;
+}
 .movie-btn {
   cursor: pointer;
 }
@@ -708,10 +713,16 @@ cursor: pointer; */
   font-size: 25px;
 }
 
-#movie-1-and-2-container {
+.curtain {
   background-image: url("https://res.cloudinary.com/movie-fights/image/upload/v1528322015/theaterCurtain.jpg");
-  height: 900px;
-  /* height: 100%; */
+}
+
+.movie-1-and-2-container {
+  height: 95vh;
+}
+
+.movie-1-and-2-container-phone{
+  width: 100vw;
 }
 
 .MuiFormGroup-root-94 {

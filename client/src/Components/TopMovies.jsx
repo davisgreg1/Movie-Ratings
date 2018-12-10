@@ -21,7 +21,7 @@ const styles = theme => ({
     height: "100%",
   },
   gridList: {
-    width: "auto%",
+    width: "auto",
     height: "auto",
   },
   subheader: {
@@ -97,14 +97,30 @@ class TopMovies extends React.Component {
     // window.location.reload();
   };
 
+  movieCols = () => {
+    const { width } = this.state;
+    let currentColSize = null;
+    if (width >= 1024) { //large screens/ desktop
+      currentColSize = 4
+    } else if( width < 1024 && width >= 768){  //tablets
+      currentColSize = 3
+    } else if(width < 768 && width >= 480){ //mobile devices
+      currentColSize = 2
+    } else if(width < 480){ //really small mobile devices
+      currentColSize = 1
+    } else {
+      currentColSize = 5
+    }
+    return currentColSize;
+  }
+
   render() {
     const { classes, topMovies, message, loggedIn } = this.props;
     const { favClicked, resizing, width } = this.state;
-    const { addToFavs, onResize } = this;
+    const { addToFavs, onResize, movieCols } = this;
     const mobileScreen = width;
     //window.innerWidth <= 768;
     const baseURL = `http://image.tmdb.org/t/p/w185`;
-    console.log(this.state," is the state")
     return (
       <div style={{ height: "100vh" }}>
         {!topMovies ?
@@ -117,7 +133,7 @@ class TopMovies extends React.Component {
             status="loading"
           /> :
           <div className={classes.root}>
-            <GridList cellHeight={560} className={classes.gridList} cols={ mobileScreen <= 320 ? 1 : mobileScreen < 1139 && mobileScreen > 720 ? 4 : 2}>
+            <GridList cellHeight={560} className={classes.gridList} cols={ movieCols() }>
               {topMovies.map((movie, idx) => (
                 <GridListTile key={idx} cols={1} style={{ height: "450px" }} className="top-movie-posters">
                   <img src={`${baseURL}${movie.poster_path}`} alt={movie.title} />

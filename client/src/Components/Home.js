@@ -138,7 +138,6 @@ class Home extends React.Component {
 
   //List of movies based on the user's search
   getMovie = () => {
-    debugger;
     const {searchText} = this.state;
     axios
       .get(`https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&language=en-US&query=${searchText}&page=1&include_adult=true`)
@@ -171,7 +170,7 @@ class Home extends React.Component {
 
   getTopMovies = () => {
     axios
-      .get(`https://api.themoviedb.org/3/discover/movie?api_key=d3b24aad8f7a69f5d20f89822a6102f8&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`)
+      .get(`https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`)
       .then(res => {
         this.setState({topMovies: res.data.results});
       })
