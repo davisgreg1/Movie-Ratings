@@ -63,14 +63,14 @@ const registerUser = (req, res, next) => {
             to: `${user.email}`, // list of receivers
             subject: `Thanks for signing up ${user.firstname}!`, // Subject line
             html: `<h1>Welcome to Movie Fights!</h1>
-            <p>How to use the site:</p>
+            <strong>How to use the site:</strong>
 
-            <strong>My Dashboard</strong>
-              <p>Here you can set up your profile by uploading a photo of yourself and editing your bio.</p>
-              <p>Here you can privately blog about anything you'd like! Sort of like a diary or journal!</p>
+            <h3>My Dashboard</h3>
+              <p>In your dashboard, you can set up your profile by uploading a photo of yourself and editing your bio.</p>
+              <p>You can privately blog about anything you'd like! Just like a diary or journal!</p>
               <br />
-            <strong>Game</stro>
-              <p>Here you can guess by clicking which of two movies earned more money than the other! It's really fun. The pop up message will inform you how much more or less your pick earned than the other in the box office.</p>
+            <strong>Game</strong>
+              <p>To play the game, you must guess which of two movies earned more money than the other by clicking your choice. It's really fun! The pop up message will inform you how much more or less your pick earned than the other in the box office.</p>
               <p>Each correct guess nets you 10 points!</p>
               <br />
             <strong>My Favorites</strong>
@@ -81,7 +81,7 @@ const registerUser = (req, res, next) => {
               <p>Here you have a leaderboard so you can see how you stack up against other players!</p>
               <br />
               <br />
-            <p>I really appreciate you, ${user.firstname}!</p> <p>Have fun playing my movie-fights game and blogging and I'll see you on the leaderboard!</p> <br /> <br /> <a href="https://moviefights.herokuapp.com/users/${user.username}/" target="_blank">Go to my dashboard!</a>`
+            <p>I really appreciate you for signing up, ${user.firstname}!</p> <p>Have fun playing my movie-fights game and blogging and I'll see you on the leaderboard!</p> <br /> <br /> <a href="https://moviefights.herokuapp.com/users/${user.username}/" target="_blank">Go to my dashboard!</a>`
           };
 
           transporter.sendMail(mailOptions, function (err, info) {
