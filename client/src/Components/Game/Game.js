@@ -16,8 +16,7 @@ import {withStyles} from "material-ui/styles";
 import dotenv from "dotenv";
 dotenv.load();
 
-// const TMDB_KEY = process.env.REACT_APP_TMDB_API_KEY;
-const TMDB_KEY = "d3b24aad8f7a69f5d20f89822a6102f8";
+const TMDB_KEY = process.env.REACT_APP_TMDB_API_KEY;
 const baseURL = `http://image.tmdb.org/t/p/w185`;
 
 const idArr = [
