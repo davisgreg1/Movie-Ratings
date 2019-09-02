@@ -1,5 +1,8 @@
 import React from "react";
+import { bindActionCreators } from "redux"
 import { Route, Switch } from "react-router-dom";
+import {Router} from "react-router";
+import {connect} from 'react-redux';
 import NavBar from "./Components/NavBar";
 import Home from "./Components/Home";
 import Game from "./Components/Game/Game";
@@ -8,8 +11,11 @@ import RegisterUser from "./Components/login/RegisterUser";
 import Users from "./Components/users/Users";
 import LoginUser from "./Components/login/LoginUser";
 import LeaderBoard from "./Components/Game/LeaderBoard";
+import PrivateRoute from "./Components/PrivateRoute";
 import axios from "axios";
+import customHistory from './history';
 import "./Views/App.css";
+import {login, meFromTokenSuccess, meFromTokenFailure, resetUserToken} from './actions/SessionActions';
 
 //very fragile - if Material UI changes the classNames, the app breaks.
 import JssProvider from 'react-jss/lib/JssProvider';
@@ -51,6 +57,26 @@ class App extends React.Component {
       movie2Budget: "",
       hasBeenClicked: false
     };
+  }
+
+  // componentWillUnmount() {
+  //   this.props.loadUserFromToken()
+  // }
+
+  componentDidMount() {
+    this.props.loadUserFromToken()
+    // this.props.loadUserFromToken();
+    // axios
+    //   .get("/users/userinfo")
+    //   .then(res => {
+    //     this.setState({
+    //       user: res.data.userInfo,
+    //       loggedIn: true
+    //     });
+    //   })
+    //   .catch(err => {
+    //     console.error("Error Getting User Info:", err);
+    //   });
   }
 
   logOut = () => {
@@ -112,42 +138,6 @@ class App extends React.Component {
     });
   };
 
-  handleInputChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  };
-
-  submitLoginForm = e => {
-    e.preventDefault();
-    const { username, password } = this.state;
-
-    if (username.length < 3) {
-      this.setState({
-        message: "Username length must be at least 3"
-      });
-      return;
-    }
-    axios
-      .post("/users/login", {
-        username: username,
-        password: password
-      })
-      .then(res => {
-        this.setState({
-          user: res.data,
-          loggedIn: true
-        });
-      })
-      .catch(err => {
-        this.setState({
-          username: "",
-          password: "",
-          message: "Username/Password not found"
-        });
-      });
-  };
-
   getLeaderBoard = () => {
     axios
       .get("users/leaderboard")
@@ -161,36 +151,14 @@ class App extends React.Component {
       });
   };
 
-  componentDidMount() {
-    axios
-      .get("/users/userinfo")
-      .then(res => {
-        this.setState({
-          user: res.data.userInfo,
-          loggedIn: true
-        });
-      })
-      .catch(err => {
-        console.error("Error Getting User Info:", err);
-      });
-  }
-
   render() {
     const {
-      user,
-      loggedIn,
-      username,
-      password,
-      message,
       leaderBoardData,
       allBlogs
     } = this.state;
 
-    const { classes } = this.props;
-
+    const { classes,authenticatedUser, isAuthenticated } = this.props;
     const {
-      handleInputChange,
-      submitLoginForm,
       appLogIn,
       frontendRegister,
       getUserInfo,
@@ -202,41 +170,23 @@ class App extends React.Component {
     } = this;
 
     return (
+      <Router history={customHistory}>
       <JssProvider generateClassName={generateClassName}>
       <div className="app">
         <NavBar
-          loggedIn={loggedIn}
+          loggedIn={isAuthenticated}
           handleClick={handleClick}
-          currentUser={user}
+          currentUser={authenticatedUser}
           getUserInfo={getUserInfo}
           logOut={logOut}
           classes={classes}
           getUserScore={getUserScore}
         />
         <Switch>
+        <Route exact path="/" component={Home} />
+          <Route exact path="/login" component={LoginUser} />
           <Route
-            exact
-            path="/"
-            render={() => (
-              <Home user={user} message={message} loggedIn={loggedIn} />
-            )}
-          />
-          <Route
-            path="/login"
-            render={() => (
-              <LoginUser
-                handleInputChange={handleInputChange}
-                submitLoginForm={submitLoginForm}
-                user={user}
-                username={username}
-                password={password}
-                message={message}
-                loggedIn={loggedIn}
-              />
-            )}
-          />
-          <Route
-            path="/register"
+            exact path="/register"
             render={() => {
               return (
                 <RegisterUser
@@ -247,48 +197,67 @@ class App extends React.Component {
               );
             }}
           />
+          {/* <PrivateRoute path='/users' render={props => (
+              <Users
+                {...props}
+                getUserInfo={getUserInfo}
+                currentUser={authenticatedUser}
+                getUserScore={getUserScore}
+                allBlogs={allBlogs}
+                getAllBlogPosts={getAllBlogPosts}
+                classes={classes}
+                loggedIn={isAuthenticated}
+              />
+            )} /> */}
           <Route
             path="/users"
             render={props => (
               <Users
                 {...props}
                 getUserInfo={getUserInfo}
-                currentUser={user}
+                // currentUser={authenticatedUser}
+                // loggedIn={isAuthenticated}
                 getUserScore={getUserScore}
                 allBlogs={allBlogs}
                 getAllBlogPosts={getAllBlogPosts}
                 classes={classes}
-                loggedIn={loggedIn}
               />
             )}
           />
           <Route
             path="/game"
+            component={Game}
+          />
+          {/* <Route
+            path="/game"
             render={props => (
               <Game
                 {...props}
-                loggedIn={loggedIn}
-                currentUser={user}
+                loggedIn={isAuthenticated}
+                currentUser={authenticatedUser}
               />
             )}
-          />
+          /> */}
           <Route
+            path="/favorites"
+            component={Favorites}/>
+          {/* <Route
             path="/favorites"
             render={props => (
               <Favorites
                 {...props}
-                loggedIn={loggedIn}
-                currentUser={user}
+                loggedIn={isAuthenticated}
+                currentUser={authenticatedUser}
               />
             )}
-          />
+          /> */}
           <Route
             path="/leaderboard"
             render={props => (
               <LeaderBoard
                 {...props}
-                loggedIn={loggedIn}
-                currentUser={user}
+                loggedIn={isAuthenticated}
+                currentUser={authenticatedUser}
                 data={leaderBoardData}
                 getLeaderBoard={getLeaderBoard}
               />
@@ -297,7 +266,35 @@ class App extends React.Component {
         </Switch>
       </div>
       </JssProvider>
+        </Router>
     );
   }
 }
-export default App;
+
+const mapStateToProps = state => ({
+  authenticatedUser: state.sessionReducer.user,
+  isAuthenticated: state.sessionReducer.userAuthenticated
+})
+
+const mapDispatchToProps = dispatch => ({
+   loadUserFromToken: () => {
+    let token = sessionStorage.getItem('jwtToken');
+    if(!token || token === '') {//if there is no token, dont bother
+      return;
+    }
+
+  //fetch user from token (if server deems it's valid token)
+   dispatch(meFromTokenSuccess(token))
+    //  .then((response) => {
+    //    if (!response.error) {
+    //      //reset token (possibly new token that was regenerated by the server)
+    //      sessionStorage.setItem('jwtToken', response.payload.data.token);
+    //      dispatch(meFromTokenSuccess(response.payload))
+    //    } else {
+    //      sessionStorage.removeItem('jwtToken');//remove token from storage
+    //      dispatch(meFromTokenFailure(response.payload));
+    //    }
+    //  });
+}
+ })
+export default connect(mapStateToProps, mapDispatchToProps)(App);

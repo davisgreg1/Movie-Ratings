@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import {connect} from 'react-redux';
 import dateFormat from "dateformat";
 import { withStyles } from "material-ui/styles";
 import Card, { CardContent} from "material-ui/Card";
@@ -215,7 +216,8 @@ class Profile extends React.Component {
     const {
       classes,
       currentUser,
-      allBlogs
+      allBlogs,
+      loggedIn
     } = this.props;
     const {
       isHide,
@@ -231,7 +233,7 @@ class Profile extends React.Component {
     let classHide = isHide ? "fadeOut" : "fadeIn";
     return (
       <React.Fragment>
-        {currentUser ? (
+        {loggedIn ? (
           <div
             className="profile"
             style={blogOpen || editOpen || blogEditOpen ? modalIsOpen : null}
@@ -431,4 +433,8 @@ class Profile extends React.Component {
     );
   }
 }
-export default withStyles(styles)(Profile);
+const mapStateToProps = state => ({
+  loggedIn: state.sessionReducer.userAuthenticated,
+  currentUser: state.sessionReducer.user
+})
+export default connect(mapStateToProps, null)(withStyles(styles)(Profile));

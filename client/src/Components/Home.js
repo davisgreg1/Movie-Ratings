@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 import {withStyles} from "material-ui/styles";
 import Input from "material-ui/Input";
@@ -179,25 +180,12 @@ class Home extends React.Component {
       });
   };
 
-  setAuth = () => {
-    if (this.state.user) {
-      this.setState({
-        auth: !this.state.auth
-      });
-    }
-  };
-
-  setUser = () => {
-    this.setState({user: this.props.user});
-  };
-
   componentWillMount() {
     this.getTopMovies();
-    this.setUser();
   }
 
   render() {
-    const {user, loggedIn} = this.props;
+    const {authenticatedUser,isAuthenticated} = this.props;
     const {data, searchText, topMovies} = this.state;
     const {_keyPress, handleInput} = this;
 
@@ -219,10 +207,10 @@ class Home extends React.Component {
               fontSize: "30px"
             }}>TOP MOVIES</div>
             {searchText
-              ? (<MovieList data={data} loggedIn={loggedIn} currentUser={user}/>)
+              ? (<MovieList data={data} loggedIn={isAuthenticated} currentUser={authenticatedUser}/>)
               : (<TopMovies
-                loggedIn={loggedIn}
-                currentUser={user}
+                loggedIn={isAuthenticated}
+                currentUser={authenticatedUser}
                 message={`This product uses the TMDb API but is not endorsed or certified by TMDb.`}
                 topMovies={topMovies}/>)}
           </div>
@@ -234,4 +222,10 @@ class Home extends React.Component {
 Home.propTypes = {
   classes: PropTypes.object.isRequired
 };
-export default withStyles(styles)(Home);
+
+const mapStateToProps = state => ({
+  authenticatedUser: state.sessionReducer.user,
+  isAuthenticated: state.sessionReducer.userAuthenticated
+})
+
+export default connect(mapStateToProps)(withStyles(styles)(Home));

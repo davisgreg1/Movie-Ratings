@@ -41,11 +41,12 @@ class EditBlog extends Component {
   handleEditBlogSubmit = e => {
     e.preventDefault();
     const { newBlogTitle, newBlogBody } = this.state;
+    const {blogToEdit} = this.props;
     axios
       .patch("/users/edit_blog", {
-        blog_title: newBlogTitle,
-        blog_body: newBlogBody,
-        id: this.props.blogToEdit.id
+        blog_title: newBlogTitle || blogToEdit.blog_title,
+        blog_body: newBlogBody || blogToEdit.blog_body,
+        id: blogToEdit.id
       })
       .then(res => {
         this.setState({
@@ -82,10 +83,14 @@ class EditBlog extends Component {
   render() {
     const { handleEditBlogSubmit, handleInputChange, fireRedirect } = this;
     const { classes, blogToEdit } = this.props;
+
     const { newBlogBody, newBlogTitle, doneEditing } = this.state;
 
+
     if (doneEditing) {
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
     }
 
     return (

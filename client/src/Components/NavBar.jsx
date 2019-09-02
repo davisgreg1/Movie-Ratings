@@ -1,4 +1,5 @@
 import React, {Component, Fragment} from "react";
+import {connect}from 'react-redux';
 import {Link} from "react-router-dom";
 import {FormGroup} from "material-ui/Form";
 import AccountCircle from "@material-ui/icons/AccountCircle";
@@ -85,13 +86,14 @@ class NavBar extends Component {
   };
 
   loggedInNav = () => {
-    const {currentUser, logOut, classes} = this.props;
+    const {currentUser, logOut, classes, isAuthenticated} = this.props;
+
     const {anchorEl} = this.state;
     let open = Boolean(this.state.anchorEl);
     return (
       <Fragment>
         <FormGroup className="seek">
-          <Link to={`/users/${currentUser.username}`}>
+          <Link to={`/users/${currentUser && currentUser.username}`}>
             <div title="Profile"/>
           </Link>
         </FormGroup>
@@ -127,7 +129,7 @@ class NavBar extends Component {
                 onClose={this.handleClose}
                 TransitionComponent={Fade}>
                 <List component="nav" style={{outline: "none"}}>
-                  <Link to={`/users/${currentUser.username}`} className="links">
+                  <Link to={`/users/${currentUser && currentUser.username}`} className="links">
                     <ListItem onClick={this.handleClose}>My Dashboard</ListItem>
                   </Link>
                   <Link to="/game" className="links">
@@ -199,4 +201,8 @@ class NavBar extends Component {
     }
   }
 }
-export default withStyles(styles)(NavBar);
+const mapStateToProps = state => ({
+  currentUser: state.sessionReducer.user,
+  isAuthenticated: state.sessionReducer.userAuthenticated
+})
+export default connect(mapStateToProps, null)(withStyles(styles)(NavBar))

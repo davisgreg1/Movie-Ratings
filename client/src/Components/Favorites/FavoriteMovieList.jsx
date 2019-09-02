@@ -1,6 +1,6 @@
 import React from "react";
-import { withStyles } from "material-ui/styles";
-import Card, { CardContent, CardMedia } from "material-ui/Card";
+import {withStyles} from "material-ui/styles";
+import Card, {CardContent, CardMedia} from "material-ui/Card";
 import Avatar from "@material-ui/core/Avatar";
 import Chip from "@material-ui/core/Chip";
 import Typography from "material-ui/Typography";
@@ -33,60 +33,79 @@ class FavoriteMovieList extends React.Component {
   removeFromFavs = movie => {
     axios
       .delete("/users/removeFavorite", {
-        data: { id: movie.id }
-      })
-      .then(response => {
-      })
+      data: {
+        id: movie.id
+      }
+    })
+      .then(response => {})
       .catch(error => {
         console.error("Error in Remove Fav:", error);
       });
-    window.location.reload();
+    window
+      .location
+      .reload();
   };
 
   render() {
-    const { classes, currentUser, movies } = this.props;
-    const { removeFromFavs } = this;
+    const {classes, currentUser, movies, loggedIn} = this.props;
+    const {removeFromFavs} = this;
     return (
       <div className="favs-list">
-        {!currentUser ? (
-          <div>You must be logged in. </div>
-        ) : movies.length > 0 ? (
-          movies.map(movie => (
-            <div clasName="all-cards-container" style={{ display: "flex", flexDirection:"column",justifyContent:"center", alignItems:"center", minWidth: "278px", maxWidth: "600px", height: "50%" }}>
-             <CardContent>
+        {!loggedIn
+          ? (
+            <div>You must be logged in.
+            </div>
+          )
+          : movies.length > 0
+            ? (movies.map(movie => (
+              <div
+                clasName="all-cards-container"
+                style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                minWidth: "278px",
+                maxWidth: "600px",
+                height: "50%"
+              }}>
+                <CardContent>
                   <Typography gutterBottom variant="headline" component="h2">
                     {movie.movie_title}
                   </Typography>
                 </CardContent>
-              <Card
-                style={{display: "flex"}}
-                value={movie.movie_imdb_id}
-                name={movie.movie_title}
-              >
-             
-                <a href={`${movie.movie_website}`} target="_blank">
-                  <CardMedia
-                    className={classes.media}
-                    style={{ height: "285px", width: "285px" }}
-                    image={movie.movie_imgurl}
-                    title={movie.movie_title}
-                  />
-                </a>
-              </Card>
-              <Chip
+                <Card
+                  style={{
+                  display: "flex"
+                }}
+                  value={movie.movie_imdb_id}
+                  name={movie.movie_title}>
+
+                  <a href={`${movie.movie_website}`} target="_blank">
+                    <CardMedia
+                      className={classes.media}
+                      style={{
+                      height: "285px",
+                      width: "285px"
+                    }}
+                      image={movie.movie_imgurl}
+                      title={movie.movie_title}/>
+                  </a>
+                </Card>
+                <Chip
                   label="Remove"
                   className={classes.chip}
-                  avatar={<Avatar src={movie.movie_imgurl} />}
+                  avatar={< Avatar src = {
+                  movie.movie_imgurl
+                } />}
                   onClick={() => removeFromFavs(movie)}
-                  clickable
-                />
-             </div>
-          ))
-        ) : (
-          <div>{`${
-            currentUser.firstname
-          }, go search for movies to favorite.`}</div>
-        )}
+                  clickable/>
+              </div>
+            )))
+            : (
+              <div>{`${
+                currentUser.firstname}, go search for movies to favorite.`}</div>
+            )}
       </div>
     );
   }
