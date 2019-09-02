@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {connect}from 'react-redux';
 import axios from "axios";
 import FavoriteMovieList from "./FavoriteMovieList";
 import MovieList from "../MovieList";
@@ -108,7 +109,7 @@ class Favorites extends Component {
 
   componentDidMount() {
     this.getAllFavs();
-    this.setState({ user: this.props.currentUser });
+    // this.setState({ user: this.props.currentUser });
     AOS.init({duration: 1500});
   }
 
@@ -145,4 +146,8 @@ class Favorites extends Component {
     );
   }
 }
-export default Favorites;
+const mapStateToProps = state => ({
+  loggedIn: state.sessionReducer.userAuthenticated,
+  currentUser: state.sessionReducer.user
+})
+export default connect(mapStateToProps, null)(Favorites);

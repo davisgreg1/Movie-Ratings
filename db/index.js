@@ -1,9 +1,12 @@
-const dotenv = require('dotenv');
-dotenv.load();
-var connectionString = process.env.DATABASE_URL;
+require('dotenv').config();
 
-var pgp = require("pg-promise")({});
-var db = pgp(connectionString);
+const promise = require('bluebird');
+const initOptions = {
+  promiseLib: promise // overriding the default (ES6 Promise);
+};
+const connectionString = process.env.DATABASE_URL;
+const pgp = require("pg-promise")(initOptions);
+const db = pgp(connectionString);
 
 module.exports = db;
   

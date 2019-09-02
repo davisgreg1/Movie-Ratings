@@ -1,6 +1,7 @@
 import React from "react";
-import { Redirect } from "react-router";
-import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
+import { Link, Redirect } from "react-router-dom";
+import {connect} from 'react-redux';
 import classNames from "classnames";
 import TextField from "material-ui/TextField";
 import Input, { InputLabel, InputAdornment } from "material-ui/Input";
@@ -10,6 +11,8 @@ import IconButton from "material-ui/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import RaisedButton from "material-ui/Button";
+import {login} from '../../actions/SessionActions';
+
 import "../../Views/App.css";
 
 const styles = theme => ({
@@ -32,11 +35,12 @@ class LoginUser extends React.Component {
   state = {
     showPassword: false,
     user: "",
-    usernameInput: "",
-    passwordInput: "",
+    username: "",
+    password: "",
     message: "Forgot password?",
     loggedIn: false,
-    fireRedirect: false
+    fireRedirect: false,
+    redirectToReferrer: false
   };
 
   handleInput = e => {
@@ -53,30 +57,48 @@ class LoginUser extends React.Component {
     event.preventDefault();
   };
 
-  render() {
-    const { showPassword } = this.state;
-    const {
-      classes,
-      loggedIn,
-      user,
-      username,
-      password,
-      message,
-      handleInputChange,
-      submitLoginForm
-    } = this.props;
-    const { handleClickShowPassword, handleMouseDownPassword } = this;
+  submitLoginForm = e => {
+    e.preventDefault();
+    const { username, password } = this.state;
 
-    if (loggedIn) {
-      return <Redirect to= {`/users/${user.username}`}/>;
+    if (username.length < 3) {
+      this.setState({
+        message: "Username length must be at least 3"
+      });
+      return;
     }
+    this.props.loginUser(username, password);
+    // if (this.props.isAuthenticated ) {
+    //   this.setState({
+    //     redirectToReferrer: true
+    //   })
+    // }
+  };
+
+
+  handleInputChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
+  render() {
+    const { showPassword, password, username, message,redirectToReferrer } = this.state;
+    const {classes,errorMsg,isAuthenticated}=this.props;
+    const { handleClickShowPassword, handleMouseDownPassword,submitLoginForm,handleInputChange } = this;
+    // const { from } = this.props.location.state.pathname || { from: { pathname: '/'} }
+    // console.log("TCL: LoginUser -> render -> this.props.location.state.pathname", this.props.location.state.pathname)
+    // console.log("TCL: LoginUser -> render -> from", from)
+
+    // if (redirectToReferrer === true) {
+    //   return <Redirect to={from} />
+    // }
 
     return (
       <React.Fragment>
         <div className="login-user-container">
           <div className="loginBox">
             <h1 className="site-name"> Movie Fights </h1>
-
             <form className = "login-form" onSubmit={submitLoginForm}>
               <div className="login-user-username">
                 <TextField
@@ -136,6 +158,7 @@ class LoginUser extends React.Component {
               >
                 Log in
               </RaisedButton>
+              <p>{errorMsg}</p>
             </form>
             <br />
             <p className="messageSize">{message}</p>
@@ -185,4 +208,14 @@ class LoginUser extends React.Component {
   }
 }
 
-export default withStyles(styles)(LoginUser);
+const mapStateToProps = state => ({
+  // authenticatedUser: state.sessionReducer.user.data,
+  isAuthenticated: state.sessionReducer.userAuthenticated,
+  errorMsg: state.sessionReducer.errorMsg
+})
+
+const mapDispatchToProps = dispatch => ({
+  loginUser: (username, password) => dispatch(login(username, password))
+ })
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(LoginUser)));

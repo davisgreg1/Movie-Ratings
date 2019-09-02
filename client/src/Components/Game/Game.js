@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import {connect} from 'react-redux';
 import swal from "sweetalert2";
 import currencyFormatter from "currency-formatter";
 // eslint-disable-next-line
@@ -138,6 +139,7 @@ class Game extends React.Component {
     try {
       let flick1 = await axios.get(`https://api.themoviedb.org/3/movie/${randomMovieID1}?api_key=${TMDB_KEY}&language=en-US`);
       let response = await flick1;
+      console.log("TCL: response", response)
       return response.data;
 
     } catch (err) {
@@ -152,6 +154,7 @@ class Game extends React.Component {
     try {
       let flick2 = await axios.get(`https://api.themoviedb.org/3/movie/${randomMovieID2}?api_key=${TMDB_KEY}&language=en-US`);
       let response = await flick2;
+      console.log("TCL: response", response)
       return response.data;
     } catch (err) {
       console.log("Error in getMovie2:", err)
@@ -301,15 +304,20 @@ class Game extends React.Component {
         const mobileScreen = window.innerWidth <= 768;
         return (
           // <div>
-            <div className={ mobileScreen ? "movie-1-and-2-container-phone curtain" : "movie-1-and-2-container curtain"}>
+            <div>
+            {/* <div className={ mobileScreen ? "movie-1-and-2-container-phone curtain" : "movie-1-and-2-container curtain"}> */}
+            {/* <div className={ mobileScreen ? "movie-1-and-2-container-phone curtain" : "movie-1-and-2-container curtain"}> */}
               {!this.props.currentUser
                 ? (
-                  <div style={{
-                    display: "flex", justifyContent: "center", alignContent: "center", alignItems: "center", height:"100vh"
-                }}>MUST BE LOGGED IN.</div>
+                  <div>MUST BE LOGGED IN.</div>
+                // ? (
+                //   <div style={{
+                //     display: "flex", justifyContent: "center", alignContent: "center", alignItems: "center", height:"100vh"
+                // }}>MUST BE LOGGED IN.</div>
                 )
                 : (
-                  <div className="default-home-screen">
+                  <div>
+                  {/* <div className="default-home-screen"> */}
                     <div>
                       Your score is:
                       <CurrentScore score={newScore}/>
@@ -317,9 +325,10 @@ class Game extends React.Component {
                     {loading || !movie1 || !movie2
                       ? (
                         // <div className="circle">
-                        <div  style={{
+                        <div>
+                        {/* <div  style={{
                           display: "flex", justifyContent: "center", alignContent: "center", alignItems: "center", height:"100vh"
-                      }}>
+                      }}> */}
                       Loading...
                           {/* <CircularProgress
                             size={50}
@@ -333,7 +342,8 @@ class Game extends React.Component {
                         </div>
                       )
                       : (
-                        <div className={mobileScreen ?"single-phonemovie-container":"single-movie-container"}>
+                        <div>
+                        {/* <div className={mobileScreen ?"single-phonemovie-container":"single-movie-container"}> */}
                           <Card
                             className={classes.card}
                             id="movie_num_1"
@@ -358,4 +368,9 @@ class Game extends React.Component {
         );
       }
     }
-    export default withStyles(styles)(Game);
+
+    const mapStateToProps = state => ({
+      loggedIn: state.sessionReducer.isAuthenticated,
+      currentUser: state.sessionReducer.user
+    })
+    export default connect(mapStateToProps, null)(withStyles(styles)(Game));

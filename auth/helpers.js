@@ -22,26 +22,13 @@ function createUser(req, res) {
           firstname: req.body.firstname,
           lastname: req.body.lastname,
           email: req.body.email,
-          // zipcode: req.body.zipcode,
-          // email: req.body.email,
           password: hash,
-          // ismentor: req.body.ismentor
       }
   )
-}
-
-function loginRequired(req, res, next) {
-  // if the user is logged in, passport will have attached
-  // the user to it
-  if (!req.user) {
-    return res.status(401).json({ status: "Please log in." });
-  }
-  return next();
 }
 
 module.exports = {
   comparePass,
   createHash,
-  createUser,
-  loginRequired
+  createUser
 };

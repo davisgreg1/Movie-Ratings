@@ -113,14 +113,14 @@ NavBar-flex-2 {
 .earned-more {
   font-size: 30px;
 }
-
+/* 
 .default-home-screen {
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-content: space-between;
-}
+} */
 
 #home-screen {
   background-color: whitesmoke;
@@ -294,7 +294,7 @@ div.home-container {
   height: 100%;
 }
 
-.default-home-screen {
+/* .default-home-screen {
   display: flex;
   flex-wrap: wrap;
   max-height: fit-content;
@@ -302,7 +302,7 @@ div.home-container {
   width: 100%;
   height: 100%;
   justify-content: center; */
-}
+/* } */
 
 .single-movie-container {
   width: 100vw;
@@ -714,25 +714,25 @@ cursor: pointer; */
   font-size: 25px;
 }
 
-.curtain {
+/* .curtain {
   background-image: url("https://res.cloudinary.com/movie-fights/image/upload/v1528322015/theaterCurtain.jpg");
-}
+} */
 
 .movie-1-and-2-container {
   height: 95vh;
 }
 
-.movie-1-and-2-container-phone{
+/* .movie-1-and-2-container-phone{
   width: 100vw;
-}
+} */
 
 .MuiFormGroup-root-94 {
   margin-top: -8px;
 }
 
-.default-home-screen {
+/* .default-home-screen {
   width: 100%;
   display: flex;
   /* flex-wrap: wrap;
   max-height: fit-content; */
-}
+/* } */ 
