@@ -29,7 +29,7 @@ const loginUser = (req, res, next) => {
             user: user,
             time: new Date()
           };
-          const token = jwt.sign(payload, config.jwtSecret, {expiresIn: config.tokenExpireTime});
+          const token = jwt.sign(payload, process.env.JWTSECRET, {expiresIn: config.tokenExpireTime});
           const userWithNoPW = {
             ...req.user,
             password_digest: null,
@@ -64,7 +64,7 @@ const registerUser = (req, res, next) => {
             user: user,
             time: new Date()
           };
-          const token = jwt.sign(payload, config.jwtSecret, {expiresIn: config.tokenExpireTime});
+          const token = jwt.sign(payload, process.env.JWTSECRET, {expiresIn: config.tokenExpireTime});
           res
             .status(200)
             .json({status: "success", data: user, JWT: token, message: "Registered one user"});
@@ -320,7 +320,7 @@ const getUserFromToken = (req, res, next) => {
       .json({message: 'Must pass token'});
   }
   token = token.replace('Bearer ', '');
-  jwt.verify(token, config.jwtSecret, function (err, user) {
+  jwt.verify(token, process.env.JWTSECRET, function (err, user) {
     if (err) 
       throw err;
     db
