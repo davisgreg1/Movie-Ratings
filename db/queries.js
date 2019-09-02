@@ -1,14 +1,9 @@
-const pgp = require("pg-promise")({});
-const connectionString = "postgres://localhost/moviefights";
 const db = require("./index");
 const nodemailer = require("nodemailer");
-const dotenv = require("dotenv");
 const jwt = require('jsonwebtoken');
 const config = require('../config');
-dotenv.load();
 
 const GMAIL_PASS = process.env.GMAIL_PASS;
-
 const authHelpers = require("../auth/helpers");
 const passport = require("../auth/local");
 
@@ -45,7 +40,6 @@ const loginUser = (req, res, next) => {
           res
             .status(200)
             .send({user: userWithNoPW});
-          // res.status(200).send({ ...req.user,   password_digest: null, data:token });
         }
       });
     }
@@ -255,15 +249,7 @@ const removeBlog = (req, res, next) => {
       return next(err)
     })
 };
-/**
-|--------------------------------------------------
-| movie_imdb_id VARCHAR,
-  movie_title VARCHAR,
-  movie_imgurl VARCHAR,
-  movie_website VARCHAR,
-  favorited_by INTEGER REFERENCES users(ID)
-|--------------------------------------------------
-*/
+
 const addToFavorites = (req, res, next) => {
   db
     .none("INSERT INTO favorites (movie_imdb_id, movie_title, movie_imgurl, movie_website, " +
