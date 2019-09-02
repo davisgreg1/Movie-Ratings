@@ -1,5 +1,4 @@
 const passport = require("passport");
-
 const LocalStrategy = require("passport-local").Strategy;
 
 const db = require("../db/index");
@@ -19,7 +18,6 @@ passport.use(
       .any("SELECT * FROM users WHERE username=$1", [username])
       .then(rows => {
         const user = rows[0];
-        console.log("user: ", user);
         if (!user) {
           return done(null, false);
         }
@@ -33,6 +31,7 @@ passport.use(
         console.log("error: ", err);
         return done(err);
       });
+
   })
 );
 
