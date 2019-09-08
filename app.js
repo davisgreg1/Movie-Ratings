@@ -8,6 +8,7 @@ var bodyParser = require("body-parser");
 const session = require("express-session");
 const passport = require("passport");
 const config = require('./config');
+require('dotenv').config();
 
 
 //not using index at this time.
@@ -33,7 +34,7 @@ app.use(cookieParser());
 
 app.use(session({
   store: new(require('connect-pg-simple')(session))(),
-  secret: "\x02\xf3\xf7r\t\x9f\xee\xbbu\xb1\xe1\x90\xfe'\xab\xa6L6\xdd\x8d[\xccO\xfe",
+  secret: process.env.SESSION_SECRET,
   cookie: {
     maxAge: 30 * 24 * 60 * 60 * 1000
   }, // 30 days
