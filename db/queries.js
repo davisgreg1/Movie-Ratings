@@ -17,7 +17,7 @@ const loginUser = (req, res, next) => {
     } else if (!user) {
       res
         .status(401)
-        .send("invalid username/password");
+        .send("Invalid Username/Password");
     } else if (user) {
       req.logIn(user, err => {
         if (err) {

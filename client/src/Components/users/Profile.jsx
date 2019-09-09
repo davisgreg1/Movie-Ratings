@@ -21,6 +21,8 @@ import "../../Views/App.css";
 import EditProfile from "./EditProfile";
 import NewBlog from "../Blogs/NewBlog";
 import EditBlog from "../Blogs/EditBlog";
+import {getUserBlogs} from '../../actions/PostsActions.js';
+
 
 const styles = theme => ({
   button: {
@@ -102,75 +104,52 @@ class Profile extends React.Component {
       anchorEl: null,
       fireRedirect: false,
       blogs: null,
-      isHide: false,
       editOpen: false,
       blogOpen: false,
       blogEditOpen: false,
       blogToEdit: null,
       blogToDelete: null
     };
-   this.hidePic = this.hidePic.bind(this);
   }
   
-  hidePic = () => {
-    let { isHide } = this.state;
-    window.scrollY > this.prev
-      ? !isHide && this.setState({ isHide: true })
-      : isHide && this.setState({ isHide: false });
-
-    this.prev = window.scrollY + 1;
-  };
 
   handleBlogOpen = e => {
-    e.stopPropagation();
+    e.preventDefault();
     this.setState({ blogOpen: true });
   };
 
   handleEditOpen = e => {
-    e.stopPropagation();
+    e.preventDefault();
     this.setState({ editOpen: true });
   };
 
-  handleEditBlogOpen = elem => {
-    // e.stopPropagation();
+  handleEditBlogOpen = (e, elem) => {
+    e.preventDefault();
     this.setState({ blogEditOpen: true, blogToEdit: elem });
   };
 
-  /**
-|--------------------------------------------------
-| axios.delete(url, { data: { foo: "bar" } });
-|--------------------------------------------------
-*/
-
-  handleBlogDelete = elem => {
-
+  handleBlogDelete = async elem => {
     this.setState({
       blogToDelete: elem.id
     });
-    axios
+    const response = await axios
       .delete(`/users/removeBlog/${elem.id}`)
-      .then(res => {
 
-      })
-      .catch(err => {
-       console.error("Error in Delete Blog:", err);
-        return err;
-      });
     window.location.reload();
   };
 
   handleBlogModalClose = e => {
-    e.stopPropagation();
+    e.preventDefault();
     this.setState({ blogOpen: false });
   };
 
   handleEditModalClose = e => {
-    e.stopPropagation();
+    e.preventDefault();
     this.setState({ editOpen: false });
   };
 
   handleEditBlogModalClose = e => {
-    e.stopPropagation();
+    e.preventDefault();
     this.setState({ blogEditOpen: false });
   };
 
@@ -188,39 +167,14 @@ class Profile extends React.Component {
     this.setState({ anchorEl: null });
   };
 
-  getAllBlogPosts = () => {
-    axios
-      .get("/users/all_blogs")
-      .then(res => {
-        this.setState({
-          blogs: res.data.body
-        });
-      })
-      .catch(err => {
-       console.error("Error Getting Blogs:", err);
-      });
-  };
-
-  componentDidMount() {
-    const { getAllBlogPosts } = this.props;
-    window.addEventListener("scroll", this.hidePic);
-
-    getAllBlogPosts();
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.hidePic);
-  }
-
   render() {
     const {
       classes,
       currentUser,
       allBlogs,
-      loggedIn
+      loggedIn,
     } = this.props;
     const {
-      isHide,
       blogOpen,
       editOpen,
       blogToEdit,
@@ -230,7 +184,6 @@ class Profile extends React.Component {
     const { handleEditBlogOpen, handleBlogDelete } = this;
     const base = "http://res.cloudinary.com/movie-fights/image/upload/a_auto/";
     
-    let classHide = isHide ? "fadeOut" : "fadeIn";
     return (
       <React.Fragment>
         {loggedIn ? (
@@ -239,7 +192,7 @@ class Profile extends React.Component {
             style={blogOpen || editOpen || blogEditOpen ? modalIsOpen : null}
           >
             {/* left section of profile */}
-            <div className={"animated profile-img " + classHide}>
+            <div className={"animated profile-img"}>
             {/* user image */}
               <img
                 src={`${base}${currentUser.imgurl}`}
@@ -382,7 +335,7 @@ class Profile extends React.Component {
                                 size="mini"
                                 variant="fab"
                                 mini
-                                onClick={() => handleEditBlogOpen(elem)}
+                                onClick={(event) => handleEditBlogOpen(event, elem)}
                                 aria-label="Edit"
                                 className={classes.fab}
                               >
@@ -433,8 +386,13 @@ class Profile extends React.Component {
     );
   }
 }
+// const mapDispatchToProps = dispatch => ({
+//   getBlogs: () => dispatch(getUserBlogs())
+// })
+
 const mapStateToProps = state => ({
   loggedIn: state.sessionReducer.userAuthenticated,
-  currentUser: state.sessionReducer.user
+  currentUser: state.sessionReducer.user,
+  // allUserBlogs: state.postsReducer.posts
 })
 export default connect(mapStateToProps, null)(withStyles(styles)(Profile));

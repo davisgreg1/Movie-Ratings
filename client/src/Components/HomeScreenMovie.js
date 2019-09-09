@@ -64,7 +64,6 @@ class HomeScreenMovie extends React.Component {
       
       <div className="all-cards-container" style={{ display: "flex", justifyContent:"center", alignItems:"center", minWidth: "278px", maxWidth: "600px", height: "50%" }}>
         <Card
-          // className={classes.card}
           style={{display: "flex"}}
           value={data.id}
           name={data.original_title}
@@ -85,7 +84,7 @@ class HomeScreenMovie extends React.Component {
 
           <CardContent>
             <Typography gutterBottom variant="headline" component="h2">
-              {`${data.original_title}  (${data.release_date.split("-")[0]})`}
+              {`${data.original_title}  (${data.release_date})`}
             </Typography>
             <Typography component="p">{`${limitOverview(
               data.overview

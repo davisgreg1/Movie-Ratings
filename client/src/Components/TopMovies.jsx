@@ -114,7 +114,7 @@ class TopMovies extends React.Component {
     const mobileScreen = width;
     const baseURL = `http://image.tmdb.org/t/p/w185`;
     return (
-      <div style={{ height: "100vh" }}>
+      <div>
         {!topMovies ?
           <CircularProgress
             className="loading-circ"

@@ -1,19 +1,23 @@
 import React, {Component} from 'react';
 import {Route, Switch} from 'react-router-dom';
+import {connect} from 'react-redux';
 import Profile from './Profile';
 import NewBlog from '../Blogs/NewBlog';
+import {getUserBlogs} from '../../actions/PostsActions.js';
+
 
 class Users extends Component {
+  
+  componentDidMount() {
+    this.props.getBlogs()
+  }
 
   render() {
     const {
       score,
       getUserScore,
-      allBlogs,
-      getAllBlogPosts,
-      classes,
-      // currentUser,
-      // loggedIn
+      allUserBlogs,
+      classes
     } = this.props
     return (
       <Switch>
@@ -22,13 +26,11 @@ class Users extends Component {
           path='/users/:username'
           render={(props) => <Profile
           {...props}
-          // currentUser={currentUser}
-          // loggedIn={loggedIn}
           score={score}
           getUserScore={getUserScore}
-          allBlogs={allBlogs}
+          allBlogs={allUserBlogs}
           classes={classes}
-          getAllBlogPosts={getAllBlogPosts}/>}/>
+          />}/>
 
         <Route
           exact
@@ -36,12 +38,20 @@ class Users extends Component {
           render={(props) => <NewBlog
           {...props}
           classes={classes}
-          // currentUser={currentUser}
-          allBlogs={allBlogs}
-          getAllBlogPosts={getAllBlogPosts}/>}/>
+          allBlogs={allUserBlogs}
+          />}/>
       </Switch>
     );
   }
 }
 
-export default Users;
+const mapDispatchToProps = dispatch => ({
+  getBlogs: () => dispatch(getUserBlogs())
+})
+
+const mapStateToProps = state => ({
+  loggedIn: state.sessionReducer.userAuthenticated,
+  currentUser: state.sessionReducer.user,
+  allUserBlogs: state.postsReducer.posts
+})
+export default connect(mapStateToProps, mapDispatchToProps)(Users)

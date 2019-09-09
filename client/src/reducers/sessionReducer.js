@@ -2,6 +2,8 @@ import {
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
   LOG_IN_FAILURE,
+  LOG_OUT_SUCCESS,
+  LOG_OUT_FAILURE,
   USER_FROM_TOKEN,
   USER_FROM_TOKEN_SUCCESS,
   USER_FROM_TOKEN_FAILURE,
@@ -33,6 +35,22 @@ const sessionReducer = (state = defaultState, action) => {
         errorMsg: 'Sucess'
       };
     case LOG_IN_FAILURE:
+      return {
+        ...state,
+        user: {},
+        userAuthenticated: false,
+        loggingIn: false,
+        errorMsg: action.errorMsg
+      }
+    case LOG_OUT_SUCCESS:
+      return {
+        ...state,
+        user: {},
+        userAuthenticated: false,
+        loggingIn: false,
+        errorMsg: action.errorMsg
+      };
+    case LOG_OUT_FAILURE:
       return {
         ...state,
         user: {},

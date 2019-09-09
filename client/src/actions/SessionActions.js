@@ -1,9 +1,14 @@
+import axios from 'axios';
 import {loginUser, getUserFromToken, tokenSuccess, tokenFailure, resetToken} from '../utils/session_api_utils';
 import customHistory from '../history';
 
-export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
+export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_IN_FAILURE = 'LOG_IN_FAILURE';
+
+export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
+export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
+export const LOG_OUT = "LOG_OUT";
 export const USER_FROM_TOKEN = 'USER_FROM_TOKEN';
 export const USER_FROM_TOKEN_SUCCESS = 'USER_FROM_TOKEN_SUCCESS';
 export const USER_FROM_TOKEN_FAILURE = 'USER_FROM_TOKEN_FAILURE';
@@ -18,7 +23,6 @@ export const login = (username, password) => {
       customHistory.push(`/users/${username}`);
     }, error => {
       dispatch(failure(error.toString()));
-      // dispatch(alertActions.error(error.toString()));
     });
   };
   function request(userName) {
@@ -33,13 +37,27 @@ export const login = (username, password) => {
   }
 }
 
-// export const userFromToken = (tokenFromStorage) => {
-//   return dispatch => {
-//     dispatch(getUserFromToken(tokenFromStorage));
-//   }
-// }
+export const logOutUser = () => {
+  const jwtToken = sessionStorage.getItem('jwtToken');
+  return dispatch => {
+    axios({method: 'GET', url: "/users/logout"}).then(data => {
+      dispatch(success(data.data.body))
+      if (jwtToken) {
+        sessionStorage.removeItem('jwtToken')
+      }
+      customHistory.push(`/`);
+    }, error => {
+      dispatch(failure(error.toString()));
+    });
 
-
+    function success(data) {
+      return {type: LOG_OUT_SUCCESS, errorMsg: data}
+    }
+    function failure(error) {
+      return {type: LOG_OUT_FAILURE, errorMsg: error}
+    }
+  }
+}
 
 export const meFromTokenSuccess = (tokenFromStorage) => {
   return dispatch => {
@@ -51,11 +69,5 @@ export const meFromTokenFailure = (error) => {
   return dispatch => {
     dispatch(tokenFailure(error));
     customHistory.push(`/login`);
-  }
-}
-//used for logout
-export const resetUserToken = () => {
-  return dispatch => {
-    dispatch(resetToken());
   }
 }

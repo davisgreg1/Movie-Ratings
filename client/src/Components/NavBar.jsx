@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from "react";
-import {connect}from 'react-redux';
+import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 import {FormGroup} from "material-ui/Form";
 import AccountCircle from "@material-ui/icons/AccountCircle";
@@ -14,6 +14,7 @@ import Toolbar from "material-ui/Toolbar";
 import Typography from "material-ui/Typography";
 import Button from "material-ui/Button";
 import "../Views/App.css";
+import {logOutUser} from '../actions/SessionActions.js';
 
 const styles = {
   flex: {
@@ -28,10 +29,9 @@ const styles = {
   root: {
     height: "100%",
     flexGrow: 1
-    // width: '100%',
-    // maxWidth: 360,
-    // backgroundColor: theme.palette.background.paper,
-  },
+    // width: '100%', maxWidth: 360, backgroundColor:
+    // theme.palette.background.paper,
+  }
 };
 
 class NavBar extends Component {
@@ -48,16 +48,18 @@ class NavBar extends Component {
   onLoadNav = () => {
     return (
       <Fragment>
-        <AppBar position="sticky" className="testBar">
-          <Toolbar className="testToolBar">
-            <Link to="/">
-              <Typography variant="title" color="inherit" className="NavBar-flex-2">
-                Movie Fights!
-              </Typography>
-            </Link>
-          </Toolbar>
-        </AppBar>
-        <div>LOADING...</div>
+        <div className="onLoadNavCont">
+          <AppBar position="sticky" className="testBar">
+            <Toolbar className="testToolBar">
+              <Link to="/">
+                <Typography variant="title" color="inherit" className="NavBar-flex-2">
+                  Movie Fights!
+                </Typography>
+              </Link>
+            </Toolbar>
+          </AppBar>
+          <div>LOADING...</div>
+        </div>
       </Fragment>
     );
   };
@@ -72,7 +74,7 @@ class NavBar extends Component {
                 Movie Fights!
               </Typography>
             </Link>
-            <div className= "user-nav-options iconbutton-container">
+            <div className="user-nav-options iconbutton-container">
               <Button href="/login" style={{
                 color: "white"
               }}>
@@ -86,74 +88,88 @@ class NavBar extends Component {
   };
 
   loggedInNav = () => {
-    const {currentUser, logOut, classes, isAuthenticated} = this.props;
+    const {currentUser, logOutCurrentUser} = this.props;
 
     const {anchorEl} = this.state;
     let open = Boolean(this.state.anchorEl);
     return (
       <Fragment>
-        <FormGroup className="seek">
-          <Link to={`/users/${currentUser && currentUser.username}`}>
-            <div title="Profile"/>
-          </Link>
-        </FormGroup>
-        <AppBar position="sticky" className="testBar">
-          <Toolbar className="testToolBar">
-            <Link to="/" className="links">
-              <Typography variant="title" color="inherit" className={this.props.classes.flex}>
-                Movie Fights!
-              </Typography>
+        <div className="loggedInNavContainer">
+          <FormGroup className="seek">
+            <Link to={`/users/${currentUser && currentUser.username}`}>
+              <div title="Profile"/>
             </Link>
-            <div className="user-nav-options">
-              <IconButton
-                aria-owns={open
-                ? "menu-appbar"
-                : null}
-                aria-haspopup="true"
-                onClick={this.handleMenu}
-                color="inherit">
-                <AccountCircle/>
-              </IconButton>
-              <Menu style={{outline: "none"}}
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                vertical: "top",
-                horizontal: "right"
-              }}
-                transformOrigin={{
-                vertical: "top",
-                horizontal: "right"
-              }}
-                open={open}
-                onClose={this.handleClose}
-                TransitionComponent={Fade}>
-                <List component="nav" style={{outline: "none"}}>
-                  <Link to={`/users/${currentUser && currentUser.username}`} className="links">
-                    <ListItem onClick={this.handleClose}>My Dashboard</ListItem>
-                  </Link>
-                  <Link to="/game" className="links">
-                    <ListItem onClick={this.handleClose}>Game</ListItem>
-                  </Link>
-                  <Link to="/favorites" className="links">
-                    <ListItem onClick={this.handleClose}>My Favorites</ListItem>
-                  </Link>
-                  <Link to="/leaderboard" className="links">
-                    <ListItem onClick={this.handleClose}>Leaderboard</ListItem>
-                  </Link>
-                </List>
-              </Menu>
-              <Button
-                href="/login"
-                onClick={logOut}
-                style={{
-                color: "white"
-              }}>
-                Logout
-              </Button>
-            </div>
-          </Toolbar>
-        </AppBar>
+          </FormGroup>
+          <AppBar position="sticky" className="testBar">
+            <Toolbar className="testToolBar">
+              <Link to="/" className="links">
+                <Typography variant="title" color="inherit" className={this.props.classes.flex}>
+                  <p className="navBar-p-text">
+                    Movie Fights!
+                  </p>
+                </Typography>
+              </Link>
+              <div className="user-nav-options">
+                <IconButton
+                  aria-owns={open
+                  ? "menu-appbar"
+                  : null}
+                  aria-haspopup="true"
+                  onClick={this.handleMenu}
+                  color="inherit">
+                  <AccountCircle/>
+                </IconButton>
+                <Menu
+                  style={{
+                  outline: "none"
+                }}
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right"
+                }}
+                  transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right"
+                }}
+                  open={open}
+                  onClose={this.handleClose}
+                  TransitionComponent={Fade}>
+                  <List
+                    component="nav"
+                    style={{
+                    outline: "none"
+                  }}>
+                    <Link to={`/users/${currentUser && currentUser.username}`} className="links">
+                      <ListItem onClick={this.handleClose}>My Dashboard</ListItem>
+                    </Link>
+                    <Link to="/game" className="links">
+                      <ListItem onClick={this.handleClose}>Game</ListItem>
+                    </Link>
+                    <Link to="/favorites" className="links">
+                      <ListItem onClick={this.handleClose}>My Favorites</ListItem>
+                    </Link>
+                    <Link to="/leaderboard" className="links">
+                      <ListItem onClick={this.handleClose}>Leaderboard</ListItem>
+                    </Link>
+                <Button
+                  href="/login"
+                  onClick={logOutCurrentUser}
+                //   style={{
+                //   color: "black"
+                // }}
+                >
+                  <p className="navBar-p-text">
+                    Logout
+                  </p>
+                </Button>
+                  </List>
+                </Menu>
+              </div>
+            </Toolbar>
+          </AppBar>
+        </div>
       </Fragment>
     );
   };
@@ -201,8 +217,10 @@ class NavBar extends Component {
     }
   }
 }
-const mapStateToProps = state => ({
-  currentUser: state.sessionReducer.user,
-  isAuthenticated: state.sessionReducer.userAuthenticated
+const mapStateToProps = state => ({currentUser: state.sessionReducer.user, isAuthenticated: state.sessionReducer.userAuthenticated});
+
+const mapDispatchToProps = dispatch => ({
+  logOutCurrentUser: () => dispatch(logOutUser())
+
 })
-export default connect(mapStateToProps, null)(withStyles(styles)(NavBar))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(NavBar))
