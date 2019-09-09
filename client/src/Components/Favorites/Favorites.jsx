@@ -9,19 +9,6 @@ import "aos/dist/aos.css";
 
 const TMDB_KEY = process.env.REACT_APP_TMDB_API_KEY
 
-const searchBarStyles =  {
-
-  display: "flex",
-
-  alignItems: "center",
-
-  justifyContent: "center",
-
-  alignContent: "center",
-  backgroundColor: "whitesmoke",
-  width: "100vw",
-  paddingTop: "7px"
-}
 class Favorites extends Component {
   constructor(props) {
     super(props);
@@ -84,7 +71,6 @@ class Favorites extends Component {
   //So user can hit `Enter` to submit thei query
   _keyPress = e => {
     this.getMovie()
-    //   e.preventDefault();
     if (e.key === "Enter") {
      this.getMovie()
     }
@@ -123,7 +109,7 @@ class Favorites extends Component {
         <div className="searchy pad">
           <i className="material-icons md-dark seek">search</i>
           <Input
-            style={searchBarStyles}
+            // style={searchBarStyles}
             onChange={handleInput}
             onKeyPress={_keyPress}
             placeholder="Search for movies..."

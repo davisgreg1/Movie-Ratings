@@ -59,16 +59,8 @@ class FavoriteMovieList extends React.Component {
           : movies.length > 0
             ? (movies.map(movie => (
               <div
-                clasName="all-cards-container"
-                style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                minWidth: "278px",
-                maxWidth: "600px",
-                height: "50%"
-              }}>
+                clasName="all-cards-container-favorites"
+              >
                 <CardContent>
                   <Typography gutterBottom variant="headline" component="h2">
                     {movie.movie_title}

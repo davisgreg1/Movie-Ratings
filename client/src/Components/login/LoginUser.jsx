@@ -38,7 +38,6 @@ class LoginUser extends React.Component {
     username: "",
     password: "",
     message: "Forgot password?",
-    loggedIn: false,
     fireRedirect: false,
     redirectToReferrer: false
   };

@@ -40,7 +40,6 @@ class NewBlog extends Component {
   }
 
   handleNewBlogSubmit = e => {
-    e.preventDefault();
     const { newBlogTitle, newBlogBody } = this.state;
 
     axios
@@ -68,12 +67,6 @@ class NewBlog extends Component {
     });
   };
 
-  handleSubmitClick = () => {
-    this.setState({
-      finished: true
-    });
-  };
-
   fireRedirect = () => {
     this.setState({
       doneEditing: true
@@ -84,10 +77,6 @@ class NewBlog extends Component {
     const { handleNewBlogSubmit, handleInputChange, fireRedirect } = this;
     const { classes } = this.props;
     const { newBlogBody, newBlogTitle, doneEditing } = this.state;
-
-    if (doneEditing) {
-      window.location.reload();
-    }
 
     return (
       <Fragment>

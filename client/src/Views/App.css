@@ -1,36 +1,10 @@
-body,
-html {
-  font-family: "Architects Daughter", cursive;
-  background-color: #507dbc;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-}
 
 body {
-  margin-top: -7px;
-  /* background-color: whitesmoke; */
-  color: white;
-}
-
-/* input{
-  background-color: whitesmoke;
-} */
-
-#root {
-  width: 100vw;
-  height: 100vh;
-  /* padding-left: 40px;
-  padding-right: 40px; */
+  margin: 0;
+  padding: 0;
 }
 
 .entire-app {
-  width: 100vw;
-  height: 100vh;
-}
-
-.app {
   width: 100vw;
   height: 100vh;
 }
@@ -82,7 +56,7 @@ NavBar-flex-2 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 8px;
+  margin-top: 20px;
   height: 100%;
 }
 
@@ -113,14 +87,6 @@ NavBar-flex-2 {
 .earned-more {
   font-size: 30px;
 }
-/* 
-.default-home-screen {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-content: space-between;
-} */
 
 #home-screen {
   background-color: whitesmoke;
@@ -262,11 +228,27 @@ div.home-container {
   margin-bottom: 25%;
 }
 
+.loadingCircle {
+ display: flex;
+ width: 100%;
+ height: 100%;
+ margin: auto;
+ justify-content: center;
+ align-items: center;
+}
+
 #tmdb-line {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 1%;
+}
+
+.all-cards-container-favorites {
+  display: flex;
+  padding-bottom: 100px;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .all-cards-container {
@@ -315,12 +297,14 @@ div.home-container {
   padding: 100px 115px 0px 100px;
   margin-top: -100px;
 }
-.single-phonemovie-container{
+
+.single-phonemovie-container {
   display: flex;
   justify-content: center;
   flex-direction: column;
   width: 80%;
 }
+
 .movie-btn {
   cursor: pointer;
 }
@@ -440,21 +424,21 @@ div.home-container {
   text-align: center;
 }
 
-@media only screen 
-  and (min-device-width: 414px) 
-  and (max-device-width: 736px) 
-  and (-webkit-min-device-pixel-ratio: 3) {
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) {
   #greeting {
     display: none;
   }
+
   .profile {
     display: flex;
     justify-content: center;
     flex-direction: column;
   }
+
   .profile-img {
     position: inherit;
   }
+
   .loading-circ {
     display: -ms-flexbox;
     display: flex;
@@ -462,9 +446,11 @@ div.home-container {
     align-self: center;
     margin-bottom: 90%;
   }
+
   #modal-form {
     width: inherit;
   }
+
   .testBar {
     justify-content: space-between;
   }
@@ -509,17 +495,24 @@ div.home-container {
 } */
 
 @media only screen and (max-width: 768px) {
+  .navBar-p-text {
+    font-size: 12px;
+  }
+
   #greeting {
     display: none;
   }
+
   .profile {
     display: flex;
     justify-content: center;
     flex-direction: column;
   }
+
   .profile-img {
     position: inherit;
   }
+
   .loading-circ {
     display: -ms-flexbox;
     display: flex;
@@ -527,13 +520,16 @@ div.home-container {
     align-self: center;
     margin-bottom: 90%;
   }
+
   #modal-form {
     width: inherit;
   }
+
   .testBar {
     justify-content: space-between;
   }
-  .leaderboard-data{
+
+  .leaderboard-data {
     width: 50%
   }
 }
@@ -565,7 +561,7 @@ div.home-container {
   /* height: 100vh; */
 }
 
-.upload_widget_{
+.upload_widget_ {
   cursor: pointer;
 }
 
@@ -735,4 +731,4 @@ cursor: pointer; */
   display: flex;
   /* flex-wrap: wrap;
   max-height: fit-content; */
-/* } */ 
+/* } */

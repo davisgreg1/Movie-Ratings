@@ -36,17 +36,6 @@ const styles = {
   }
 };
 
-const searchBarStyles = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  alignContent: "center",
-  backgroundColor: "whitesmoke",
-  width: "100vw",
-  paddingTop: "7px"
-};
-
-//An array of IMDB ids to show 2 random movies on the home screen
 const idArr = [
   "tt0111161",
   "tt0068646",
@@ -124,7 +113,6 @@ class Home extends React.Component {
       loser: null,
       topMovies: null
     };
-    // this.getTwoMovies = this.getTwoMovies.bind(this);
   }
 
   handleInput = e => {
@@ -137,17 +125,15 @@ class Home extends React.Component {
     }
   };
 
+  setTheState = (str, response) => this.setState({[str]: response})
+
   //List of movies based on the user's search
-  getMovie = () => {
+  getMovie = async() => {
     const {searchText} = this.state;
-    axios
-      .get(`https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&language=en-US&query=${searchText}&page=1&include_adult=true`)
-      .then(response => {
-        this.setState({data: response});
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    const response = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&language=en-US&query=${searchText}&page=1&include_adult=true`);
+
+console.log('THe response:::', response.data.results);
+    this.setState({data: response})
   };
 
   //So user can hit `Enter` to submit their query
@@ -169,15 +155,9 @@ class Home extends React.Component {
     this.setState({auth: checked});
   };
 
-  getTopMovies = () => {
-    axios
-      .get(`https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`)
-      .then(res => {
-        this.setState({topMovies: res.data.results});
-      })
-      .catch(err => {
-        console.error(err);
-      });
+  getTopMovies = async() => {
+    const response = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`)
+    this.setState({topMovies: response.data.results});
   };
 
   componentWillMount() {
@@ -185,36 +165,39 @@ class Home extends React.Component {
   }
 
   render() {
-    const {authenticatedUser,isAuthenticated} = this.props;
+    const {authenticatedUser, isAuthenticated} = this.props;
     const {data, searchText, topMovies} = this.state;
     const {_keyPress, handleInput} = this;
 
     return (
-        <div className="choices-container">
-          <div className="searchy" style={searchBarStyles}>
-            <i className="material-icons md-dark seek">search</i>
-            <Input
-              onChange={handleInput}
-              onKeyUp={_keyPress}
-              placeholder="Search for movies..."
-              fullWidth={true}
-              inputProps={{
-              "aria-label": "Description"
-            }}/>
-          </div>
-          <div className="home-movie-container">
-            <div style={{
-              fontSize: "30px"
-            }}>TOP MOVIES</div>
-            {searchText
-              ? (<MovieList data={data} loggedIn={isAuthenticated} currentUser={authenticatedUser}/>)
-              : (<TopMovies
-                loggedIn={isAuthenticated}
-                currentUser={authenticatedUser}
-                message={`This product uses the TMDb API but is not endorsed or certified by TMDb.`}
-                topMovies={topMovies}/>)}
-          </div>
+      <div className="choices-container">
+        <div className="searchy">
+          <i className="material-icons md-dark seek">search</i>
+          <Input
+            onChange={handleInput}
+            onKeyUp={_keyPress}
+            placeholder="Search for movies..."
+            fullWidth={true}
+            inputProps={{
+            "aria-label": "Description"
+          }}/>
         </div>
+        <div className="home-movie-container">
+          <div style={{
+            fontSize: "30px"
+          }}>TOP MOVIES</div>
+          {searchText
+            ? (<MovieList
+              data={data}
+              loggedIn={isAuthenticated}
+              currentUser={authenticatedUser}/>)
+            : (<TopMovies
+              loggedIn={isAuthenticated}
+              currentUser={authenticatedUser}
+              message={`This product uses the TMDb API but is not endorsed or certified by TMDb.`}
+              topMovies={topMovies}/>)}
+        </div>
+      </div>
     );
   }
 }
@@ -223,9 +206,6 @@ Home.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-  authenticatedUser: state.sessionReducer.user,
-  isAuthenticated: state.sessionReducer.userAuthenticated
-})
+const mapStateToProps = state => ({authenticatedUser: state.sessionReducer.user, isAuthenticated: state.sessionReducer.userAuthenticated})
 
-export default connect(mapStateToProps)(withStyles(styles)(Home));
+export default connect(mapStateToProps, null)(withStyles(styles)(Home));
